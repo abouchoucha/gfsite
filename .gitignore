@@ -5,3 +5,6 @@ public/facebook/
 public/images/
 index.php
 .htaccess
+.htaccess.without
+.htpasswd
+index.php.working
