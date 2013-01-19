@@ -1,0 +1,2382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.9" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.9 
+		http://www.google.com/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>/tournaments/canadian soccer league_146/</loc>
+    <shortname>Canadian Soccer League</shortname>
+    <fullname>Canada</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_315/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Costa Rica</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_378/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>El Salvador</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga nacional_320/</loc>
+    <shortname>Liga Nacional</shortname>
+    <fullname>Guatemala</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_463/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Honduras</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_477/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Jamaica</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_155/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Mexico</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera a_156/</loc>
+    <shortname>Primera A</shortname>
+    <fullname>Mexico</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/professional league_465/</loc>
+    <shortname>Professional League</shortname>
+    <fullname>Trinidad and Tobago</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/major league soccer_33/</loc>
+    <shortname>Major League Soccer</shortname>
+    <fullname>United States</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/usl 1_145/</loc>
+    <shortname>USL 1</shortname>
+    <fullname>United States</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_87/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Argentina</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nacional b_88/</loc>
+    <shortname>Nacional B</shortname>
+    <fullname>Argentina</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_69/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Bolivia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie a_26/</loc>
+    <shortname>Serie A</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie b_89/</loc>
+    <shortname>Serie B</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie c_321/</loc>
+    <shortname>Serie C</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa do brasil_231/</loc>
+    <shortname>Copa do Brasil</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/paulista_239/</loc>
+    <shortname>Paulista</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/carioca_240/</loc>
+    <shortname>Carioca</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/baiano_394/</loc>
+    <shortname>Baiano</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/catarinense_390/</loc>
+    <shortname>Catarinense</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/gaucho_388/</loc>
+    <shortname>Gaucho</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/mineiro_387/</loc>
+    <shortname>Mineiro</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/paranaense_386/</loc>
+    <shortname>Paranaense</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/pernambucano_392/</loc>
+    <shortname>Pernambucano</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_90/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Chile</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_91/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Colombia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie a_165/</loc>
+    <shortname>Serie A</shortname>
+    <fullname>Ecuador</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_157/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Paraguay</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_158/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Peru</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_162/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Uruguay</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_163/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Venezuela</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 1_205/</loc>
+    <shortname>Division 1</shortname>
+    <fullname>Algeria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/campionato nacional_493/</loc>
+    <shortname>Campionato Nacional</shortname>
+    <fullname>Angola</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 1_266/</loc>
+    <shortname>Division 1</shortname>
+    <fullname>Cameroon</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_206/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Egypt</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/telecom premier league_487/</loc>
+    <shortname>Telecom Premier League</shortname>
+    <fullname>Ghana</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/gnef 1_209/</loc>
+    <shortname>GNEF 1</shortname>
+    <fullname>Morocco</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_296/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Nigeria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier soccer league_214/</loc>
+    <shortname>Premier Soccer League</shortname>
+    <fullname>South Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/absa cup_277/</loc>
+    <shortname>Absa Cup</shortname>
+    <fullname>South Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_210/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Tunisia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/a-league_283/</loc>
+    <shortname>A-League</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league_51/</loc>
+    <shortname>Super League</shortname>
+    <fullname>China PR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fa cup_276/</loc>
+    <shortname>FA Cup</shortname>
+    <fullname>China PR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/coolpoint ventilation first division_113/</loc>
+    <shortname>Coolpoint Ventilation First Division</shortname>
+    <fullname>Hong Kong</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nfl_150/</loc>
+    <shortname>NFL</shortname>
+    <fullname>India</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/divisi utama_151/</loc>
+    <shortname>Divisi Utama</shortname>
+    <fullname>Indonesia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/iran pro league_76/</loc>
+    <shortname>Iran Pro League</shortname>
+    <fullname>Iran</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/j-league_109/</loc>
+    <shortname>J-League</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/j2-league_110/</loc>
+    <shortname>J2-League</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/j-league cup_223/</loc>
+    <shortname>J-League Cup</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/k-league_136/</loc>
+    <shortname>K-League</shortname>
+    <fullname>Korea Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/k-league cup_257/</loc>
+    <shortname>K-League Cup</shortname>
+    <fullname>Korea Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/kuwait league_237/</loc>
+    <shortname>Kuwait League</shortname>
+    <fullname>Kuwait</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league_154/</loc>
+    <shortname>Super League</shortname>
+    <fullname>Malaysia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_73/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>New Zealand</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_216/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Saudi Arabia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/s-league_137/</loc>
+    <shortname>S-League</shortname>
+    <fullname>Singapore</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fat premier league_519/</loc>
+    <shortname>FAT Premier League</shortname>
+    <fullname>Thailand</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_344/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>United Arab Emirates</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/v league_234/</loc>
+    <shortname>V League</shortname>
+    <fullname>Vietnam</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_139/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Andorra</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_143/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Armenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/t-mobile bundesliga_49/</loc>
+    <shortname>T-Mobile Bundesliga</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_106/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Azerbaijan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_66/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Belarus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/jupiler league_24/</loc>
+    <shortname>Jupiler League</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2e klasse_52/</loc>
+    <shortname>2e Klasse</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier liga_64/</loc>
+    <shortname>Premier Liga</shortname>
+    <fullname>Bosnia-Herzegovina</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/a pfg_59/</loc>
+    <shortname>A PFG</shortname>
+    <fullname>Bulgaria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. hnl ozujsko_61/</loc>
+    <shortname>1. HNL Ozujsko</shortname>
+    <fullname>Croatia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/hr nogometni cup_178/</loc>
+    <shortname>HR Nogometni Cup</shortname>
+    <fullname>Croatia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. division_75/</loc>
+    <shortname>1. Division</shortname>
+    <fullname>Cyprus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/grambinus liga_82/</loc>
+    <shortname>Grambinus Liga</shortname>
+    <fullname>Czech Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/druha liga_83/</loc>
+    <shortname>Druha Liga</shortname>
+    <fullname>Czech Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/pohar cmfs_199/</loc>
+    <shortname>Pohar CMFS</shortname>
+    <fullname>Czech Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/superligaen_30/</loc>
+    <shortname>Superligaen</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1st division_39/</loc>
+    <shortname>1st Division</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/viasat cup_429/</loc>
+    <shortname>Viasat Cup</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premiership_8/</loc>
+    <shortname>Premiership</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/championship league_70/</loc>
+    <shortname>Championship League</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league one_15/</loc>
+    <shortname>League One</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league two_32/</loc>
+    <shortname>League Two</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fa cup_93/</loc>
+    <shortname>FA Cup</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league cup_95/</loc>
+    <shortname>League Cup</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/meistriliiga_111/</loc>
+    <shortname>Meistriliiga</shortname>
+    <fullname>Estonia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/formuladeildin_81/</loc>
+    <shortname>Formuladeildin</shortname>
+    <fullname>Faroe Islands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/veikkausliiga_22/</loc>
+    <shortname>Veikkausliiga</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ykkonen_35/</loc>
+    <shortname>Ykkonen</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ligue 1_16/</loc>
+    <shortname>Ligue 1</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ligue 2_17/</loc>
+    <shortname>Ligue 2</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/coupe de la ligue_105/</loc>
+    <shortname>Coupe de la Ligue</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/umaglesi liga_166/</loc>
+    <shortname>Umaglesi Liga</shortname>
+    <fullname>Georgia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2nd bundesliga_11/</loc>
+    <shortname>2nd Bundesliga</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/dfb pokal_104/</loc>
+    <shortname>DFB Pokal</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga pokal_174/</loc>
+    <shortname>Liga Pokal</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league - a ethniki_107/</loc>
+    <shortname>Super League - A Ethniki</shortname>
+    <fullname>Greece</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/b ethniki_108/</loc>
+    <shortname>B Ethniki</shortname>
+    <fullname>Greece</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/greece cup_168/</loc>
+    <shortname>Greece Cup</shortname>
+    <fullname>Greece</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/borsodi liga_67/</loc>
+    <shortname>Borsodi Liga</shortname>
+    <fullname>Hungary</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/magyar kupa_254/</loc>
+    <shortname>Magyar Kupa</shortname>
+    <fullname>Hungary</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_31/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Iceland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_34/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Republic of Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 1_77/</loc>
+    <shortname>Division 1</shortname>
+    <fullname>Republic of Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fai cup_196/</loc>
+    <shortname>FAI Cup</shortname>
+    <fullname>Republic of Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ligat al_117/</loc>
+    <shortname>Ligat Al</shortname>
+    <fullname>Israel</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie a_13/</loc>
+    <shortname>Serie A</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie b_14/</loc>
+    <shortname>Serie B</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/serie c1_53/</loc>
+    <shortname>Serie C1</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/coppa italia_135/</loc>
+    <shortname>Coppa Italia</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league_79/</loc>
+    <shortname>Super League</shortname>
+    <fullname>Kazakhstan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/virsliga_116/</loc>
+    <shortname>Virsliga</shortname>
+    <fullname>Latvia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/latvijas kauss_195/</loc>
+    <shortname>Latvijas Kauss</shortname>
+    <fullname>Latvia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/a lyga_118/</loc>
+    <shortname>A Lyga</shortname>
+    <fullname>Lithuania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division nationale_134/</loc>
+    <shortname>Division Nationale</shortname>
+    <fullname>Luxembourg</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/first league_65/</loc>
+    <shortname>First League</shortname>
+    <fullname>Macedonia FYR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_152/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Malta</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/divizia nationala_80/</loc>
+    <shortname>Divizia Nationala</shortname>
+    <fullname>Moldova</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/prva liga_441/</loc>
+    <shortname>Prva Liga</shortname>
+    <fullname>Montenegro</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/eredivisie_1/</loc>
+    <shortname>Eredivisie</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/jupiter league_5/</loc>
+    <shortname>Jupiter League</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/knvb beker_103/</loc>
+    <shortname>KNVB Beker</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_78/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Northern Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/first division_310/</loc>
+    <shortname>First Division</shortname>
+    <fullname>Northern Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/irish cup_313/</loc>
+    <shortname>Irish Cup</shortname>
+    <fullname>Northern Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/tippeligaen_29/</loc>
+    <shortname>Tippeligaen</shortname>
+    <fullname>Norway</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nm cupen_182/</loc>
+    <shortname>NM Cupen</shortname>
+    <fullname>Norway</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. liga_119/</loc>
+    <shortname>1. Liga</shortname>
+    <fullname>Poland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2. liga_120/</loc>
+    <shortname>2. Liga</shortname>
+    <fullname>Poland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/puchar polski_191/</loc>
+    <shortname>Puchar Polski</shortname>
+    <fullname>Poland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga b-win_63/</loc>
+    <shortname>Liga B-win</shortname>
+    <fullname>Portugal</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga honra_100/</loc>
+    <shortname>Liga Honra</shortname>
+    <fullname>Portugal</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/taca de portugal_102/</loc>
+    <shortname>Taca de Portugal</shortname>
+    <fullname>Portugal</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga i_85/</loc>
+    <shortname>Liga I</shortname>
+    <fullname>Romania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga ii_159/</loc>
+    <shortname>Liga II</shortname>
+    <fullname>Romania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cupa romaniei_192/</loc>
+    <shortname>Cupa Romaniei</shortname>
+    <fullname>Romania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_121/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Russia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. division_122/</loc>
+    <shortname>1. Division</shortname>
+    <fullname>Russia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_190/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Russia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/campionato_160/</loc>
+    <shortname>Campionato</shortname>
+    <fullname>San Marino</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_43/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/first division_45/</loc>
+    <shortname>First Division</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fa cup_175/</loc>
+    <shortname>FA Cup</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league cup_176/</loc>
+    <shortname>League Cup</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super liga_440/</loc>
+    <shortname>Super Liga</shortname>
+    <fullname>Serbia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_443/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Serbia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super liga_123/</loc>
+    <shortname>Super Liga</shortname>
+    <fullname>Slovakia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/pohar_183/</loc>
+    <shortname>Pohar</shortname>
+    <fullname>Slovakia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/prva liga telekom_86/</loc>
+    <shortname>Prva Liga Telekom</shortname>
+    <fullname>Slovenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/pokal hervis_185/</loc>
+    <shortname>Pokal Hervis</shortname>
+    <fullname>Slovenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/segunda division_12/</loc>
+    <shortname>Segunda Division</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/segunda b_98/</loc>
+    <shortname>Segunda B</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa del rey_138/</loc>
+    <shortname>Copa del Rey</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/allsvenskan_28/</loc>
+    <shortname>Allsvenskan</shortname>
+    <fullname>Sweden</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/superettan_37/</loc>
+    <shortname>Superettan</shortname>
+    <fullname>Sweden</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league_27/</loc>
+    <shortname>Super League</shortname>
+    <fullname>Switzerland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/challenge league_99/</loc>
+    <shortname>Challenge League</shortname>
+    <fullname>Switzerland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/schweizer pokal_114/</loc>
+    <shortname>Schweizer Pokal</shortname>
+    <fullname>Switzerland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/turkcell super lig_19/</loc>
+    <shortname>Turkcell Super Lig</shortname>
+    <fullname>Turkey</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/lig a_97/</loc>
+    <shortname>Lig A</shortname>
+    <fullname>Turkey</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fortis turkiye kupasi_172/</loc>
+    <shortname>Fortis Turkiye Kupasi</shortname>
+    <fullname>Turkey</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_125/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Ukraine</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_188/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Ukraine</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_74/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Wales</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/welsh cup_259/</loc>
+    <shortname>Welsh Cup</shortname>
+    <fullname>Wales</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup_72/</loc>
+    <shortname>World Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications europe_224/</loc>
+    <shortname>World Cup Qualifications Europe</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications asia_229/</loc>
+    <shortname>World Cup Qualifications Asia</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications concacaf_227/</loc>
+    <shortname>World Cup Qualifications Concacaf</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications s-america_225/</loc>
+    <shortname>World Cup Qualifications S-America</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications africa_228/</loc>
+    <shortname>World Cup Qualifications Africa</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world cup qualifications oceania_230/</loc>
+    <shortname>World Cup Qualifications Oceania</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/olympic games_221/</loc>
+    <shortname>Olympic Games</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/confederations cup_246/</loc>
+    <shortname>Confederations Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world youth championship_274/</loc>
+    <shortname>World Youth Championship</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world championship u17_365/</loc>
+    <shortname>World Championship U17</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world club championship_284/</loc>
+    <shortname>World Club Championship</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world friendlies_430/</loc>
+    <shortname>World Friendlies</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/afc champions league_251/</loc>
+    <shortname>AFC Champions League</shortname>
+    <fullname>Regional-Asia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/afc asian cup_253/</loc>
+    <shortname>AFC Asian Cup</shortname>
+    <fullname>Regional-Asia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/afc challenge cup_417/</loc>
+    <shortname>AFC Challenge Cup</shortname>
+    <fullname>Regional-Asia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/african cup of nations_385/</loc>
+    <shortname>African Cup of Nations</shortname>
+    <fullname>Regional-Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/caf champions league_256/</loc>
+    <shortname>CAF Champions League</shortname>
+    <fullname>Regional-Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa libertadores_241/</loc>
+    <shortname>Copa Libertadores</shortname>
+    <fullname>Regional-South America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa america_288/</loc>
+    <shortname>Copa America</shortname>
+    <fullname>Regional-South America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa sudamericana_297/</loc>
+    <shortname>Copa Sudamericana</shortname>
+    <fullname>Regional-South America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/sudamericano u20_512/</loc>
+    <shortname>Sudamericano U20</shortname>
+    <fullname>Regional-South America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/concacaf gold cup_247/</loc>
+    <shortname>Concacaf Gold Cup</shortname>
+    <fullname>Regional-North America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/concacaf champions cup_255/</loc>
+    <shortname>Concacaf Champions Cup</shortname>
+    <fullname>Regional-North America</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/european championships_25/</loc>
+    <shortname>European Championships</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/uefa champions league_10/</loc>
+    <shortname>UEFA Champions League</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/europa league_18/</loc>
+    <shortname>Europa League</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/uefa u21 championship_280/</loc>
+    <shortname>UEFA U21 Championship</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_7/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/bundesliga_9/</loc>
+    <shortname>Bundesliga</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/adeccoligaen_36/</loc>
+    <shortname>adeccoligaen</shortname>
+    <fullname>Norway</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1 deild_38/</loc>
+    <shortname>1 Deild</shortname>
+    <fullname>Iceland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2nd division_40/</loc>
+    <shortname>2nd Division</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/kakkonen_41/</loc>
+    <shortname>kakkonen</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nsl_42/</loc>
+    <shortname>NSL</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/second division_46/</loc>
+    <shortname>Second Division</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/third division_47/</loc>
+    <shortname>Third Division</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/red zac 1 liga_50/</loc>
+    <shortname>Red Zac 1 Liga</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/regionalliga_55/</loc>
+    <shortname>Regionalliga</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/national_57/</loc>
+    <shortname>National</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/b pfg_60/</loc>
+    <shortname>B PFG</shortname>
+    <fullname>Bulgaria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2. hnl_62/</loc>
+    <shortname>2. HNL</shortname>
+    <fullname>Croatia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nb 2_68/</loc>
+    <shortname>NB 2</shortname>
+    <fullname>Hungary</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/3 ligy_84/</loc>
+    <shortname>3 Ligy</shortname>
+    <fullname>Czech Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2 division_101/</loc>
+    <shortname>2 Division</shortname>
+    <fullname>Portugal</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/esiliiga_112/</loc>
+    <shortname>esiliiga</shortname>
+    <fullname>Estonia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/i liga_124/</loc>
+    <shortname>I Liga</shortname>
+    <fullname>Slovakia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/belgium cup_126/</loc>
+    <shortname>Belgium Cup</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/3e klasse_133/</loc>
+    <shortname>3e Klasse</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/c ethniki_140/</loc>
+    <shortname>C Ethniki</shortname>
+    <fullname>Greece</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga leumit_141/</loc>
+    <shortname>Liga Leumit</shortname>
+    <fullname>Israel</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1 liga_144/</loc>
+    <shortname>1 Liga</shortname>
+    <fullname>Bosnia-Herzegovina</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/canadian pcsl_147/</loc>
+    <shortname>Canadian PCSL</shortname>
+    <fullname>Canada</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/china league_148/</loc>
+    <shortname>China League</shortname>
+    <fullname>China PR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/women  naistenliiga_149/</loc>
+    <shortname>Women  Naistenliiga</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/netherlands super cup_170/</loc>
+    <shortname>Netherlands Super Cup</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/italia super copa_171/</loc>
+    <shortname>Italia Super Copa</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup fa community shield_173/</loc>
+    <shortname>Super Cup FA Community Shield</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/coupe de france_177/</loc>
+    <shortname>Coupe de France</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/suomen cup_179/</loc>
+    <shortname>Suomen Cup</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/svenska cupen_180/</loc>
+    <shortname>Svenska Cupen</shortname>
+    <fullname>Sweden</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/landspokal_181/</loc>
+    <shortname>Landspokal</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_184/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Portugal</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_186/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fb stiegl  cup_187/</loc>
+    <shortname>FB Stiegl  Cup</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cupa_193/</loc>
+    <shortname>Cupa</shortname>
+    <fullname>Moldova</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_194/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Lithuania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/visa bikar_197/</loc>
+    <shortname>Visa Bikar</shortname>
+    <fullname>Iceland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_198/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Estonia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/uefa super cup_211/</loc>
+    <shortname>UEFA Super Cup</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_200/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Belarus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_201/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Bulgaria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/coppa albania_202/</loc>
+    <shortname>Coppa Albania</shortname>
+    <fullname>Albania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/david kipiani cup_203/</loc>
+    <shortname>David Kipiani Cup</shortname>
+    <fullname>Georgia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/csl cup_204/</loc>
+    <shortname>CSL Cup</shortname>
+    <fullname>China PR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 2_207/</loc>
+    <shortname>Division 2</shortname>
+    <fullname>Algeria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/interligas_208/</loc>
+    <shortname>Interligas</shortname>
+    <fullname>Mexico</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/women frauen bundesliga_339/</loc>
+    <shortname>Women Frauen Bundesliga</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/women's world cup_368/</loc>
+    <shortname>Women's World Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/championnat national_523/</loc>
+    <shortname>Championnat National</shortname>
+    <fullname>Haiti</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/pdl_522/</loc>
+    <shortname>PDL</shortname>
+    <fullname>United States</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/usl 2_521/</loc>
+    <shortname>USL 2</shortname>
+    <fullname>United States</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier soccer league_520/</loc>
+    <shortname>Premier Soccer League</shortname>
+    <fullname>Pakistan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga artzit_142/</loc>
+    <shortname>Liga Artzit</shortname>
+    <fullname>Israel</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super league_153/</loc>
+    <shortname>Super League</shortname>
+    <fullname>Malaysia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/inter continental cup_167/</loc>
+    <shortname>Inter Continental Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_169/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1st division_212/</loc>
+    <shortname>1st Division</shortname>
+    <fullname>Syria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/mtn premier league_213/</loc>
+    <shortname>MTN Premier League</shortname>
+    <fullname>Swaziland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league_215/</loc>
+    <shortname>League</shortname>
+    <fullname>Qatar</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league_217/</loc>
+    <shortname>League</shortname>
+    <fullname>Lebanon</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league_218/</loc>
+    <shortname>League</shortname>
+    <fullname>Jordan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_222/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1st division_233/</loc>
+    <shortname>1st Division</shortname>
+    <fullname>Ukraine</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league_235/</loc>
+    <shortname>League</shortname>
+    <fullname>Yemen</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_236/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Libya</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league_238/</loc>
+    <shortname>League</shortname>
+    <fullname>Bahrain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_242/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Russia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_243/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Azerbaijan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/uefa intertoto cup_245/</loc>
+    <shortname>UEFA Intertoto Cup</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/asian cup_250/</loc>
+    <shortname>Asian Cup</shortname>
+    <fullname>Regional-Asia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liigacup_252/</loc>
+    <shortname>Liigacup</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1 lyga_258/</loc>
+    <shortname>1 Lyga</shortname>
+    <fullname>Lithuania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/challenge cup_260/</loc>
+    <shortname>Challenge Cup</shortname>
+    <fullname>Wales</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_261/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Kazakhstan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fa trophy_262/</loc>
+    <shortname>FA Trophy</shortname>
+    <fullname>Malta</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. division_263/</loc>
+    <shortname>1. Division</shortname>
+    <fullname>Belarus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/state cup_264/</loc>
+    <shortname>State Cup</shortname>
+    <fullname>Israel</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. division_265/</loc>
+    <shortname>1. Division</shortname>
+    <fullname>Latvia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2. division_267/</loc>
+    <shortname>2. Division</shortname>
+    <fullname>Russia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/uefa women's championship_268/</loc>
+    <shortname>UEFA Women's Championship</shortname>
+    <fullname>Regional-Europe</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_269/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Armenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/supercupa_270/</loc>
+    <shortname>Supercupa</shortname>
+    <fullname>Moldova</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_271/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Cyprus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_272/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Macedonia FYR</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa dji sam soe_273/</loc>
+    <shortname>Copa Dji Sam Soe</shortname>
+    <fullname>Indonesia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/kirin cup_275/</loc>
+    <shortname>Kirin Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ofc club championship_278/</loc>
+    <shortname>OFC Club Championship</shortname>
+    <fullname>Regional-Oceania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. division_279/</loc>
+    <shortname>1. Division</shortname>
+    <fullname>Kazakhstan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/world youth festival toulon_281/</loc>
+    <shortname>World Youth Festival Toulon</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/league cup_285/</loc>
+    <shortname>League Cup</shortname>
+    <fullname>Republic of Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nacompetitie_286/</loc>
+    <shortname>Nacompetitie</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/femenino superliga_287/</loc>
+    <shortname>Femenino Superliga</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/kvinne toppserien_289/</loc>
+    <shortname>Kvinne Toppserien</shortname>
+    <fullname>Norway</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/frauen bundesliga_290/</loc>
+    <shortname>Frauen Bundesliga</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/damallsvenskan_291/</loc>
+    <shortname>Damallsvenskan</shortname>
+    <fullname>Sweden</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/femminile serie a_293/</loc>
+    <shortname>Femminile Serie A</shortname>
+    <fullname>Italy</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_294/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_298/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Ukraine</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2. snl_299/</loc>
+    <shortname>2. SNL</shortname>
+    <fullname>Slovenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_300/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Slovakia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/highland league_301/</loc>
+    <shortname>Highland League</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/n l 2 conference_302/</loc>
+    <shortname>N L 2 Conference</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/hoofdklasse_303/</loc>
+    <shortname>Hoofdklasse</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/peace cup_304/</loc>
+    <shortname>Peace Cup</shortname>
+    <fullname>Regional-World</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_305/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Croatia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/n l 3 premier league_306/</loc>
+    <shortname>N L 3 Premier League</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/szuperkupa_307/</loc>
+    <shortname>Szuperkupa</shortname>
+    <fullname>Hungary</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/n l 4 division one_308/</loc>
+    <shortname>N L 4 Division One</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/feeder leagues_309/</loc>
+    <shortname>Feeder Leagues</shortname>
+    <fullname>Wales</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cis insurance cup_311/</loc>
+    <shortname>CIS Insurance Cup</shortname>
+    <fullname>Northern Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_312/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/challenge cup_314/</loc>
+    <shortname>Challenge Cup</shortname>
+    <fullname>Scotland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/second division_316/</loc>
+    <shortname>Second Division</shortname>
+    <fullname>Northern Ireland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/victorian_318/</loc>
+    <shortname>Victorian</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/championship_48/</loc>
+    <shortname>Championship</shortname>
+    <fullname>Albania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/digicel premier league_524/</loc>
+    <shortname>Digicel Premier League</shortname>
+    <fullname>Barbados</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/primera division_525/</loc>
+    <shortname>Primera Division</shortname>
+    <fullname>Panama</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/mvela golden league_526/</loc>
+    <shortname>Mvela Golden League</shortname>
+    <fullname>South Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_528/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>St. Kitts and Nevis</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/championnat national_530/</loc>
+    <shortname>Championnat National</shortname>
+    <fullname>Ivory Coast</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/kvinde 3f cup_531/</loc>
+    <shortname>Kvinde 3F Cup</shortname>
+    <fullname>Denmark</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/segunda division_532/</loc>
+    <shortname>Segunda Division</shortname>
+    <fullname>Uruguay</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/arab champions league_533/</loc>
+    <shortname>Arab Champions League</shortname>
+    <fullname>Regional-Asia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/nfl 2_534/</loc>
+    <shortname>NFL 2</shortname>
+    <fullname>India</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/challenge de france_535/</loc>
+    <shortname>Challenge de France</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/caf confederation cup_536/</loc>
+    <shortname>CAF Confederation Cup</shortname>
+    <fullname>Regional-Africa</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/professional league_537/</loc>
+    <shortname>Professional League</shortname>
+    <fullname>Bangladesh</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_538/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Bermuda</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/j3 league_540/</loc>
+    <shortname>J3 League</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/knvb beker vrouwen_541/</loc>
+    <shortname>KNVB Beker Vrouwen</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/second division_542/</loc>
+    <shortname>Second Division</shortname>
+    <fullname>Armenia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cup_543/</loc>
+    <shortname>Cup</shortname>
+    <fullname>Andorra</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2 deild karla_544/</loc>
+    <shortname>2 Deild Karla</shortname>
+    <fullname>Iceland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division intermedia_546/</loc>
+    <shortname>Division Intermedia</shortname>
+    <fullname>Paraguay</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/iv liga mayor_547/</loc>
+    <shortname>IV Liga Mayor</shortname>
+    <fullname>Dominican Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/play off out_548/</loc>
+    <shortname>Play Off Out</shortname>
+    <fullname>Andorra</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/vrouwen eredivisie_549/</loc>
+    <shortname>Vrouwen Eredivisie</shortname>
+    <fullname>Netherlands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/us open cup_550/</loc>
+    <shortname>US Open Cup</shortname>
+    <fullname>United States</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/play off out_551/</loc>
+    <shortname>Play Off Out</shortname>
+    <fullname>Surinam</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/regionalliga_553/</loc>
+    <shortname>Regionalliga</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1. liga_554/</loc>
+    <shortname>1. Liga</shortname>
+    <fullname>Switzerland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/2 frauenliga_555/</loc>
+    <shortname>2 Frauenliga</shortname>
+    <fullname>Austria</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/frauen regionalliga_556/</loc>
+    <shortname>Frauen Regionalliga</shortname>
+    <fullname>Germany</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/cfa 2_557/</loc>
+    <shortname>CFA 2</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/3 liga_558/</loc>
+    <shortname>3 Liga</shortname>
+    <fullname>Poland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/druha liga_559/</loc>
+    <shortname>Druha Liga</shortname>
+    <fullname>Ukraine</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/feminine division 3_560/</loc>
+    <shortname>Feminine Division 3</shortname>
+    <fullname>France</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/divizia a_561/</loc>
+    <shortname>Divizia A</shortname>
+    <fullname>Moldova</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/lig b_562/</loc>
+    <shortname>Lig B</shortname>
+    <fullname>Turkey</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/fa cup_564/</loc>
+    <shortname>FA Cup</shortname>
+    <fullname>Korea Republic</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liga iii_565/</loc>
+    <shortname>Liga III</shortname>
+    <fullname>Romania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/druge lige_566/</loc>
+    <shortname>Druge Lige</shortname>
+    <fullname>Montenegro</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_567/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Cuba</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/noi nb ii_568/</loc>
+    <shortname>Noi NB II</shortname>
+    <fullname>Hungary</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/tercera division_569/</loc>
+    <shortname>Tercera Division</shortname>
+    <fullname>Spain</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/womens combination_570/</loc>
+    <shortname>Womens Combination</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_571/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Cyprus</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/4e klasse_572/</loc>
+    <shortname>4e Klasse</shortname>
+    <fullname>Belgium</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 1_573/</loc>
+    <shortname>Division 1</shortname>
+    <fullname>Saudi Arabia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division 1_574/</loc>
+    <shortname>Division 1</shortname>
+    <fullname>United Arab Emirates</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/super cup_575/</loc>
+    <shortname>Super Cup</shortname>
+    <fullname>Greece</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/emperor cup_577/</loc>
+    <shortname>Emperor Cup</shortname>
+    <fullname>Japan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/first division_578/</loc>
+    <shortname>First Division</shortname>
+    <fullname>Albania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ligat al women_579/</loc>
+    <shortname>Ligat Al Women</shortname>
+    <fullname>Israel</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/promotion play-off_580/</loc>
+    <shortname>Promotion Play-Off</shortname>
+    <fullname>Colombia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/birinci dasta_581/</loc>
+    <shortname>Birinci Dasta</shortname>
+    <fullname>Azerbaijan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/promotion play-off_582/</loc>
+    <shortname>Promotion Play-Off</shortname>
+    <fullname>Chile</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_583/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Antigua and Barbuda</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier division_584/</loc>
+    <shortname>Premier Division</shortname>
+    <fullname>Grenada</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/championship_585/</loc>
+    <shortname>Championship</shortname>
+    <fullname>Netherlands Antilles</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/promotion play-off_586/</loc>
+    <shortname>Promotion Play-Off</shortname>
+    <fullname>Bolivia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/national championship_587/</loc>
+    <shortname>National Championship</shortname>
+    <fullname>Bahamas</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/division di honor_589/</loc>
+    <shortname>Division di Honor</shortname>
+    <fullname>Aruba</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/national football league_591/</loc>
+    <shortname>National Football League</shortname>
+    <fullname>Fiji</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_592/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Mauritania</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/paulista a2_593/</loc>
+    <shortname>Paulista A2</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/mineiro ii_594/</loc>
+    <shortname>Mineiro II</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/carioca 2 div_595/</loc>
+    <shortname>Carioca 2 Div</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/baiano 2 div_596/</loc>
+    <shortname>Baiano 2 Div</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/first division_598/</loc>
+    <shortname>First Division</shortname>
+    <fullname>Vietnam</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/womens national league_599/</loc>
+    <shortname>Womens National League</shortname>
+    <fullname>Chinese Taipei</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/gaucho 2 div_600/</loc>
+    <shortname>Gaucho 2 Div</shortname>
+    <fullname>Brazil</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_601/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Sudan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/azadegan league_602/</loc>
+    <shortname>Azadegan League</shortname>
+    <fullname>Iran</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/premier league_603/</loc>
+    <shortname>Premier League</shortname>
+    <fullname>Namibia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/liiga cup naiset_604/</loc>
+    <shortname>Liiga Cup Naiset</shortname>
+    <fullname>Finland</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/eerste klasse_605/</loc>
+    <shortname>Eerste Klasse</shortname>
+    <fullname>Surinam</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/new south wales_606/</loc>
+    <shortname>New South Wales</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/south australian_607/</loc>
+    <shortname>South Australian</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/queensland_608/</loc>
+    <shortname>Queensland</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/western australia_609/</loc>
+    <shortname>Western Australia</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/rfg insurance cup tournament_610/</loc>
+    <shortname>RFG Insurance Cup Tournament</shortname>
+    <fullname>Belize</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/tasmania_611/</loc>
+    <shortname>Tasmania</shortname>
+    <fullname>Australia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/steypakapping kvinnur_612/</loc>
+    <shortname>Steypakapping Kvinnur</shortname>
+    <fullname>Faroe Islands</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/copa colombia_613/</loc>
+    <shortname>Copa Colombia</shortname>
+    <fullname>Colombia</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/1st division_614/</loc>
+    <shortname>1st Division</shortname>
+    <fullname>Uzbekistan</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/n l 1 conference_71/</loc>
+    <shortname>N L 1 Conference</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>/tournaments/ldv vans trophy_96/</loc>
+    <shortname>LDV Vans Trophy</shortname>
+    <fullname>England</fullname><priority>1</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+</urlset>

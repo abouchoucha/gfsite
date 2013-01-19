@@ -1,0 +1,7 @@
+<strong>{player_name} {typeOfPlayerEvent} the <a href="{match_url}">{match_playing}</a> match.</strong><br>
+
+<br><br>
+Follow the link below to view the player page:<br>
+<a href ="{player_name_seo}">{player_name_seo}</a>
+<br><br>
+The message was sent to {userEmail}. If you don't want to receive these alerts from GoalFace, you can edit your <a href="{alertSettingsUrl}">alert settings</a>

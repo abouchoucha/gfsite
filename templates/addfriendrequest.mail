@@ -1,0 +1,8 @@
+{username} added you as a friend on GoalFace.  We need to confirm that you know {username}  in order for you to be friends on GoalFace.<br><br>
+
+To confirm this friend request, follow the link below:<br><br>
+<a href ="http://{contextPath}/messagecenter/">http://{contextPath}/messagecenter/</a>
+
+<br><br>
+Thanks,
+The GoalFace Team

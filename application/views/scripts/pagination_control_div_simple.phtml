@@ -1,0 +1,46 @@
+ <!-- new pagination for ajax pages -->
+
+<script type="text/javascript">
+
+	function nextpage(url){
+			//jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').html("<div class='ajaxload scoresMain'></div>");
+	        //jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').load(url);
+
+	        jQuery.ajax({
+	            method: 'get',
+	            url : url,
+				dataType : 'text',
+	            success: function (text) {
+	    			  if(text !=''){
+				  		  jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').removeClass('ajaxloadtabs');
+					  	  jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').html(text);
+		              }else{
+						top.location.href = '<?php echo Zend_Registry::get("contextPath"); ?>/login';  	
+			          } 
+	             }
+	         });   
+	}
+
+</script>
+<?php if ($this->pageCount > 1): ?>
+ 
+<tr>
+          <td colspan="4" class="see">
+           <p class="previousnext" style="float:left;width:542px">
+          <span style="float:left;width:342px;">
+        <?php if (isset($this->previous)): ?>
+            <a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->previous)); ?>')">
+                &lt;&nbsp;&nbsp;Previous
+            </a>
+          <?php endif; ?>
+         </span>
+         <span style="float:right;width:40px;">
+         <?php if (isset($this->next)): ?>
+       <a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->next)); ?>')">Next &gt;</a>
+         <?php endif; ?>
+       </span>
+     </p>
+    </td>
+</tr>
+
+<?php endif; ?>

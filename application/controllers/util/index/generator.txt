@@ -1,0 +1,7 @@
+Element: 1-> Indexing... http://www.goalface.com/players/dmitrii-vornisel_53936/About to delete 1 for url/players/dmitrii-vornisel_53936/<br>URL:/players/dmitrii-vornisel_53936/ added 
+<br>UTF-8-DECODE-REPLACE:Dmitrii Vornisel<br>UTF-8-CONVERT ENCODING:Dmitrii Vornisel<br>AFTER REPLACING NON ISO CHARS:Dmitrii Vornisel<br>UTF-8-DECODE:Dmitrii VorniselField : contents Vornisel Vornisel Dmitrii Vornisel Dmitrii Vornisel Dmitrii Vornisel Dmitrii Vornisel added 
+Element: 2-> Indexing... http://www.goalface.com/players/javier-hernandez-balcazar_53937/About to delete 1 for url/players/javier-hernandez-balcazar_53937/<br>URL:/players/javier-hernandez-balcazar_53937/ added 
+<br>UTF-8-DECODE-REPLACE:Javier Hernandez Balcazar<br>UTF-8-CONVERT ENCODING:Javier Hernandez Balcazar<br>AFTER REPLACING NON ISO CHARS:Javier Hernandez Balcazar<br>UTF-8-DECODE:Javier Hernandez BalcazarField : contents Chicharito Chicharito Javier Hernandez Balcazar Javier Hernandez Balcazar Javier Hernández Balcazar Javier Hernández Balcazar added 
+Element: 3-> Indexing... http://www.goalface.com/players/david-henr%C3%83%C2%ADquez_53938/About to delete 1 for url/players/david-henr%C3%83%C2%ADquez_53938/<br>URL:/players/david-henr%C3%83%C2%ADquez_53938/ added 
+<br>UTF-8-DECODE-REPLACE:David HenrÃ­quez<br>UTF-8-CONVERT ENCODING:David Henríquez<br>AFTER REPLACING NON ISO CHARS:David Henríquez<br>UTF-8-DECODE:David HenrÃ­quezField : contents Henríquez Henríquez David Henríquez David Henríquez David Henríquez David Henríquez added 
+Total documents In the index: 111852<br>

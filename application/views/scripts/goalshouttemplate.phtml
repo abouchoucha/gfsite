@@ -1,0 +1,229 @@
+<script type="text/JavaScript">
+
+jQuery(document).ready(function() {
+	 
+	jQuery('#removeButton').click(function() {
+		 top.location.href = '<?php echo Zend_Registry::get ( "contextPath" );?>/login'; 
+	 });
+	jQuery('#commentGoalShoutId').focus(function() {
+		 jQuery('#commentGoalShoutId').html('');
+		 jQuery('#leaveGSButtonId').removeAttr('disabled'); 
+	 });
+	 
+	jQuery('#reportTypeId').change(function(){
+		 var selectValue = jQuery('#reportTypeId').val();
+		 if(selectValue == 0){
+			 jQuery('#textReportAbuseId').attr('disabled','disabled'); 
+			 jQuery('#acceptReportAbuseButtonId').attr('disabled','disabled'); 
+		 }else {
+		 	jQuery('#textReportAbuseId').removeAttr('disabled');
+		 	jQuery('#acceptReportAbuseButtonId').removeAttr('disabled');
+		 }	 
+   });
+});
+
+function editGoalShout(id){
+	
+	jQuery('#editGoalShoutModal').jqm({trigger: '#editGoalShoutTrigger', onHide: closeModal });
+	jQuery('#editGoalShoutModal').jqmShow();
+	var dataEdit = jQuery('#goalshout'+id).html();
+	jQuery('#textgoalshoutEdit').val(jQuery.trim(dataEdit));
+
+	jQuery("#acceptEditGoalShoutButtonId").unbind();
+	
+	jQuery('#acceptEditGoalShoutButtonId').click(function() {
+		var commentText = jQuery('#textgoalshoutEdit').val();
+		if(jQuery.trim(commentText) == ''){
+			jQuery('#commentediterrorId').removeClass('ErrorMessageIndividual').addClass('ErrorMessageIndividualDisplay');
+ 			return;
+ 		 }
+		var url = '<?php echo Zend_Registry::get("contextPath"); ?>/common/editgoalshout';
+		var elementid = '<?php echo $this->elementid;?>';	
+		var dataEditted = jQuery('#textgoalshoutEdit').val();
+		jQuery('#editGoalShoutModal').jqmHide();
+		jQuery('#goalshoutId').html('Loading...'); 
+		jQuery('#goalshoutId').load(url , {elementid :elementid , id : id , dataEditted : dataEditted , typeofcomment : '<?php echo $this->typeofcomment;?>'});
+		
+	});
+}
+
+function deleteGoalShout(id){
+
+ jQuery('#acceptModalButtonId').show();
+ jQuery('#cancelModalButtonId').attr('value','Cancel'); 	
+ jQuery('#modalTitleConfirmationId').html('DELETE GOOOALSHOUT?');
+ jQuery('#messageConfirmationTextId').html('Are you sure you want to delete a goalshout');	
+ 
+ jQuery('#messageConfirmationId').jqm({ trigger: '#deleteGoalShout' , onHide: closeModal });
+ jQuery('#messageConfirmationId').jqmShow();
+
+ var elementid = '<?php echo $this->elementid;?>';	
+ 
+ jQuery("#acceptModalButtonId").unbind();
+	
+ jQuery('#acceptModalButtonId').click(function(){
+		
+	    var url = '<?php echo Zend_Registry::get("contextPath"); ?>/common/deletegoalshout';
+		jQuery('#goalshoutId').html('Loading...'); 
+		jQuery('#goalshoutId').load(url ,{elementid :elementid , id : id ,typeofcomment : '<?php echo $this->typeofcomment;?>'} , function (){
+			jQuery('#messageConfirmationTextId').html('Your goalshout has been deleted.');
+			jQuery('#acceptModalButtonId').hide();
+			jQuery('#cancelModalButtonId').attr('value','Close');
+			jQuery('#messageConfirmationId').animate({opacity: '+=0'}, 2500).jqmHide();
+		});
+		 
+  });	
+}		
+
+function reportAbuse(id , reportTo){
+
+	jQuery('#reportTypeId').val('0');
+	jQuery('#textReportAbuseId').val(''); 
+	jQuery('#textReportAbuseId').attr('disabled','disabled');
+	jQuery('#reportAbuseBodyId').show();
+	jQuery('#reportAbuseBodyResponseId').hide();
+	jQuery('#acceptReportAbuseButtonId').show(); 
+	jQuery('#cancelReportAbuseButtonId').attr('value','Cancel'); 	
+	jQuery('#reportAbuseTitleId').html('REPORT GOALSHOUT ABUSE?');
+	jQuery('#reportAbuseTextId').html('Are you sure you want to report abuse in this goalshout?');	
+
+	jQuery('#reportAbuseModal').jqm({trigger: '#reportAbuseUserTrigger', onHide: closeModal });
+	jQuery('#reportAbuseModal').jqmShow();
+	
+	jQuery("#acceptReportAbuseButtonId").unbind();
+	jQuery('#acceptReportAbuseButtonId').click(function() {
+
+		var url = '<?php echo Zend_Registry::get("contextPath"); ?>/common/reportgoalshout';
+		var elementid = '<?php echo $this->elementid;?>';
+		var dataReport = jQuery('#textReportAbuseId').val();
+		var reportType = jQuery('#reportTypeId').val();
+
+		jQuery('#goalshoutId').load(url ,{elementid :elementid , id : id ,reportTo:reportTo , dataReport : dataReport ,reportType:reportType ,typeofcomment : '<?php echo $this->typeofcomment;?>'} , function (){
+			jQuery('#reportAbuseBodyResponseId').html('Your report will be reviewed by our administrators soon.');
+			jQuery('#reportAbuseBodyId').hide();
+			jQuery('#reportAbuseBodyResponseId').show();
+			jQuery('#acceptReportAbuseButtonId').hide();
+			jQuery('#cancelReportAbuseButtonId').attr('value','Close');
+			jQuery('#reportAbuseModal').animate({opacity: '+=0'}, 2500).jqmHide();
+		});
+	});	
+}	
+
+</script>
+
+
+
+<?php $session = new Zend_Session_Namespace('userSession');?>
+ <div  class="WrapperForDropShadow">
+        <div class="DropShadowHeader BlueGradientForDropShadowHeader">
+          <h4 class="NoArrowLeft">GOOOAL Shouts (<?php echo $this->totalGoalShouts; ?>)</h4>
+        <?php  if ($this->elementid != 72)  { ?>
+                <?php /*if ($this->totalGoalShouts > 0) { ?>
+              
+                <span>
+                  <a 	href="<?php echo Zend_Registry::get ( "contextPath" ); 	?>/player/showplayergoalshouts/id/<?php //echo $this->playerid; ?>">See more &raquo;</a>
+                </span>
+               <?php } */?>
+        <?php } ?>
+        </div>
+        <div id="boxComments">
+            <?php
+                $today = date ( "m-d-Y" );
+                $yesterday = date ( "m-d-Y", (strtotime ( date ( "Y-m-d" ) ) - 1 * 24 * 60 * 60) );
+                if ($this->totalGoalShouts > 0) {
+                	foreach ( $this->comments as $uc ) {
+            ?>
+          <dl class="comment">
+            <dt>
+              <a href="<?php echo Zend_Registry::get("contextPath"); ?>/profiles/<?php echo $uc["screen_name"];?>">
+                <img border="0" src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=48&h=48&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?>/public/images/photos/<?php echo ($uc["main_photo"] !=null?$uc["main_photo"] :'ProfileMale50.gif');?>" />
+              </a>
+            </dt>
+            <dd>
+              <span class="name">
+                <a href="<?php echo Zend_Registry::get("contextPath");?>/profiles/<?php echo $uc ["screen_name"];?>">
+                <?php echo $uc ["screen_name"];?></a>
+              </span>&nbsp;
+              <span class="date">
+                <?php
+                		if ($today == date ( 'm-d-Y', strtotime ( $uc ["comment_date"] ) )) {
+                			echo 'Today';
+                		} else if ($yesterday == date ( 'm-d-Y', strtotime ( $uc ["comment_date"] ) )) {
+                			echo 'Yesterday';
+                		} else {
+                			echo date ( ' F j , y', strtotime ( $uc ["comment_date"] ) );
+                		}
+                ?>
+                &nbsp;at
+                <?php
+                		echo date ( ' g:i a', strtotime ( $uc ["comment_date"] ) );
+                ?>
+              </span>
+              <?php if($session->screenName == $uc['screen_name']){
+				if($uc['comment_deleted']=='0'){?>		                        	           
+               <a class="edit" id="edit<?php echo $uc ["comment_id"];?>" href="javascript:editGoalShout('<?php echo $uc ["comment_id"];?>')">Edit</a>
+              <?php }
+				} ?>
+				&nbsp;|&nbsp;    
+             <?php if($this->isMyProfile == 'y' or $session->screenName == $uc['screen_name']){
+           	if($uc['comment_deleted']=='0'){?>    
+              <a class="edit" href="javascript:deleteGoalShout('<?php echo $uc['comment_id'];?>');">Delete</a>
+              <?php }
+				} ?>    
+                               <p id="<?php echo 'goalshout' .$uc['comment_id']?>"><?php if ($uc['comment_deleted']=='0'){ ?><?php echo trim($uc["comment"]); ?>
+                               <?php }else if ($uc['comment_deleted']=='1'){  ?>
+                               		<i>Goooal Shout was removed by owner</i>
+                               <?php }else if ($uc['comment_deleted']=='2'){  ?>
+                               		<i>Goooal Shout was removed by profile owner</i>
+                               <?php } ?>
+                               </p>
+              <?php if($uc['comment_deleted']=='0'){?>
+             		<?php if($session->email != null){ ?>
+						<span class="abuse"><a class="warning" href="javascript:reportAbuse('<?php echo $uc['comment_id'];?>','<?php echo $uc['friend_id'];?>');">Report This</a></span>
+	              	<?php }else {?>
+	              	<span class="abuse"><a class="warning" href="javascript:loginModal();">Report This</a></span>
+	              	<?php }?>
+             <?php }?>
+              	
+              </dd>
+            </dl>
+            <?php
+            	}
+            } 
+            ?>
+            
+                <div id="comment_formerror" class="ErrorMessageIndividual">Please enter a message in the GoooalShout form</div>
+                  <div class="comment_input">
+                    <form id="comment_form" action="post" name="comment_form" action="">
+                    <?php
+                        if($session->email == null){
+                            $message = "Sign in to leave a Goooal Shout";
+                        }else{
+                            $message = "Type your Goooal Shout here...";
+                        }
+                      ?>
+                      <textarea <?php if($session->email == null){ ?> 
+                            	disabled="disabled" <?php } ?> class="comment_text" id="commentGoalShoutId" name="comment"><?php echo $message; 	?>
+                        	  
+                       </textarea>
+                      
+                      
+                      		<?php if($session->email == null){?>		
+                            		<input class="submit" type="button" value="Leave Goooal Shout" id="signInButtonId" onclick="loginModal()"/>
+                            <?php	}else{ ?>
+                            		<input class="submit" type="button" disabled value="Leave Goooal Shout" id="leaveGSButtonId" onclick="addGoalShout()" /> 
+                            <?php	} ?>
+                           
+                      
+                    </form>
+                </div>
+        </div>
+<?php  if ($this->elementid != 72)  { ?>
+    <?php if ($this->totalGoalShouts > 0) { ?>
+        <div class="SeeAllShouts">
+          <a class="OrangeLink" href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayergoalshouts/id/<?php //echo $this->playerid; ?>">See more Goooal Shouts</a>
+        </div>
+    <?php } ?>
+  <?php } ?>
+
+      </div>

@@ -1,0 +1,11 @@
+Hi {emailUser},<br><br>
+To confirm your GoalFace account, please verify that this email address ({emailUser}) belongs to you by clicking this link:<br>
+<a href ="http://{contextPath}/confirm/{emailUser}/{passwordSha}">http://{contextPath}/confirm/{emailUser}/{passwordSha}</a><br><br><br>
+Thanks! <br>
+The GoalFace Team <br><br><br>
+
+<hr style="width:820px">
+
+If you did not register or have simply changed your mind, please click below to cancel your membership: <a href="http://{contextPath}/cancellink/{emailUser}/{passwordSha}">http://{contextPath}/cancellink/{emailUser}/{passwordSha}</a>
+
+

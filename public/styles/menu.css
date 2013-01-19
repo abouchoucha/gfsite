@@ -1,0 +1,120 @@
+.chromestyle{
+width: 99%;
+font-weight: bold;
+}
+.chromestyle:after{ /*Add margin between menu and rest of content in Firefox*/
+content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;
+}
+.chromestyle ul{
+list-style:none;
+padding:0px;
+margin:0px;
+}
+.chromestyle ul li{
+display: inline;float:left;font:bold 11px arial;line-height:30px;
+}
+
+.chromestyle ul li a{
+color: #29618C;display:block;
+text-decoration: none;padding:0px 26px 0px 26px;
+}
+
+.chromestyle ul li a:hover, .chromestyle ul li a.selected{
+	color:#fff;
+	text-decoration:none;
+	background: url('../images/navlibg.jpg') repeat-x;
+}
+
+.menuactive {
+	color:#000;
+	text-decoration:none;
+	background: url('../images/navlibg.jpg') repeat-x;	
+	
+}
+
+.chromestyle ul li.menuactive a {
+	color: #FFFFFF;
+	display:block;
+	text-decoration: none;
+	padding:0px 26px 0px 26px;
+}
+
+
+/* ######### Style for Drop Down Menu ######### */
+.dropmenudiv{
+position:absolute;float:left;
+top: 0;width:162px;
+font:bold 10px arial;
+line-height:24px;
+z-index:100;color:#296183;
+background-color: #d6e7f1;
+margin-left:0px;margin-left:13px !importent;
+visibility: hidden;
+line-height:24px;
+text-indent:13px;
+border:solid 1px #b9cfdd;
+}
+.dropmenudiv a{
+text-decoration: none;
+display:block;color:#296183;text-decoration:none;
+}
+.dropmenudiv a:hover{ /*THEME CHANGE HERE*/
+background: url('../images/hover.jpg') repeat-x;
+display:block;color:#fff;text-decoration:none;
+}
+
+
+.dropmenudiv1{
+position:absolute;
+top: 0;width:181px;float:left;
+font:bold 10px arial;
+line-height:24px;
+z-index:100;color:#296183;
+background-color: #d6e7f1;
+margin-left:0px;margin-left:13px !importent;
+visibility: hidden;
+line-height:24px;
+text-indent:13px;
+border:solid 1px #b9cfdd;
+}
+.dropmenudiv1 a{
+text-decoration: none;
+display:block;color:#296183;text-decoration:none;
+}
+.dropmenudiv1 a:hover{ /*THEME CHANGE HERE*/
+background: url('../images/hover.jpg') repeat-x;
+display:block;color:#fff;text-decoration:none;
+}
+
+.dropmenudiv2{
+position:absolute;
+top: 0;width:110px;float:left;
+font:bold 10px arial;
+line-height:24px;
+z-index:100;color:#296183;
+background-color: #d6e7f1;
+margin-left:0px;margin-left:13px !importent;
+visibility: hidden;
+line-height:24px;
+text-indent:13px;
+border:solid 1px #b9cfdd;
+}
+.dropmenudiv2 a{
+text-decoration: none;
+display:block;color:#296183;text-decoration:none;
+}
+.dropmenudiv2 a:hover{ /*THEME CHANGE HERE*/
+background: url('../images/hover.jpg') repeat-x;
+display:block;color:#fff;text-decoration:none;
+}
+
+
+
+
+
+
+

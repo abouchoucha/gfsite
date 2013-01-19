@@ -1,0 +1,8 @@
+{username} wants to share a news article :<br><br>
+<a href ="http://{newsArticleUrl}">{headLineNews}</a>
+<br><br>
+{customMessage}
+
+<br><br>
+Thanks,
+The GoaFace Team

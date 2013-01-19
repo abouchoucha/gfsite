@@ -1,0 +1,74 @@
+ <!-- new pagination for ajax pages -->
+
+<script type="text/javascript">
+
+	function nextpage(url){
+		jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').html("<div class='ajaxload scoresMain'></div>");
+		jQuery.ajax({
+	        method: 'get',
+	        url : url,
+	        dataType : 'text',
+	        success: function (text) {
+	            jQuery('#<?php echo ($this->ajaxdata!=null?$this->ajaxdata:'ajaxdata')?>').html(text);
+	            
+				<?php if($this->type == 'grid'){ ?>
+					   jQuery('#listDisplayFriends').hide();
+		   			   jQuery('#gridDisplayFriends').show();
+		     		   jQuery('ul>li>#listView').removeClass('ListViewOn');
+		     	  	   jQuery('ul>li>#listView').addClass('ListViewOff');
+		     		   jQuery('ul>li>#gridView').removeClass('GridViewOff');
+		     	  	   jQuery('ul>li>#gridView').addClass('GridViewOn');
+		       	  	   jQuery('#gridOrList').val('grid');
+			     <?php }else { ?> 	
+				     jQuery('#gridDisplayFriends').hide();
+		  			 jQuery('#listDisplayFriends').show();
+					 jQuery('#listView').removeClass('ListViewOff');
+		  			 jQuery('#listView').addClass('ListViewOn');
+		  			 jQuery('#gridView').removeClass('GridViewOn');
+		    		 jQuery('#gridView').addClass('GridViewOff');   
+	    		 <?php } ?> 	
+	         }
+	     });
+	}
+
+</script>
+
+
+<?php #if ($this->pageCount > 1): ?>
+<div class="paginationWide">
+    <ul>
+        <!-- Previous page link -->
+        <li class="pre">
+          <?php if (isset($this->previous)): ?>
+            <a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->previous)); ?>')">
+                &lt;&nbsp;&nbsp;Previous
+            </a>
+          <?php else: ?>
+            <a class="disable">
+                &lt;&nbsp;&nbsp;Previous
+            </a>
+          <?php endif; ?>
+        </li>
+
+        <!-- Page Numbers Count -->
+      <?php foreach ($this->pagesInRange as $page): ?>
+          <?php if ($page != $this->current): ?>
+            <li><a href="javascript:nextpage('<?php echo $this->url(array('page' => $page)); ?>')"><?php echo $page; ?></a></li>
+          <?php else: ?>
+            <li><a class="active"><?php echo $page; ?></a></li>
+          <?php endif; ?>
+      <?php endforeach; ?>
+        
+        <!-- Next page link -->
+        <li class="next">
+          <?php if (isset($this->next)): ?>
+             <a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->next)); ?>')">Next &gt;</a>
+          <?php else: ?>
+             <a class="disable"> Next &gt;</a>
+          <?php endif; ?>
+        </li>
+    </ul>
+    <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>&nbsp;
+of <?php echo $this->totalItemCount; ?>
+</div>
+<?php #endif; ?>

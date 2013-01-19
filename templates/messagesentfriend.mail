@@ -1,0 +1,8 @@
+{username} sent you a message.
+
+To view the message, follow the link below::<br><br>
+<a href ="http://{contextPath}/messagecenter">http://{contextPath}/messagecenter</a>
+
+<br><br>
+Thanks,
+The GoalFace Team

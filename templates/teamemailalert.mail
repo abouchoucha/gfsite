@@ -1,0 +1,6 @@
+{teamName} has a game scheduled for tomorrow (note: all scheduled games are subject to change). <br>
+<br><br>
+Follow the link below to view the team page:<br>
+<a href ="http://{teamUrl}">http://{teamUrl}</a>
+<br><br>
+The message was sent to {userEmail}. If you don't want to receive these alerts from GoalFace, you can edit your <a href="http://{alertSettingsUrl}">alert settings</a>

@@ -1,0 +1,35 @@
+<?php
+    $contextPath = Zend_Registry::get ( 'contextPath' );
+    $left_column = "";
+    $middle_column = "";
+    $right_column = "";
+    $countryrows = $this->totalCountries;
+    $percolumn = ceil($countryrows / 3 );
+    $i = 0;
+    foreach($this->region as $list) {
+        $i++;
+        if ($i <= $percolumn ) {
+            $left_column .= "<li style='background-image:url(" .$contextPath. "/public/images/flags/". $list["country_id"].".png)'>".
+                               "<a href='".$this->urlGen->getClubsInACountryWithRegion($list["country_name"],'0','europe', $list["country_id"], True)."'>".$list["country_name"]."&nbsp;(".$list["totalteams"].")</a>" .
+                            "</li>". "\n";
+        } elseif ($i > $percolumn && $i <= $percolumn*2) {
+            $middle_column .= "<li style='background-image:url(" .$contextPath. "/public/images/flags/". $list["country_id"].".png)'>".
+                                "<a href='".$this->urlGen->getClubsInACountryWithRegion($list["country_name"],'0','europe', $list["country_id"], True)."'>".$list["country_name"]."&nbsp;(".$list["totalteams"].")</a>" .
+                              "</li>". "\n";
+        } elseif ($i >= $percolumn*2) {
+            $right_column .= "<li style='background-image:url(" .$contextPath. "/public/images/flags/". $list["country_id"].".png)'>".
+                                "<a href='".$this->urlGen->getClubsInACountryWithRegion($list["country_name"],'0','europe', $list["country_id"], True)."'>".$list["country_name"]."&nbsp;(".$list["totalteams"].")</a>" .
+                             "</li>". "\n";
+      }
+
+    }
+?>
+<ul class="First">
+    <?php echo $left_column; ?>
+</ul>
+<ul>
+    <?php echo $middle_column;?>
+</ul>
+<ul>
+    <?php echo $right_column; ?>
+</ul>

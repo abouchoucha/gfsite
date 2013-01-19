@@ -1,0 +1,9 @@
+{username} confirmed you as a friend on GoalFace<br><br>
+
+To view {username}'s profile or leave a goalshout, follow this link:<br><br>
+<a href ="http://{contextPath}/profiles/{username}">http://{contextPath}/profiles/{username}</a>
+
+
+<br><br>
+Thanks,
+The GoalFace Team

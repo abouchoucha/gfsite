@@ -1,0 +1,27 @@
+<?php
+    $config = Zend_Registry::get ( 'config' );
+    $server = $config->server->host;
+?>
+
+<?php //if ($server != 'beta') { ?>
+
+<div id="wrapper_error">
+<h1>An error occurred</h1>
+<h2><?= $this->message ?></h2>
+
+<? //if ('development' == $this->env): ?>
+    <h3>Exception information:</h3>
+    <p class="exception">
+        <b>Message:</b> <?= $this->exception->getMessage() ?>
+    </p>
+
+    <h3>Stack trace:</h3>
+    <p class="exception"><?= $this->exception->getTraceAsString() ?></p>
+
+    <h3>Request Parameters:</h3>
+    <pre><? var_dump($this->request->getParams()) ?></pre>
+
+</div>
+<? //endif ?>
+
+<?php //} ?>

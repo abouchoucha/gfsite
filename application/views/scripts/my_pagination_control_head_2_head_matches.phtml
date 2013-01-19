@@ -1,0 +1,60 @@
+<script language = "javascript">
+
+	function nextpage(url){
+
+   jQuery('#head2headmatches').html("<div class='ajaxloadscores'></div>");
+   jQuery('#head2headmatches').load(url);
+	
+	}
+
+</script>
+
+
+<?php 
+if ($this->pageCount > 0): ?>
+<div class="pagination match">
+        <span class="match1"><?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>&nbsp;
+			of <?php echo $this->totalItemCount; ?> Matches Since <?php echo $this->yearFirstHead2Head;?></span>
+           	<div class="prev">
+                <ul>
+                    <li class="prev1">	
+                        <?php if (isset($this->previous)): ?>
+            		          <a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->previous)); ?>')">
+            		            &lt;&nbsp;&nbsp;Previous
+            		          </a>
+            		          <?php else: ?>
+            		          <a class="disable">
+            		            &lt;&nbsp;&nbsp;Previous
+            		          </a>
+             				   <?php endif; ?>  
+                      </li>
+                      
+                      <?php foreach ($this->pagesInRange as $page): ?>
+          		        	<?php if ($page != $this->current): ?>      
+	          		            <li class="prev2"><a href="javascript:nextpage('<?php echo $this->url(array('page' => $page)); ?>')"><?php echo $page; ?></a>&nbsp;|</li>         
+	          		        <?php else: ?>
+	          		            <li class="prev2"><a class="current"><?php echo $page; ?></a>&nbsp;</li>                
+	          		        <?php endif; ?>
+	          		          
+      	              <?php endforeach; ?>
+      	            
+      	              
+      	              <li class="prev1">
+                      	<?php if (isset($this->next)): ?>
+      			        	<a href="javascript:nextpage('<?php echo $this->url(array('page' => $this->next)); ?>')">Next &gt;</a>
+      			        <?php else: ?>
+			                <a class="disable">
+			                  Next &gt;
+			                </a>
+      			        <?php endif; ?>
+      			      </li>
+                </ul>
+           </div>
+</div>
+<?php else: ?>
+<div class="pagination match">
+        <span class="match1">0 Matches</span>
+</div>
+<?php endif; ?>               
+              
+             

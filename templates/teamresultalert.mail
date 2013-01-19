@@ -1,0 +1,7 @@
+<strong>{teama_name} {typeOfResult} {teamb_name} ({score})</strong><br>
+
+<br><br>
+Follow the link below to view the team page:<br>
+<a href ="http://{match_seoname}">{match_seoname}</a>
+<br><br>
+The message was sent to {userEmail}. If you don't want to receive these alerts from GoalFace, you can edit your <a href="http://{alertSettingsUrl}">alert settings</a>

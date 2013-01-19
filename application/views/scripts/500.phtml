@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+<meta name='description' content="<?php echo $this->escape($this->description); ?>" />
+<meta name='keywords' content="<?php echo $this->escape($this->keywords); ?>" />
+<link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/goalface.css' rel="stylesheet" type="text/css" media="screen"/>
+</head>
+
+<body  Zbody class="home">
+<div id="wrapper">
+
+    <?php //include 'headerUserRegister.php';?>
+
+    <div id="doc4">
+      <h1>Application Error</h1>
+
+
+      <p>An error has ocurred.</p>
+
+      <p>Did you get here through a link on <a href="<?php echo $_SERVER['SERVER_NAME']; ?>/index">GoalFace</a>? Then please <a href="mailto:webmaster@goalface.com">notify us</a> of the issue.</p>
+
+      <h2>Search</h2>
+
+      <p>Try finding what you were looking for by performing a search.</p>
+
+
+      <form action="/search/" method="get" accept-charset="utf-8">
+        <p>
+          <input type="text" name="q" value="" id="q" class="text" />
+          <input type="submit" value="Search" class="submit" />
+        </p>
+      </form>
+    </div>
+
+	<?php //include 'footerUserRegistered.php';?>
+  </div><!--end wrapper-->
+</body>
+</html>
+
+

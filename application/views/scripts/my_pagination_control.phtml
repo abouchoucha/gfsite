@@ -1,0 +1,44 @@
+<!-- new pagination for refresh whole page..Players and Teams Directories-->
+
+<?php if ($this->pageCount > 1): ?>
+<div class="paginationWide">
+    <ul>
+        <!-- Previous page link -->
+        <li class="pre">
+          <?php if (isset($this->previous)): ?>
+            <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+                &lt;&nbsp;&nbsp;Previous
+            </a>
+          <?php else: ?>
+            <a class="disable">
+                &lt;&nbsp;&nbsp;Previous
+            </a>
+          <?php endif; ?>
+        </li>
+
+        <!-- Page Numbers Count -->
+      <?php foreach ($this->pagesInRange as $page): ?>
+          <?php if ($page != $this->current): ?>
+            <li>
+              <a href="<?php echo $this->url(array('page' => $page)); ?>">
+                <?php echo $page; ?>
+              </a>
+            </li>
+          <?php else: ?>
+            <li><a class="active"><?php echo $page; ?></a></li>
+          <?php endif; ?>
+      <?php endforeach; ?>
+        
+        <!-- Next page link -->
+        <li class="next">
+          <?php if (isset($this->next)): ?>
+             <a href="<?php echo $this->url(array('page' => $this->next)); ?>">Next &gt;</a>
+          <?php else: ?>
+             <a class="disable"> Next &gt;</a>
+          <?php endif; ?>
+        </li>
+    </ul>
+    <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>&nbsp;
+of <?php echo $this->totalItemCount; ?>
+</div>
+<?php endif; ?>

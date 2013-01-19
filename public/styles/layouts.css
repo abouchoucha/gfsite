@@ -1,0 +1,95 @@
+/****************************************************/
+
+    /*** Define all the layouts for the pages ***/
+
+/****************************************************/
+
+
+
+/*the Body wrapper */
+#BodyWrapper
+{
+	margin:0 auto;
+	width:956px;
+	padding:0px;
+	text-align:left;
+  margin-top:0px;
+  border:solid 1px #000;
+}
+
+#TopNavWrapper
+{
+    
+}
+
+#ContentWrapper
+{
+    clear:both;
+    margin:13px 4px 18px 4px;
+}
+
+/*Define all the columns within #ContentWraper*/
+
+/*default column values*/
+
+.FirstColumn, .SecondColumn, .ThirdColumn
+{   
+    float:left;
+    width:200px;
+    margin-right:16px;
+}
+
+.SecondColumn, .ThirdColumn
+{
+   width:358px;
+}
+
+/*Two Column Layout*/
+.TwoColumnLayout .SecondColumn
+{
+   float:left;
+   margin-bottom:10px;
+   width:706px;
+   margin-right:0px;
+}
+
+
+/*Something in IE 6 makes the third column drop.  Adjusted the margin for now*/
+/*Not a good long term solution*/
+*html .SecondColumn
+{   
+    margin-right:13px;
+}
+
+.ThirdColumn
+{
+   margin-right:0px; 
+}
+
+div.WrapperForDropShadow
+{
+    width:359px;
+}
+
+.FirstColumn div.WrapperForDropShadow
+{
+    width:200px;
+}
+
+.TwoColumnLayout .SecondColumn div.WrapperForDropShadow
+{
+    width:734px;  
+}
+
+#PopupFavorites div.WrapperForDropShadow
+{
+    width:625px;
+}
+
+/*End of default column values*/
+
+
+#BottomNavWrapper
+{
+
+}

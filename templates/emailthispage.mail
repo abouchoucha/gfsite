@@ -1,0 +1,7 @@
+{username} wants to share this <a href ="http://{pageUrl}">{pageTitle}</a> <br> with you<br><br>
+
+{customMessage}
+
+<br><br>
+Thanks,
+The GoalFace Team

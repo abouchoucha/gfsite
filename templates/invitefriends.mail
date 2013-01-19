@@ -1,0 +1,9 @@
+{username} wants to invite you to http:/{urlName}<br><br>
+
+{customMessage} Check it out at: <a href="http://{urlName}">http://{urlName}</a>
+
+<br>
+To register on GoalFace, visit the <a href="http://{urlName}/register">registration page</a>.
+<br><br>
+Thanks,
+The GoalFace Team

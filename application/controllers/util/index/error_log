@@ -1,0 +1,95 @@
+[22-Oct-2012 02:53:04] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1553: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x76 0x65 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:53:04] PHP Warning:  simplexml_load_file():     <fullname>√?ver Maximiliano David Banega</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:53:04] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:53:48] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1553: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x76 0x65 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:53:48] PHP Warning:  simplexml_load_file():     <fullname>√?ver Maximiliano David Banega</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:53:48] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:54:07] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1553: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x76 0x65 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:54:07] PHP Warning:  simplexml_load_file():     <fullname>√?ver Maximiliano David Banega</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 02:54:07] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 03:16:53] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:5409: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x64 0x73 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 03:16:53] PHP Warning:  simplexml_load_file():     <fullname>√?dson Jos√© Da Silva</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 03:16:53] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:01:55] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1465: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x73 0x63 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:01:55] PHP Warning:  simplexml_load_file():     <fullname>√?scar Esteban Granados Maroto</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:01:55] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:40:53] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1977: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x6E 0x67 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:40:53] PHP Warning:  simplexml_load_file():     <fullname>Miguel √?ngelo Leonardo Vitor</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:40:53] PHP Warning:  simplexml_load_file():                      ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:54:37] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:4051: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x73 0x63 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:54:37] PHP Warning:  simplexml_load_file():     <fullname>√?scar Serrano Rodriguez</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:54:37] PHP Warning:  simplexml_load_file():               ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:56:45] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:6387: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC4 0x3F 0x3C 0x2F in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:56:45] PHP Warning:  simplexml_load_file():     <fullname>Milan Periƒ?</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 04:56:45] PHP Warning:  simplexml_load_file():                         ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 14:52:56] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:664: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x7A 0x74 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 14:52:56] PHP Warning:  simplexml_load_file():     <shortname>A. √?zt√ºrk</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 14:52:56] PHP Warning:  simplexml_load_file():                   ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 18:29:01] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:3912: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x3C 0x2F in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 18:29:01] PHP Warning:  simplexml_load_file():     <shortname>C. Preu√?</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[22-Oct-2012 18:29:01] PHP Warning:  simplexml_load_file():                       ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:15:51] PHP Warning:  simplexml_load_file(): I/O warning : failed to load external entity "/home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml" in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:19:40] PHP Warning:  simplexml_load_file(): I/O warning : failed to load external entity "/home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml" in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:19:58] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:264: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x2E 0x20 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:19:58] PHP Warning:  simplexml_load_file():     <shortname>√?. Akdag</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:19:58] PHP Warning:  simplexml_load_file():                ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:22:38] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:472: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC5 0x3F 0x6C 0x75 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:22:38] PHP Warning:  simplexml_load_file():     <shortname>O. Yoku≈?lu</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:22:38] PHP Warning:  simplexml_load_file():                       ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:23:32] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1144: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x2E 0x20 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:23:32] PHP Warning:  simplexml_load_file():     <shortname>√?. G√ºng√∂r</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:23:32] PHP Warning:  simplexml_load_file():                ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:27:46] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:1568: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x64 0x65 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:27:46] PHP Warning:  simplexml_load_file():     <shortname>√?der</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 00:27:46] PHP Warning:  simplexml_load_file():                ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 07:47:59] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:648: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x73 0x74 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 07:47:59] PHP Warning:  simplexml_load_file():     <shortname>M. √?stberg</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 07:47:59] PHP Warning:  simplexml_load_file():                   ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 08:01:14] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:2912: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x6C 0x65 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 08:01:14] PHP Warning:  simplexml_load_file():     <shortname>√?lex Ruiz</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 08:01:14] PHP Warning:  simplexml_load_file():                ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:27:15] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:33: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x72 0x6E in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:27:15] PHP Warning:  simplexml_load_file():     <fullname>Martin √?rnskov Nielsen</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:27:15] PHP Warning:  simplexml_load_file():                      ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:35:32] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:33: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x72 0x6E in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:35:32] PHP Warning:  simplexml_load_file():     <fullname>Martin √?rnskov Nielsen</fullname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:35:32] PHP Warning:  simplexml_load_file():                      ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:47:20] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:16: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x7A 0x74 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:47:20] PHP Warning:  simplexml_load_file():     <shortname>T. √?zt√ºrk</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:47:20] PHP Warning:  simplexml_load_file():                   ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:48:19] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:24: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x3C 0x2F in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:48:19] PHP Warning:  simplexml_load_file():     <shortname>F. Wei√?</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 18:48:19] PHP Warning:  simplexml_load_file():                      ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:02:20] PHP Warning:  simplexml_load_file(): I/O warning : failed to load external entity "/home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml" in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:09:16] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:3192: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xC3 0x3F 0x2E 0x20 in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:09:16] PHP Warning:  simplexml_load_file():     <shortname>√?. Castro</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:09:16] PHP Warning:  simplexml_load_file():                ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:38:31] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:2312: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xE1 0x76 0x61 0x6C in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:38:31] PHP Warning:  simplexml_load_file():     <shortname>V. D·valos</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:38:31] PHP Warning:  simplexml_load_file():                    ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:39:36] PHP Warning:  simplexml_load_file(): /home/goalface/public_html/goalfaceapp/application/sitemaps//sitemap-players.xml:3024: parser error : Input is not proper UTF-8, indicate encoding !
+Bytes: 0xF3 0x6D 0x65 0x7A in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:39:36] PHP Warning:  simplexml_load_file():     <shortname>G. GÛmez</shortname> in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51
+[23-Oct-2012 19:39:36] PHP Warning:  simplexml_load_file():                    ^ in /home/goalface/public_html/goalfaceapp/application/controllers/util/index/searchIndexBuilder.php on line 51

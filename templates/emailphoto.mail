@@ -1,0 +1,8 @@
+{username} has shared a picture with you: <a href ="http://{photoUrl}">http://{photoUrl}</a> <br><br>
+{photoCaption}
+<br><br>
+{customMessage}
+
+<br><br>
+Thanks,
+The GoaFace Team
