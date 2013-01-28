@@ -33,9 +33,41 @@ class CommunityController extends GoalFaceController {
 		// TODO Auto-generated CommunityController::indexAction() default action
 	}
 
-    public function showCommunityMainAction () {
-       
+    public function showuniqueactivityAction () {
+    	$view = Zend_Registry::get('view');
+    	$config = Zend_Registry::get ('config');
+    	$activity = new Activity();
+    	$timezone =  $this->_request->getParam ( 'timezone', '+00:00' ); //default is GMT
+    	$activityId = $this->_request->getParam ( 'activityId', 0 ); 
+        $activity = $activity->find($activityId)->current();
+        $view->activity = $activity;
+       	//Zend_Debug::dump($activity);
+        if ($activity->activity_player_id > 1) {
+        	
+        	$path_player_photos = $config->path->images->players . $activity->activity_player_id .".jpg" ; 
+        	if (file_exists($path_player_photos)) { 
+        		$activity_image = $config->path->crop . "/players/" . $activity->activity_player_id . ".jpg";
+        	} else {
+        		$activity_image = $config->path->crop . "/" .$activity->activity_icon;
+        	}
+
+        } else {
+        	
+        	if($activity->activity_icon == 'y') {
+        		$activity_image = $config->path->crop . "/photos/" . $activity->activity_type_name;
+        	} else {
+        		$activity_image = $config->path->crop . "/" .$activity->activity_icon;
+        	}
+
+        }
+        //Zend_Debug::dump($activity_image);
+       	$view->title = "Goal Alert";
+       	$view->description = " Goal Alert Description";
+       	$view->activityimage = $activity_image;
+       	$this->_response->setBody ( $this->view->render ( 'viewactivity.php' ) );   
     }
+
+
 
 	public function showallactivitiesAction(){
 		$view = Zend_Registry::get ( 'view' ) ;
@@ -99,8 +131,6 @@ class CommunityController extends GoalFaceController {
         $paginator->setCurrentPageNumber($pageNumber);
         $paginator->setItemCountPerPage($this->getNumberOfItemsPerPage()); // $this->getNumberOfItemsPerPage() comes from ini
         $this->view->paginator = $paginator;
-
-        //Zend_Debug::dump($result);
 
         //$view->activities = $result;
         $view->activityId = $activityId;

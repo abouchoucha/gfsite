@@ -690,9 +690,10 @@ class Activity extends Zend_Db_Table_Abstract {
         $dateend = $date . " 23:59:59";
 
         $sql = " select DATE_FORMAT(CONVERT_TZ(a.activity_date , '+01:00','$timezone'),'%Y-%m-%d %H:%i:%s') as activity_date,";
+        $sql .= " a.activity_id, ";
         $sql .= " a.activity_icon, ";
-        $sql .= " a.activity_text,";
-        $sql .= " a.activity_player_id,";
+        $sql .= " a.activity_text, ";
+        $sql .= " a.activity_player_id, ";
         $sql .= " a.activity_team_id,";
         $sql .= " at.activitytype_name, '' as screen_name ";
         $sql .= " from activity a ,activitytype at";

@@ -1183,14 +1183,15 @@ function popUpSuspendAccount(title,message){
                     ?>
 				    
                     <?php if ($server == 'beta') { ?>
-                      <li>
+                     <!-- Share This -->
+                      <!-- <li>
          				<span class='st_sharethis' displayText='ShareThis'></span>
-                      </li> 
+                      </li> -->
                     
-          <script type="text/javascript">var switchTo5x=true;</script>
-          <script type="text/javascript">
-              var __st_loadLate=true; //if __st_loadLate is defined then the widget will not load on domcontent ready
-          </script>
+		          <script type="text/javascript">var switchTo5x=true;</script>
+		          <script type="text/javascript">
+		              var __st_loadLate=true; //if __st_loadLate is defined then the widget will not load on domcontent ready
+		          </script>
 					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 					  <!-- Added after john created account community@goalface.com -->
 					   <script type="text/javascript">stLight.options({publisher: "9194a39a-fa1d-47d6-90c6-aa1e43d4013e"}); </script>
