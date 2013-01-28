@@ -2,16 +2,17 @@
 require_once 'util/Constants.php';
 require_once 'scripts/seourlgen.php';
 require_once 'GoalFaceController.php';
+require_once 'util/config.php';
 
 class GoalservetogoalfaceController extends GoalFaceController {
 	
 	private $curl = null;
 	
 	//USE LIVE
-	private $gsPath = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/";	
+	//private $gsPath = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/";	
 	
 	//USE when Testing LOCALHOST
-	//private $gsPath = "http://test.goalface.com/";	
+	private $gsPath = "http://test.goalface.com/";	
 	
 	private static $logger;
 	
@@ -117,6 +118,55 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		}
 		return $imageplayer;
 	}
+
+	/**
+	 * @see validatematches()
+	 * function for getlivematches()
+	 */
+	private function emailerror($competition_id,$match_fix_id) {
+	    /*Send Mail alerting match problem*/
+				$mail = new SendEmail();
+				$mail->set_from('webmaster@goalface.com');
+				$mail->set_to( 'kokovasquez@gmail.com');
+				$mail->set_subject(' Goalserve feed parsing problem -- match...');
+				$mail->set_template('matchparseproblem');
+				$variablesToReplaceEmail = array ('competition' => $competition_id, 
+															            'match_gs' => $match_fix_id );
+				$mail->set_variablesToReplace($variablesToReplaceEmail);
+				//$mail->sendMail();
+}
+	
+	private function validateteams($competition_id,$match) {
+	    $matchObject = new Matchh ();
+	    $team = new Team();
+	    $goalface_team_A_id = null;
+			$goalface_team_B_id = null;
+	    $existmatch = NULL;
+	    $team_id_message = array();    
+			//Match IS PARSED only if localteam and visitor ids are not empty and have a matching and valid team gf id			
+			$existTeamA = $team->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
+			$existTeamB = $team->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
+				if ($existTeamA != null) {
+					$goalface_team_A_id = $existTeamA->team_id;
+				} 
+				if ($existTeamB != null) {
+					$goalface_team_B_id = $existTeamB->team_id;
+				}
+				if ($goalface_team_A_id == null || $goalface_team_B_id ==null) {
+    				return FALSE;
+				} else {
+					 return  TRUE;
+					
+				    //verify if match exists in the DB
+				    //$winner = '';
+				    //$existmatch = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match['fix_id'] );
+				}
+
+			
+			//return an array of the match on the feed if exist or returns a null array
+			//return $teamvalid;
+	}
+	
 	
 	public function indexAction() {
 	
@@ -124,537 +174,193 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	/**
 	 * @see GoalserveXMLPuller::getlivematches()
-	 *
+	 * $match = array match from goalserve feed
+	 * $matchgf = array match from GoalFace Database
 	 */
 	
 	public function getlivematchesAction() {
 		
-		try {
-			//get LIVE feed xml
-			$xml = $this->getgsfeed ( 'soccernew/home' );
-			
-			//Change when Testing LOCALHOST
-			//$xml = $this->getgsfeed ( 'home_010412.xml' );
-			
-			$date = new Zend_Date ();
-			$today = $date->toString ( 'yyyy-MM-dd' );
-			$gs_today = $date->toString ( 'dd.MM.YYY HH:mm:ss' );
-			$urlGen = new SeoUrlGen ();
-			$league = new LeagueCompetition ();
-			$matchObject = new Matchh ();
-			$team = new Team ();
-			$homeScore = null;
-			$scoreAway = null;
-			$playerNotFound = new PlayerNotFound ();
-			$matchEvent = new MatchEvent ();
-			$playerModel = new Player ();
-			$matchMinute = null;
-			$flagEvent=false;
-
-			foreach ( $xml->category as $competition ) {
-                $row = $league->findCompetitionByGoalserveId ( $competition ['id'] );
-                if ($row != null and $row['active'] == 1 ) {
-                    
-                  //echo "<br><strong>" . $competition ['name'] . " / ". $row ['competition_id'] . " " . $row ['competition_name'] . "</strong><br>";
-                  self::$logger->debug ( 'Country/Competition:' . $competition ['name'] ." / " .$row ['competition_id'] );
-                   
-                  // USE for testing LOCALHOST
-			      //if ($row ['competition_id'] == 138){ 
-						
-    				echo "<br><strong>" . $row ['competition_id'] . " " . $row ['competition_name'] . "</strong><br>";
-    				
-    				foreach ( $competition->matches->match as $match ) {
-    				
-    				  if ($match['fix_id'] != "") {  
-    				  
-        			    // USE for testing LOCALHOST
-        				//if ($match ['fix_id'] == 1076670) {	
-
-							$homeScore = $match->localteam ['goals'];
-							$scoreAway = $match->visitorteam ['goals'];
-							if (strpos ( $match ['status'], ":" )) {
-								$game_status = 'Fixture';
-							} else if ((is_numeric ( trim ( $match ['status'] ) ))) {
-								$game_status = 'Playing';
-								$matchMinute = $match ['status'];
-							} else if (trim ( $match ['status'] ) == 'FT') {
-								$game_status = 'Played';
-								$matchMinute = '90';
-							} else if (trim ( $match ['status'] ) == 'Postp.') {
-								$game_status = 'Postponed';
-							} else if (trim ( $match ['status'] ) == 'Cancl.') {
-								$game_status = 'Postponed';	
-							} else if (trim ( $match ['status'] ) == 'HT') {
-								$game_status = 'Playing';
-								$matchMinute = '45';
-							} else if (trim ( $match ['status'] ) == 'AET') {	
-							    $game_status = 'Played';
-								$matchMinute = '120';
-							} else if (trim ( $match ['status'] ) == 'Pen.') {	
-							    $game_status = 'Played';
-								$matchMinute = '120';
-							} else {
-								$game_status = 'Unknown';
-							}
-							echo "<br> match: " . $match ['fix_id'] . " status: " . $game_status . "<br>";
-
-							//Match exists only if localteam and visitor id are provided by beed. 
-							if ($match->localteam ['id'] != "" AND $match->visitorteam ['id'] != "") {
-								$existTeamA = $team->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
-								$existTeamB = $team->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
-								self::$logger->debug ( 'localteam:' . $match->localteam ['id'] );
-								self::$logger->debug ( 'visitorteam:' . $match->visitorteam ['id'] );
-								$goalface_team_A_id = null;
-								$goalface_team_B_id = null;
-								if ($existTeamA != null) {
-									$goalface_team_A_id = $existTeamA->team_id;
-								} 
-								if ($existTeamB != null) {
-									$goalface_team_B_id = $existTeamB->team_id;
-								} 
-								
-								self::$logger->debug ( 'Match was Fixture or Postponed:' . $match ['event_id'] );
-								
-								//verify if match exists in the DB
-								$winner = '';
-								$existmatch = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match ['fix_id'] );
-							} else {
-								$existmatch = NULL;
-								self::$logger->debug ( 'Local or visitor team id not provided on feed on match: ' . $match ['fix_id'] );
-	
-							}
-							
-							
-							
-							if ($existmatch != null) {
-								self::$logger->debug ( 'Match Exists:' . $match ['fix_id'] );
-								$matchFound = $matchObject->findMatchById ( $existmatch->match_id );
-								
-								if ($matchFound != null) {
-									$matchUrl = $urlGen->getMatchPageUrl ( $matchFound [0] ["competition_name"], $matchFound [0] ["t1"], $matchFound [0] ["t2"], $matchFound [0] ["match_id"], true );
-									$matchTeams = $matchFound [0] ["t1"] . " vs " . $matchFound [0] ["t2"];
-									$matchscore = $homeScore . " - " . $scoreAway;
-									$dateEvent = new Zend_Date ( $match ['formatted_date'] . " " . $match ['time'], 'dd.MM.yyyy HH:mm', null, new Zend_Locale ( 'en_US' ) );
-									//Zend_Debug::dump($dateEvent);
-									if ($game_status == 'Playing' || $game_status == 'Played' ){// or $game_status == 'Played') { //quitar played solo para pruebas
-										if ($matchFound [0] ["match_status"] == 'Fixture' or $matchFound [0] ["match_status"] == 'Postponed') {
-											//insert a new event
-											self::$logger->debug ( 'Match was Fixture or Postponed:' . $match ['event_id'] );
-											$variablesToReplace = array ('match_playing' => $matchTeams, 'match_url' => $matchUrl );
-											$activityType = Constants::$_MATCH_STARTS_ACTIVITY;
-											$activityMatch = new Activity ();
-											$activityType = Constants::$_MATCH_STARTS_ACTIVITY;
-											$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null, '1', null, null, $dateEvent, null, $matchFound [0] ['match_id'],1); 
-										}	
-											$match_commentary = null;
-											//Go to grab the LineUps and Subs
-											if ($match ['commentary_available'] != "") {
-												$match_commentary = 1;
+	    try {
+	    	//Use when LIVE feed xml
+			//$xml = $this->getgsfeed ( 'soccernew/home' );
+				
+	    	//Use when Testing LOCALHOST
+				//$xml = $this->getgsfeed ( '020512_home.xml' );
+				$xml = $this->getgsfeed ( 'home_spain_1110.xml' );
+				
+				$date = new Zend_Date ();
+				$today = $date->toString ( 'yyyy-MM-dd' );
+				$gs_today = $date->toString ( 'dd.MM.YYY HH:mm:ss' );
+				$urlGen = new SeoUrlGen ();
+				$league = new LeagueCompetition ();
+				$matchObject = new Matchh ();
+				$team = new Team ();
+				$homeScore = null;
+				$scoreAway = null;
+				$playerNotFound = new PlayerNotFound ();
+				$matchEvent = new MatchEvent ();
+				$playerModel = new Player ();
+				$matchMinute = null;
+				$flagEvent=false;
+				
+				foreach ( $xml->category as $competition ) {
+					$row = $league->findCompetitionByGoalserveId ( $competition ['id'] );
+					if ($row != null and $row['active'] == 1 ) { //Only Active competitions get IN
+						if ($row ['competition_id'] == 7){ // USE for testing LOCALHOST
+							echo "<br><strong>" . $row ['competition_id'] . " " . $row ['competition_name'] . "</strong><br>";
+							foreach ( $competition->matches->match as $match ) {
+								if ($match['fix_id'] != "") { 
+									//if ($match ['fix_id'] == 937993) { //USE for testing LOCALHOST	
+									if ($match->localteam ['id'] != "" AND $match->visitorteam ['id'] != "") {
+										//Validates the match teams checks for team gs id and if match is on the database
+										$teams_valid = $this->validateteams($row ['competition_id'],$match);
+										if ($teams_valid === true) {
+											//$existmatch = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match['fix_id'] );
+											$existmatch_id = 'G' . $match['fix_id'];
+											//Validates the match , checks if match fix_id exists on the GOALFACE DB
+											$matchFound = $matchObject->findMatchById ( $existmatch_id );
+											if ($matchFound != null) {
+												//PARSING CODE GOES HERE
+											 	$homeScore = $match->localteam ['goals'];
+											 	$scoreAway = $match->visitorteam ['goals'];
+												if (strpos ( $match ['status'], ":" )) {
+												 	$game_status = 'Fixture';	
+												} else if ((is_numeric ( trim ( $match ['status'] ) ))) {
+												 	$game_status = 'Playing';
+												 	$matchMinute = $match ['status'];
+												} else if (trim ( $match ['status'] ) == 'FT') {
+												 	$game_status = 'Played';
+												 	$matchMinute = '90';
+												} else if (trim ( $match ['status'] ) == 'Postp.') {
+												 	$game_status = 'Postponed';
+												} else if (trim ( $match ['status'] ) == 'Cancl.') {
+												 	$game_status = 'Postponed';
+												} else if (trim ( $match ['status'] ) == 'HT') {
+												 	$game_status = 'Playing';
+												 	$matchMinute = '45';
+												} else if (trim ( $match ['status'] ) == 'AET') {	
+												 	$game_status = 'Played';
+												  $matchMinute = '120';
+												} else if (trim ( $match ['status'] ) == 'Pen.') {	
+												 	$game_status = 'Played';
+												 	$matchMinute = '120';
+												} else {
+												 	$game_status = 'Unknown';
+												}
+											 	echo "<br> PARSING VALID match: " . $match['fix_id'] . " status: " . $game_status . "<br>";
+											 
+												$matchUrl = $urlGen->getMatchPageUrl ( $matchFound [0] ["competition_name"], $matchFound [0] ["t1"], $matchFound [0] ["t2"], $matchFound [0] ["match_id"], true );
+												$matchTeams = $matchFound [0] ["t1"] . " vs " . $matchFound [0] ["t2"];
+												$matchscore = $homeScore . " - " . $scoreAway;
+												$dateEvent = new Zend_Date ( $match['formatted_date'] . " " . $match['time'], 'dd.MM.yyyy HH:mm', null, new Zend_Locale ( 'en_US' ) );
+												//Zend_Debug::dump($dateEvent);
+											 
+											 	//MATCH STATUS FROM FEED - PLAYING/PLAYED
+												if ($game_status == 'Playing' || $game_status == 'Played' ){
+													//CHECK STATUS in GoalFace DB if FIXTURE or POSTPONE change it to Playing next round skip
+													if ($matchFound [0] ["match_status"] == 'Fixture' or $matchFound [0] ["match_status"] == 'Postponed') {
+														//INSERT Match Start Event
+														$variablesToReplace = array ('match_playing' => $matchTeams,
+																					 'match_url' => $matchUrl );
+														$activityMatch = new Activity ();
+														$activityType = Constants::$_MATCH_STARTS_ACTIVITY;
+														$activityMatch->insertUserActivityByActivityType ( $activityType,
+																										  $variablesToReplace,
+																										  null,
+																										  '1', null,
+																										  null,
+																										  $dateEvent,
+																										  null,
+																										  $matchFound [0] ['match_id'],
+																										  1);
 														
-														//Testing LocalHost with test.goalface.com
-														//$xmlComentary = $this->getgsfeed ( 'commentaries/spain_cup_010412.xml' );
-														
-														//LIVE
-														$xmlComentary = $this->getgsfeed ( 'commentaries/' . $match ['commentary_available'] . ".xml" );
-														
-														if($xmlComentary!=null){
-															$matchX = $xmlComentary->xpath("//match[@id='".$match['fix_id']."']");
-															if($matchX != null){ //if the commentary has been removed from the xml dont do anything
-																$localTeamId = $matchX[0]->localteam['id'];
-																$visitorTeamId = $matchX[0]->visitorteam ['id'];
-																self::$logger->debug ( 'Local Team Id GoalServe: ' . $localTeamId);
-																self::$logger->debug ( 'Visitor Team Id GoalServe: ' . $visitorTeamId );
-																
-															//Lineups
-																$lineUpArray = array ();
-																if($matchX[0]->teams->localteam->player != null){
-																	foreach ( $matchX[0]->teams->localteam->player as $player ) {
-																		//echo $player['id'] . "-->" . $player['name']."<BR>";
-																		$player ['team_id'] = $localTeamId;
-																		$lineUpArray [] = $player;
-																	
-																	}
-																	foreach ( $matchX[0]->teams->visitorteam->player as $player ) {
-																		//echo $player['id'] . "-->" . $player['name']."<BR>";
-																		$player ['team_id'] = $visitorTeamId;
-																		$lineUpArray [] = $player;
-																	
-																	}
-																	
-																	foreach ( $lineUpArray as $player ) {
-																			try{	
-                                        if($player ['id'] != null) {	
-  																				self::$logger->debug ( 'Starting LineUp for Player: ' . $player ['id'] );
-  																				$playerteamid = $team->fetchRow ( 'team_gs_id = ' . $player ['team_id'] );
-  																				self::$logger->debug ( 'Player Team id is: ' . $playerteamid->team_id );
-  																				if ($playerteamid != null) {
-  																					//validate if player exists
-  																					$playerid = $playerModel->fetchRow ( 'player_id = ' . $player ['id'] );
-  																					
-  																					if ($playerid != null) {
-  																						self::$logger->debug ( 'Player Found on GoalFace DB: ' . $player ['id'] );
-  																						$playersPathName = $this->getplayerimage($player ['id']);
-  																						
-  																					} else {
-  																						self::$logger->debug ( 'Player NOT found on GoalFace DB: ' . $player ['id'] );
-  																						self::$logger->debug ( 'Inserting New Player: ' . $player ['id'] );
-  																						$playerid = self::insertNewPlayer($player ['id'], $playerteamid->team_id);
-  																						if($playerid == null){
-  																							//insert a player with minimal data
-  																							$playerid = self::insertBasicInfoPlayer($player, $playerteamid->team_id);
-  																						}
-  																					}
-  																					
-  																					$eventId =  $existmatch->match_id . $player ['id'];
-  																					
-  																					$event = array ('id' => $eventId, 
-  																									'player_id' => $player ['id'], 
-  																									'date_event' => $dateEvent );
-  																									
-  																					$dataEvent = array ('event_id' => $eventId, //1
-  																						'player_id' => $playerid->player_id, //2
-  																						'event_type_id' => 'L', 
-  																						'match_id' => $matchFound [0] ['match_id'], 
-  																						'event_minute' => null, 
-  																						'team_id' => $playerteamid->team_id, 
-  																						'jersey_number' => $player ['number'], 
-  																						'time' => trim ( date ( "Y-m-d H:i:s" ) ) ); //4
-  																					
-  						
-  																					$existevent = $matchEvent->fetchRow ( "event_id = '" . $eventId . "'" );
-  																					self::$logger->debug ( "Verifying if event exists: " . "event_id = '" . $eventId . "'" );
-  																					if ($existevent == null) {
-  																						self::$logger->debug ( "Event: " . $eventId . "does not exist in goalface DB.Starting insert.." );
-  																						self::$logger->debug ( "Inserting event_id: " . $eventId . "->" . $dataEvent ['event_type_id'] );
-  																						//Zend_Debug::dump($dataEvent);
-  																						$matchEvent->insert ( $dataEvent );
-  																						$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
-  																						$player_shortname = $playerid ['player_name_short'];
-  																						//echo "<hr>";
-  																						$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";
-  																						//$event ['date_event'] = $match ['startdate'] . " " . $match ['starttime'];
-  																						self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchFound [0] ['match_id'],1);
-  																					
-  																					}else{
-  																						self::$logger->debug ( "Event: " . $eventId . "->" . $dataEvent ['event_type_id']  . "exists in DB" );
-  																					}
-  																				}
-  																			}	else {
-                                          self::$logger->debug ( 'Starting LineUp for Player: EMPTY' );
-                                        }
-																			} catch ( Exception $e ) {
-																			//	'<br>error'.$e->getMessage().'</br>';
-																			self::$logger->err ( "Caught LINEUP exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
-																			self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
-																			continue;
-																		}
-																	}
-																	
-																}//end lineups
-																
-																
-																//Substitutions
-																	$subsArray = array();
-																	if($matchX[0]->substitutions->localteam->substitution != null){
-																		foreach ( $matchX[0]->substitutions->localteam->substitution as $subs ) {
-																			$subs['team_id'] = $localTeamId;
-																			$subsArray [] = $subs;
-																		}
-																	}
-																	if($matchX[0]->substitutions->visitorteam->substitution != null){
-																		foreach ( $matchX[0]->substitutions->visitorteam->substitution as $subs ) {
-																			$subs['team_id'] = $visitorTeamId;
-																			$subsArray [] = $subs;
-																		}
-																	}
-
-																	foreach ( $subsArray as $substitution ) {
-																		try{
-																				$dateEvent = new Zend_Date ( $match ['formatted_date'] . " " . $match ['time'], 'dd.MM.yyyy HH:mm', null, new Zend_Locale ( 'en_US' ) );
-																				//asumimos por ahora q los players existen en la DB
-																				$playeridIn = $playerModel->fetchRow ( 'player_id = ' . $substitution ['on_id'] );
-																				$playeridOut = $playerModel->fetchRow ( 'player_id = ' . $substitution ['off_id'] );
-																			
-																				$playerteamid  = $team->fetchRow ( 'team_gs_id = ' . $substitution ['team_id'] ); //the same team for in/out
-																				if($playerteamid == null){
-																					self::$logger->debug ( "Team GoalServe has not been mapped: " . $substitution ['team_id'] );
-																					//hay q mapearlo sino se caera
-																				}
-																				
-																				if($playeridIn == null){
-																					self::$logger->debug ( 'Player NOT FOUND for $playeridIn: ' . $substitution ['on_id'] );
-																					self::$logger->debug ( 'Inserting New Player: ' . $substitution ['on_id'] );
-																					$playeridIn = self::insertNewPlayer($substitution ['on_id'] , $playerteamid->team_id);
-																					if($playeridIn == null){
-																						$playeridIn = self::insertBasicInfoPlayer($substitution, $playerteamid->team_id);
-																					}
-																				}else {
-																					self::$logger->debug ( 'Found player: ' . $playeridIn->player_id . 'for player goalserve ' . $substitution ['on_id'] );
-																					$playersPathNameIn = $this->getplayerimage($playeridIn->player_id);
-																				}
-																				if($playeridOut == null){
-																					self::$logger->debug ( 'Player NOT FOUND for $playeridOut: ' . $substitution ['off_id'] );
-																					self::$logger->debug ( 'Inserting New Player: ' . $substitution ['off_id'] );
-																					$playeridOut = self::insertNewPlayer($substitution ['off_id'], $playerteamid->team_id);
-																					if($playeridOut == null){
-																						$playeridOut = self::insertBasicInfoPlayer($substitution, $playerteamid->team_id);
-																					}
-																				}else {
-																					$playersPathNameOut = $this->getplayerimage($playeridOut->player_id);
-																				}
-																					
-																				//echo "Team Substitution: " . $substitution ['team_id'];
-																				$eventIdIn  = $existmatch->match_id .$substitution ['on_id'] . $substitution ['minute'];
-																				$eventIdOut = $existmatch->match_id .$substitution ['off_id'] . $substitution ['minute'];
-																				
-										                                        $timeEvent = $dateEvent->addMinute ( (int)$substitution ['minute'] );
-																														
-										                                        $eventIn = array ('id' => $eventIdIn, 
-																								  'player_id' => $substitution ['on_id'], 
-																								  'date_event' => $dateEvent, 
-																								  'eventtype' => 'SI',
-																								  'game_minute'=>  $substitution ['minute']);
-																				$dataEventIn = array ('event_id' => $eventIdIn, //1
-																						              'player_id' => $substitution ['on_id'], //2
-																						              'event_type_id' => 'SI', 'match_id' => $matchFound [0] ['match_id'], 'event_minute' => $substitution ['minute'], 
-																						              'team_id' => $playerteamid->team_id, 'jersey_number' => '',  
-																						              'time' => trim ( date ( "Y-m-d H:i:s" ) ) ); //4
-																				$eventOut = array ('id' => $eventIdOut, 
-																									'player_id' => $substitution ['off_id'], 
-																									'date_event' => $dateEvent, 
-																									'eventtype' => 'SO',
-																									'game_minute'=>  $substitution ['minute'] );
-																				$dataEventOut = array ('event_id' => $eventIdOut, //1
-																									   'player_id' => $substitution ['off_id'] , //2
-																									   'event_type_id' => 'SO', 'match_id' => $matchFound [0] ['match_id'], 'event_minute' =>  $substitution ['minute'], 
-																									   'team_id' => $playerteamid->team_id, 'jersey_number' =>'', 
-																									   'time' => trim ( date ( "Y-m-d H:i:s" ) ) ); //4
-																				
-					
-																				$existeventIn = $matchEvent->fetchRow ( "event_id = '" . $eventIdIn . "'" );
-																				self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdIn . "'" );
-																				if ($existeventIn == null) {
-																					self::$logger->debug ( "Event: " . $eventIdIn . "does not exist in goalface DB.Starting insert.." );
-																					self::$logger->debug ( "Inserting event_id: " . $eventIdIn . "->" . $dataEvent ['event_type_id'] );
-																					//Zend_Debug::dump($dataEvent);
-																					$matchEvent->insert ( $dataEventIn );
-																					$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playeridIn ["player_nickname"], $playeridIn ["player_firstname"], $playeridIn ["player_lastname"], $playeridIn ["player_id"], true, $playeridIn ["player_common_name"] );
-																					$player_shortname = $playeridIn ['player_name_short'];
-																					//echo "<hr>";
-																					$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";
-																					$event ['date_event'] = $match ['startdate'] . " " . $match ['starttime'];
-																					self::insertSubstitutionActivity ( $eventIn, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathNameIn, $matchFound [0] ['match_id'],1);
-																				
-																				} //
-																				$existeventOut = $matchEvent->fetchRow ( "event_id = '" . $eventIdOut . "'" );
-																				self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdOut . "'" );
-																				if ($existeventOut == null) {
-																					self::$logger->debug ( "Event: " . $eventIdOut . "does not exist in goalface DB.Starting insert.." );
-																					self::$logger->debug ( "Inserting event_id: " . $eventIdOut . "->" . $dataEvent ['event_type_id'] );
-																					//Zend_Debug::dump($dataEvent);
-																					$matchEvent->insert ( $dataEventOut );
-																					$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playeridOut ["player_nickname"], $playeridOut ["player_firstname"], $playeridOut ["player_lastname"], $playeridOut ["player_id"], true, $playeridOut ["player_common_name"] );
-																					$player_shortname = $playeridOut ['player_name_short'];
-																					//echo "<hr>";
-																					$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";
-																					$event ['date_event'] = $match ['startdate'] . " " . $match ['starttime'];
-																					self::insertSubstitutionActivity ( $eventOut, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathNameOut, $matchFound [0] ['match_id'],1 );
-																				
-																				} //
-																			} catch ( Exception $e ) {
-																			//echo  $e->getMessage ();
-																			self::$logger->err ( "Caught SUBS exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
-																			self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
-																			continue;
-																		}
-																	}//end substitution
-															 }
-														}
-												
-												//Insert all the other events
-												//Zend_Debug::dump($match);
-											}
-											//insert events goals, yc and rc no lineups (no live commentary available)
-											self::insertMatchEvents ( $match, $matchFound, null, $urlGen, $matchUrl, $matchTeams,$match_commentary );
-									} else {
-										//game still in fixture update match date time if necessary
-										$mydate = date ( "Y-m-d H:i:s", strtotime ( $match ['date'] . " " . $match ['time'] ) );
-										//get zend date based on feed date	
-										$zf_date = new Zend_Date ( $mydate, Zend_Date::ISO_8601 );
-										//add 2 hrs to get the gmt +2 like enetpulse
-										$gf_date = $zf_date->addHour ( 0 );
-										//get new date and time
-										$new_gf_date = $gf_date->toString ( 'yyyy-MM-dd' );
-										$new_gf_time = $gf_date->toString ( 'HH:mm:ss' );
-										// concatenate date + time for datetime field 
-										$datetime = strftime ( '%Y%m%d%H%M%S', strtotime ( $new_gf_date . ' ' . $new_gf_time ) );
-										
-										
-										$newdatearray = array (	'match_date' => $new_gf_date, //1
-														'match_time' => $new_gf_time, //2
-														'match_date_time' => $datetime 
-															//'match_status' => $game_status, 
-															//'match_winner' => $winner, //3
-															//'team_a' => $goalface_team_A_id, 'team_b' => $goalface_team_B_id ,//4
-															//'fs_team_a' => $teamAResult, 
-															//'fs_team_b' => $teamBResult, //5
-															//'match_minute' => $matchMinute
-															//'season_id' => $match ['season_id'], 
-															//'round_id' => $match ['round_id'] 
-															);
-
-										if ($matchFound [0] ["match_date"] != $new_gf_date || $matchFound [0] ["match_time"] != $new_gf_time) {
-																			
-											$matchObject->updateMatchGoalServe ( $match ['fix_id'], $newdatearray );
-										}				
-
-									}
-									
-								if ($game_status == 'Played') {
-									self::$logger->debug ( 'Match Played Finished:' . $game_status );
-									if ($homeScore > $scoreAway) {
-										$winner = $goalface_team_A_id; //3
-									} else if ($homeScore < $scoreAway) {
-										$winner = $goalface_team_B_id;
-									} else {
-										$winner = 999; //draws
-									}
-									
-									$dateEvent = new Zend_Date ( $match ['formatted_date'] . " " . $match ['time'], 'dd.MM.yyyy HH:mm', null, new Zend_Locale ( 'en_US' ) );
-									$timeEvent = $dateEvent->addMinute ( 95 );
-									if ($matchFound [0] ['match_status'] != 'Played') {
-										$flagEvent=true;
-										//*****Primero se actualiza el estado del partido*****//
-										//Team A Result
-										$teamAResult = $homeScore != '?' ? $homeScore : 0;
-										//Team B Result
-										$teamBResult = $scoreAway != '?' ? $scoreAway : 0;
-									
-										//if exists Update
-										//echo 'Existe match:' . $match['event_id'] ."<br>";
-										self::$logger->debug ( "Match Exists: Updating Match:" .$match ['id'] . " to ".$game_status);
-										$datetime = strftime ( '%d%m%Y%H%M', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
-										$data = array (			    //'match_date' => $match ['startdate'], //1
-																	//'match_time' => $match ['starttime'], //2
-																	//'match_date_time' => $datetime, 
-																	'match_status' => $game_status, 
-																	'match_winner' => $winner, //3
-																	//'team_a' => $goalface_team_A_id, 'team_b' => $goalface_team_B_id ,//4
-																	'fs_team_a' => $teamAResult, 
-																	'fs_team_b' => $teamBResult, //5
-																	'match_minute' => $matchMinute
-																	//'season_id' => $match ['season_id'], 
-																	//'round_id' => $match ['round_id'] 
-																	);
-										
-										//Zend_Debug::dump ( $data );
-										$matchObject->updateMatchGoalServe ( $match ['fix_id'], $data );
-										//******************************************************//
-										
-										//*****Luego se envian las alertas*****//
-									  	$matchscore = " " . $homeScore . " - " . $scoreAway . " ";
-										//Write in Page Face Competition - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ---> Parameter Write in Page Face Competition
-										self::updateMatchResultActivity ( $matchFound, (int)$homeScore, (int)$scoreAway, $urlGen, $matchUrl, $matchscore, $timeEvent,$row ['competition_id'] );
-										//*****************************************************//
-									}
-								}
-							}
-						} else {
-								
-								$existmatchnew = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match ['id'] );
-								
-								if ($existmatchnew != null) {
-									$newidarray = array (	'match_id' => 'G' . $match ['fix_id'] , //1
-														'match_id_goalserve' => $match ['fix_id'], //2
-														'static_id' => 'G' . $match ['id'] 
-															//'match_status' => $game_status, 
-															//'match_winner' => $winner, //3
-															//'team_a' => $goalface_team_A_id, 'team_b' => $goalface_team_B_id ,//4
-															//'fs_team_a' => $teamAResult, 
-															//'fs_team_b' => $teamBResult, //5
-															//'match_minute' => $matchMinute
-															//'season_id' => $match ['season_id'], 
-															//'round_id' => $match ['round_id'] 
-															);
-									$matchObject->updateMatchGoalServe ( $match ['id'], $newidarray );
-								} else {
-									self::$logger->debug ( "Match From Goalserve: " . $match ['fix_id'] . " has problems with team ids:Team A " . ($existTeamA == null ? $match->localteam ['id'] : "") . "->Team B:" . ($existTeamA == null ? $match->visitorteam ['id'] : "") );
-								}
-							continue; 
-						}
-						
-							//Team A Result
-							$teamAResult = $homeScore != '?' ? $homeScore : 0;
-							//Team B Result
-							$teamBResult = $scoreAway != '?' ? $scoreAway : 0;
-							
-							if ($existmatch != null) {
-								if($flagEvent==false){
-									//if exists Update
-									//echo 'Existe match:' . $match['event_id'] ."<br>";
-									self::$logger->debug ( "Match Exists: Updating Match:" .$match ['id'] . " to ".$game_status);
-									$datetime = strftime ( '%d%m%Y%H%M', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
-									$data = array (			    //'match_date' => $match ['startdate'], //1
+													}
+													// ITERATE and UPDATE match every time the cron runs in 5 minutes  
+													echo  "Updating match at minute:" . $match ['status'] ."<BR>";
+													//Team A Result
+													$teamAResult = $homeScore != '?' ? $homeScore : 0;
+													//Team B Result
+													$teamBResult = $scoreAway != '?' ? $scoreAway : 0;
+													$datetime = strftime ( '%d%m%Y%H%M', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
+													$data = array (//'match_date' => $match ['startdate'], //1
 																//'match_time' => $match ['starttime'], //2
 																//'match_date_time' => $datetime, 
 																'match_status' => $game_status, 
-																'match_winner' => $winner, //3
+																//'match_winner' => $winner, //3
 																//'team_a' => $goalface_team_A_id, 'team_b' => $goalface_team_B_id ,//4
 																'fs_team_a' => $teamAResult, 
 																'fs_team_b' => $teamBResult, //5
 																'match_minute' => $matchMinute
 																//'season_id' => $match ['season_id'], 
 																//'round_id' => $match ['round_id'] 
-																);
-									
-									//Zend_Debug::dump ( $data );
-									$matchObject->updateMatchGoalServe ( $match ['fix_id'], $data );
-								
-									//echo 'Updating Match: <strong>' . $match ['match_id'] . '</strong><br>';
-								}						
-								$flagEvent=false;
-							} else { //new match insert in the db
-								//echo 'New match:<strong>' . $match['match_id'] ."</strong><br>";
-									self::$logger->debug ( " New Match: Inserting... " );
-									$datetime = strftime ( '%Y%m%d%H%M%S', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
-									$data = array ('match_id' => 'G' . $match ['fix_id'], 
-									'match_id_goalserve' => $match ['fix_id'], 
-									'country_id' => $match ['country_id'], 
-									'competition_id' => $match ['competition_id'], 
-									'match_date' => $match ['startdate'], //1
-									'match_time' => $match ['starttime'], //2
-									'match_date_time' => $datetime, 
-									'match_status' => $game_status, 
-									'match_winner' => $winner, //3
-									'team_a' => $goalface_team_A_id, 
-									'team_b' => $goalface_team_B_id, //4
-									'fs_team_a' => $teamAResult, 
-									'fs_team_b' => $teamBResult, //5
-									'season_id' => $match ['season_id'], 
-									'round_id' => $match ['round_id'] );
-									
-									if ($match ['competition_id'] != null) {
-										$matchObject->insert ( $data );
+															);
+													//Zend_Debug::dump ( $data );
+													$matchObject->updateMatchGoalServe ( $match ['fix_id'], $data );
+													
+													
+												} elseif ( $game_status == 'Played') { //MATCH STATUS FROM FEED - PLAYED 
+												 	if($matchFound [0] ["match_status"] == 'Playing') { //MATCH STATUS ON DATABAE  - PLAYING
+														// match has ended
+														/* ENTER CODE HERE */
+														echo "Match has finished and add activity end match :". $match ['status'] ."<br>";
+													}
+												 	
+												} else { //MATCH STATUS FROM FEED - FIXTURE
+													//game still in fixture update match date time if necessary
+													$mydate = date ( "Y-m-d H:i:s", strtotime ( $match ['date'] . " " . $match ['time'] ) );
+													//get zend date based on feed date
+													$zf_date = new Zend_Date ( $mydate, Zend_Date::ISO_8601 );
+													//add 2 hrs to get the gmt +2 like enetpulse
+													$gf_date = $zf_date->addHour ( 0 );
+													//get new date and time
+													$new_gf_date = $gf_date->toString ( 'yyyy-MM-dd' );
+													$new_gf_time = $gf_date->toString ( 'HH:mm:ss' );
+													// concatenate date + time for datetime field 
+													$datetime = strftime ( '%Y%m%d%H%M%S', strtotime ( $new_gf_date . ' ' . $new_gf_time ) );
+													$newdatearray = array ('match_date' => $new_gf_date, //1
+																			'match_time' => $new_gf_time, //2
+																			'match_date_time' => $datetime 
+																			//'match_status' => $game_status, 
+																			//'match_winner' => $winner, //3
+																			//'team_a' => $goalface_team_A_id, 'team_b' => $goalface_team_B_id ,//4
+																			//'fs_team_a' => $teamAResult, 
+																			//'fs_team_b' => $teamBResult, //5
+																			//'match_minute' => $matchMinute
+																			//'season_id' => $match ['season_id'], 
+																			//'round_id' => $match ['round_id'] 
+																	);
+													Zend_Debug::dump($newdatearray);
+													if ($matchFound [0] ["match_date"] != $new_gf_date || $matchFound [0] ["match_time"] != $new_gf_time) {	
+														//$matchObject->updateMatchGoalServe ( $match ['fix_id'], $newdatearray );
+													}
+												}
+											 
+											 
+											} else {
+												// Match fix_id DOESN'T EXIST on GoalFace Database
+												echo "<br> NOT PARSE INVALID match: " . $match ['fix_id'] . "<br>";
+											}
+										} else {
+											//email error one the teams have an empty GoalFace ids
+			  							$this->emailerror($row ['competition_id'],$match['fix_id']);
+											echo "Match :" . $match['fix_id']  ." has a problem with GoalFace team Ids<br>";	
+										}
+									} else {
+										//email error one the teams have an empty goalserve ids
+										$this->emailerror($row ['competition_id'],$match['fix_id']);
+										echo "Match :" . $match['fix_id']  ." has one or both team goalserve Ids empty<br>";
+									}	
+									//} //END Filter 1 match ONLY for testing LOCALHOST
 								}
-							   }
-							
-							   
-						    //} //for 1 match only loop filter only - LOCALHOST 
-						
-						  }  // check if fix_id has a value  
-						 
-					 }//end for matches
-
-			   // } //for competition loop filter only - LOCALHOST
- 
-                }
+								echo "<br>------------------------------------<br>";
+							} //END match	
+						} // END Filter 1 competition ONLY for testing LOCALHOST
+					} // //Only Active competitions get IN
+				} // END competition
+			} catch ( Exception $e ) {
+				self::$logger->err ( "Caught GENERAL exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
+				self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
 			}
-			
-			
-		} catch ( Exception $e ) {
-			self::$logger->err ( "Caught GENERAL exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
-			self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
-		}
 	}
 	
 	
@@ -1194,7 +900,15 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		
 	}
 
-	
+	private function getMatches2($xml,$comp_country,$comp_gs_fix_name,$stageid,$weeknumber,$matchid,$competition_stage_id) {
+		
+		if ($xml->tournament['stage_id'] != null) {
+			echo "Stage Id: " . $xml->tournament['stage_id'];
+		} else {
+			echo "Stage id is null";
+		}
+		//Zend_Debug::dump($xml)."<BR>";
+	}
 	private function getMatches($xml,$comp_country,$comp_gs_fix_name,$stageid,$weeknumber,$matchid,$competition_stage_id) {
 		
 		$stages = $xml->xpath("/results/tournament/stage");
@@ -1354,7 +1068,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 							//pass to a function that returns $allmatches[];
 		
 					} 
-				} else { // Without Stages
+				} else { // Without Stages - Regular Seasons European Mostly
 					
 					//all matches only parameter passed was stage id
 					if ($weeknumber == null) {
@@ -1395,6 +1109,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 							
 						}		
 					}
+					
 				}
 				
 		return $allmatches;
@@ -1432,7 +1147,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
         		if ($matchX != null) {	
 		        			echo " match found on feed<br>";
 		        			// convert feed date and time to format Y-m-d H:i:s to be used on creating zend date
-		        			if ( $matchX[0]['time'] =='TBA' || $matchX[0]['time'] == 'Postp.') {
+		        			if ( $matchX[0]['time'] =='TBA' || $matchX[0]['time'] == 'Postp.' || $match['time'] == 'Cancl.' {
 		        				$matchX[0]['time'] ="15:00:00";
 		        			}
 		        			
@@ -1514,7 +1229,33 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	// insertmatches/country/spain/fixture/primera
 	///insertmatches/country/spain/fixture/primera/week/1
 	
-
+	public function insertmatches2Action() {
+		$date = new Zend_Date ();
+        $matchObject = new Matchh ();
+		$matchEventObject = new MatchEvent ();
+        $league = new LeagueCompetition ();
+   		$team = new Team ();
+   		$player = new Player();
+		$urlGen = new SeoUrlGen ();
+		
+		$comp_country = $this->_request->getParam ( 'country', null );
+		$comp_gs_fix_name = $this->_request->getParam ( 'fixture', null );
+		$stageid = $this->_request->getParam ( 'stage', null );
+		$weeknumber = $this->_request->getParam ( 'week', null );
+		$matchid = $this->_request->getParam ( 'matchid', null );
+		$history = $this->_request->getParam ( 'history', null );
+		if ($history == null) {
+			$xml = $this->getgsfeed('soccerfixtures/'.$comp_country.'/'.$comp_gs_fix_name);
+		} else  {
+			$xml = $this->getgsfeed('soccerhistory/'.$comp_country.'/'.$comp_gs_fix_name);
+		}
+		
+		$competition ['stage_id'] = $stageid;
+		
+		$allmatches = self::getMatches($xml,$comp_country,$comp_gs_fix_name,$stageid,$weeknumber,$matchid,$competition ['stage_id']);
+		Zend_Debug::dump($allmatches)."<BR>";
+	}
+	
     public function insertmatchesAction() {
     	
         $date = new Zend_Date ();
