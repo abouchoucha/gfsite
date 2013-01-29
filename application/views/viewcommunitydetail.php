@@ -14,52 +14,63 @@
 
     jQuery(document).ready(function() {
 
+        addShareThisButton();
+
         showActivitiesTab('allActivity','all');
 
-	 jQuery('#allActivityTab').click(function() {
+	    jQuery('#allActivityTab').click(function() {
             showActivitiesTab('allActivity','all');
-         });
+        });
 
-         jQuery('#membersTab').click(function() {
+        jQuery('#membersTab').click(function() {
             showActivitiesTab('members','1');
-         });
+        });
          
-          jQuery('#playersTab').click(function() {
+        jQuery('#playersTab').click(function() {
             showActivitiesTab('players','3');
-         });
+        });
          
-          jQuery('#teamsTab').click(function() {
+        jQuery('#teamsTab').click(function() {
             showActivitiesTab('teams','2');
-         });
+        });
          
          jQuery('#competitionsTab').click(function() {
             showActivitiesTab('competitions','4');
-         });
+        });
 
          jQuery('#atoday').click(function(){
          	showGoalFacePulse('atoday','');
-    	 });
-         jQuery('#ayesterday').click(function(){
+    	 })
+
+        jQuery('#ayesterday').click(function(){
            	showGoalFacePulse('ayesterday','1');
-      	 });
-         jQuery('#a2days').click(function(){
+      	});
+
+        jQuery('#a2days').click(function(){
         	 showGoalFacePulse('a2days','2');
-         });
-         jQuery('#a3days').click(function(){
+        });
+
+        jQuery('#a3days').click(function(){
         	 showGoalFacePulse('a3days','3');
-         });
-         jQuery('#a4days').click(function(){
+        });
+
+        jQuery('#a4days').click(function(){
         	 showGoalFacePulse('a4days','4');
-         });
-         jQuery('#a5days').click(function(){
+        });
+
+        jQuery('#a5days').click(function(){
         	 showGoalFacePulse('a5days','5');
-         });
-         jQuery('#a6days').click(function(){
+        });
+
+        jQuery('#a6days').click(function(){
         	 showGoalFacePulse('a6days','6');
-          });
-         jQuery('#a7days').click(function(){
+        });
+
+        jQuery('#a7days').click(function(){
         	 showGoalFacePulse('a7days','7');
-          });
+        });
+
+
 
     });
 
@@ -70,7 +81,13 @@
      	var activityId = jQuery("#activityId").val();
      	var url = '<?php echo Zend_Registry::get("contextPath"); ?>/community/showallacitivitiesview/timezone/'+timezone+'/activityId/'+activityId +'/days/'+days;
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
-        jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone} );
+       // jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone} );
+        
+        jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone}, function() {
+            addShareThisButton();
+        });
+
+
     }
 
 
@@ -79,7 +96,11 @@
     	var timezone = calculate_time_zone();
         var url = '<?php echo Zend_Registry::get("contextPath"); ?>/community/showallacitivitiesview';
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
-        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } );
+        //jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } );
+        
+        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } , function() {
+            addShareThisButton();
+        });
 
         jQuery('a.Selected').removeClass('Selected');
         jQuery('li.Selected').removeClass('Selected');
@@ -90,6 +111,13 @@
         jQuery('#PulseDetailWrapper a').removeClass('filterSelected');
      	jQuery('#atoday').addClass('filterSelected');
 
+    }
+
+    function addShareThisButton () {
+        jQuery.getScript("http://w.sharethis.com/button/buttons.js", function() {
+            var switchTo5x = false;
+            stLight.options({publisher: "bf8f5586-8640-4cce-9bca-c5c558b3c0a1"});
+        });
     }
 
 </script>

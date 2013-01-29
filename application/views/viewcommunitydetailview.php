@@ -4,12 +4,6 @@
        $config = Zend_Registry::get ( 'config' );
        $session = new Zend_Session_Namespace('userSession'); ?>
 
-<script type="text/JavaScript">
-  jQuery.getScript("http://w.sharethis.com/button/buttons.js", function() {
-      var switchTo5x = false;
-      stLight.options({publisher: "bf8f5586-8640-4cce-9bca-c5c558b3c0a1"});
-  });
-</script>
 
 <?php echo $this->paginationControl($this->paginator,'Sliding','scripts/pagination_control_div.phtml'); ?>
 
