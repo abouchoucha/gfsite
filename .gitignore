@@ -6,6 +6,7 @@ public/images/
 index.php
 .htaccess
 .htaccess.without
+.htaccess.with
 .htpasswd
 index.php.working
 sftp-config.json
