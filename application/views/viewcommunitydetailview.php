@@ -1,3 +1,4 @@
+
 <?php require_once 'Common.php'; ?>
 <?php require_once 'seourlgen.php';
        $urlGen = new SeoUrlGen(); 
@@ -22,6 +23,7 @@
                 if (file_exists($path_player_photos)) { 
                     $alert_image = "/utility/imagecrop?w=50&h=50&zc=1&src=". $this->root_crop . "/players/".$activity['activity_player_id'].".jpg";
                 } else {
+                    //modify path to get resized images for activities
                     $alert_image = "/public/images/". $activity['activity_icon'];
                 }
 	       } else { 
@@ -56,17 +58,48 @@
                   	echo date(' F j' , strtotime($activity["activity_date"])) ;
                 }?>
             </div>
-          
-            <div class="sharing">
-              <span id="button_<?php echo $activity["activity_id"]?>" class='st_sharethis_hcount' 
-                    displayText='ShareThis' 
-                    st_url='http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>' 
-                    st_title='<?php echo $activity["activitytype_name"]; ?> Event' 
-                    st_image='http://<?php echo $config->path->index->server->name; ?>/<?php echo $alert_image; ?>'>
+            <?php 
+                $stTitle = $activity["activitytype_name"];
+                $stURL = 'http://' . $config->path->index->server->name . '/community/showuniqueactivity/activityId/' . $activity["activity_id"];
+                $stImage = 'http://' . $config->path->index->server->name . $alert_image;
+            ?>
+            <!--id="button_<?php //echo $activity["activity_id"]?>"-->
+            <div style="margin-top:10px;">
+                 
+              <span class='st_twitter' 
+                displayText='Tweet' 
+                st_url="<?php  echo $stURL?>" 
+                st_image="<?php  echo $stImage?>"
+                st_title="<?php echo $stTitle;?>">
               </span>
-              XX1
-            </div>         
-  	       </li>
+
+             <span class="st_facebook_hcount"  
+                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
+                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  echo $stImage?>">
+                </span>
+                
+             <span class="st_fblike"  
+                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
+                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  echo $stImage?>">
+                </span> 
+                
+            <span class="st_pinterest"  
+                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
+                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  echo $stImage?>">
+                </span> 
+            
+            <span class="st_plusone"  
+                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
+                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  echo $stImage?>">
+                </span>      
+              
+            </div>
+
+           </li>
 
 		<?php
 			$tempDate =  date('m-d-Y' , strtotime($activity["activity_date"]));

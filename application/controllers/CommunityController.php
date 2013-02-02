@@ -36,19 +36,21 @@ class CommunityController extends GoalFaceController {
     public function showuniqueactivityAction () {
     	$view = Zend_Registry::get('view');
     	$config = Zend_Registry::get ('config');
-    	$activity = new Activity();
+    	$activityModel = new Activity();
     	$timezone =  $this->_request->getParam ( 'timezone', '+00:00' ); //default is GMT
     	$activityId = $this->_request->getParam ( 'activityId', 0 ); 
-        $activity = $activity->find($activityId)->current();
+      	$activity = $activityModel->find($activityId)->current();
+      
+      	$result = $activityModel->findActivity($activityId,$timezone);
+
         $view->activity = $activity;
-       	//Zend_Debug::dump($activity);
         if ($activity->activity_player_id > 1) {
         	
         	$path_player_photos = $config->path->images->players . $activity->activity_player_id .".jpg" ; 
         	if (file_exists($path_player_photos)) { 
         		$activity_image = $config->path->crop . "/players/" . $activity->activity_player_id . ".jpg";
         	} else {
-        		$activity_image = $config->path->crop . "/" .$activity->activity_icon;
+        		$activity_image = $config->path->crop . "/icons/100/" .$activity->activity_icon;
         	}
 
         } else {
@@ -56,12 +58,12 @@ class CommunityController extends GoalFaceController {
         	if($activity->activity_icon == 'y') {
         		$activity_image = $config->path->crop . "/photos/" . $activity->activity_type_name;
         	} else {
-        		$activity_image = $config->path->crop . "/" .$activity->activity_icon;
+        		$activity_image = $config->path->crop . "/icons/100/" .$activity->activity_icon;
         	}
 
         }
         //Zend_Debug::dump($activity_image);
-       	$view->title = "Goal Alert";
+       	$view->title = $result[0]['activitytype_name'] . "Alert";
        	$view->description = " Goal Alert Description";
        	$view->activityimage = $activity_image;
        	$this->_response->setBody ( $this->view->render ( 'viewactivity.php' ) );   

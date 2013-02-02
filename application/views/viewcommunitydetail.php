@@ -82,7 +82,7 @@
      	var url = '<?php echo Zend_Registry::get("contextPath"); ?>/community/showallacitivitiesview/timezone/'+timezone+'/activityId/'+activityId +'/days/'+days;
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
        // jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone} );
-        
+       
         jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone}, function() {
             addShareThisButton();
         });
@@ -98,7 +98,7 @@
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
         //jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } );
         
-        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } , function() {
+        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } , function() {        
             addShareThisButton();
         });
 
@@ -109,14 +109,16 @@
         jQuery('#' + tab + 'tab').addClass('Selected');
 
         jQuery('#PulseDetailWrapper a').removeClass('filterSelected');
-     	jQuery('#atoday').addClass('filterSelected');
+     	  jQuery('#atoday').addClass('filterSelected');
 
     }
 
     function addShareThisButton () {
+        //stButtons = null;
         jQuery.getScript("http://w.sharethis.com/button/buttons.js", function() {
-            var switchTo5x = false;
-            stLight.options({publisher: "bf8f5586-8640-4cce-9bca-c5c558b3c0a1"});
+            var switchTo5x = true;
+            stLight.options({publisher: "bf8f5586-8640-4cce-9bca-c5c558b3c0a1",popup:"true"});
+            stLight.readyRun = false;
         });
     }
 

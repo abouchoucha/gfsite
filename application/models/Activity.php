@@ -840,5 +840,22 @@ class Activity extends Zend_Db_Table_Abstract {
         $where = 'activity_id =' . $activityId;
         $db->update('activity', $data, $where);
     }
+    
+    public function findActivity($activityId,$timezone = '+00:00') {
+        $sql = " select DATE_FORMAT(CONVERT_TZ(a.activity_date , '+01:00','$timezone'),'%Y-%m-%d %H:%i:%s') as activity_date,";
+        $sql .= " a.activity_id, ";
+        $sql .= " a.activity_icon, ";
+        $sql .= " a.activity_text, ";
+        $sql .= " a.activity_player_id, ";
+        $sql .= " a.activity_team_id, ";
+        $sql .= " at.activitytype_name, '' as screen_name ";
+        $sql .= " FROM activity a ";
+        $sql .= " INNER JOIN activitytype at ON a.activity_activitytype_id = at.activitytype_id ";
+        $sql .= " WHERE a.activity_id = " . $activityId;
+        //echo $sql;
+        $result = $this->db->query($sql);
+        $row = $result->fetchAll();
+        return $row;
+    }
 
 }

@@ -9,7 +9,7 @@
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml'  
 xmlns:b='http://www.google.com/2005/gml/b'  
 xmlns:data='http://www.google.com/2005/gml/data'  
@@ -18,12 +18,12 @@ xmlns:fb='http://www.facebook.com/2008/fbml'
 xmlns:og='http://opengraph.org/schema/'>
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <meta property="og:type" content="website" />
 <meta property="fb:admins" content="500033921"/> 
 <meta property="og:title" content="<?php echo $this->escape($this->title); ?>" />
-<meta property="og:description" content="<?php echo $this->escape($this->description); ?>" />
-<meta property="og:image" content="<?php echo $this->escape($this->imagefacebook); ?>"/>
-
+<meta property="og:description" content="<?php echo $this->escape($this->activity->activity_text); ?>" />
+<meta property="og:image" content="http:<?php echo $config->path->index->server->name; ?>/<?php echo $this->escape($this->activityimage); ?>"/>
 <?php 
 	$pageURL = 'http';
 	$pageURL .= "://";
@@ -33,7 +33,7 @@ xmlns:og='http://opengraph.org/schema/'>
 		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 	}
 ?>
-<meta property="og:url" content="<?php echo $pageURL; ?>" />
+<!--<meta property="og:url" content="<?php echo $pageURL; ?>" />  -->
 </style>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery-1.3.2.js" type="text/javascript"></script>
 <script type="text/javascript">var switchTo5x=true;</script>
@@ -57,13 +57,15 @@ xmlns:og='http://opengraph.org/schema/'>
                 }?>
             	</p>
 	             <p> <?php echo $this->activity->activity_text; ?></p>
-	                <span class='st_sharethis_hcount' displayText='ShareThis' st_image='<?php echo $this->escape($this->imagefacebook); ?>'></span>
-					<span class='st_facebook_hcount' displayText='Facebook'></span>
-					<span class='st_fblike_hcount' displayText='Facebook Like'></span>
-					<span class='st_twitter_hcount' displayText='Tweet'></span>
-					<span class='st_pinterest_hcount' displayText='Pinterest'></span>
-					<span class='st_email_hcount' displayText='Email'></span>
-	        
+	                <span class='st_sharethis' 
+                        displayText='ShareThis' 
+                        st_image='http://<?php echo $config->path->index->server->name; ?>/<?php echo $this->escape($this->activityimage); ?>'>
+                  </span>
+        					<span class='st_facebook' displayText='Facebook'></span>
+        					<span class='st_fblike' displayText='Facebook Like'></span>
+        					<span class='st_twitter' displayText='Tweet'></span>
+        					<span class='st_pinterest' displayText='Pinterest'></span>
+        					<span class='st_email' displayText='Email'></span>
 			</div>
 		</div>
 	
