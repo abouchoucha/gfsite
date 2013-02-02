@@ -446,25 +446,26 @@ jQuery(document).ready(function() {
 
              	<span class="twitter">
                 	<a href="http://twitter.com/share" class="twitter-share-button" style="padding-bottom:5px;width:100px;" data-count="horizontal">Tweet</a>
-              	</span> 
+              </span> 
 
-      			<span class="facebook">
+      			  <span class="facebook">
               		<iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>
-              	</span>
+              </span>
 
-              	<span class="gplus">
-	              		<!-- Place this tag in your head or just before your close body tag -->
-						<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-			
-						<!-- Place this tag where you want the +1 button to render -->
-						<g:plusone size="medium"></g:plusone>
-	             </span>
+              <span class="gplus">
+  	              <!-- Place this tag in your head or just before your close body tag -->
+  						    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+      						<!-- Place this tag where you want the +1 button to render -->
+      						<g:plusone size="medium"></g:plusone>
+  	          </span>
 
 	            <span class="twitter">
-                    <!--START PIN BUTTON-->
-						<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
-                    <!--END PIN BUTTON-->
-				</span>	              	
+                <!--START PIN BUTTON-->
+						    <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none">
+                  <img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" />
+                </a>
+                <!--END PIN BUTTON-->
+				      </span>	              	
 
               <?php if ($this->teamtype != 'national') { ?>
                 <span class="age1 age1first"><b>Full Name: </b><?php echo $this->team[0]['team_name_official']; ?></span>

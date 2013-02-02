@@ -1181,23 +1181,20 @@ function popUpSuspendAccount(title,message){
                     <?php }
                         }
                     ?>
-				    
-                    <?php if ($server == 'beta') { ?>
-                      <li>
-         				<span class='st_sharethis' displayText='ShareThis'></span>
-                      </li> 
-                    
-          <script type="text/javascript">var switchTo5x=true;</script>
-          <script type="text/javascript">
-              var __st_loadLate=true; //if __st_loadLate is defined then the widget will not load on domcontent ready
-          </script>
-					<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-					  <!-- Added after john created account community@goalface.com -->
-					   <script type="text/javascript">stLight.options({publisher: "9194a39a-fa1d-47d6-90c6-aa1e43d4013e"}); </script>
-					 <!-- script type="text/javascript">stLight.options({publisher: "ur-ef5dc5f2-5a11-e6a6-ebb4-1ae9ef5336a9"}); </script>  -->
-                     
-                     <?php } ?>
 
+                     <!-- Added after john created account community@goalface.com on Sharethis 
+                          var switchTo5x=true;
+                    
+                      <!-- Added after john created account community@goalface.com on Sharethis -->
+                      <script type="text/javascript">
+                          var __st_loadLate=true; //if __st_loadLate is defined then the widget will not load on domcontent ready
+                      </script>
+                      <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                      <script type="text/javascript">stLight.options({publisher: "9194a39a-fa1d-47d6-90c6-aa1e43d4013e", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+                    <!--<li>
+         				        <span class='st_sharethis' displayText='ShareThis'></span>
+                    </li> -->
                     <li><a id="invitefriendsTrigger" href="#" title="Invite Friends">Invite Friends</a></li>
                     <li><a id="emailThisPageTrigger" href="#" title="Email This Page">Email This Page</a></li>
 

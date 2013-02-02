@@ -243,45 +243,45 @@
                 </span>
            <?php }?>
            
-           
           <span class="tweeterbutton">
               <a href="http://twitter.com/share" class="twitter-share-button" style="padding-bottom:5px;width:100px;" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
           </span>
           
-             <span class="fbbutton">
-              <iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>
-          </span>
-          
-                    
-             
           <span class="tweeterbutton">
           <!-- Place this tag in your head or just before your close body tag -->
-			<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+			     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 			
-			<!-- Place this tag where you want the +1 button to render -->
-			<g:plusone size="medium"></g:plusone>
-		</span>
+    			<!-- Place this tag where you want the +1 button to render -->
+    			<g:plusone size="medium"></g:plusone>
+    		</span>
 		
-		<div class="fbbutton">
+    		<div class="fbbutton">
+    
+        			<div class="fb-like" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="false"></div>
+        			<div id="fb-root"></div>
+        			<script>(function(d, s, id) {
+        			var js, fjs = d.getElementsByTagName(s)[0];
+        			if (d.getElementById(id)) return;
+        			js = d.createElement(s); js.id = id;
+        			js.src = "//connect.facebook.net/eu_EU/all.js#xfbml=1";
+        			fjs.parentNode.insertBefore(js, fjs);
+        			}(document, 'script', 'facebook-jssdk'));</script>
+        </div>
+        
+        <span class="twitter">
+            <!--START PIN BUTTON-->
+				    <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none">
+              <img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" />
+            </a>
+            <!--END PIN BUTTON-->
+		      </span>	
 
-            <!--<iframe src="http://www.facebook.com/plugins/like.php?href=<?php //echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>-->
-			<div class="fb-like" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="false"></div>
-			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/eu_EU/all.js#xfbml=1";
-			fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));</script>
-          </div>
-          
     </div>
   
      <div class="FirstColumn">
                 <?php echo $this->render('include/topleftbanner.php')?>
                <?php 
-                   if($session->email != null){
+                   if($session->email != null){ 
                 ?> 
                     <div class="img-shadow">
                         <div class="WrapperForDropShadow">
