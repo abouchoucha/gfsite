@@ -926,7 +926,7 @@ function popUpSuspendAccount(title,message){
             </form>
         </div>
     </div>
- </div> <!--end wrapper-->
+ </div>
 
 
  <!--end wrapper-->
@@ -1016,20 +1016,8 @@ function popUpSuspendAccount(title,message){
 								<p></p>
 								<p></p>
 								<input type="button" id="mailButtonSend" class="submit GreenGradient" name="Register" value="Send Message"/>
-                           </fieldset>
+                </fieldset>
 
-							<!-- div class="SecondColumnOfTwo" id="RightInfoOnForm">
-								<h4>Why Invite Friends?</h4>
-									<strong>When someone you invite joins GoalFace by clicking on your invite link:</strong>
-									<ul>
-									   <li>You earn points </li>
-									   <li>They'll be automatically connected to you</li>
-									   <li>You'll be automatically connected to their friends</li>
-									    <li>Your popularity ranking goes up so more  people can find you.</li>
-									    <li>The more the merrier!</li>
-									</ul>
-
-							</div> -->
 							<br class="clearleft"/>
 						</div><!-- end of FieldSetWrapper -->
           </form>
@@ -1040,6 +1028,22 @@ function popUpSuspendAccount(title,message){
         </div>
     </div>
  </div>
+ 
+  <!-- Facebook popup Window  -->
+ <div id="interstitialModalId" class="jqmGeneralWindow">
+    <div class="interstitialModal">
+    		<div class="WrapperForDropShadow">
+    			<div class="interHeader">Get the latest football updates</div>
+    			<div class="interContent">
+    				<p><strong>Follow us on Facebook</strong> for the latest updates from around the world of football</p>
+    				<div class="logo"><img width="175" height="106" border="0" alt="" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg"></div>
+    				<div class="logo fbutton"><img width="228" height="24" border="0" alt="" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/followbutton.jpg"></div>
+						<div class="footer"><a href="" class="jqmClose">No thanks, not right now</a></div>
+    			</div>
+    		</div>
+    </div>
+</div>
+
 
 <!-- /header -->
     <div id="header">
