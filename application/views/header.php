@@ -30,20 +30,21 @@ pageurl = "<?php echo $this->actualURL;?>";
 
 jQuery(document).ready(function() {
 
-	//alert(menuitems[1].getAttribute("rel"));
-	
-	/* Default when load menu home*/ 
-	//jQuery('#nav_scores').addClass('menuactive');
+  if ($.cookie('fb_popup') != 'yes') { 
+    	/* FB Traffic Pop   */
+    	$().facebookTrafficPop({
+            timeout: 60,
+            delay: 5,
+            title: "Get the latest football updates",
+            message: '<a href=\'http://www.facebook.com/goalface\'>Follow GoalFace on Facebook</a> for the latest updates from around the world of football<center><a href="http://www.facebook.com/goalface"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg" border="0" style="margin:10px 0px;" /></a></center>',
+            url: "www.facebook.com/goalface",
+            closeable: true
+    	}); 
+    	$.cookie('fb_popup', 'yes', { path: '/', domain: 'staging.goalface.com' });
+    }
 	
 	/* Active and Unactive */
 	 jQuery('.chromestyle ul li a').click(function(){
-	  	//jQuery(this).parent().find('li a.selected').removeClass('selected');
-		//jQuery(this).children().addClass('selected');
-		//jQuery('.chromestyle ul li a').not(this).removeClass("selected");
-		//jQuery(this).addClass('selected');
-		//var nav_id = jQuery(this).attr('id');
-		//jQuery(this).parent().find('li a.active').removeClass('active');
-		//jQuery('#' + nav_id + ' li a').addClass('selected');
 		var url = jQuery(this).attr('href');
 		var menuitem = url.split("/")[2] ;
 		//alert(menuitem);	
