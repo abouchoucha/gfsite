@@ -76,7 +76,7 @@ xmlns:og='http://opengraph.org/schema/'>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/detect_timezone.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jstz.min.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.loadmask.min.js" type="text/javascript"></script>
-<script src="http://connect.facebook.net/en_US/all.js#xfbml=1" type="text/javascript"></script>
+<script src="http://connect.facebook.net/en_US/all.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/fb-traffic-pop.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.cookie.js" type="text/javascript"></script>
 

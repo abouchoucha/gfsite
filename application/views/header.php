@@ -13,6 +13,8 @@
     //to be used to check active menu
     $name_array = explode('/',$this->actualURL);
     
+    $isFan = file_get_contents("https://api.facebook.com/method/pages.isFan?format=json&access_token=AAADr0oM8ZAWkBACJXoMfIhE36rRDHcDkEdOaH3QgkHGrLiF3IjrDe4ZC08tSjdIzieZCTHSBHZBGv2ZCE4l3OaYi5XIeMasgZA2m25o5VVswZDZD&page_id=116375484505");
+    
 ?>
 <script type="text/JavaScript">
 var closeModal = function(h) { 
@@ -31,7 +33,7 @@ pageurl = "<?php echo $this->actualURL;?>";
 jQuery(document).ready(function() {
 
   if ($.cookie('fb_popup') != 'yes') { 
-    	/* FB Traffic Pop   */
+    	 //FB Traffic Pop   
     	$().facebookTrafficPop({
             timeout: 60,
             delay: 5,
@@ -42,6 +44,8 @@ jQuery(document).ready(function() {
     	}); 
     	$.cookie('fb_popup', 'yes', { path: '/', domain: 'staging.goalface.com' });
     }
+   
+  
 	
 	/* Active and Unactive */
 	 jQuery('.chromestyle ul li a').click(function(){
@@ -668,7 +672,10 @@ function popUpSuspendAccount(title,message){
         				  
         				  <input type="password" tabindex="2" size="15" id="passwordModal" value="<?php echo (isset($_COOKIE ["passwordGoalface"])?$_COOKIE ["passwordGoalface"]:"");?>" name="passwordModal" class="text" required="nn"/>
         					<br/><br/>
-        					<!--
+        					
+                  <div id="fb-root"></div>
+                  
+                  <!--
         				
         				Already have a facebook account?<br>
         					<div id="fb-root"></div>						
@@ -1029,20 +1036,20 @@ function popUpSuspendAccount(title,message){
     </div>
  </div>
  
-  <!-- Facebook popup Window  -->
+  <!-- Facebook popup Window 
  <div id="interstitialModalId" class="jqmGeneralWindow">
     <div class="interstitialModal">
     		<div class="WrapperForDropShadow">
     			<div class="interHeader">Get the latest football updates</div>
     			<div class="interContent">
     				<p><strong>Follow us on Facebook</strong> for the latest updates from around the world of football</p>
-    				<div class="logo"><img width="175" height="106" border="0" alt="" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg"></div>
-    				<div class="logo fbutton"><img width="228" height="24" border="0" alt="" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/followbutton.jpg"></div>
+    				<div class="logo"><img width="175" height="106" border="0" alt="" src="<?php //echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg"></div>
+    				<div class="logo fbutton"><img width="228" height="24" border="0" alt="" src="<?php //echo Zend_Registry::get("contextPath"); ?>/public/images/followbutton.jpg"></div>
 						<div class="footer"><a href="" class="jqmClose">No thanks, not right now</a></div>
     			</div>
     		</div>
     </div>
-</div>
+</div>    -->
 
 
 <!-- /header -->
