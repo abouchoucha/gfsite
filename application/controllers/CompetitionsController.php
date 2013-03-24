@@ -495,11 +495,6 @@ class CompetitionsController extends GoalFaceController {
         $view->countryName = $competitionRow ['country_name'];
         $countryId = $competitionRow ['country_id'];
         $countryname = $competitionRow ['country_name'];
-
-        //Zend_Debug::dump($competitionRow ['format']);
-        //Zend_Debug::dump($competitionRow ['type']);
-        
-        
         $path_comp_logos = $config->path->images->complogos . $leagueid.".gif" ;
         if (file_exists($path_comp_logos)) {
         	$view->imagefacebook = "http://www.goalface.com/public/images/competitionlogos/".$leagueid.".gif";
@@ -530,7 +525,7 @@ class CompetitionsController extends GoalFaceController {
 		if ($this->_request->isPost ()) {
 			//User coming from dropdown season selection
 			$seasonId = $this->_request->getParam ( 'seasonId', 0 );
-			//$seasonDisplay = $seasonId;
+
 			$this->view->seasonId = $seasonId;
 			
 			//rounds per archived season
@@ -646,8 +641,7 @@ class CompetitionsController extends GoalFaceController {
                         $gs_standing_view = NULL;
                     }
   			
-  			//Zend_Debug::dump($seasonActive);
-				
+ 
 				//get Top Scorers
 				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,null,null);
 				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,null);
@@ -683,8 +677,7 @@ class CompetitionsController extends GoalFaceController {
             $view->nextMatch = $nextMatch;
             $view->previousMatch = $previousMatch;
             
-            $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$round_list,null,$timezone,$number_rounds);
-			//$allMatches = $match->selectTotalPlayedMatchesBySeason ($seasonActive);		  
+            $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$round_list,null,$timezone,$number_rounds);		  
 		  	$view->allMatchesCompetition = $allMatches;
 		  	
 		  	
@@ -710,89 +703,72 @@ class CompetitionsController extends GoalFaceController {
             $cont = 0;
             $number_rounds = count($roundRow);
             //List of ALL rounds
-    			  $round_list = ''; 
-    				$round_list_final_stages = '';
-    				foreach ($roundRow as $round) {
-    						//if ($cont < $number_rounds) {
-    							if($round_list) {
-    								$round_list .= ",";
-    							}					
-    							$round_list .= $round['round_id'];
-    							if ($round['type'] == 'table') {
-    								//get table standings
-    								if ($rowstanding['description'] !=null) {
-    									$feedpath = 'standings/'. $rowstanding['description'];
-    									$xmlstandings = parent::getGoalserveFeed($feedpath);
-    									$view->leagueTable = $xmlstandings;
-    								} 
-    								$has_group_stage = 1;
-    								$view->submenuSelected = 'tables';
-    								$round_list_final_stages .= $round['round_id'];
-    							} elseif ($round['type'] == 'cup') {
-    								//List Array of all rounds knockout
-    								if ($has_group_stage == 1) {
-    								    $knockoutstage [] = $round['round_id'];
-        								$round_list_final_stages .= ",". $round['round_id'];
-    								} else {
-    								    if($round_list_final_stages) {
-    								        $round_list_final_stages .= ",";
-    							       }					
-    							       $round_list_final_stages .= $round['round_id'];
-    								}
+			$round_list = ''; 
+			$round_list_final_stages = '';
+			foreach ($roundRow as $round) {
+				if ($round['type'] == 'table') {
+					//get table standings
+					if ($rowstanding['description'] !=null) {
+						$feedpath = 'standings/'. $rowstanding['description'];
+						$xmlstandings = parent::getGoalserveFeed($feedpath);
+						$view->leagueTable = $xmlstandings;
+					} 
+					$has_group_stage = 1;
+					$view->submenuSelected = 'tables';
+				}
 
-    							}
-    							
-    						//}
-    						$cont++;
-    					}					
-    				$view->knockoutstage = count($knockoutstage);	
-    				$view->hasgroups = $has_group_stage;
-    				$roundList = $round_list;
-    				if ($has_group_stage == 1) {
-						$roundListFinalStages = $round_list_final_stages;
-    				} else {
-    					$roundListFinalStages = $roundList;
-    				}
-    				
-				
-    				//Zend_Debug::dump($round_list_final_stages);
+				///get group stage and knockout round list
+				if ($round['type'] != 'cup1') {
+					
+						if($round_list_final_stages) {
+							$round_list_final_stages .= ",";
+						}	
+						$round_list_final_stages .= $round['round_id'];
+						$cont++;
+				} 
 
-    				//get all matches to show under feature teams/players.
-    				if (count($knockoutstage) >= 1) {  // Knockout stage rounds exist
-    
-    						$contList = 0;
-    						$roundListknock = null;
-    						foreach ($knockoutstage as $round_knock) {
-    							$roundListknock .= $round_knock;
-    							if($contList < sizeOf($knockoutstage)-1){
-    								$roundListknock .= ",";
-    							}
-    							$contList++;
-    						}						
-    					$roundList = $roundListknock;
-    					$allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundList,null,$timezone,count($knockoutstage));
-    				} else {
-    					$allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundList,null,$timezone,count($roundRow));
-    				}	
+				if($round_list) {
+						$round_list .= ",";
+				}					
+				$round_list .= $round['round_id'];				
+			}
+			
+			// number of rounds on group stage
+			$view->knockoutstage = $cont;	
+			$view->hasgroups = $has_group_stage;
+    			
+			// Knockout stage rounds exist
+			if ($has_group_stage == 1) {
+				$roundList = $round_list_final_stages;
+				$number_rounds = $cont;
+			} else {
+				$roundList = $round_list;
+				$number_rounds = count($roundRow);
+			}
 
-				
-    			  $view->allMatchesCompetition = $allMatches;	
-    		    //Next and Previous Match 
-            $nextMatch = $match->selectNextPreviousMatchByRound ( $round_list,'Playing',$competitionRow ['format']);
+			//get all matches for the actual roundlist
+			$allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundList,null,$timezone,$number_rounds);
+    		$view->allMatchesCompetition = $allMatches;	
+
+
+    		//Next and Previous Match 
+            $nextMatch = $match->selectNextPreviousMatchByRound ( $roundList,'Playing',$competitionRow ['format']);
             if ($nextMatch == null) {
-                 $nextMatch = $match->selectNextPreviousMatchByRound ( $round_list, 'Fixture',$competitionRow ['format']);
+                 $nextMatch = $match->selectNextPreviousMatchByRound ( $roundList, 'Fixture',$competitionRow ['format']);
             }
-            $previousMatch = $match->selectNextPreviousMatchByRound ( $round_list, 'Played',$competitionRow ['format']);
+            $previousMatch = $match->selectNextPreviousMatchByRound ( $roundList, 'Played',$competitionRow ['format']);
             $view->nextMatch = $nextMatch;
             $view->previousMatch = $previousMatch;
             //get Top Scorers
             $leaguetopscorers = null;
-            $leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$roundListFinalStages);
-    			  $leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$roundListFinalStages);
-    		      $leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$roundListFinalStages);
-    			  $view->topscorercomp = $leaguetopscorers;
-    			  $view->leagueyc = $leagueyellowcards;
-    			  $view->leaguerc = $leagueredcards;
+            $leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$roundList);
+
+		  	$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$roundList);
+	      	$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$roundList);
+		  	$view->topscorercomp = $leaguetopscorers;
+		  	$view->leagueyc = $leagueyellowcards;
+		 	$view->leaguerc = $leagueredcards;
+
   
            } else { 
                 
@@ -847,33 +823,35 @@ class CompetitionsController extends GoalFaceController {
                 if ($nextMatch == null) {
                 		$nextMatch = $match->selectNextPreviousMatchByRound ( $roundId, 'Fixture' );
                 }
-            	  $previousMatch = $match->selectNextPreviousMatchByRound ( $roundId, 'Played' );
-            	  $view->allMatchesCompetition = $allMatches;
-            	  $view->nextMatch = $nextMatch;
-            	  $view->previousMatch = $previousMatch;
+            	  
+        	  	$previousMatch = $match->selectNextPreviousMatchByRound ( $roundId, 'Played' );
+        	  	$view->allMatchesCompetition = $allMatches;
+        	  	$view->nextMatch = $nextMatch;
+        	  	$view->previousMatch = $previousMatch;
                     	
-        				//get table standings
-        				$xmlstandings = null;
-        				if ($rowstanding['description'] !=null) {
-        					$feedpath = 'standings/'. $rowstanding['description'];
-        					$xmlstandings = parent::getGoalserveFeed($feedpath);
-        					$view->leagueTable = $xmlstandings;
-        				} 
-        				$league = new LeagueCompetition();
-        				if ($has_group_stage == 1) {
-        				    $round = $round_list_final_stages;
-        				} else {
-        				    $round = null;
-        				}
-                        
-        				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$round);
-        				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$round);
-        				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$round);
-        				
-        				$view->topscorercomp = $leaguetopscorers;
-        				$view->leagueyc = $leagueyellowcards;
-        				$view->leaguerc = $leagueredcards;
-        				$view->feed_topscores = null;
+				//get table standings
+				$xmlstandings = null;
+				if ($rowstanding['description'] !=null) {
+					$feedpath = 'standings/'. $rowstanding['description'];
+					$xmlstandings = parent::getGoalserveFeed($feedpath);
+					$view->leagueTable = $xmlstandings;
+				} 
+				$league = new LeagueCompetition();
+				if ($has_group_stage == 1) {
+				    $round = $round_list_final_stages;
+				} else {
+				    $round = null;
+				}
+                
+             
+				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$round);
+				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$round);
+				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$round);
+				
+				$view->topscorercomp = $leaguetopscorers;
+				$view->leagueyc = $leagueyellowcards;
+				$view->leaguerc = $leagueredcards;
+				$view->feed_topscores = null;
 
             }
             
@@ -944,6 +922,7 @@ class CompetitionsController extends GoalFaceController {
 			
 			$view->actionTemplate = 'competitioneuro.php';
 		} else {
+
 			$view->actionTemplate = 'competition.php';
 		}
 		
