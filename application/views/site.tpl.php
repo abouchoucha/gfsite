@@ -54,15 +54,9 @@ xmlns:og='http://opengraph.org/schema/'>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/jquery-ui-1.8.16.custom.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/jquery.loadmask.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/fb-traffic-pop.css' rel="stylesheet" type="text/css" media="screen"/> 
-<?php
-    $config = Zend_Registry::get ( 'config' );
-    $server = $config->server->host;
-    if ($server == 'local') {
-?>
+
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
-<?php  } else { ?>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-<?php  } ?>
+<script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery_cookie.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/xhtml/menu.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.hoverIntent.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.cluetip.js" type="text/javascript"></script>
@@ -78,7 +72,7 @@ xmlns:og='http://opengraph.org/schema/'>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.loadmask.min.js" type="text/javascript"></script>
 <script src="http://connect.facebook.net/en_US/all.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/fb-traffic-pop.js" type="text/javascript"></script>
-<script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery.cookie.js" type="text/javascript"></script>
+
 
 
 
