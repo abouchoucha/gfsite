@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
   if ($.cookie('fb_popup') != 'yes') { 
     	 //FB Traffic Pop   
     	$().facebookTrafficPop({
-            timeout: 660,
+            timeout: 60,
             delay: 5,
             title: "Get the latest football updates",
             message: '<a href=\'http://www.facebook.com/goalface\'>Follow GoalFace on Facebook</a> for the latest updates from around the world of football<center><a href="http://www.facebook.com/goalface"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg" border="0" style="margin:20px 0px;" /></a></center>',
