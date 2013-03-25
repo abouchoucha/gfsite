@@ -8,6 +8,7 @@
     $config = Zend_Registry::get ( 'config' );
     $server = $config->server->host;
     $root_crop = $config->path->crop;
+    $domain = $config->path->index->server->name;
     include 'include/functions.php';
     
     //to be used to check active menu
@@ -32,6 +33,7 @@ pageurl = "<?php echo $this->actualURL;?>";
 
 jQuery(document).ready(function() {
 
+
   if ($.cookie('fb_popup') != 'yes') { 
     	 //FB Traffic Pop   
     	$().facebookTrafficPop({
@@ -42,7 +44,7 @@ jQuery(document).ready(function() {
             url: "www.facebook.com/goalface",
             closeable: true
     	}); 
-    	$.cookie('fb_popup', 'yes', { path: '/', domain: 'staging.goalface.com' });
+    	$.cookie('fb_popup', 'yes', { path: '/', domain: '<?php echo $domain; ?>' });
     }
    
   
