@@ -117,4 +117,6 @@
 	line-height:16px;
 }
 
-	
+.fb_edge_widget_with_comment .fb_edge_comment_widget .fb_ltr {
+display: none !important;
+}	
