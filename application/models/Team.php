@@ -27,17 +27,33 @@ class Team extends Zend_Db_Table_Abstract {
 		return $row;
 	}
 	
+	// public function selectTeamPageFanFaceBookAlerts($teamId) {
+	// 	$db = $this->getAdapter ();
+	// 	$sql = "select t.*,u.facebookid,u.facebookaccesstoken from team t inner join user u on t.user_id=u.user_id
+	// 			where t.user_id is not null and t.facebook_idPage is not null and u.facebookaccesstoken is not null and team_id=".$teamId;
+	// 	//echo $sql;
+	// 	$result = $db->query ( $sql );
+	// 	$row = $result->fetchAll ();
+	// 	//Zend_Debug::dump($row);
+	// 	return $row;
+	// }	
+
 	public function selectTeamPageFanFaceBookAlerts($teamId) {
 		$db = $this->getAdapter ();
-		$sql = "select t.*,u.facebookid,u.facebookaccesstoken from team t inner join user u on t.user_id=u.user_id
-				where t.user_id is not null and t.facebook_idPage is not null and u.facebookaccesstoken is not null and team_id=".$teamId;
+		
+	    $sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details ";
+		$sql .= " FROM fbpagealert fb ";
+		$sql .= " INNER JOIN user u ON u.user_id = fb.user_id ";
+		$sql .= " INNER JOIN language lang ON lang.language_id = fb.language_id ";
+		$sql .= " AND fb.entity_id = ".$teamId; 
+		$sql .= " AND fb.entity_type = 'team' ";
 		//echo $sql;
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		//Zend_Debug::dump($row);
 		return $row;
 	}	
-	
+
 	public function selectTeamsByCountry($country, $teamtype = 'club') {
 		$db = $this->getAdapter ();
 		$sql = " select team_id,team_name,team_seoname ,team_type,team_soccer_type from team where country_id = " . $country;
@@ -585,6 +601,7 @@ class Team extends Zend_Db_Table_Abstract {
 		$db = $this->getAdapter ();
 		$sql = " select t.team_id, replace(t.team_name, '&', '&amp;') as team_name,t.team_seoname, c.country_name ,replace(t.team_name_official, '&', '&amp;') as team_name_official ";
 		$sql .= " from team t, country c ";
+
 		$sql .= " where t.country_id = c.country_id and t.team_soccer_type = 'default' ";
 		$sql .= " order by t.team_id limit 0, " . $count;
 		$result = $db->query ( $sql );

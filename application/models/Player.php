@@ -9,18 +9,34 @@ class Player extends Zend_Db_Table_Abstract {
 		Zend_Loader::loadClass ( 'Pagination' ) ;
 	}
 	
+	// public function selectPlayerPageFanFaceBookAlerts($playerId) {
+	// 	$db = $this->getAdapter ();
+	// 	$sql = "select p.*,u.facebookid,u.facebookaccesstoken from player p inner join user u on p.user_id=u.user_id 
+	// 			where p.user_id is not null and p.facebook_idPage is not null and u.facebookaccesstoken is not null
+	// 			and p.player_id=".$playerId;
+	// 	//echo $sql;
+	// 	$result = $db->query ( $sql );
+	// 	$row = $result->fetchAll ();
+	// 	//Zend_Debug::dump($row);
+	// 	return $row;
+	// }
+
 	public function selectPlayerPageFanFaceBookAlerts($playerId) {
 		$db = $this->getAdapter ();
-		$sql = "select p.*,u.facebookid,u.facebookaccesstoken from player p inner join user u on p.user_id=u.user_id 
-				where p.user_id is not null and p.facebook_idPage is not null and u.facebookaccesstoken is not null
-				and p.player_id=".$playerId;
+		$sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details,p.player_id,p.player_nickname,p.player_firstname,p.player_lastname, p.player_common_name ";
+		$sql .= " FROM fbpagealert fb ";
+		$sql .= " INNER JOIN player p ON p.player_id = fb.entity_id ";
+		$sql .= " INNER JOIN user u ON u.user_id = fb.user_id ";
+		$sql .= " INNER JOIN language lang ON lang.language_id = fb.language_id ";
+		$sql .= " AND fb.entity_id = ".$playerId; 
+		$sql .= " AND fb.entity_type = 'player' ";
 		//echo $sql;
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		//Zend_Debug::dump($row);
 		return $row;
 	}
-	
+
 	public function lastInsertedId(){
 		$db = $this->getAdapter () ;
 		$sql = " select MAX(player_id) AS max_id FROM player " ;
