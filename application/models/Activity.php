@@ -121,7 +121,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
         // INSER ACTIVITIES on Database
 
-        //$activtityUser->insert($dataNewActivity);
+        $activtityUser->insert($dataNewActivity);
 
         if ($alert != null) {
             
@@ -175,7 +175,6 @@ class Activity extends Zend_Db_Table_Abstract {
 	                    
 	                    $variablesToReplaceMail['userEmail'] = $alert["email"];
 	                    $variablesToReplaceMail['alertSettingsUrl'] = "http://" . $_SERVER ['SERVER_NAME'] . Zend_Registry::get("contextPath") . "/editprofile/" . $alert['screen_name'] . "/settings";
-	                    //Zend_Debug::dump($variablesToReplaceMail);
 	                    $mail->set_variablesToReplace($variablesToReplaceMail);
 	                    //$mail->sendMail();
                 	}
@@ -263,12 +262,12 @@ class Activity extends Zend_Db_Table_Abstract {
 								'link' => $link
 							);
 								
-								//$post_id = $facebook->api("/".$row[0]['facebook_idPage']."/links","post",$args);
+								$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
-								echo '<br>Escribió en COMPETITION:'.$row['facebook_idPage'];
+								echo '<br>Escribió en COMPETITION:'.$row['fbpage_id'];
 						}catch (FacebookApiException $e){
-							echo ' No se pudo enviar -> '.$competition_id.' - idPage:'.$row['facebook_idPage'].'Message:'.$e->getMessage();
-							self::$logger->debug ( '----*****> Error Write in Page COMPETITION(Activity) Alert: No se pudo enviar -> '.$competition_id.' - idPage:'.$row['facebook_idPage'].'Message:'.$e->getMessage());
+							echo ' No se pudo enviar -> '.$competition_id.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
+							self::$logger->debug ( '----*****> Error Write in Page COMPETITION(Activity) Alert: No se pudo enviar -> '.$competition_id.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage());
 							echo ' Code:'.$e->getCode();
 							echo ' Line:'.$e->getLine();
 						}
@@ -320,11 +319,11 @@ class Activity extends Zend_Db_Table_Abstract {
 							'link' => $link
 						);
 							
-						//$post_id = $facebook->api("/".$row[0]['facebook_idPage']."/links","post",$args);
+						$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
 					}catch (FacebookApiException $e){
-						echo ' No se pudo enviar -> '.$teamId.' - idPage:'.$row['facebook_idPage'].'Message:'.$e->getMessage();
-						self::$logger->debug ( '----*****> Error Write in Page Team(Activity) Alert: No se pudo enviar -> '.$teamId.' - idPage:'.$row['facebook_idPage'].'Message:'.$e->getMessage());
+						echo ' No se pudo enviar -> '.$teamId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
+						self::$logger->debug ( '----*****> Error Write in Page Team(Activity) Alert: No se pudo enviar -> '.$teamId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage());
 						echo ' Code:'.$e->getCode();
 						echo ' Line:'.$e->getLine();
 					}
@@ -498,6 +497,7 @@ class Activity extends Zend_Db_Table_Abstract {
                                         'link' => "http://" .$variablesToReplaceTemp['match_url'])));
 												
                                     $res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
+
                                 }catch (FacebookApiException $e){
                                     echo ' No se pudo enviar -> '.$alert["facebookid"].' Message:'.$e->getMessage();
                                     self::$logger->debug ( '----*****> Error Player(Activity) Alert: No se pudo enviar -> '.$alert["facebookid"].'Message:'.$e->getMessage());
@@ -536,7 +536,7 @@ class Activity extends Zend_Db_Table_Abstract {
 				      } else if (Constants::$_OWNGOAL_SCORED_ACTIVITY == $activityTypeId) {
 				      	$newArray = array('typeOfPlayerEvent' => 'scored an own goal in');
 				      } else if (Constants::$_PENALTY_SCORED_ACTIVITY == $activityTypeId) {
-				          $newArray = array('typeOfPlayerEvent' => 'scored a penalty in');
+				        $newArray = array('typeOfPlayerEvent' => 'scored a penalty in');
 				      } 
 
 					}else if (Constants::$_PLAYER_LINE_UP_ACTIVITY == $activityTypeId) {
@@ -586,10 +586,11 @@ class Activity extends Zend_Db_Table_Abstract {
 							'link' => $link
 							);
 							
-							//$post_id = $facebook->api("/".$row['facebook_idPage']."/links","post",$args);
+							$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+
 						}catch (FacebookApiException $e){
-							echo ' No se pudo enviar -> '.$playerId.' - idPage:'.$row['facebook_idPage'].'Message:'.$e->getMessage();
-							self::$logger->debug ( '----*****> Error Page Player(Activity) Alert: No se pudo enviar -> Id_Page:'.$row['facebook_idPage'].'Message:'.$e->getMessage());
+							echo ' No se pudo enviar -> '.$playerId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
+							self::$logger->debug ( '----*****> Error Page Player(Activity) Alert: No se pudo enviar -> Id_Page:'.$row['fbpage_id'].'Message:'.$e->getMessage());
 							echo ' Code:'.$e->getCode();
 							echo ' Line:'.$e->getLine();
 						}
