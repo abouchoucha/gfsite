@@ -8,10 +8,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	private $curl = null;
 	
 	//USE LIVE
-	//private $gsPath = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/";	
+	private $gsPath = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/";	
 	
 	//USE when Testing LOCALHOST
-	private $gsPath = "http://test.goalface.com/";	
+	//private $gsPath = "http://test.goalface.com/";	
 	
 	private static $logger;
 	
@@ -131,10 +131,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		
 		try {
 			//get LIVE feed xml
-			//$xml = $this->getgsfeed ( 'soccernew/home' );
+			$xml = $this->getgsfeed ( 'soccernew/home' );
 			
 			//Change when Testing LOCALHOST
-			$xml = $this->getgsfeed ( '020512_home.xml' );
+			//$xml = $this->getgsfeed ( '020512_home.xml' );
 			
 			$date = new Zend_Date ();
 			$today = $date->toString ( 'yyyy-MM-dd' );
@@ -159,7 +159,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
                   self::$logger->debug ( 'Country/Competition:' . $competition ['name'] ." / " .$row ['competition_id'] );
                    
                   // USE for testing LOCALHOST
-			      if ($row ['competition_id'] == 7){ 
+			      //if ($row ['competition_id'] == 7){ 
 						
     				echo "<br><strong>" . $row ['competition_id'] . " " . $row ['competition_name'] . "</strong><br>";
     				
@@ -168,7 +168,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
     				  if ($match['fix_id'] != "") {  
     				  
         			    // USE for testing LOCALHOST
-        				if ($match ['fix_id'] == 937993) {	
+        				//if ($match ['fix_id'] == 937993) {	
 
 							$homeScore = $match->localteam ['goals'];
 							$scoreAway = $match->visitorteam ['goals'];
@@ -252,10 +252,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 												$match_commentary = 1;
 														
 														//Testing LocalHost with test.goalface.com
-														$xmlComentary = $this->getgsfeed ( 'commentaries/spain05_12.xml' );
+														//$xmlComentary = $this->getgsfeed ( 'commentaries/spain05_12.xml' );
 														
 														//LIVE
-														//$xmlComentary = $this->getgsfeed ( 'commentaries/' . $match ['commentary_available'] . ".xml" );
+														$xmlComentary = $this->getgsfeed ( 'commentaries/' . $match ['commentary_available'] . ".xml" );
 														
 														if($xmlComentary!=null){
 															$matchX = $xmlComentary->xpath("//match[@id='".$match['fix_id']."']");
@@ -639,13 +639,13 @@ class GoalservetogoalfaceController extends GoalFaceController {
 							   }
 							
 							   
-						    } //for 1 match only loop filter only - LOCALHOST 
+						   // } //for 1 match only loop filter only - LOCALHOST 
 						
 						  }  // check if fix_id has a value  
 						 
 					 }//end for matches
 
-			    } //for competition loop filter only - LOCALHOST
+			    //} //for competition loop filter only - LOCALHOST
  
                 }
 			}
