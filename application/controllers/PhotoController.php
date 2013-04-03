@@ -564,7 +564,9 @@ class PhotoController extends GoalFaceController {
 										  'photoCaption' =>$photoRowSet[0]['image_caption'],
 										  'customMessage' => $message); 
 		$mail->set_variablesToReplace($variablesToReplaceEmail);
-		$mail->sendMail();
+		
+		// Check if this stops bounced email from community@goalface.com - JV 02-04-2013 10:04 pm
+		//$mail->sendMail();
 		//$mail->sendMailWithAttachment();
 		/*Send Mail to Friend for Request*/
 	  	
