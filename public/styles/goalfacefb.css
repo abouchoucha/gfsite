@@ -335,6 +335,7 @@
     text-align: center;
     color: #296183;
     text-decoration: none;
+
 }
 
 .fbcontainer .mmid .march .imgs .tfa a img,
@@ -473,4 +474,75 @@
 }
 
 
+/*Additional Table styles */
 
+
+.fbcontainer #LeagueTable {
+ 
+    float: left;
+}
+.fbcontainer table {
+    width: 100%;
+}
+
+.fbcontainer table th, .fbcontainer table td {
+   font-family: arial,verdana,helvetica,sans-serif;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+ }   
+    
+.fbcontainer table th, .fbcontainer table td{
+    font-size: 12px;
+    line-height: 18px;
+    padding: 3px 5px 3px 10px;
+}
+
+.fbcontainer table .gheading {
+    background-color: #356C8B;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+
+.fbcontainer table .gheading .ghtd {
+    font-weight: bold;
+}
+
+.fbcontainer table .lheading {
+    background-color: #CCCCCC;
+    color: #000000;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+
+.fbcontainer table .odd {
+    background-color: #E6EFF4;
+    padding: 0 0 0 10px;
+}
+
+.fbcontainer table .even {
+    background-color: #FFFFFF;
+    width: 355px;
+}
+
+
+.fbcontainer table td.logo {
+    font-weight: bold;
+}
+
+.fbcontainer table img {
+    border: 0 none;
+}
+
+.fbcontainer table a:link, a:hover, a:visited, a:active {
+    color: #296183;
+    text-decoration: none;
+}
+.fbcontainer table a:hover {
+    text-decoration: underline;
+}
+.fbcontainer table a:focus {
+    outline: medium none;
+}
