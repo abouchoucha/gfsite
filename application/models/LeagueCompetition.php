@@ -607,9 +607,9 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
    }
 
 
-      public function getRedCardsPerSeason($seasonId,$teamId = null,$limit = null,$roundlist = null,$playerId=null) {
-   		$db = $this->getAdapter ();
-        $sql = " SELECT me.player_id, ";
+    public function getRedCardsPerSeason($seasonId,$teamId = null,$limit = null,$roundlist = null,$playerId=null) {
+   	$db = $this->getAdapter ();
+    $sql = " SELECT me.player_id, ";
     $sql .= " SUM(me.event_type_id = 'L')AS total_lineups, ";
     $sql .= " SUM(me.event_type_id = 'SI')AS total_subin, ";
     $sql .= " (SUM(me.event_type_id = 'L')+ SUM(me.event_type_id = 'SI'))AS total_appear, ";
@@ -648,6 +648,26 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
 		return $row;
    		
    }
+
+
+    public function getActiveCompetitions() {
+   		$db = $this->getAdapter ();
+		$sql = " SELECT c.country_name,lc.competition_id,lc.competition_gs_id,lc.competition_name,gs.fixtures,s.season_id";
+		$sql .= " FROM goalservestanding gs ";
+		$sql .= " INNER JOIN league_competition lc ON gs.competition_id = lc.competition_id "; 
+		$sql .= " INNER JOIN country c ON lc.country_id = c.country_id ";
+		$sql .= " INNER JOIN season s ON s.competition_id = gs.competition_id ";
+		$sql .= " WHERE lc.active = 1 "; 
+		$sql .= " AND s.active = 1 "; 
+		$sql .= " AND lc.competition_id = 239 "; 
+   		//echo $sql;
+   		$result = $db->query ( $sql );
+		$row = $result->fetchAll ();
+		return $row;
+   }
+  
+}
+?>
 
    
 
