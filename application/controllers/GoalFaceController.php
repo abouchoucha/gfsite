@@ -204,4 +204,197 @@ class GoalFaceController extends Zend_Controller_Action {
 		}
 	}
 
+		public function getMatches($xml,$comp_gs_fix_name=null,$stageid=null,$weeknumber=null,$matchid=null,$competition_stage_id=null) {
+		
+		$stages = $xml->xpath("/results/tournament/stage");
+				
+		$allmatches = array();
+				
+				if ($stages != null) { //With Stages
+					
+					if ($stageid == null) { // tournaments with rounds all matches		
+								
+						$allstages = $xml->xpath("/results/tournament/stage");  //all stages
+						
+						//pass to a function that returns $allmatches[];
+						foreach($allstages as $stage) {
+
+							$matches = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match");
+							if ($matches != null) {
+								foreach($stage->match as $match) {
+									$match['stageid'] = $stage['stage_id'];
+									$match['week'] = null;
+									$match['aggregate'] = null;
+									$allmatches[] = $match;
+									
+								}
+							} else {
+								$weeks = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week");
+								if ($weeks != null) {
+
+									foreach($stage->week as $week) {
+										foreach ($week->match as $match) {
+											$match['stageid'] = $stage['stage_id'];
+											$match['week'] = $week['number']; 
+											$match['aggregate'] = null;
+											$allmatches[] = $match;
+										}
+									}
+								} else {
+									
+									$aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");									
+										if ($aggregate != null) {
+											$i = 1;
+											foreach($stage->aggregate as $aggregates) {
+												foreach($aggregates->match as $match) {
+													$match['stageid'] = $stage['stage_id'];
+													$match['week'] = null;
+													$match['aggregate'] = 'A'.$stage['stage_id'].$i;
+													$allmatches[] = $match;
+												}
+											$i++; }
+										}
+										
+								}
+							}
+							
+						} //pass to a function that returns $allmatches[];
+						
+						
+					} else { // tournaments with rounds filtered by stage id 
+						
+						$stage['stage_id'] = $stageid;
+						$allstages = $xml->xpath("/results/tournament/stage[@stage_id='".$stageid."']");
+						//Zend_Debug::dump($allstages)."<BR>";
+						//pass to a function that returns $allmatches[];
+						foreach($allstages as $stage) {
+								echo $matchid."<br>";
+								//insertmatches/country/intl/fixture/friendlies/stage/15352763
+								$matches = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match");
+								if ($matches != null) {
+									if ($matchid == null) {
+										foreach($stage->match as $match) {
+											$match['stageid'] = $stage['stage_id'];
+											$match['week'] = null;
+											$match['aggregate'] = null;
+											$allmatches[] = $match;
+											
+										}
+									} else {
+										//insertmatches/country/intl/fixture/friendlies/stage/15352763/matchid/1193000
+										$matchunique = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[@id='".$matchid."']");
+										foreach ($matchunique as $match) {
+											$match['stageid'] = $stage['stage_id'];
+											$match['week'] = null;
+											$match['aggregate'] = null;
+											$allmatches[] = $match;
+										}
+										
+									}
+	
+								} else {
+									
+									$weeks = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week");
+									if ($weeks != null) {
+										
+										if ($weeknumber !=null) {
+											
+											if ($matchid == null) {
+												$week_matches =  $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week[@number='".$weeknumber."']");
+												foreach ($week_matches as $week){
+													foreach ($week->match as $match) {
+														$match['stageid'] = $stage['stage_id'];
+														$match['week'] = $weeknumber;
+														$match['aggregate'] = null;
+														$allmatches[] = $match;
+													}
+												}
+											} else {
+												//only match filtered
+												$matchunique = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week[@number='".$weeknumber."']/match[@id='".$matchid."']");
+												foreach ($matchunique as $match) {
+													$match['stageid'] = $stage['stage_id'];
+													$match['week'] = $weeknumber;
+													$match['aggregate'] = null;
+													$allmatches[] = $match;
+												}
+											}
+											
+										} else {
+											foreach($stage->week as $week) {
+												foreach ($week->match as $match) {
+													$match['stageid'] = $stage['stage_id'];
+													$match['week'] = $week['number']; 
+													$match['aggregate'] = null;
+													$allmatches[] = $match;
+												}
+											}
+										}
+									} else {
+										echo "here";
+											$aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");									
+											if ($aggregate != null) {
+												if ($matchid == null) {
+													$i = 1;
+													foreach($stage->aggregate as $aggregates) {
+	
+															foreach($aggregates->match as $match) {
+																$match['stageid'] = $stage['stage_id'];
+																$match['week'] = null;
+																$match['aggregate'] = 'A'.$stage['stage_id'].$i;
+																$allmatches[] = $match;
+															}									
+													$i++; }
+												} else {
+													//match unique filter with aggregate
+													$matchunique = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate/match[@id='".$matchid."']");
+													foreach ($matchunique as $match) {
+														$match['stageid'] = $stage['stage_id'];
+														$match['week'] = null;
+														$match['aggregate'] = null;
+														$allmatches[] = $match;
+													}
+												}
+											}
+											
+									}
+								}
+							}
+							//pass to a function that returns $allmatches[];
+		
+					} 
+				} else { // Without Stages
+					
+					//all matches
+					if ($weeknumber == null) {
+						$matcharrayweek = $xml->xpath("/results/tournament/week");  
+						foreach ($matcharrayweek as $week) {
+							foreach ($week->match as $match) {
+								
+								$match['stageid'] = $competition_stage_id;
+								$match['week'] = $week['number'];
+								$match['aggregate'] = null;
+								$allmatches[] = $match;
+							}
+						}
+						
+					} else {
+						// Filtered by week /week/xxxx;
+						$allmatchweek = $xml->xpath("/results/tournament/week[@number='".$weeknumber."']");  //filter by match and week
+						//echo $weeknumber;
+						foreach ($allmatchweek as $week) {
+							foreach ($week->match as $match) {
+								$match['stageid'] = $competition_stage_id;
+								$match['week'] = $weeknumber;
+								$match['aggregate'] = null;
+								$allmatches[] = $match;
+							}
+						}
+							
+					}
+					
+				}
+				
+		return $allmatches;
+	}
 }
