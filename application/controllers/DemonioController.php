@@ -12,6 +12,7 @@ class DemonioController extends GoalFaceController {
 		Zend_Loader::loadClass ('PlayerSeason');
 		Zend_Loader::loadClass ('TeamPlayerStats');
 		Zend_Loader::loadClass ('TeamGoalieStats');
+		Zend_Loader::loadClass ('Round');
 	}
 
 	private function getplayerimage($playerid) {		
@@ -292,6 +293,93 @@ class DemonioController extends GoalFaceController {
 				echo "UPDATE DONE";
 			}
 		} 
+	}
+
+	public function syncstageroundsactiveAction() {
+		$feed_base_url = 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/';
+		$league = new LeagueCompetition();
+		$round = new Round(); 
+		$rowleague = $league->getActiveCompetitions();
+		foreach ($rowleague as $row) {
+			 $xml = parent::getGoalserveFeed($row['fixtures']);
+			 Zend_Debug::dump($row['fixtures']);
+			 $xml_stages = $xml->xpath('/results/tournament/stage');
+			 foreach ($xml_stages as $stage) {
+				$round_row = $round->findLeagueSeasonRound($stage['stage_id']);
+
+			 	if ($round_row == null) {
+			 		$stage_start_date = array();
+			 		$stage_end_date = array();
+			 		$xpath_start_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[1]/@date";
+			 		$stage_start_date = $xml->xpath($xpath_start_date);
+			 		$xpath_end_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[last()]/@date";
+			 		$stage_end_date = $xml->xpath($xpath_end_date);
+			 		echo $stage['stage_id'] ." - " . $stage['name'] . " - " . $stage['round'] . " DOES NOT Exists on DB<br>";
+			 		$my_start_date = date ( "Y-m-d", strtotime ( $stage_start_date[0]['date'] ) );
+			 		$my_end_date = date ( "Y-m-d", strtotime ( $stage_end_date[0]['date'] ) );
+			 		//Zend_Debug::dump($my_start_date);
+			 		//Zend_Debug::dump($my_end_date);
+			 		// Insert new stage in round table
+			 		$round_data = array(
+			 			'round_id' => (string)$stage['stage_id'],
+			 			'season_id' => $row['season_id'],
+			 			'round_title' => (string)$stage['name'],
+			 			'start_date' => $my_start_date,
+			 			'end_date' => $my_end_date,
+			 			'type' => $this->getRoundType($stage['name'],$stage['round']),
+			 		);
+			 		//insert new round 
+			 		//$round->insert($round_data);
+			 		echo "round id : " . (string)$stage['stage_id'] . " Inserted<br>";
+			 		// Get all matches for new round 
+			 		$feed_matches = parent::getMatches($xml,null,$stage['stage_id']);
+			 		// insert matches for round just inserted
+			 		//Zend_Debug::dump($round_data);
+			 		$feed_url_fixtures = $feed_base_url ."stage/".$stage['stage_id'];
+			 		system("wget -O - ". $feed_url_fixtures);
+			 		Zend_Debug::dump($feed_url_fixtures);
+			 		echo "matches inserted for stage: " .$stage['stage_id'] ."<br>";
+			 	}
+			 	
+			 }
+			 
+		}
+
+	}
+
+	private function getRoundType($stage_name,$stage_round) {
+
+		if ($stage_round == 'Knock Out') {
+			if($stage_name == 'Final') {
+				$type = 'cup';
+			} elseif ($stage_name == 'Semi-finals') {
+				$type = 'cup';
+			} elseif  ($stage_name == 'Quarter-finals') {
+				$type = 'cup';
+			} elseif  ($stage_name == '8th Finals') {
+				$type = 'cup';
+			} elseif ($stage_name == '3rd Place Final') {
+				$type = 'cup';
+			} elseif ($stage_name == '1st Round'){
+				$type = 'cup1';
+			} elseif ($stage_name == '2nd Round'){
+				$type = 'cup1';
+			} elseif ($stage_name == '3rd Round'){
+				$type = 'cup1';
+			} else {
+				$type = 'cup';
+			}
+
+		} elseif ($stage_round == 'Group Stage') {
+
+			$type = 'table';
+			
+		} else {
+			//round = qualifying
+			$type = 'cup1'; 
+		}
+
+		return $type;
 	}
 
 }

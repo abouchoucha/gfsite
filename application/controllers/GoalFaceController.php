@@ -204,7 +204,7 @@ class GoalFaceController extends Zend_Controller_Action {
 		}
 	}
 
-		public function getMatches($xml,$comp_gs_fix_name=null,$stageid=null,$weeknumber=null,$matchid=null,$competition_stage_id=null) {
+	public function getMatches($xml,$comp_gs_fix_name=null,$stageid=null,$weeknumber=null,$matchid=null,$competition_stage_id=null) {
 		
 		$stages = $xml->xpath("/results/tournament/stage");
 				
