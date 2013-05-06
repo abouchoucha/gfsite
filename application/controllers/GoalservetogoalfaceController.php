@@ -806,6 +806,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	
    	private function insertSubstitutionActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName , $matchId,$alert) {
 
+        self::$logger->debug ( "Inserting Substitution: " . $event ['id'] );
         if ($event ['eventtype'] == 'SI' or $event ['eventtype'] == 'SO') {
             $activityType = null;
             if ($event ['eventtype'] == 'SI') {
@@ -817,12 +818,12 @@ class GoalservetogoalfaceController extends GoalFaceController {
             $variablesToReplace = array ('player_name_seo' => $player_name_seo, 'player_name' => $player_shortname, 'player_id' => $event ['player_id'], 'match_playing' => $matchTeams, 'match_url' => $matchUrl, 'match_score' => $matchscore, 'event_minute' => $event ['game_minute'] );
             $activityBlogComment = new Activity ( );
             $activityBlogComment->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null ,0 , $event ['player_id'] , null , $event['date_event'] ,$playersPathName ,$matchId, $alert);
-
         }
     }
     
 	private function insertGoalScoredActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName ,$matchId,$alert) {
 
+        self::$logger->debug ( "Inserting Goal: " . $event ['id'] );
         if ($event ['eventtype'] == 'G' or $event ['eventtype'] == 'OG' or $event ['eventtype'] == 'PG') {
             if ($event ['eventtype'] == 'G') {
                 $activityType = Constants::$_GOAL_SCORED_ACTIVITY;
@@ -848,8 +849,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
         }
     }
 
-    private function insertCardsActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName ,$matchId) {
+    private function insertCardsActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName ,$matchId,$alert) {
 
+        self::$logger->debug ( "Inserting Card: " . $event ['id'] );
         if ($event ['eventtype'] == 'YC' or $event ['eventtype'] == 'RC' or $event ['eventtype'] == 'Y2C') {
             $activityType = null;
             if ($event ['eventtype'] == 'YC') {
@@ -871,7 +873,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
                     'event_minute' => $event ['game_minute'] );
 
             $activityBlogComment = new Activity ( );
-            $activityBlogComment->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null ,0 ,$event ['player_id'], null ,$event['date_event'] ,$playersPathName ,$matchId,1);
+            $activityBlogComment->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null ,0 ,$event ['player_id'], null ,$event['date_event'] ,$playersPathName ,$matchId,$alert);
         }
     }
 	
@@ -1672,6 +1674,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									);
 									
 									$playerid = $player->fetchRow ( 'player_id = ' . $goal['playerid'] );
+
 									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 									$player_shortname = $playerid ['player_name_short'];
 									$matchscore = $goal['score'];
@@ -1679,7 +1682,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									
 									self::insertGoalScoredActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $match_id,null );
 								} else {
-									self::$logger->debug ( "Player Id missing for event Goal on match:" .$match ['id'] ." - ". $match->localteam ['name'] ."vs. ".$match->visitorteam ['name'] );
+									self::$logger->debug ( "Inserting Player Id missing for event Goal on match:" .$match ['id'] ." - ". $match->localteam ['name'] ."vs. ".$match->visitorteam ['name'] );
 								}
 							$i++;}
 
@@ -1703,6 +1706,17 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									
 									//Activity Lineup Local
 									$playerid = $player->fetchRow ( 'player_id = ' . $lineuplocal['id'] );
+
+									// Added 5-5-13 
+									if ($playerid == null) {
+										self::$logger->debug ( 'Lineup Local Player NOT FOUND on DB - playerId: ' .$lineuplocal['id'] );
+										$playerid = self::insertNewPlayer($lineuplocal['id'] ,$rowTeamA ['team_id']);
+										if($playerid == null){
+											//insert a player with minimal data
+											$playerid = self::insertBasicInfoPlayer($lineuplocal['id'], $rowTeamA ['team_id']);
+										}
+									}
+
 									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 									$player_shortname = $playerid ['player_name_short'];
 									$matchscore = null;
@@ -1741,6 +1755,18 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									
 									//Activity Lineup Visitor
 									$playerid = $player->fetchRow ( 'player_id = ' . $lineupvisitor['id'] );
+
+									// Added 5-5-13 
+									if ($playerid == null) {
+										self::$logger->debug ( 'Lineup Visitor Player NOT FOUND on DB - playerId: ' .$lineupvisitor['id'] );
+										$playerid = self::insertNewPlayer($lineupvisitor['id'] ,$rowTeamB ['team_id']);
+										if($playerid == null){
+											//insert a player with minimal data
+											$playerid = self::insertBasicInfoPlayer($lineupvisitor['id'], $rowTeamB ['team_id']);
+										}
+									}
+
+
 									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 									$player_shortname = $playerid ['player_name_short'];
 									$matchscore = null;
@@ -1782,6 +1808,17 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									
 									//activity Sub Local In
 									$playerid = $player->fetchRow ( 'player_id = ' . $sublocal['player_in_id'] );
+
+									//Insert New PLayer HERE - Added 5-5-13 
+									if ($playerid == null) {
+										self::$logger->debug ( 'Sub in Local Player NOT FOUND on DB - playerId: ' .$sublocal['player_in_id'] );
+										$playerid = self::insertNewPlayer($sublocal['player_in_id'] ,$rowTeamA ['team_id']);
+										if($playerid == null){
+											//insert a player with minimal data
+											$playerid = self::insertBasicInfoPlayer($sublocal['player_in_id'], $rowTeamA ['team_id']);
+										}
+									}
+
 									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 									$player_shortname = $playerid ['player_name_short'];
 									$matchscore = null;
@@ -1850,6 +1887,17 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									
 									//activity Sub Visitor In
 									$playerid = $player->fetchRow ( 'player_id = ' . $subvisitor['player_in_id'] );
+
+									//Insert New PLayer HERE - Added 5-5-13 
+									if ($playerid == null) {
+										self::$logger->debug ( 'Lineup Visitor Player NOT FOUND on DB - playerId: ' .$subvisitor['player_in_id'] );
+										$playerid = self::insertNewPlayer($subvisitor['player_in_id'] ,$rowTeamB ['team_id']);
+										if($playerid == null){
+											//insert a player with minimal data
+											$playerid = self::insertBasicInfoPlayer($subvisitor['player_in_id'], $rowTeamB ['team_id']);
+										}
+									}
+
 									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 									$player_shortname = $playerid ['player_name_short'];
 									$matchscore = null;
@@ -2320,9 +2368,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	}
 	
 	
-	
-	
- 
 	
 	public function updatesquadAction() {
 		$config = Zend_Registry::get( 'config' );

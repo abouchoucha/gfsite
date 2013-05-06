@@ -4,6 +4,9 @@ require_once 'scripts/seourlgen.php';
 require_once 'GoalFaceController.php';
 
 class DemonioController extends GoalFaceController {
+
+	private static $host_domain;
+
 	public function init() {
 		Zend_Loader::loadClass ('Zend_Debug');
 		Zend_Loader::loadClass ('Player');
@@ -13,6 +16,10 @@ class DemonioController extends GoalFaceController {
 		Zend_Loader::loadClass ('TeamPlayerStats');
 		Zend_Loader::loadClass ('TeamGoalieStats');
 		Zend_Loader::loadClass ('Round');
+
+		$config = Zend_Registry::get ( 'config' );
+		self::$host_domain = $config->path->index->server->name; 
+
 	}
 
 	private function getplayerimage($playerid) {		
@@ -124,27 +131,27 @@ class DemonioController extends GoalFaceController {
 	    $seasonid = $this->_request->getParam ( 'season', null );
 	    $competitionId = $this->_request->getParam ( 'league', null );
 		//$feedpath = 'standings/'.$standing_country.'.xml';
-		 $feedpath = 'standings/venezuela.xml';
+		 $feedpath = 'standings/afc_champions_league.xml';
         $xml = parent::getGoalserveFeed($feedpath);
         $teamdata = new Team ();
         
-		// foreach ($xml->tournament as $group) {
-		//     //echo $group['name']."<BR>";
-		//     foreach ($group->team as $team) {
-  //   		    $rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-  //   			 //echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-  //   			echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
-  //   			//echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
-  //   			//echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
-		//      }
-		// }
-
-		foreach ($xml->tournament->team as $team) {
-			$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-	        //echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
-			//echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-			echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";			
+		foreach ($xml->tournament as $group) {
+		    //echo $group['name']."<BR>";
+		    foreach ($group->team as $team) {
+    		    $rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+    			 echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+    			//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
+    			//echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
+    			//echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		     }
 		}
+
+		// foreach ($xml->tournament->team as $team) {
+		// 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+	 //        //echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
+		// 	//echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+		// 	echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";			
+		// }
 		
 /*		$rowTeam ['team_gs_id'] = 13904; 
 		$xml = $this->getgsfeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
@@ -296,52 +303,86 @@ class DemonioController extends GoalFaceController {
 	}
 
 	public function syncstageroundsactiveAction() {
-		$feed_base_url = 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/';
+		$insert_action_url = 'http://'. self::$host_domain .'/goalservetogoalface/insertmatches/';
 		$league = new LeagueCompetition();
 		$round = new Round(); 
 		$rowleague = $league->getActiveCompetitions();
 		foreach ($rowleague as $row) {
-			 $xml = parent::getGoalserveFeed($row['fixtures']);
-			 Zend_Debug::dump($row['fixtures']);
-			 $xml_stages = $xml->xpath('/results/tournament/stage');
-			 foreach ($xml_stages as $stage) {
-				$round_row = $round->findLeagueSeasonRound($stage['stage_id']);
+			$xml = parent::getGoalserveFeed($row['fixtures']);
+			$fixtures = explode("/", $row['fixtures']);
+			$fixture_country = $fixtures[1];
+			$fixture_league = $fixtures[2];
 
-			 	if ($round_row == null) {
-			 		$stage_start_date = array();
-			 		$stage_end_date = array();
-			 		$xpath_start_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[1]/@date";
-			 		$stage_start_date = $xml->xpath($xpath_start_date);
-			 		$xpath_end_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[last()]/@date";
-			 		$stage_end_date = $xml->xpath($xpath_end_date);
-			 		echo $stage['stage_id'] ." - " . $stage['name'] . " - " . $stage['round'] . " DOES NOT Exists on DB<br>";
-			 		$my_start_date = date ( "Y-m-d", strtotime ( $stage_start_date[0]['date'] ) );
-			 		$my_end_date = date ( "Y-m-d", strtotime ( $stage_end_date[0]['date'] ) );
-			 		//Zend_Debug::dump($my_start_date);
-			 		//Zend_Debug::dump($my_end_date);
-			 		// Insert new stage in round table
-			 		$round_data = array(
-			 			'round_id' => (string)$stage['stage_id'],
-			 			'season_id' => $row['season_id'],
-			 			'round_title' => (string)$stage['name'],
-			 			'start_date' => $my_start_date,
-			 			'end_date' => $my_end_date,
-			 			'type' => $this->getRoundType($stage['name'],$stage['round']),
-			 		);
-			 		//insert new round 
-			 		//$round->insert($round_data);
-			 		echo "round id : " . (string)$stage['stage_id'] . " Inserted<br>";
-			 		// Get all matches for new round 
-			 		$feed_matches = parent::getMatches($xml,null,$stage['stage_id']);
-			 		// insert matches for round just inserted
-			 		//Zend_Debug::dump($round_data);
-			 		$feed_url_fixtures = $feed_base_url ."stage/".$stage['stage_id'];
-			 		system("wget -O - ". $feed_url_fixtures);
-			 		Zend_Debug::dump($feed_url_fixtures);
-			 		echo "matches inserted for stage: " .$stage['stage_id'] ."<br>";
-			 	}
-			 	
-			 }
+
+			// IMPORTANT - Only get child nodes of <stage><match> ..</match></stage> where it has content , exclude <stage></stage>
+			$xml_stages = $xml->xpath('/results/tournament/stage[count(*)>0]');
+
+				foreach ($xml_stages as $stage) {
+
+					$round_row = $round->findLeagueSeasonRound($stage['stage_id']);
+
+					 	if ($round_row == null) { 
+
+
+					 		$stage_start_date = array();
+					 		$stage_end_date = array();
+					 		
+					 		$matches = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match");
+								if ($matches != null) {
+									$xpath_start_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[1]/@date";
+						 			$stage_start_date = $xml->xpath($xpath_start_date);
+						 			$xpath_end_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/match[last()]/@date";
+						 			$stage_end_date = $xml->xpath($xpath_end_date);
+								} else {
+									$weeks = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week");
+									if ($weeks != null) {
+										$xpath_start_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week[1]/match[1]/@date";
+										$stage_start_date = $xml->xpath($xpath_start_date);
+										$xpath_end_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/week[last()]/match[last()]/@date";
+										$stage_end_date = $xml->xpath($xpath_end_date);
+									} else {
+											
+										$aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");									
+											if ($aggregate != null) {
+												$xpath_start_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate[1]/match[1]/@date";
+												$stage_start_date = $xml->xpath($xpath_start_date);
+												$xpath_end_date = "/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate[last()]/match[last()]/@date";
+												$stage_end_date = $xml->xpath($xpath_end_date);
+											}
+												
+										}
+								}
+					 		
+					 		echo "<strong>". $fixtures[1] ." </strong> - ". $fixtures[2] ." - ". $stage['stage_id'] ." - " . $stage['name'] . " - " . $stage['round'] . " - Not in DB<br>";			 		
+					 		$my_start_date = date ( "Y-m-d", strtotime ( $stage_start_date[0]['date'] ) );
+					 		$my_end_date = date ( "Y-m-d", strtotime ( $stage_end_date[0]['date'] ) );
+
+
+					 		// Insert new stage in round table
+					 		$round_data = array(
+					 			'round_id' => (string)$stage['stage_id'],
+					 			'season_id' => $row['season_id'],
+					 			'round_title' => (string)$stage['name'],
+					 			'start_date' => $my_start_date,
+					 			'end_date' => $my_end_date,
+					 			'type' => $this->getRoundType($stage['name'],$stage['round']),
+					 		);
+
+					 		//insert new round 
+					 		//$round->insert($round_data);
+					 		echo "round id : " . (string)$stage['stage_id'] . " Inserted<br>";
+
+					 		// run insertmatches using round(stage_id) just inserterted
+				
+					 		$feed_url_fixtures = $insert_action_url ."country/" . $fixture_country . "/fixture/" . $fixture_league . "/stage/".$stage['stage_id'];
+					 		//system("wget -O - ". $feed_url_fixtures);
+
+					 		echo "matches inserted for stage: " .$stage['stage_id'] ."<br>";
+					 		echo "===================================================<br><br>";
+
+					 	}
+				 	
+				 }
 			 
 		}
 
@@ -381,6 +422,5 @@ class DemonioController extends GoalFaceController {
 
 		return $type;
 	}
-
 }
 ?>
