@@ -177,13 +177,11 @@
 				<div class="ftr2">
 					<p class="profile">Things You Can Do</p>
 					<ul>
-					             <li><a href="http://www.goalface.org/tour.php" title="GoalFace Quick Tour" target="_blank">Take the Quick Tour</a></li>
-
-                        <li><a href="<?php echo $urlGen->getMainScoresAndMatchesPageUrl(true); ?>" title="Football Scores & Schedules">Latest Scores and Schedules</a></li>
-                        <li><a href="<?php echo $urlGen->getMainNewsPage(true); ?>" title="Football News">News from Around the World of Football</a></li>
-                        <li><a href="<?php echo $urlGen->getClubsMainUrl(true); ?>" title="Football Teams">Follow Your Favorite Team</a></li>
-                        <li><a href="<?php echo $urlGen->getMainProfilesPage(true); ?>" title="Football Fan Profiles">Meet Fans Like You and Make Friends</a></li>
-                        <li>A Lot More...<strong><a href="<?php echo Zend_Registry::get("contextPath"); ?>/user/register"  title="Register to GoalFace">Join Now!</a></strong></li>
+	              <li><a href="http://www.goalface.org/tour.php" title="GoalFace Quick Tour" target="_blank">Take the Quick Tour</a></li>
+                <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/subscribe" title="Football Teams">Follow Your Favorite Team</a></li>
+                <li><a href="<?php echo $urlGen->getMainScoresAndMatchesPageUrl(true); ?>" title="Football Scores & Schedules">Check the Latest Scores and Schedules</a></li>
+                <li><a href="<?php echo $urlGen->getMainLeaguesAndCompetitionsUrl(true); ?>" title="League and Tournaments">View League and Tournament Standings and Stats</a></li>
+                <li>A Lot More...<strong><a href="<?php echo Zend_Registry::get("contextPath"); ?>/user/register"  title="Register to GoalFace">Join Now!</a></strong></li>
 					</ul>
 				</div>
 			</div>
