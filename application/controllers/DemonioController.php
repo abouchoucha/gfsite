@@ -131,7 +131,7 @@ class DemonioController extends GoalFaceController {
 	    $seasonid = $this->_request->getParam ( 'season', null );
 	    $competitionId = $this->_request->getParam ( 'league', null );
 		//$feedpath = 'standings/'.$standing_country.'.xml';
-		 $feedpath = 'standings/afc_champions_league.xml';
+		 $feedpath = 'standings/italy1.xml';
         $xml = parent::getGoalserveFeed($feedpath);
         $teamdata = new Team ();
         
@@ -139,7 +139,7 @@ class DemonioController extends GoalFaceController {
 		    //echo $group['name']."<BR>";
 		    foreach ($group->team as $team) {
     		    $rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-    			 echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+    			 // "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
     			//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
     			//echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
     			//echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
@@ -313,7 +313,10 @@ class DemonioController extends GoalFaceController {
 			$fixture_country = $fixtures[1];
 			$fixture_league = $fixtures[2];
 
+			echo "<strong>". $fixtures[1] ." </strong><br>";
+			echo $fixtures[2] ." ( ". $row['competition_id']  .") - season : (" . $row['season_id']. ")<br>";
 
+			
 			// IMPORTANT - Only get child nodes of <stage><match> ..</match></stage> where it has content , exclude <stage></stage>
 			$xml_stages = $xml->xpath('/results/tournament/stage[count(*)>0]');
 
@@ -323,6 +326,7 @@ class DemonioController extends GoalFaceController {
 
 					 	if ($round_row == null) { 
 
+					 		echo  $stage['stage_id'] ." - " . $stage['name'] . " - " . $stage['round'] . " - Not in DB<br>";
 
 					 		$stage_start_date = array();
 					 		$stage_end_date = array();
@@ -353,7 +357,8 @@ class DemonioController extends GoalFaceController {
 										}
 								}
 					 		
-					 		echo "<strong>". $fixtures[1] ." </strong> - ". $fixtures[2] ." - ". $stage['stage_id'] ." - " . $stage['name'] . " - " . $stage['round'] . " - Not in DB<br>";			 		
+					 		
+					 					 		
 					 		$my_start_date = date ( "Y-m-d", strtotime ( $stage_start_date[0]['date'] ) );
 					 		$my_end_date = date ( "Y-m-d", strtotime ( $stage_end_date[0]['date'] ) );
 
@@ -380,6 +385,8 @@ class DemonioController extends GoalFaceController {
 					 		echo "matches inserted for stage: " .$stage['stage_id'] ."<br>";
 					 		echo "===================================================<br><br>";
 
+					 	} else {
+					 		echo $stage['stage_id']  . " - Up to Date <br>";
 					 	}
 				 	
 				 }

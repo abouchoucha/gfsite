@@ -23,10 +23,9 @@
 					</ul>
 				</div>
 				<div class="ftr1">
-					<p class="profile">Scores &amp; News</p>
+					<p class="profile">Scores</p>
 					<ul>
                         <li><a href="<?php echo $urlGen->getMainScoresAndMatchesPageUrl(true); ?>" title="Football Live Scores & Match Schedules">Scores &amp; Schedules</a></li>
-                        <li><a href="<?php echo $urlGen->getMainNewsPage(true); ?>" title="Football News">News</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/europe" title="Europe Football Live Scores & Match Schedules">Europe</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/americas" title="Americas Football Live Scores & Match Schedules">America</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/africa" title="Africa Football Live Scores & Match Schedules">Africa</a></li>
@@ -111,10 +110,9 @@
 			<div class="foot">
 
 				<div class="ftr1">
-					<p class="profile">Scores &amp; News</p>
+					<p class="profile">Scores</p>
 					<ul>
                         <li><a href="<?php echo $urlGen->getMainScoresAndMatchesPageUrl(true); ?>" title="Football Live Scores & Match Schedules">Scores &amp; Schedules</a></li>
-                        <li><a href="<?php echo $urlGen->getMainNewsPage(true); ?>" title="Football News">News</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/europe" title="Europe Football Live Scores & Match Schedules">Europe</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/americas" title="Americas Football Live Scores & Match Schedules">America</a></li>
                         <li><a href="<?php echo Zend_Registry::get("contextPath"); ?>/live-scores/africa" title="Africa Football Live Scores & Match Schedules">Africa</a></li>

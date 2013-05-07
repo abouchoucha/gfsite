@@ -283,7 +283,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																	
 																	foreach ( $lineUpArray as $player ) {
 																			try{	
-                                        if($player ['id'] != null) {	
+                                        										if($player ['id'] != null) {	
   																				self::$logger->debug ( 'Starting LineUp for Player: ' . $player ['id'] );
   																				$playerteamid = $team->fetchRow ( 'team_gs_id = ' . $player ['team_id'] );
   																				self::$logger->debug ( 'Player Team id is: ' . $playerteamid->team_id );
@@ -340,8 +340,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
   																					}
   																				}
   																			}	else {
-                                          self::$logger->debug ( 'Starting LineUp for Player: EMPTY' );
-                                        }
+                                          										self::$logger->debug ( 'Starting LineUp for Player: EMPTY' );
+                                        										}
 																			} catch ( Exception $e ) {
 																			//	'<br>error'.$e->getMessage().'</br>';
 																			self::$logger->err ( "Caught LINEUP exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
@@ -1648,11 +1648,20 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									} else {
 										$team_id_event = $rowTeamB ['team_id'];
 									}
-								
+
+									// Goals (G), Own Goals (OG), penalty goals (PG)
+									$goaltype = array();
+									preg_match('/\((.*?)\)/',$goal['player'], $result);
+									if(empty($result)) {
+										$goalevent = 'G';	
+									} else {
+										$goalevent = $result[1];
+									}
+
 									$dataevent = array (
 										'event_id' => 'E' . $match ['id'] . $i, 
 										'player_id' => $goal['playerid'],
-										'event_type_id'=>'G',
+										'event_type_id'=> $goalevent, // G, OG or PG
 										'match_id' => 'G' . $match ['id'],
 										'team_id' => $team_id_event,
 										'event_minute' => $goal['minute'], 
@@ -1667,7 +1676,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									$event = null; 
 									$event = array (
 										'id' => 'E' . $match ['id'] . $i, 
-										'eventtype' => 'G',
+										'eventtype' => $goalevent, // G, OG or PG
 										'player_id' => $goal['playerid'], 
 										'game_minute' =>$goal['minute'],
 										'date_event' => $new_gf_date ." ". $new_gf_time,
