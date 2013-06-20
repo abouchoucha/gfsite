@@ -1243,7 +1243,7 @@ div.WrapperForDropShadow div#FeaturedNewsList div.SeeMoreNews
 
 #ScorecardContainer .matchesdata ul li.score,
 #ScoresDataModule .matchesdata ul li.score
-{float:left;width:30px;color:#296183;font:normal 12px arial;}
+{float:left;width:40px;color:#296183;font:normal 12px arial;}
 #ScorecardContainer .matchesdata ul li.score a,
 #ScoresDataModule .matchesdata ul li.score a
 {color:#296183;text-decoration:none;}
