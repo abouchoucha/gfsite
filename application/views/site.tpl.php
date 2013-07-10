@@ -1,11 +1,17 @@
+<?php
+    $config = Zend_Registry::get ( 'config' );
+    $server = $config->server->host;
+    $fb_app_id = $config->facebook->appid;
+?>
 <!DOCTYPE html>
-<html xmlns='http://www.w3.org/1999/xhtml'  
-xmlns:b='http://www.google.com/2005/gml/b'  
-xmlns:data='http://www.google.com/2005/gml/data'  
-xmlns:expr='http://www.google.com/2005/gml/expr'  
-xmlns:fb='http://www.facebook.com/2008/fbml'  
+<html xmlns='http://www.w3.org/1999/xhtml'
+xmlns:b='http://www.google.com/2005/gml/b'
+xmlns:data='http://www.google.com/2005/gml/data'
+xmlns:expr='http://www.google.com/2005/gml/expr'
+xmlns:fb='http://www.facebook.com/2008/fbml'
+xmlns:og:'http://ogp.me/ns#'
 xmlns:og='http://opengraph.org/schema/'>
-<head> 
+<head>
 <?php require_once 'browserdetection.php';
  	$a_browser_data = browser_detection('full');
  	if ( $a_browser_data[0] == 'ie' &&  ( $a_browser_data[1] <= 6 ) ){
@@ -18,12 +24,13 @@ xmlns:og='http://opengraph.org/schema/'>
 <meta name='description' content="<?php echo $this->escape($this->description); ?>" />
 <meta name='keywords' content="<?php echo $this->escape($this->keywords); ?>" />
 <meta property="og:type" content="website" />
-<meta property="fb:admins" content="500033921"/> 
+<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>"/>
+<meta property="fb:admins" content="500033921"/>
 <meta property="og:title" content="<?php echo $this->escape($this->title); ?>" />
 <meta property="og:description" content="<?php echo $this->escape($this->description); ?>" />
 <meta property="og:image" content="<?php echo $this->escape($this->imagefacebook); ?>"/>
 
-<?php 
+<?php
 	$pageURL = 'http';
 	$pageURL .= "://";
 	if ($_SERVER["SERVER_PORT"] != "80") {
@@ -36,16 +43,12 @@ xmlns:og='http://opengraph.org/schema/'>
 
 <meta name="google-site-verification" content="IimGcUJQ1N1Fr6nwjo0nsjWPXcSPJdnLU37z8ivy7pU" />
 <meta http-equiv="Content-Script-Type" content="text/tcl">
-<?php
-    $config = Zend_Registry::get ( 'config' );
-    $server = $config->server->host;
-    if ($server == 'notfornow') {
-?>
+<?php if ($server == 'notfornow') { ?>
  <meta name="verify-v1" content="cuRLxie74zjP5P9S7YGeoQzlyBGzf1iUjBuXGa4a8nw=" />
 <?php  }  ?>
 
 <title><?php echo $this->escape($this->title); ?></title>
-<link rel="shortcut icon" href="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/favicon.ico" type="image/x-icon"/>  
+<link rel="shortcut icon" href="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/favicon.ico" type="image/x-icon"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/layouts.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/goalface.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/menu.css' rel="stylesheet" type="text/css" media="screen"/>
@@ -53,7 +56,7 @@ xmlns:og='http://opengraph.org/schema/'>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/jquery.cluetip.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/jquery-ui-1.8.16.custom.css' rel="stylesheet" type="text/css" media="screen"/>
 <link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/jquery.loadmask.css' rel="stylesheet" type="text/css" media="screen"/>
-<link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/fb-traffic-pop.css' rel="stylesheet" type="text/css" media="screen"/> 
+<link href='<?php echo Zend_Registry::get("contextPath"); ?>/public/styles/fb-traffic-pop.css' rel="stylesheet" type="text/css" media="screen"/>
 
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
 <script src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/jquery_cookie.js" type="text/javascript"></script>
@@ -105,18 +108,10 @@ xmlns:og='http://opengraph.org/schema/'>
     <?php include 'header.php';?>
 
     <?php echo $this->render($this->actionTemplate); ?>
-    
-    <?php include 'footer.php'; ?>
- 
-  </div><!--end wrapper-->
-  <?php
-    $config = Zend_Registry::get ( 'config' );
-    $server = $config->server->host;
-    if ($server != 'beta') {
-  ?>
-  <!-- Show something here -->
 
-  <?php } ?>
+    <?php include 'footer.php'; ?>
+
+  </div><!--end wrapper-->
 
 </body>
 </html>
