@@ -345,3 +345,7 @@ $router->addRoute('rss_gallery', $route);
 //RSS Gallery
 $route = new Zend_Controller_Router_Route_Static('subscribe', array('controller' => 'rss', 'action' => ''));
 $router->addRoute('subscribe', $route);
+
+//matches only path /matches redirect to live-scores-schedules
+$route = new Zend_Controller_Router_Route('matches', array('controller'=>'scoreboard', 'action' => 'showscoreschedule'));
+$router->addRoute('matches', $route);
