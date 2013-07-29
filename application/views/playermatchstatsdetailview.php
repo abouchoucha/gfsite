@@ -2,13 +2,13 @@
 <!-- League Match Season Stats -->
 <?php //echo $this->paginationControl($this->paginator,'Sliding','scripts/my_pagination_control_div_box.phtml'); ?>
  <?php echo $this->paginationControl($this->paginator,'Sliding','scripts/my_pagination_control_full_matchstats.phtml'); ?>
- 
+
 <div class="scores">
 	<ul>
-		<li class="name">Date</li>	
-		<li class="comp">Competition</li>			
+		<li class="name">Date</li>
+		<li class="comp">Competition</li>
 		<li class="team">Opponent</li>
-		<li class="cont">&nbsp;</li>
+
 		<?php if ($this->playerpos != 'Goalkeeper') {  ?>
     	   	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
     	<?php } else { ?>
@@ -20,8 +20,8 @@
 </div>
 <?php $i = 1; ?>
 <?php foreach ($this->paginator as $data) {  ?>
-    <?php  if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";} ?>   
-    <div class="<?php echo $style ?>"> 
+    <?php  if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";} ?>
+    <div class="<?php echo $style ?>">
     	<ul>
     		<li class="name"><?php echo date('M j, Y', strtotime ($data['match_date'])) ?></li>
     		<li class="comp">
@@ -34,7 +34,7 @@
 		   	    <?php echo $data['team_other_name'] ?>
 		   	 </a>
 		   </li>
-		 <li class="cont">&nbsp;</li>
+
 		   <?php if ($this->playerpos != 'Goalkeeper') {  ?>
     			<li class="score"><?php echo $data['gl'] ?></li>
     	   <?php } else { ?>

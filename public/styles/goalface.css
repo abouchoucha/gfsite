@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6
 
 p,span{margin:0px;padding:0px;} /* convert2xhtml added*/
 
-th,td 
+th,td
 {
   font-family: arial, verdana, helvetica, sans-serif;
   font-size:11px;
@@ -165,7 +165,7 @@ display:none;
 }
 
 .ajaxloadtabs {
-	
+
 	background-color:#FFF;
     background-image:url(../images/ajax-loader2.gif);
     background-repeat:no-repeat;
@@ -178,7 +178,7 @@ display:none;
 }
 
 .ajaxloadmodule {
-	
+
 	background-color:#FFF;
     background-image:url(../images/ajax-loader2.gif);
     background-repeat:no-repeat;
@@ -258,7 +258,7 @@ display:none;
   border: 1px solid #6f9bbc;
   margin: -2px 3px 4px -2px;
   padding:0px;
-} 
+}
 
 
 /* End of Drop Shadow */
@@ -269,7 +269,7 @@ div.WrapperForScoreTab
   border: none;
   margin: -2px 3px 6px -2px;
   padding:0px;
-} 
+}
 
 
 .img-shadow-gray
@@ -282,7 +282,7 @@ div.WrapperForScoreTab
 .img-shadow-gray div.WrapperForDropShadow-gray
 {
   border: 1px solid #ccc;
-} 
+}
 
 .LightBlueBackground
 {
@@ -316,14 +316,14 @@ div.WrapperForScoreTab
   clear:both;
   margin:0px 4px 15px 4px;
   padding-top:15px;
-    
+
 }
 
 .FirstColumnOfThree, .SecondColumnOfThree, .ThirdColumnOfThree
 {
     float:left;
     width:200px;
-    margin-right:16px;   
+    margin-right:16px;
 }
 
 .SecondColumnOfThree, .ThirdColumnOfThree
@@ -333,7 +333,7 @@ div.WrapperForScoreTab
 
 .ThirdColumnOfThree
 {
-   margin-right:0px; 
+   margin-right:0px;
 }
 
 /*End of Three Column Layout*/
@@ -359,7 +359,7 @@ div.WrapperForScoreTab
 .FirstColumnOfTwo
 {
     float:left;
-    width:574px; 
+    width:574px;
 }
 
 .SecondColumnOfTwo
@@ -556,9 +556,9 @@ div.WrapperForDropShadow div div.LogoWrapper div.SmallLogoWrapper
 
 
 
-#Feedback,#leftMenu 
+#Feedback,#leftMenu
 {
-    
+
     background-color:#e6eff4;
 }
 
@@ -657,12 +657,12 @@ div.DropShadowHeader div.DownArrow, div.DropShadowHeader div.RightArrow, div.Dro
     height:16px;
     width:18px;
     background-repeat:no-repeat;
-    background-position:3px 5px;     
+    background-position:3px 5px;
 }
 
 div.DropShadowHeader div.RightArrow
 {
-    background-position:3px 4px; 
+    background-position:3px 4px;
 }
 
 
@@ -702,7 +702,7 @@ div.BrownGradientForDropShadowHeader img, div.BrownGradientForDropShadowHeader d
 
 }
 
- 
+
 
 div.BrownGradientForDropShadowHeader div.DownArrow, div.BrownGradientForDropShadowHeader div.RightArrow
 
@@ -867,7 +867,7 @@ div.DropShadowHeader span input.submit {
     margin:0;
 }
 
-#searchProfiles fieldset {	
+#searchProfiles fieldset {
 	margin:0;
 	padding:5px 0;
 }
@@ -972,7 +972,7 @@ ul#TalkingPoints
     background-color:#e6eff4;
     height:auto;
     padding:20px;
-    padding-bottom:20px;    
+    padding-bottom:20px;
 }
 
 ul#ActivityDetailList
@@ -1000,7 +1000,7 @@ ul#TalkingPoints li div,
 ul#ActivityDetailLiul li div
 {
     margin-top:5px;
-    float:left;    
+    float:left;
 }
 
 ul#TalkingPoints li div.TimeSetting,
@@ -1015,7 +1015,7 @@ ul#ActivityDetailList li div.Comment
 {
     background:transparent url(../images/icons/comment.png) no-repeat scroll 0pt 50%;
 	padding:8px 0pt 8px 20px;
-    
+
 }
 
 ul#BlogComments
@@ -1065,7 +1065,7 @@ div.WrapperForDropShadow div div#FeaturedNewsList div.newsItemFirstHome
    min-height:80px;
    height:auto !important;
    height:80px;
-   background:none; 
+   background:none;
 }
 
 
@@ -1080,7 +1080,7 @@ div.WrapperForDropShadow div#FeaturedNewsList div.newsItem
     list-style-image:none;
     list-style-position:outside;
     list-style-type:none;
- 
+
 }
 
 
@@ -1166,7 +1166,7 @@ div.WrapperForDropShadow div#FeaturedNewsList div.SeeMoreNews
 {
 	border:none;
 	margin:0;
-	padding:2px;	
+	padding:2px;
 }
 
 #NewsList
@@ -1221,7 +1221,7 @@ div.WrapperForDropShadow div#FeaturedNewsList div.SeeMoreNews
 {float:left;width:120px;color:#296183;font:normal 12px arial;}
 
 #ScorecardContainer .matchesdata ul li.winner,
-#ScoresDataModule .matchesdata ul li.winner 
+#ScoresDataModule .matchesdata ul li.winner
  {font-weight:bold;}
 #ScorecardContainer .matchesdata ul li.teamhome a,
 #ScoresDataModule .matchesdata ul li.teamhome a
@@ -1269,7 +1269,7 @@ div.WrapperForDropShadow div#FeaturedNewsList div.SeeMoreNews
 
 
 
-#ScorecardContainer .Scores 
+#ScorecardContainer .Scores
 {
   padding: 8px;
 }
@@ -1311,10 +1311,10 @@ font-weight:bold;
 #ScoreSchedContainer {
     border:solid 1px #6f9bbc;
     width:350px;
-    clear:both; 
+    clear:both;
 
 }
- 
+
 
 #ViewScores
 {
@@ -1336,21 +1336,21 @@ font-weight:bold;
 
 
 .ScoresEdit {
-  background-color:#f7f7f7;    
+  background-color:#f7f7f7;
   font-size:12px;
   color:#333333;
-  width: 355px; 
-  height: 300px; 
+  width: 355px;
+  height: 300px;
   border-bottom:1px solid #CCCCCC;
-  overflow-y: scroll; 
-  scrollbar-arrow-color:blue; 
+  overflow-y: scroll;
+  scrollbar-arrow-color:blue;
 
 }
 #compList ul.TwoColumnCountryList li
 
 .Scores
 {
-    background-color:#f7f7f7;    
+    background-color:#f7f7f7;
     font-size:12px;
     color:#333333;
     padding-left:8px;
@@ -1392,7 +1392,7 @@ font-weight:bold;
 .Scores ul.MatchesDate
 {
     margin-bottom:5px;
-    
+
 }
 
 .Scores ul.MatchesDate li
@@ -1549,7 +1549,7 @@ ul#SecondColumnHighlightBoxContentNav li
     text-transform:uppercase;
     padding:4px 10px;
     color:#fff;
-    font-weight:bold;        
+    font-weight:bold;
 }
 
 ul#SecondColumnHighlightBoxContentNav li.last
@@ -1558,7 +1558,7 @@ ul#SecondColumnHighlightBoxContentNav li.last
     text-transform:none;
     padding:4px 13px;
     color:#fff;
-    font-weight:normal;       
+    font-weight:normal;
 }
 
 ul#SecondColumnHighlightBoxContentNav li.last a
@@ -1611,9 +1611,9 @@ ul#SecondColumnHighlightBoxContentNavTwo li
     padding:0px 5px;
     margin:5px 0px;
     color:#000;
-    font-weight:bold; 
+    font-weight:bold;
     background-color:#fff;
-    border-right:solid 1px #bed2df;       
+    border-right:solid 1px #bed2df;
 }
 
 ul#SecondColumnHighlightBoxContentNavTwo li.PaginationOne, ul#SecondColumnHighlightBoxContentNavTwo li.PaginationTwo, ul#SecondColumnHighlightBoxContentNavTwo li.PaginationThree, ul#SecondColumnHighlightBoxContentNavTwo li.PaginationAlphabet
@@ -1626,7 +1626,7 @@ ul#SecondColumnHighlightBoxContentNavTwo li.PaginationOne, ul#SecondColumnHighli
     width:98px;
 }
 
-.PaginationTwo 
+.PaginationTwo
 {
     width:265px;
     text-align:center;
@@ -1653,12 +1653,12 @@ ul#SecondColumnHighlightBoxContentNavTwo li.PaginationOne, ul#SecondColumnHighli
 
 .PaginationThree
 {
-    
+
     text-align:right;
     width:260px;
 }
 
-.PaginationAlphabet 
+.PaginationAlphabet
 {
   width:540px;
   text-align:center;
@@ -1692,10 +1692,10 @@ ul#SecondColumnHighlightBoxContentNavThree li li
     padding:0px 5px;
     margin:2px 0px;
     color:#000;
-    font-weight:bold; 
+    font-weight:bold;
     background-color:#fff;
-    border-right:solid 1px #bed2df;  
-    float:left;     
+    border-right:solid 1px #bed2df;
+    float:left;
 }
 
 ul#SecondColumnHighlightBoxContentNavThree li li.NoRightBorder
@@ -1741,7 +1741,7 @@ ul.SecondNavInContentNavThree
     text-align:right;
     margin-top:0px;
     padding-top:0px;
-    height:21px; 
+    height:21px;
 }
 
 #SecondColumnHighlightBoxContent p.CustomizeFeeds a
@@ -1754,7 +1754,7 @@ ul.SecondNavInContentNavThree
 #SecondColumnHighlightBoxContent a.NewsHeadline
 {
     font-size:14px;
-    padding-right:5px;   
+    padding-right:5px;
 }
 
 #SecondColumnHighlightBoxContentFooter
@@ -1789,7 +1789,7 @@ list-style:decimal outside none;
 }
 
 .goal_face_features_wrapper {
-   
+
     margin: 0 auto;
     padding-left: 0;
     padding-top: 0px;
@@ -1857,7 +1857,7 @@ list-style:decimal outside none;
     min-width:140px;
 }
 #leagueHeader #leagueSeasonDropDown {
- position: absolute; 
+ position: absolute;
  top: 0pt;
  right: 0pt;
 }
@@ -1872,7 +1872,7 @@ list-style:decimal outside none;
 span.rightDropDownLabel {
    color:#666666;
    font-size:12px;
-   font-weight:bold; 
+   font-weight:bold;
 }
 
 /*================================================================*/
@@ -1921,7 +1921,7 @@ ul.ulGradientBoxes
 
 ul.GradientBlue
 {
-   border-color:#9cbdcf; 
+   border-color:#9cbdcf;
 }
 
 ul.GradientGray
@@ -1932,7 +1932,7 @@ ul.GradientGray
 ul.ulGradientBoxes li
 {
     padding:4px 0px 3px 10px;
-    color:#1e5979;    
+    color:#1e5979;
     font-weight:bold;
     overflow:auto;
 }
@@ -1949,12 +1949,12 @@ ul.GradientBlue li.active
     border-bottom:solid 1px #adabab;
     background:#9cbdd0;
     background-image:url('../images/DropShadowHeader/blue_right_arrow.gif');
-    background-position:3px 5px;  
+    background-position:3px 5px;
     background-repeat:no-repeat;
-  
 
-    
-    
+
+
+
 }
 
 ul.GradientGray li
@@ -1990,7 +1990,7 @@ ul.GradientBlue li span
 
 ul.ulGradientBoxes li img
 {
-    margin-right:1px;    
+    margin-right:1px;
 }
 
 ul.ulGradientBoxes li img.first
@@ -2028,7 +2028,7 @@ ul.ulGradientBoxes li.last
 }
 
 
-#ProfileInfoContainer .JoinedDate, #community .JoinedDate, 
+#ProfileInfoContainer .JoinedDate, #community .JoinedDate,
 {
     float:right;
     padding:0 25px 5px 0;
@@ -2047,7 +2047,7 @@ ul.ulGradientBoxes li.last
 }
 
 .JoinedDate a {
-   
+
     padding:0 20px 0px 0;
     display:inline;
 
@@ -2064,7 +2064,7 @@ ul.ulGradientBoxes li.last
     padding:0px;
     float:left;
     margin-left:20px;
-    margin-top:5px;   
+    margin-top:5px;
 }
 
 #ProfileInfo
@@ -2078,7 +2078,7 @@ ul.ulGradientBoxes li.last
 {
      font-weight:bold;
      padding-right:3px;
-     line-height:1.5em; 
+     line-height:1.5em;
 }
 
 #ProfileInfo span.SecondCol
@@ -2093,7 +2093,7 @@ ul.ulGradientBoxes li.last
 
 div.DisplayDropdown
 {
-	
+
 }
 
 div.DisplayDropdown span
@@ -2264,15 +2264,15 @@ div.LinkWrapper
 
 #HisSquad img
 {
-	
+
 	height:60px;
 	width:60px;
 	margin:0 5px 5px 0;
-	
+
 	background-color:#FFFFFF;
   border:1px solid #CCCCCC;
   padding:2px;
-	
+
 }
 
 div.DropShadowHeader span.Subscribe
@@ -2281,13 +2281,13 @@ div.DropShadowHeader span.Subscribe
     padding-right:20px;
     margin-left:15px;
  }
- 
+
 div.BlueShaded
 {
 	background:#e6eff4 url('../images/DropShadowHeader/BlueShaded.gif') repeat-x 0 bottom;
 	padding:6px 10px 12px 10px !important;
 	overflow:auto;
-	zoom:1;	
+	zoom:1;
 }
 
 div.BlueShaded input.blue
@@ -2302,7 +2302,7 @@ div.BlueShaded input.second
 	float:right;
 }
 
- 
+
 #HisBlog div
 {
     padding:0;
@@ -2320,12 +2320,12 @@ div.BlueShaded input.second
 }
 
 
-#HisBlog div.OneBlogEntry  
+#HisBlog div.OneBlogEntry
 {
 	margin:12px 10px 10px 10px;
 	border-bottom:solid 1px #cfdee9;
 	padding:0 0 7px 0;
-	overflow:auto; 	
+	overflow:auto;
 }
 
 #HisBlog div.PostTools strong
@@ -2336,7 +2336,7 @@ div.BlueShaded input.second
 #HisBlog div.PostTools
 {
     margin-top:10px;
-} 
+}
 
 #HisBlog div.Comments
 {
@@ -2355,8 +2355,8 @@ div.BlueShaded input.second
 }
 
 #HisFriendFeed ul.OneFriend
-{	
-	
+{
+
 	border-bottom:solid 1px #cfdee9;
 	padding:0 0 10px 0;
 	margin:0 10px 3px 10px;
@@ -2366,7 +2366,7 @@ div.BlueShaded input.second
 #HisFriendFeed ul.OneFriend li
 {
     /*background:url('../images/icons/FriendIconsSprts.gif') no-repeat 0 0;*/
-	
+
 	margin:0;
 	line-height:1.7em;
 	margin:0 0 3px 0;
@@ -2378,7 +2378,7 @@ div.BlueShaded input.second
 }
 
 #HisFriendFeed ul li.Date
-{	
+{
 	background-image:none;
 	color:#555553;
 	padding:0;
@@ -2386,29 +2386,29 @@ div.BlueShaded input.second
 }
 
 #HisFriendFeed ul li.square
-{	
+{
 	background-position:0 0;
 }
 
 #HisFriendFeed ul li.triangle
-{	
+{
 	background-position:0 -22px;
 }
 
 #HisFriendFeed ul li.star
-{	
+{
 	background-position:0 -44px;
 }
 
 #HisFriendFeed ul li.circle
-{	
+{
 	background-position:0 -68px;
 }
 
 #HisGroups
 {
     padding:10px;
-    background-color:#e6eff4;    
+    background-color:#e6eff4;
 }
 
 #HisGroups div.WithImage
@@ -2446,7 +2446,7 @@ div.BlueShaded input.second
     color:#fff;
     margin:10px 0px 5px 0px;
     padding:0;
-    
+
 }
 
 .SeeAllShouts
@@ -2502,7 +2502,7 @@ div.BlueShaded input.second
 {
     float:left;
     text-align:center;
-    width:137px; 
+    width:137px;
     margin-bottom:10px;
 }
 
@@ -2576,7 +2576,7 @@ div.ButtonWrapper
     width:116px;
     height:20px;
     background:#759fbe url('../images/submit_button_background_bl.jpg') 0 0 repeat-x;
- 
+
     color:#395E33;
     font:bold 11px arial;
     text-align:center;
@@ -2603,7 +2603,7 @@ div.ButtonWrapper
 
 #MatchDetailsLogosScores h2
 {
-    margin-top:70px;    
+    margin-top:70px;
 }
 
 #MatchDetailsLogosScores .submit
@@ -2625,19 +2625,19 @@ div.ButtonWrapper
 {
     margin:0;
     padding:0;
-    
+
 }
 
 #MatchDetailsPlayers div.TeamA
 {
-    clear:left;    
+    clear:left;
 }
 
 #MatchDetailsPlayers div.Header
 {
     font-weight:bold;
     margin:10px 0px;
-    float:left;    
+    float:left;
     width:335px;
     font-size:13px;
     text-align:center;
@@ -2710,7 +2710,7 @@ div.ButtonWrapper
     padding:20px;
 }
 
-#MatchDetailsStats div.MatchDetailsStatsWrapper, #MatchDetailsStatsHeadtoHead div.MatchDetailsStatsWrapper 
+#MatchDetailsStats div.MatchDetailsStatsWrapper, #MatchDetailsStatsHeadtoHead div.MatchDetailsStatsWrapper
 {
     clear:left;
     text-align:center;
@@ -2731,7 +2731,7 @@ div.ButtonWrapper
 
 
 #MatchDetailsStats div.MatchDetailsStatsWrapper div span {
- 
+
     border-color:#2B66A5;
     color:#FFFFFF !important;
     font-weight:bold;
@@ -2759,7 +2759,7 @@ div.ButtonWrapper
 
 #MatchDetailsStats div.MatchDetailsStatsWrapper div.StatsLabel
 {
-    font-weight:normal;   
+    font-weight:normal;
     font-size:12px;
     text-align:center;
     width:135px;
@@ -2779,7 +2779,7 @@ div.ButtonWrapper
 #TeamVsTeam
 {
     background:url('../images/Team1VSTeam2.jpg') no-repeat 0 0;
-    padding-top:71px;    
+    padding-top:71px;
 }
 
 #TeamVsTeam fieldset select
@@ -2850,7 +2850,7 @@ div.ButtonWrapper
 
 #FormWrapper
 {
-    border: solid 1px #e4edf2;   
+    border: solid 1px #e4edf2;
     padding: 0px 4px 25px 4px;
     background:#fff url('../images/FormWrapperBackground.jpg') 0 0 repeat-x;
 	clear:both;
@@ -2881,21 +2881,21 @@ div.ButtonWrapper
 }
 #FormWrapperForBottomBackground
 {
-   
+
    margin:0px 0px 0px 0px;
    background: url('../images/FormBottomBackground.jpg') 0 bottom no-repeat;
    padding-bottom:4px;
-   
+
  }
 
 #FormWrapper form
 {
     background:url('../images/FormRightBackground.jpg') right top repeat-y;
-    padding:0px 3px 0px 0px;    
+    padding:0px 3px 0px 0px;
     background-color:#fff;
     margin:0px 0px 0px 0px;
- 
-    
+
+
 }
 
 #FormWrapper form #FieldsetWrapper
@@ -2952,12 +2952,12 @@ div.ButtonWrapper
 	width: 500px;
 	display:none;
 
-} 
+}
 
-.ErrorMessages p, 
+.ErrorMessages p,
 .ErrorMessagesDisplay p,
 .ErrorMessagesDisplayBlue  p,
-.SuccessMessages p, 
+.SuccessMessages p,
 .SuccessMessagesDisplay p,
 .SuccessMessagesDisplayBlue  p
 
@@ -3041,7 +3041,7 @@ div.ButtonWrapper
 }
 
 
-fieldset 
+fieldset
 {
      margin:0;
      padding:0;
@@ -3057,12 +3057,12 @@ fieldset  label {
     margin:0px 0px 3px 0px;
 }
 
-fieldset.LabelTop  label 
+fieldset.LabelTop  label
 {
     float:none;
 }
 
-fieldset.LabelTop  input.submit 
+fieldset.LabelTop  input.submit
 {
     display:inline;
     margin-right:10px;
@@ -3073,7 +3073,7 @@ fieldset select {
 	margin:1px 10px 4px 1px;
 	font-size:12px;
 	display: block;
-    float:left;   
+    float:left;
 }
 
 fieldset select.private
@@ -3097,7 +3097,7 @@ fieldset div.newLanguageRow {
 fieldset textarea {
 	border: 1px solid #7e9db9;
 	width:400px;
-	height:100px;	
+	height:100px;
 }
 
 fieldset input {
@@ -3184,7 +3184,7 @@ fieldset fieldset select {
 
  input.button {
 	width: auto !important;
-	border: 0;	
+	border: 0;
 }
 
 fieldset input.text
@@ -3226,7 +3226,7 @@ text-align: left;
 fieldset p
 {
     font-size:80%;
-    clear:both;    
+    clear:both;
 }
 
 #BasicInformation fieldset {
@@ -3333,8 +3333,8 @@ h4.PrivateSettings
 	left:215px;
         margin-left:565px;
 	font-size:13px;
-        font-weight:bold;    
-    
+        font-weight:bold;
+
 }
 
 #SignupVerification
@@ -3390,7 +3390,7 @@ h4.PrivateSettings
     padding-bottom:15px;
     padding-top:15px;
 }
- 
+
 #recaptcha_reload_btn {
    width:100px
 }
@@ -3423,7 +3423,7 @@ input.recaptchabtn {
     padding-left:15px;
 	/*
 	float:left;
-	width:500px;	
+	width:500px;
     */
 }
 
@@ -3438,7 +3438,7 @@ input.recaptchabtn {
 }
 
 #RightInfoOnForm ul li {
-    
+
      list-style-type: disc;
      padding-bottom:10px;
 }
@@ -3470,7 +3470,7 @@ input.recaptchabtn {
 }
 
 #favoritesTeamsFieldset div.SelectBoxWrapper .favoriteitem {
-    height:41px;   
+    height:41px;
 }
 
 #favoritesTeamsFieldset div.SelectBoxWrapper .favoriteleagueitem {
@@ -3478,7 +3478,7 @@ input.recaptchabtn {
     }
 
 
-#favoritesTeamsFieldset div.SelectBoxWrapper a {   
+#favoritesTeamsFieldset div.SelectBoxWrapper a {
     padding:0px;
 }
 
@@ -3515,7 +3515,7 @@ input.recaptchabtn {
 }
 
 #favoritesTeamsFieldset #favButtons {
-  margin-top:80px 
+  margin-top:80px
 }
 
 #favoritesTeamsFieldset #teamsMaster .label_fav,
@@ -3538,14 +3538,14 @@ input.recaptchabtn {
     margin:0px;
     font-size:1px;
     padding:0px;
-    width:10px;    
+    width:10px;
 }
 
 #favoritesPlayersFieldset div.Headers
 {
     margin-left:300px;
     float:none;
-    padding:0; 
+    padding:0;
 }
 
 #favoritesPlayersFieldset div a
@@ -3555,7 +3555,7 @@ input.recaptchabtn {
 
 #favoritesPlayersFieldset input
 {
-    float:left;    
+    float:left;
 }
 
 #favoritesPlayersFieldset input.radio
@@ -3573,11 +3573,11 @@ input.recaptchabtn {
 {
     width:20px;
     float:none;
-    border:none;  
+    border:none;
     display:inline;
     padding:0;
     margin:0;
-    margin-right:90px;    
+    margin-right:90px;
 }
 
 .favoritesRemove {
@@ -3626,7 +3626,7 @@ div.CompetitionListBox h6
     padding:5px 3px;
     font-weight:bold;
     font-size:11px;
-    text-decoration:underline;   
+    text-decoration:underline;
 }
 
 fieldset div.CompetitionListBox input.checkbox
@@ -3672,7 +3672,7 @@ fieldset div.CompetitionListBox label
 
 #AddressBooks
 {
-    
+
 }
 
 #AddressBooks ul
@@ -3757,9 +3757,9 @@ ul.LayoutSixPicturesFirst
 
 }
 
-ul.LayoutFourPicturesBig 
+ul.LayoutFourPicturesBig
 {
-  padding-left:0px; 
+  padding-left:0px;
 }
 
 ul.LayoutFourPictures {
@@ -3768,17 +3768,17 @@ ul.LayoutFourPictures {
 
 *html ul.LayoutFourPictures, *html ul.LayoutFourPicturesBig, *html ul.LayoutSixPictures
 {
-     height:1%;  
+     height:1%;
 }
 
-ul.LayoutFourPictures li, 
-ul.LayoutFourPicturesBig li, 
+ul.LayoutFourPictures li,
+ul.LayoutFourPicturesBig li,
 ul.LayoutSixPictures li
 {
     margin:5px 0px;
     float:left;
     text-align:left;
-    width:130px;   
+    width:130px;
 }
 
 
@@ -3789,7 +3789,7 @@ ul.LayoutFourPicturesBig li h3 {
 }
 
 ul.LayoutFourPicturesBig li {
-    padding-right:40px;    
+    padding-right:40px;
 }
 
 ul.LayoutFourPicturesBig li a span {
@@ -3801,14 +3801,14 @@ ul.LayoutFourPicturesBig li a span {
 ul.LayoutFourPictures li
 {
     padding:5px 8px;
-    width:130px;  
+    width:130px;
 }
 
 ul.LayoutSixPictures li
 {
     padding:5px 8px;
     width:95px;
-  
+
 }
 
 
@@ -3819,7 +3819,7 @@ ul.LayoutFourPictures h3, ul.LayoutFourPicturesBig h3
     font-size:14px;
     margin:0;
     padding:0;
-    margin-top:5px;   
+    margin-top:5px;
 }
 
 ul.LayoutSixPictures h3 {
@@ -3827,14 +3827,14 @@ ul.LayoutSixPictures h3 {
     font-size:11px;
     margin:0;
     padding:0px 20px 0px 0px;
-    margin-top:5px; 
+    margin-top:5px;
 }
 
 
 
 ul.LayoutFourPictures li img    /*Added by Jorge Change to the image size for layout before it was 80 x 80*/
 {
-  width: 120px; 
+  width: 120px;
   height: 120px;
   border: 1px solid #999;
 }
@@ -3865,7 +3865,7 @@ ul.LayoutFourPicturesBig li a.unsubscribe img {
 
 ul.LayoutSixPictures li img
 {
-  width: 80px; 
+  width: 80px;
   height: 80px;
   border:1px solid #6F9BBC;
 }
@@ -3913,12 +3913,12 @@ ul.LayoutSixPictures li a.playerTitle {
 
 ul.LayoutSixPictures li.First
 {
-  
+
 }
 
-ul.LayoutFourPicturesBig li img 
+ul.LayoutFourPicturesBig li img
 {
-  width: 120px; 
+  width: 120px;
   height: 120px;
   border:1px solid #6F9BBC;
 }
@@ -4061,7 +4061,7 @@ div.TabbedContent ul.Pager li.PrevNext a,
   background-color:#2a5f7e;
   text-align:left;
   padding:10px;
-  margin:0;  
+  margin:0;
 }
 
 #TeamInformation h2
@@ -4132,7 +4132,7 @@ div.TeamPsuedoTables ul.AltRowEven li {
 }
 
 
-div.TeamPsuedoTables ul.Header 
+div.TeamPsuedoTables ul.Header
 {
     font-weight:bold;
     height:20px;
@@ -4162,7 +4162,7 @@ div.TeamPsuedoTables ul li a img {
 #RegionTopScores ul li.ColumnOneTopScoresRegion {
     padding:0 0 0 3px;
     text-align:left;
-    width:110px; 
+    width:110px;
 }
 
 #RegionTopScores ul li.ColumnTwoTopScoresRegion {
@@ -4296,7 +4296,7 @@ div.TeamPsuedoTables ul li.ColumnThreeMates
     text-align:left;
 }
 
-/*Team Players with Thumbnails 
+/*Team Players with Thumbnails
 
 div.TeamPsuedoTables ul li.ColumnOneTeamSquad
 {
@@ -4328,7 +4328,7 @@ div.TeamPsuedoTables ul li.ColumnOneTeamSquad
 
 /*Team - Players Squad with Thumbnails */
 
-#TeamPlayerList ul li.ColumnOne 
+#TeamPlayerList ul li.ColumnOne
 {
     width:40px;
     text-align:left;
@@ -4380,7 +4380,7 @@ div.TeamPsuedoTables ul li.ColumnOneTeamSquad
     clear:left;
     height:22px;
     line-height:22px;
-    padding-left:0px;    
+    padding-left:0px;
 }
 
 div.ThisTeamsScoresPsuedoTable
@@ -4694,7 +4694,7 @@ div.SecondColumnBlueBackground div h3
     font-size:16px;
 }
 
-div.SecondColumnBlueBackground div.BlogComment 
+div.SecondColumnBlueBackground div.BlogComment
 {
     padding:10px 0px 30px 80px;
     border:none;
@@ -4738,7 +4738,7 @@ div.SecondColumnBlueBackground div.BlogComment p
 
 #TabMenuHorizontal h4
 {
-    margin:0 0 5px 0;    
+    margin:0 0 5px 0;
     padding:0;
     color:#57595a;
     font-size:14px;
@@ -4805,7 +4805,7 @@ ul.TabbedNav li.Rating
     background:none;
     float:right;
     font:normal normal 12px arial;
-    color:#555553;   
+    color:#555553;
 }
 
 div.TabbedContent
@@ -4898,7 +4898,7 @@ div.PlayerNav p
 
 #PopupFavorites h4
 {
-    margin:0 0 5px 0;    
+    margin:0 0 5px 0;
     padding:0;
     color:#57595a;
     font-size:14px;
@@ -4925,7 +4925,7 @@ div.PlayerNav p
     line-height:10px;
     height:10px;
     display:block;
-    float:left;    
+    float:left;
 }
 
 
@@ -4943,7 +4943,7 @@ div.PlayerNav p
 div.TeamSearchListing ul
 {
     margin:0;
-    padding:0;    
+    padding:0;
 }
 
 div.TeamSearchListing
@@ -4954,7 +4954,7 @@ div.TeamSearchListing
 div.TeamSearchListing ul.Nav li
 {
     float:left;
-    padding:10px 0px 10px 13px;    
+    padding:10px 0px 10px 13px;
 }
 
 div.TeamSearchListing ul.Nav li.last
@@ -5029,7 +5029,7 @@ padding-top:15px;
 	background-position:0% 0%;
 	background-repeat: no-repeat;
 	margin:0;
-	padding:0;	
+	padding:0;
 	padding-bottom:5px;
 	min-height:75px; /*make sure the image shows*/
 }
@@ -5039,22 +5039,22 @@ padding-top:15px;
 	background-position:0% 0%;
 	background-repeat: no-repeat;
 	margin:0px 0px 0px 0px;
-	padding:0px 0px 0px 0px;	
+	padding:0px 0px 0px 0px;
 	padding-bottom:15px;
 	min-height:75px; /*make sure the image shows*/
-} 
+}
 
 
  .RegionContentTeamListTable
  {
 	  padding:0;
 	  margin:0 0 0 10px;
-	  min-height:75px; 
+	  min-height:75px;
 	  clear:left;
-	  overflow:auto;	 
+	  overflow:auto;
  }
- 
-.CountryListTable 
+
+.CountryListTable
 {
   padding-left:80px;
   padding-bottom:20px;
@@ -5184,7 +5184,7 @@ ul.RegionContentTeamList li
 }
 
 .CountryListWrapper {
-    float: left;                        
+    float: left;
     width: 570px;
 
 }
@@ -5290,7 +5290,7 @@ ul#blog h3
     margin:0;
     padding-top:5px;
 	padding-bottom:5px;
-    margin-top:5px;   
+    margin-top:5px;
 }
 
 ul#blog li
@@ -5307,14 +5307,14 @@ ul#blog li
 ul#blog li div
 {
     font-size:10px;
-    float:left;    
+    float:left;
 }
 
 ul#blog li div.Comment
 {
     background:transparent url(../images/icons/comment.png) no-repeat scroll 0pt 50%;
 	padding:8px 0pt 8px 20px;
-    
+
 }
 
 ul#blog li div.Tag
@@ -5322,7 +5322,7 @@ ul#blog li div.Tag
   	background:transparent url(../images/icons/tag_blue.png) no-repeat scroll 0pt 50%;
 	padding:8px 0pt 8px 20px;
 	margin-left:20px;
-    
+
 }
 
 
@@ -5418,7 +5418,7 @@ HisFriendFeed .feedFriendIcon {
     margin:0pt;
     background-color:#FFF;
   }
-  
+
   .boxCommentsEmpty, .boxCommentsEmpty {
     margin:0pt;
     background-color:#E6EFF4;
@@ -5426,7 +5426,7 @@ HisFriendFeed .feedFriendIcon {
     height:55px;
     padding-top:30px;
   }
-  
+
   .boxComments .comment {
     border-bottom:1px solid #CCCCCC;
     clear:both;
@@ -5459,9 +5459,9 @@ HisFriendFeed .feedFriendIcon {
 	font-size:14px;
 	font-weight:bold;
 }
-  
- /*================================================================*/ 
-  
+
+ /*================================================================*/
+
 .boxComments .comment dt {
     float:left;
     width:55px;
@@ -5492,8 +5492,8 @@ HisFriendFeed .feedFriendIcon {
     margin:0 5px 5px 0;
     width:80px;
 }
- 
-  
+
+
 #iconActivity {
  border:none;
 }
@@ -5502,9 +5502,9 @@ HisFriendFeed .feedFriendIcon {
     margin-left:65px;
     overflow:visible;
   }
-  
-  
-/*================================================================*/  
+
+
+/*================================================================*/
 
 .boxComments dd {
 	background-repeat:no-repeat;
@@ -5521,63 +5521,63 @@ HisFriendFeed .feedFriendIcon {
 	color:#3590ed;
 }
 
-   
+
   .boxComments .comment dd p {
     margin:0pt;
     padding:5px 0pt 10px 10px;
   }
-  
+
   .boxComments .comment dd p.shoutp {
     padding-left:36px;
   }
-  
-  
+
+
   .boxComments .comment dd .name {
     font-weight:bold;
     text-decoration:none;
     padding-left:10px;
   	display:block;
   }
-  
-  
+
+
   .boxComments .comment dd .nameshout {
     font-weight:bold;
     text-decoration:none;
     padding-left:0px;
     display:block;
   }
-  
-  
+
+
   .boxComments .comment dd .date {
     color:#999999;
     font-size:10px;
   }
-  
+
   .narrow .comment dd .date {
     padding-left:3px;
   }
-  
+
 .narrow .comment dd .author {
     display:block;
   }
-  
+
   .narrow .comment .replyTextContainer, .viewallreplies .date
 {
 	display:block;
 }
-  
+
   .boxComments .comment dd .shoutSelect {
     margin-left: 250px;
   }
-  
+
   .boxComments .comment dd .shoutedit {
   margin-left: 440px;
   }
-  
+
   .boxComments .comment dd .shoutreply {
   margin-left: 430px;
   }
-  
+
   .boxComments .comment dd .edit {
     font-size:11px;
     color:#1166BB;
@@ -5596,7 +5596,7 @@ HisFriendFeed .feedFriendIcon {
    }
 
     .warning {
-   
+
     background:transparent url(../images/icons/abuse-12x12.gif) no-repeat scroll left center;
     margin:0 0 0 7px;
     padding-left:16px;
@@ -5607,14 +5607,14 @@ HisFriendFeed .feedFriendIcon {
     margin-left:20px;
     padding:5px;
   }
-  
+
   .boxComments .comment_input {
     background-color:#E6EFF4;
     padding:10px;
     height: 100px;
-    
+
   }
-  
+
   .boxComments .comment_input textarea {
     height:50px;
     width:326px;
@@ -5628,13 +5628,13 @@ HisFriendFeed .feedFriendIcon {
     margin: 8px 10px 1px 7px;
     padding-left:10px;
   }
-  
+
   .boxComments .comment_input input.submit {
     padding:0 0 0 0;
     margin:7px 0 0 7px;
-        
+
   }
-  
+
   .boxComments .comment_input {
     margin-left:0px;
     padding:0px 0pt 0pt;
@@ -5645,7 +5645,7 @@ HisFriendFeed .feedFriendIcon {
 	display:block;
 	float:right;
 	padding-right:9px;
-	
+
 }
 
 
@@ -5656,13 +5656,13 @@ div.AddPaddingBoxComments
 }
 
 #map {
-   width: 199px; 
+   width: 199px;
    height: 185px;
    margin: 0px 0px 0px 0px;
    overflow:hidden;
 
  }
- 
+
  /*
   * ======================Abou Kone, update BoxComment ==============/
   */
@@ -5782,7 +5782,7 @@ div.PlayerDirAlphaList
   padding:0px;
 
 }
- 
+
 #leaguetables #lineup tr td table tr td {
 padding-left:10px;
 
@@ -5888,7 +5888,7 @@ padding-left:10px;
 
 
 .oddmatch {
-   background-color:#DCE7ED; 
+   background-color:#DCE7ED;
   padding: 0 0 0 0px;
   height:30px;
   width:355px;
@@ -6072,7 +6072,7 @@ div.UpCloseData ul li em
 {
     background-color:#e6eff4;
     margin:0;
-    overflow:auto; 
+    overflow:auto;
 }
 
 #SecondColumnPlayerProfile div.SecondColumnProfile
@@ -6080,7 +6080,7 @@ div.UpCloseData ul li em
     background-color:#e6eff4;
     margin:0;
     overflow:hidden;
-    padding:10px; 
+    padding:10px;
 }
 
 #SecondColumnPlayerProfile div.SecondColumnSubpageProfile {
@@ -6094,7 +6094,7 @@ div.PlayerInfoWrapper div.PlayerInfo ul
     padding:0;
     margin:0;
     overflow:hidden;
-    zoom:1;   
+    zoom:1;
 }
 
 div.PlayerInfoWrapper div.PlayerInfo ul
@@ -6102,32 +6102,32 @@ div.PlayerInfoWrapper div.PlayerInfo ul
     padding:0;
     margin:0;
     overflow:hidden;
-    zoom:1;   
+    zoom:1;
 }
 
 div.PlayerInfoWrapper div.PlayerInfo ul li
 {
     padding:0 0 5px 0;
     margin:0;
-    float:left; 
-    font-size:12px;  
+    float:left;
+    font-size:12px;
 }
 
 div.PlayerInfoWrapper div.PlayerInfo ul li.Last
 {
-    float:right;   
+    float:right;
 }
 
 #SecondColumnPlayerProfile div.PlayerInfoWrapper div.PlayerInfo
 {
     clear:both;
-    margin:0; 
+    margin:0;
     padding:5px 10px;
 }
 
 #SecondColumnPlayerProfile div.PlayerInfoWrapper div.PlayerInfo div.PlayerHighLevel
 {
-    background-color:#fff; 
+    background-color:#fff;
     padding:5px 0 0 0;
     border:solid 1px #8097a9;
     margin:0 0 7px 0;
@@ -6177,7 +6177,7 @@ div.PlayerInfoWrapper div.PlayerInfo ul.StatList li
     text-align:center;
     width:170px;
     margin:5px 0 0 0;
-    padding:0;    
+    padding:0;
 }
 
 /*Tabs in the module*/
@@ -6201,9 +6201,9 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs ul
 {
     margin:0;
     padding:0;
-    list-style:none; 
+    list-style:none;
 }
-    
+
 div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li
 {
     float:left;
@@ -6227,7 +6227,7 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a
     display:block;
     color:#2a5973;
     background:url("../images/tabs/ModuleTabLeftCurve.gif") no-repeat left top;
-    padding:0 10px;    
+    padding:0 10px;
     height:30px; /*force the height due to Safari*/
     line-height:30px;
     text-decoration:none;
@@ -6242,7 +6242,7 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a
 div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a:hover
 {
     text-decoration:underline;
-} 
+}
 
 /*change the sprite to show the image*/
 div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li.selected
@@ -6286,9 +6286,9 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a.selected
 {
     margin:0;
     padding:0;
-    list-style:none; 
+    list-style:none;
 }
-    
+
 .ModuleTabsScored li
 {
     float:left;
@@ -6303,7 +6303,7 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a.selected
     display:block;
     color:#2a5973;
     background:url("../images/tabs/ModuleTabLeftCurve.gif") no-repeat left top;
-    padding:0 10px;    
+    padding:0 10px;
     height:30px; /*force the height due to Safari*/
     line-height:30px;
     text-decoration:none;
@@ -6318,7 +6318,7 @@ div.PlayerInfoWrapper div.PlayerInfo div.ModuleTabs li a.selected
 .ModuleTabsScored li a:hover
 {
     text-decoration:underline;
-} 
+}
 
 /*change the sprite to show the image*/
 .ModuleTabsScored li.selected
@@ -6494,7 +6494,7 @@ div.StatLegend
     clear:both;
     overflow:auto;
     margin:0 0 10px 0;
-}                            
+}
 
 div.StatLegend ul
 {
@@ -6513,20 +6513,20 @@ div.StatLegend ul.Abbreviation
 {
    width:30px;
    border-right:solid 1px #d8e0e3;
-   padding:5px 0 5px 18px   
+   padding:5px 0 5px 18px
 }
 
 div.StatLegend ul.Full
 {
    width:102px;
    border-right:solid 4px #d8e0e3;
-   padding:5px 0 5px 18px   
+   padding:5px 0 5px 18px
 }
 
 div.StatLegend ul.Last
 {
    border-right:none;
- 
+
 }
 
 div.PhotoGallery
@@ -6656,7 +6656,7 @@ div.CarouselWrapper ol li.MouseOver
     width:45px;
 }
 
-div.CarouselWrapper .yui-carousel-element .yui-carousel-item-selected 
+div.CarouselWrapper .yui-carousel-element .yui-carousel-item-selected
 {
     border:none;
     opacity: 1;
@@ -6757,7 +6757,7 @@ ul.SearchSelections li
 {
     float:left;
     padding:5px 7px 2px 7px;
-    background:#fff url('../images/SearchSelectionsBorder.gif') no-repeat 100% 7px;    
+    background:#fff url('../images/SearchSelectionsBorder.gif') no-repeat 100% 7px;
 }
 
 ul.SearchSelections li.Selected
@@ -6781,7 +6781,7 @@ ul.SearchSelections li.Last
 
 li.Search
 {
-   
+
     border-right:none;
     padding-bottom:5px;
     width:auto;
@@ -6789,7 +6789,7 @@ li.Search
 }
 
 li.PopularSearches
-{	
+{
 	margin:2px 0 0 74px;
 }
 
@@ -6845,7 +6845,7 @@ ul.SearchSelections li.Search
 }
 
 li.Search label
-{	
+{
 	display:inline;
 	float:left;
 	font-size:20px;
@@ -6868,7 +6868,7 @@ li.Search input
     color:#696969;
     font-weight:bold;
     padding: 7px 0 0 5px;
- 
+
 }
 
 li.Search input.Submit
@@ -6936,7 +6936,7 @@ div.WrapperForDropShadow div.SearchResults
     overflow:auto;
     zoom:1;
     background-color:#fff;
-    margin:0 0 15px 0;   
+    margin:0 0 15px 0;
 }
 
 div.SearchResults h5
@@ -7005,7 +7005,7 @@ div.WrapperForDropShadow div.SearchResults div
     margin:0 0 15px 0;
     padding:0;
     overflow:auto;
-    
+
 }
 
 .SearchResults .search-item-list {
@@ -7043,7 +7043,7 @@ div.WrapperForDropShadow div.SearchResults div
     height: 21px;
     width: 80px;
     padding-top: 5px;
-}	
+}
 
 .SearchResults .search-item-list .search-item .item-info {
     overflow:hidden;
@@ -7141,20 +7141,20 @@ ul.MessagePager li input.submit
 
 div.PlayerInfoWrapper div.PlayerInfo ul.MessagePager li.Pager
 {
-    float:right; 
-    color:#3590ed;   
+    float:right;
+    color:#3590ed;
 }
 
 ul.MessagePager li.Pager a
 {
-    padding:4px; 
-    color:#3590ed;   
+    padding:4px;
+    color:#3590ed;
 }
 
 ul.MessagePager li.Pager span
 {
-    padding:4px; 
-    color:#000;   
+    padding:4px;
+    color:#000;
 }
 
 div.PlayerInfoWrapper div.PlayerInfo ul.MessageToolbar
@@ -7179,9 +7179,9 @@ ul.MessageToolbar li input.submit
 
 div.PlayerInfoWrapper div.PlayerInfo ul.MessageToolbar li.Compose
 {
-    float:right; 
+    float:right;
     color:#ffdb5c;
-    padding:4px 4px 0 0;   
+    padding:4px 4px 0 0;
 }
 
 div.PlayerInfoWrapper div.PlayerInfo ul.MessageToolbar li.Compose a
@@ -7316,7 +7316,7 @@ div.FriendRequest ul,div.standardModal ul
     padding:0 0 0 136px;
     background-repeat:no-repeat;
     background-position:0 0;
-    
+
 }
 
 div.FriendRequest ul li,div.standardModal ul li
@@ -7525,7 +7525,7 @@ div.WrapperForDropShadow div.FavsHeader
     font-weight:bold;
     padding:5px 18px;
     margin:0 0 1px 0;
-    
+
 }
 
 div.WrapperForDropShadow div.Expanded
@@ -7599,7 +7599,7 @@ div.StadiumFavs td.UploadPhoto a
     padding:0 0 0 30px;
     background:url('../images/icons/upload_remove_sprt.gif') no-repeat 0px 0px;
     height:25px;
-    line-height:25px;    
+    line-height:25px;
 }
 
 div.StadiumFavs td.Remove a
@@ -7626,8 +7626,8 @@ div.HighFivePost
 {
     background-color:#fff;
     border:solid 1px #6f9bbc;
-    margin-bottom:10px;    
-} 
+    margin-bottom:10px;
+}
 
 
 
@@ -7638,8 +7638,8 @@ div.HighFivePost
 div.HighFivePost p
 {
     margin:0 0 10px 0;
-    padding:0;  
-    font-size:12px;  
+    padding:0;
+    font-size:12px;
 }
 
 div.HighFivePost textarea
@@ -7831,7 +7831,7 @@ div.FriendLinks
 {
 	height:20px;
 	line-height:20px;
-	padding:0 !important;	
+	padding:0 !important;
 }
 
 div.FriendLinksTitle
@@ -7867,7 +7867,7 @@ ul.FriendtoolbarTopAlign {
 }
 
 ul.FriendtoolbarBottomAlign {
-	margin-bottom:0;	
+	margin-bottom:0;
 }
 
 
@@ -7878,7 +7878,7 @@ ul.Friendtoolbar input.checkbox
 
 ul.Friendtoolbar input.submit
 {
-	
+
 	display:inline;
 	margin:0 3px 0 0;
 	padding:3px 3px;
@@ -7908,12 +7908,12 @@ ul.Friendtoolbar li.GridViewOn
 ul.Friendtoolbar li.ListViewOff
 {
 	background-position:0px -44px;
-}  
+}
 
 ul.Friendtoolbar li.ListViewOn
 {
 	background-position:0px -66px;
-}         
+}
 
 
 ul.Friendtoolbar li.Buttons
@@ -7937,13 +7937,13 @@ ul.Friendtoolbar li.Buttons span.Label form{
 
 /*================================================================*/
 
-/*Text*/                    /*Added by Jorge*/          
+/*Text*/                    /*Added by Jorge*/
 
 /*================================================================*/
 
 #wrapper #TextWrapper
 {
-    border: solid 1px #e4edf2;   
+    border: solid 1px #e4edf2;
     padding: 10px 20px 25px;
 	clear:both;
 	float:left;
@@ -7969,16 +7969,16 @@ ul.Friendtoolbar li.Buttons span.Label form{
 	list-style-type:disc;
 }
 
-/*End Text*/ 
+/*End Text*/
 
 /*================================================================*/
 
-/*Modal Windows*/                    /*Added by Jorge*/          
+/*Modal Windows*/                    /*Added by Jorge*/
 
 /*================================================================*/
 
 input.submitmodal {
-    
+
     width:auto;
     border:1px solid #90c87d;
 	margin:0px 0px 0px 0px;
@@ -7989,16 +7989,16 @@ input.submitmodal {
 }
 
 
-.SecondColumnBlueBackground input.submitmodal 
+.SecondColumnBlueBackground input.submitmodal
 {
     clear:left;
     width:auto;
-    vertical-align: middle; 
+    vertical-align: middle;
     *vertical-align: text-bottom;
 }
 
 
-/*End Modal Windows*/ 
+/*End Modal Windows*/
 
 div.MiniProfile
 {
@@ -8050,7 +8050,7 @@ div.MiniProfile p input {
 }
 
 
-fieldset.AddToPhotoButtonWrapper 
+fieldset.AddToPhotoButtonWrapper
 {
 	padding:10px 0;
 }
@@ -8081,7 +8081,7 @@ ul.FavoritePlayers
 ul.FavoritePlayers li
 {
 	margin:0;
-	padding:0 15px 0 0;	
+	padding:0 15px 0 0;
 	float:left;
 	line-height:1.4em;
 }
@@ -8089,7 +8089,7 @@ ul.FavoritePlayers li
 
 ul.FavoritePlayers li strong
 {
-	padding:0 3px 0 0;	
+	padding:0 3px 0 0;
 }
 
 ul.FavoritePlayers li.playerinfo {
@@ -8105,14 +8105,14 @@ ul.FavoritePlayers li h3
 {
 	font-size:14px;
 	padding:0;
-	margin:0 0 3px 0;	
+	margin:0 0 3px 0;
 }
 
 
 ul.FavoritePlayers li.ViewProfile
 {
 	float:right;
-	padding:16px 50px 0 0;	
+	padding:16px 50px 0 0;
 }
 
 div.NewsStory
@@ -8187,28 +8187,28 @@ div.NewsStory p.Stats
 	font-size:11px
 }
 
-div.NewsStory p.Photoright200 
+div.NewsStory p.Photoright200
 {
- float: right; 
- padding:2px 0px 8px 10px; 
- margin: 0; 
- font-size:90%; 
- color: #7F8E29; 
- font-style:italic; 
+ float: right;
+ padding:2px 0px 8px 10px;
+ margin: 0;
+ font-size:90%;
+ color: #7F8E29;
+ font-style:italic;
  width: 200px;
  }
- 
- div.NewsStory p.Photoright245 
+
+ div.NewsStory p.Photoright245
 {
- float: right; 
- padding:2px 0px 8px 10px; 
- margin: 0; 
- font-size:90%; 
- color: #7F8E29; 
- font-style:italic; 
+ float: right;
+ padding:2px 0px 8px 10px;
+ margin: 0;
+ font-size:90%;
+ color: #7F8E29;
+ font-style:italic;
  width: 245px;
  }
- 
+
 
 
 
@@ -8276,16 +8276,16 @@ div.paginationWide ul li.pageof {float:left;}
 
 
 
-div.NewsStoryToolbar 
+div.NewsStoryToolbar
 {
 	border:solid 1px #6f9bbc;
 	overflow:auto;
 }
 
-div.NewsStoryToolbar ul, div.NewsStoryToolbar li 
+div.NewsStoryToolbar ul, div.NewsStoryToolbar li
 {
 	margin:0;
-	padding:0;	
+	padding:0;
 }
 
 div.NewsStoryToolbar ul
@@ -8294,7 +8294,7 @@ div.NewsStoryToolbar ul
 	overflow:auto;
 }
 
-div.NewsStoryToolbar li 
+div.NewsStoryToolbar li
 {
 	float:left;
 }
@@ -8312,7 +8312,7 @@ div.NewsStoryToolbar ul.Ratings li
 
 div.NewsStoryToolbar ul.Ratings li.Average
 {
-	width:190px;	
+	width:190px;
 	padding:0 0 1px;
 	background-position:50px -2px;
 }
@@ -8407,14 +8407,14 @@ a.LargeFont
 div.Comments
 {
 	background:url('../images/CommentBallonsSprt.gif') no-repeat 0 0;
-	margin:10px;	
+	margin:10px;
 	text-indent:30px;
 }
 
 div.NewsStoryColumnOne div.Comments
 {
 	background:url('../images/CommentBallonsSprt.gif') no-repeat 0 -19px;
-	margin:7px 0;	
+	margin:7px 0;
 	text-indent:20px;
 }
 
@@ -8452,7 +8452,7 @@ div.WrapperForDropShadow div.NewsStory div.HighFivePost{
 	padding-bottom:40px;
 	height: 100px;
 	}
-	
+
 div.WrapperForDropShadow div.NewsStory div.RateArticleCenter{
 	height: 20px;
 	width: 460px;
@@ -8464,7 +8464,7 @@ div.WrapperForDropShadow div.NewsStory div.RateArticleCenter{
 	padding-left:15px;
 	text-align: left;
 	}
-	
+
 div.RateArticle
 {
 	background:url('../images/StarsSprt.gif') no-repeat 68px -19px;
@@ -8474,11 +8474,11 @@ div.RateArticle
 
 
 div.StarRate {
-  margin:10px;	
+  margin:10px;
 }
 
 div.StarRate {
-  margin:10px;	
+  margin:10px;
 }
 
 ul.star-rate {
@@ -8498,21 +8498,21 @@ ul.star-rate li {
 }
 
 ul.star-rate li a {
-  display:block; 
-  width:16px; 
-  height: 16px; 
+  display:block;
+  width:16px;
+  height: 16px;
   text-decoration: none;
-  text-indent: -9000px; 
-  z-index: 20; 
-  position: absolute; 
-  padding: 0px; 
-  background-image:none; 
+  text-indent: -9000px;
+  z-index: 20;
+  position: absolute;
+  padding: 0px;
+  background-image:none;
 }
 
 ul.star-rate li a:hover {
-  background: url('../images/StarRatingSprt.gif') left bottom; 
+  background: url('../images/StarRatingSprt.gif') left bottom;
   z-index: 1;
-  left: 0px; 
+  left: 0px;
 }
 
 ul.star-rate a.one-star{
@@ -8721,17 +8721,17 @@ div.FeaturedNewsSort
 }
 
 ul.PreviousNextFeaturedStory
-{	
+{
 	color:#fff;
 }
 
 ul.PreviousNextFeaturedStory li.Show
-{	
+{
 	float:right;
 }
 
 ul.PreviousNextFeaturedStory li.Quantity
-{	
+{
 	width:250px;
 }
 
@@ -8745,7 +8745,7 @@ div.WrapperForDropShadow div.NewsStory div.TagCloud div
 {
 	padding:10px !important;
 }
-	
+
 
 div.TagCloud a.OrangeLink
 {
@@ -8772,7 +8772,7 @@ ul.FeaturedNewsToolbarNoTopBorder {
 
 ul.FeaturedNewsToolbar li
 {
-	float:left;	
+	float:left;
 	margin:0;
 	padding:0 0 0 20px;
 	width:75px;
@@ -8786,7 +8786,7 @@ ul.FeaturedNewsToolbar li.Share
 div.FeaturedNews p{
 	text-align:justify;
 	}
-	
+
 div.FeaturedNews .NewsWithImage p{
 	width:380px;
 }
@@ -8802,7 +8802,7 @@ div.FeaturedNews .NewsWithOutImage p{
 
 
 div.NewsStoryColumnOne p{
-	text-align:justify;   
+	text-align:justify;
 }
 
 div.NewsStoryColumnOne p.shortdescription {
@@ -8976,7 +8976,7 @@ div.FeaturedNews img
 
 #compList h3 {
 
-  margin-top:10px 
+  margin-top:10px
 }
 
 #compList ul.TwoColumnCountryList {
@@ -8985,10 +8985,10 @@ div.FeaturedNews img
    clear:left;
    min-height:75px;
    overflow:auto;
-   
+
 }
-  
-  
+
+
  #compList ul.TwoColumnCountryList li {
   background-repeat:no-repeat;
   float:left;
@@ -9005,7 +9005,7 @@ div.FeaturedNews img
     display:block;
 }
 
-#leftNavLeagues 
+#leftNavLeagues
 {
   background-color:#E6EFF4;
   padding:0 0 0 10px;
@@ -9068,7 +9068,7 @@ ul.PhotoGallery li img
 
 
 .showDiv {
-	
+
 	display:block;
 }
 .closeDiv {
@@ -9088,13 +9088,13 @@ font-weight:bold;
     margin-right:15px;
 }
 
-#PlayerAlphabetList div h4  
+#PlayerAlphabetList div h4
 {
     margin:0 0 7px 0;
     padding:0;
 }
 
-#PlayerAlphabetList div ul, #PlayerAlphabetList div li  
+#PlayerAlphabetList div ul, #PlayerAlphabetList div li
 {
     margin:0;
     padding:0;
@@ -9132,7 +9132,7 @@ font-weight:bold;
 
 #SecondColumnHighlightBoxContentDraft a {
 
-    
+
 }
 
 .faq-answer {
@@ -9163,7 +9163,7 @@ label.error {
 
 
 iframe.content_iframe {
-  
+
 }
 
 
@@ -9551,7 +9551,7 @@ iframe.content_iframe {
 #leftnav .WrapperForDropShadow li{float:left;width:180px;margin-left:10px;padding-left:1px;}
 #leftnav .WrapperForDropShadow ul li a{color:#07476a;text-decoration:none;font:normal 12px arial;}
 #leftnav .WrapperForDropShadow ul li a:hover{color:#07476a;text-decoration:none;font:bold 12px arial;}
-#leftnav .WrapperForDropShadow ul li.active{margin-left:0px;}		
+#leftnav .WrapperForDropShadow ul li.active{margin-left:0px;}
 #leftnav .WrapperForDropShadow ul li.active a{color:#07476a;text-decoration:none;font:bold 12px arial;padding-left:10px;background:url('../images/fimg.jpg') no-repeat left center;}
 #leftnav .WrapperForDropShadow ul li.active a.noarrow {background:none}
 
@@ -9591,7 +9591,7 @@ iframe.content_iframe {
 #ContentWrapper #SecondColumnFullHome .ammid .aleft .table{clear:both;float:left;width:559px;font:normal 12px arial;color:#01395b;border-bottom:solid 1px #6f9bbc;border-left:solid 1px #6f9bbc;border-right:solid 1px #6f9bbc;}
 #ContentWrapper #SecondColumnFullHome .ammid .aleft .table td{padding-left:5px;padding-right:10px;color:#000000;}
 #ContentWrapper #SecondColumnFullHome .ammid .aleft .table td .sell{font:normal 12px arial;}
-#ContentWrapper #SecondColumnFullHome .ammid .aleft .table td .date {color:#999999;font-size:10px;}		
+#ContentWrapper #SecondColumnFullHome .ammid .aleft .table td .date {color:#999999;font-size:10px;}
 #ContentWrapper #SecondColumnFullHome .ammid .aleft .table .see{border-top:solid 1px #6f9bbc;background:#fff;}
 
 #ContentWrapper #SecondColumnFullHome .ammid .aleft .table .see a.OrangeLink:link,
@@ -10085,13 +10085,13 @@ color:#F95200;
 #ContentWrapper .SecondColumn .prof .pre1 ul li.position{float:left;width:50px;color:#000;font:bold 12px arial;}
 #ContentWrapper .SecondColumn .prof .pre1 ul li.no1{float:left;width:33px;color:#000;font:bold 12px arial;}
 
-#ContentWrapper .SecondColumn .proff{float:left;width:357px;border:solid 1px #6f9bbc;margin-top:0px;background-color:#e6eff4;margin-bottom: 12px;} 
+#ContentWrapper .SecondColumn .proff{float:left;width:357px;border:solid 1px #6f9bbc;margin-top:0px;background-color:#e6eff4;margin-bottom: 12px;}
 #ContentWrapper .SecondColumn .proff .prof1{clear:both;float:left;width:340px;margin-top:5px;margin-left:10px;margin-bottom: 5px;}
 #ContentWrapper .SecondColumn .proff .prof1 h1{clear:both;float:left;width:340px;font:bold 24px arial;color:#333333;padding-bottom:5px;margin-left: 0;}
 #ContentWrapper .SecondColumn .proff .favor{float:left;width:506px;height:21px;background:url('../images/favour.jpg') no-repeat;margin-top:10px;margin-left:0px;}
 #ContentWrapper .SecondColumn .proff .favor .submit{float:left;width:110px;height:21px;text-align:center;font:normal 11px arial;color:#395d34;}
 #ContentWrapper .SecondColumn .proff .prof1 .age1{clear:both;float:left;width:250px;font:normal 11px arial;color:#333333;}
-#ContentWrapper .SecondColumn .proff .prof1 .age1first{margin-top: 10px;}   
+#ContentWrapper .SecondColumn .proff .prof1 .age1first{margin-top: 10px;}
 #ContentWrapper .SecondColumn .proff .age2{clear:both;float:left;width:330px;font:normal 11px arial;color:#333333;margin-left:10px;margin-top:10px;}
 #ContentWrapper .SecondColumn .proff .full{clear:both;float:left;width:200px;margin-left:10px;margin-top:10px;font:normal 11px arial;color:#306180;}
 #ContentWrapper .SecondColumn .proff .full a{color:#306180;text-decoration:none;}
@@ -10103,7 +10103,7 @@ color:#F95200;
 #ContentWrapper .SecondColumn .proff .gplus{float:left;width:70px;height:21px;margin-top:10px;margin-left:0px;}
 
 /* added for central player and team profile box*/
-#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;} 
+#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;}
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons .add {background:url('../images/add.jpg') no-repeat scroll 0 0 transparent;color:#395E33;float:left;font:bold 11px/20px arial;height:20px;margin-left:2px;text-align:center;width:116px;padding-right:10px;}
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons .add a {color:#395D34;text-decoration:none;}
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons .removefav{float:left;width:139px;height:20px;background:url('../images/remove.jpg') no-repeat;margin-left:0px;margin-right:5px;color:#395E33;font:bold 11px arial;text-align:center;line-height:20px;}
@@ -10112,16 +10112,16 @@ color:#F95200;
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons .tweeterbutton iframe {margin-bottom:9px;}
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebuttons .fbbutton iframe {margin-bottom:4px;}
 
-#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebroadcast {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;} 
+#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebroadcast {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;}
 #ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebroadcast .date {padding-left:10px;color:#999999;font-size:10px;}
-#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebroadcast span {font-size:12px;}	
-	
+#ContentWrapper .SecondColumnOfThree #ProfileInfoContainer .profilebroadcast span {font-size:12px;}
+
 
 #ContentWrapper .tweeterbutton iframe {margin-bottom:9px;}
 #ContentWrapper .fbbutton iframe {margin-bottom:4px;}
 
 #ContentWrapper .SecondColumn .proff .prof1 .subscribe{clear:both;float:left;width:357px;padding-top:5px;padding-bottom:5px;margin-top:0px;text-align:left;}
-#ContentWrapper .SecondColumn .proff .prof1 .profilebuttons {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;} 
+#ContentWrapper .SecondColumn .proff .prof1 .profilebuttons {float:left;height:22px;margin-bottom:10px;margin-left:0;margin-top:0;padding-top:0;width:340px;}
 #ContentWrapper .SecondColumn .proff .prof1 .profilebuttons .add {background:url('../images/add.jpg') no-repeat scroll 0 0 transparent;color:#395E33;float:left;font:bold 11px/20px arial;height:20px;margin-left:2px;text-align:center;width:116px;padding-right:10px;}
 #ContentWrapper .SecondColumn .proff .prof1 .profilebuttons .add a {color:#395D34;text-decoration:none;}
 #ContentWrapper .SecondColumn .proff .prof1 .profilebuttons .removefav{float:left;width:139px;height:20px;background:url('../images/remove.jpg') no-repeat;margin-left:0px;margin-right:5px;color:#395E33;font:bold 11px arial;text-align:center;line-height:20px;}
@@ -10330,7 +10330,7 @@ color:#F95200;
 
 
 
-#ContentWrapper .SecondColumn .proff #favorite, 
+#ContentWrapper .SecondColumn .proff #favorite,
 #ContentWrapper .SecondColumn .proff #remove {
   margin-left:0;
   margin-right:0px;
@@ -10403,7 +10403,7 @@ color:#F95200;
 #ContentWrapper .featured1{float:left;width:357px;margin-top:0px;margin-bottom:12px;border:solid 1px #6f9bbc;margin-left:0px;}
 #ContentWrapper .featured1 .mblack{float:left;width:357px;height:24px;background:url('../images/featuredbg.jpg') repeat-x;}
 #ContentWrapper .featured1 .mblack .black{float:left;width:310px;padding-left:10px;color:#01395b;font:bold 11px arial;line-height:25px;}
-#ContentWrapper .featured1 .mblack h2{float:left;width:210px;padding-left:10px;color:#01395b;font:bold 11px arial;line-height:25px;} 
+#ContentWrapper .featured1 .mblack h2{float:left;width:210px;padding-left:10px;color:#01395b;font:bold 11px arial;line-height:25px;}
 #ContentWrapper .featured1 .mblack .sm{color:#01395B;float:right;font:11px/25px arial;height:24px;margin-top:-1px;padding-left:20px;width:40px;}
 
 
@@ -10529,7 +10529,7 @@ color:#F95200;
 #ContentWrapper .featured1 .ok{float:left;width:31px;height:20px;font:normal 11px arial;color:#465b2d;border:0px;background:url('../images/ok1.jpg') no-repeat;margin-top:10px;margin-left:-20px;}
 
 
-/* RSS and News right module -new */ 
+/* RSS and News right module -new */
 
 #ContentWrapper .featured1  .wanger{float:left;width:357px;}
 #ContentWrapper .featured1  .wanger ul{list-style:none;margin:0px;padding:0px;}
@@ -10744,7 +10744,7 @@ color:#F95200;
 #SecondColumnStats .ammid .tabscontainer .scores1 ul li.comp{float:left;width:160px;padding-left:10px;text-align:left;font:normal 12px arial;color:#fefefe;}
 #SecondColumnStats .ammid .tabscontainer .scores1 ul li.name{float:left;width:120px;padding-left:10px;text-align:left;font:normal 12px arial;color:#1a1a1a;}
 #SecondColumnStats .ammid .tabscontainer .scores1 ul li.team{float:left;width:145px;font:normal 12px arial;color:#1a1a1a;margin-left:10px;padding-left:25px;}
-#SecondColumnStats .ammid .tabscontainer .scores1 ul li.teamlogo{float:left;width:130px;font:normal 12px arial;color:#1a1a1a;margin-left:10px;padding-left:25px;}
+#SecondColumnStats .ammid .tabscontainer .scores1 ul li.teamlogo{float:left;width:130px;font:normal 12px arial;color:#1a1a1a;margin-left:22px;padding-left:25px;}
 
 #SecondColumnStats .ammid .tabscontainer .scores1 ul li.cont{float:left;width:60px;text-align:left;font:normal 12px arial;color:#1a1a1a;}
 #SecondColumnStats .ammid .tabscontainer .scores1 ul li.score{float:left;width:60px;text-align:center;font:normal 12px arial;color:#1a1a1a;}
@@ -10756,7 +10756,7 @@ color:#F95200;
 #SecondColumnStats .ammid .tabscontainer .scores2 ul li.comp{float:left;width:160px;padding-left:10px;text-align:left;font:normal 12px arial;color:#fefefe;}
 #SecondColumnStats .ammid .tabscontainer .scores2 ul li.name{float:left;width:120px;padding-left:10px;text-align:left;font:normal 12px arial;color:#1a1a1a;}
 #SecondColumnStats .ammid .tabscontainer .scores2 ul li.team{float:left;width:145px;font:normal 12px arial;color:#1a1a1a;margin-left:10px;padding-left:25px;}
-#SecondColumnStats .ammid .tabscontainer .scores2 ul li.teamlogo{float:left;width:130px;font:normal 12px arial;color:#1a1a1a;margin-left:10px;padding-left:25px;}
+#SecondColumnStats .ammid .tabscontainer .scores2 ul li.teamlogo{float:left;width:130px;font:normal 12px arial;color:#1a1a1a;margin-left:22px;padding-left:25px;}
 
 
 #SecondColumnStats .ammid .tabscontainer .scores2 ul li.cont{float:left;width:60px;text-align:left;font:normal 12px arial;color:#1a1a1a;}
@@ -10818,7 +10818,7 @@ color:#F95200;
   margin-top: 10px;
   overflow:hidden;
 }
-.ammid .PlayerInfoWrapperSeason .PlayerInfoStat .PersonalInfoStat{ 
+.ammid .PlayerInfoWrapperSeason .PlayerInfoStat .PersonalInfoStat{
 	float: left;margin-left: 6px;margin-top: 3px;width: 100px;
 }
 
@@ -10842,7 +10842,7 @@ color:#F95200;
     color: #000000;
 }
 
- 
+
 /* popup - convert2Xhmtl**/
 
 .steam{clear:both;float:left;width:365px;margin-top:200px;}
@@ -10874,7 +10874,7 @@ color:#F95200;
 .steam .smid .team1 .here input{border: 0 none;color: #808080;font: 12px arial;margin-left: 5px;margin-top: 1px;padding-top: 2px;width: 190px;}
 
 .steam .smid .team0 .here input.selected{color: #000000;}
-.steam .smid .team1 .here input.selected{color: #000000;} 
+.steam .smid .team1 .here input.selected{color: #000000;}
 
 
 /*.steam .smid .team0 .here .mailtb{}
@@ -10884,7 +10884,7 @@ color:#F95200;
     float: left;
     font: bold 12px arial;
     width: 200px;
-} 
+}
 .steam .smid .team1 .here{float:left;width:197px;height:22px;background:url('../images/textbox.jpg') no-repeat;bordeR:0px;margin-left:5px;color:#808080;}
 .steam .smid .team1 .here input{width:185px;color:#808080;font:normal 12px arial;background:url('../images/textbox.jpg') no-repeat;margin-left:5px;margin-top:1px;bordeR:0px;padding-top:2px;}
 */
@@ -11031,7 +11031,7 @@ border-right:1px solid #6F9BBC;
     padding-right:10px;
     width:487px;
     overflow:hidden;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 }
 .friends_area .rightcomment .autor {
 	color:#3B5998;
@@ -11042,7 +11042,7 @@ border-right:1px solid #6F9BBC;
 .friends_area .rightcomment .date {
 	color:#999999;
 	font-size:10px;
-	
+
 }
 
 .sendmessage {
@@ -11061,7 +11061,7 @@ border-right:1px solid #6F9BBC;
   overflow:hidden;
   width:497px;
   margin-left:60px;
- 
+
 }
 
 .commentsAndRatingsDetailed {
@@ -11071,7 +11071,7 @@ border-right:1px solid #6F9BBC;
   overflow:hidden;
   width:497px;
   margin-left:35px;
- 
+
 }
 
 .commentsAndRatingsNarrow {
@@ -11080,7 +11080,7 @@ border-right:1px solid #6F9BBC;
   margin-bottom:2px;
   overflow:hidden;
   margin-left:10px;
- 
+
 }
 
 
@@ -11091,17 +11091,17 @@ border-right:1px solid #6F9BBC;
 
 
 .report {
-	background: url(../images/arrow_report.png) no-repeat left center; 
-	color: #4e7c95; 
-	font-size: 11px; 
-	padding: 0 7px 0 15px; 
-	/*top: 9px; 
-	position: absolute; 
+	background: url(../images/arrow_report.png) no-repeat left center;
+	color: #4e7c95;
+	font-size: 11px;
+	padding: 0 7px 0 15px;
+	/*top: 9px;
+	position: absolute;
 	right: 0px;*/
 	float:right;
 	clear:both;
 	margin-top:9px;
-	
+
 }
 
 
@@ -11119,12 +11119,12 @@ border-right:1px solid #6F9BBC;
 
 #boxComments .comment_form {
  	margin-left:35px;
-	
+
 }
 
 .narrow .comment_form {
  	margin-left:5px;
-	
+
 }
 
 #boxComments .viewallreplies .nestedwrapper {
@@ -11159,7 +11159,7 @@ border-right:1px solid #6F9BBC;
 }
 
 .narrow .viewallreplies .nestedwrapper .rightcomment_nested {
-   
+
     width: 200px;
 
 }
@@ -11200,7 +11200,7 @@ border-right:1px solid #6F9BBC;
 	font:12px arial;
 	height:24px;
 	width:100px;
-	
+
 }
 
 .comment_form .rightside #textareanested {
@@ -11249,7 +11249,7 @@ border-right:1px solid #6F9BBC;
 
 
 .charcounter {
-	
+
 	font-size:10px;
 	display:block;
 	float:left;
@@ -11564,18 +11564,18 @@ font-size:13px;
 	clear:both;
 }
 
-#subscribePlayerLinkSpan, #subscribeTeamLinkSpan, #subscribeLeagueLinkSpan {  
-    margin:0 5px 0px 5px; 
-    padding:0px 5px;  
-    position:relative; 
-    float:left; 
-    background-color:#eee;  
-    border:1px solid #333; 
-    -moz-border-radius:7px;  
-    -webkit-border-radius:7px; 
-    border-radius:7px; 
-    color:#333;  
-    font:normal 11px Verdana, Sans-serif;  
+#subscribePlayerLinkSpan, #subscribeTeamLinkSpan, #subscribeLeagueLinkSpan {
+    margin:0 5px 0px 5px;
+    padding:0px 5px;
+    position:relative;
+    float:left;
+    background-color:#eee;
+    border:1px solid #333;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
+    color:#333;
+    font:normal 11px Verdana, Sans-serif;
 }
 
 .rssLink{float:left;width:184px;height:21px;background:url('../images/im3.jpg') no-repeat;color:#374b01;font:bold 12px arial;padding-left:25px;line-height:20px;margin-left:10px;margin-top:2px;}
@@ -11670,7 +11670,7 @@ h1{float:left;width:549px;font:bold 18px arial;color:#000;margin-left:20px;margi
 
 .refreshPlayer, .refreshTeam, .refreshLeague{
 	display:inline-block;
-	line-height:24px; 
+	line-height:24px;
 	background:url('../images/icons/refresh_blue.png')  center left no-repeat;
 	padding-left:25px;
 	font:13px arial;
@@ -11686,7 +11686,7 @@ h1{float:left;width:549px;font:bold 18px arial;color:#000;margin-left:20px;margi
 	position:fixed;
 	_position:absolute; /* hack for internet explorer 6*/
 	z-index:200;
-	font-size:13px;	
+	font-size:13px;
 }
 
 #h2hcontainer p{
@@ -11705,7 +11705,7 @@ h1{float:left;width:549px;font:bold 18px arial;color:#000;margin-left:20px;margi
 
 #h2hvalidations ul li{
 	margin-bottom:5px;
-	
+
 }
 
 
