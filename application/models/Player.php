@@ -1,6 +1,6 @@
 <?php
 class Player extends Zend_Db_Table_Abstract {
-	
+
 	protected $_primary = "player_id" ;
 	protected $_name = 'player' ;
 	function init () {
@@ -8,10 +8,10 @@ class Player extends Zend_Db_Table_Abstract {
 		Zend_Loader::loadClass ( 'Zend_Debug' ) ;
 		Zend_Loader::loadClass ( 'Pagination' ) ;
 	}
-	
+
 	// public function selectPlayerPageFanFaceBookAlerts($playerId) {
 	// 	$db = $this->getAdapter ();
-	// 	$sql = "select p.*,u.facebookid,u.facebookaccesstoken from player p inner join user u on p.user_id=u.user_id 
+	// 	$sql = "select p.*,u.facebookid,u.facebookaccesstoken from player p inner join user u on p.user_id=u.user_id
 	// 			where p.user_id is not null and p.facebook_idPage is not null and u.facebookaccesstoken is not null
 	// 			and p.player_id=".$playerId;
 	// 	//echo $sql;
@@ -28,7 +28,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$sql .= " INNER JOIN player p ON p.player_id = fb.entity_id ";
 		$sql .= " INNER JOIN user u ON u.user_id = fb.user_id ";
 		$sql .= " INNER JOIN language lang ON lang.language_id = fb.language_id ";
-		$sql .= " AND fb.entity_id = ".$playerId; 
+		$sql .= " AND fb.entity_id = ".$playerId;
 		$sql .= " AND fb.entity_type = 'player' ";
 		//echo $sql;
 		$result = $db->query ( $sql );
@@ -44,9 +44,9 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		$maxid = $row[0]['max_id'];
 		return $maxid ;
-		
+
 	}
-	
+
 	public function findPlayers ( $search ) {
 		$db = $this->getAdapter () ;
 		$sql = " select player_id, player_name_short " ;
@@ -56,7 +56,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function findPlayersAutoComplete ( $search ) {
 		$db = $this->getAdapter () ;
 		$sql = " select player_id, player_common_name " ;
@@ -144,9 +144,9 @@ class Player extends Zend_Db_Table_Abstract {
 		$sql .= " INNER JOIN teamplayer tp ON tp.player_id = p.player_id ";
 		$sql .= " INNER JOIN team t ON t.team_id = tp.team_id ";
 	  if (! is_null ( $userid )) {
-    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = p.player_id "; 
+    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = p.player_id ";
     }
-		
+
 		$sql .= " WHERE tp.player_id =".$playerId ;
 		$sql .= " AND tp.actual_team = 1  ";
 		$sql .= " AND t.team_type = 'club' ";
@@ -161,14 +161,14 @@ class Player extends Zend_Db_Table_Abstract {
 		$where = $db->quoteInto ( "player_id = ?", $playerId ) ;
 		return $this->fetchRow ( $where ) ;
 	}
-	
+
 	public function findUniquePlayerDetailed($playerId) {
     	$db = $this->getAdapter () ;
          $sql = " SELECT ";
 		 $sql .= " p.player_id, ";
 		 $sql .= " p.player_common_name, ";
 		 $sql .= " p.player_firstname, ";
-		 $sql .= " p.player_lastname, "; 
+		 $sql .= " p.player_lastname, ";
 		 $sql .= " p.player_name_short, ";
 		 $sql .= " p.player_nickname, ";
 		 $sql .= " p.player_dob, ";
@@ -191,20 +191,20 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll() ;
 		return $row ;
 	}
-	
-	
+
+
 	public function findPlayerProfileDetails ($playerId,$userid = null) {
 		$db = $this->getAdapter () ;
 		$sql = " SELECT ";
 		$sql .= " p.player_id, ";
 		$sql .= " p.player_common_name, ";
-		$sql .= " p.player_firstname, "; 
-		$sql .= " p.player_lastname, "; 
-		$sql .= " p.player_name_short, "; 
-		$sql .= " p.player_nickname, "; 
+		$sql .= " p.player_firstname, ";
+		$sql .= " p.player_lastname, ";
+		$sql .= " p.player_name_short, ";
+		$sql .= " p.player_nickname, ";
 		$sql .= " p.player_dob, ";
-		$sql .= " p.player_position, "; 
-		$sql .= " p.player_country, ";  
+		$sql .= " p.player_position, ";
+		$sql .= " p.player_country, ";
 		$sql .= " p.player_nationality, ";
 		$sql .= " c.country_name ";
 		if (! is_null ( $userid )) {
@@ -212,8 +212,8 @@ class Player extends Zend_Db_Table_Abstract {
 		} else {
 			$sql .= ", 'n' as ismyplayer";
 		}
-		$sql .= " FROM player p "; 
-		$sql .= " INNER JOIN country c ON c.country_id = p.player_nationality "; 
+		$sql .= " FROM player p ";
+		$sql .= " INNER JOIN country c ON c.country_id = p.player_nationality ";
 		$sql .= " LEFT OUTER JOIN playerimage pimg ON pimg.player_id = p.player_id ";
 		$sql .= " WHERE p.player_id = ".$playerId ;
 		//echo $sql;
@@ -221,7 +221,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll() ;
 		return $row ;
 }
-	
+
 
 	public function getPlayerProfileImage ($playerId)
 	{
@@ -234,8 +234,8 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
-	
+
+
 	public function getActualClubTeam ($playerId) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,tp.team_id,t.team_name,t.team_seoname ,t.team_type,tp.actual_team,tp.jersey_number, s.competition_id,s.season_id ";
@@ -251,7 +251,7 @@ class Player extends Zend_Db_Table_Abstract {
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
-		return $row ;	
+		return $row ;
 	}
 
 
@@ -264,18 +264,19 @@ class Player extends Zend_Db_Table_Abstract {
 		$sql .= " INNER JOIN teamseason ts ON ts.team_id = t.team_id ";
 		$sql .= " INNER JOIN season s ON ts.season_id = s.season_id ";
 		$sql .= " INNER JOIN league_competition lc ON lc.competition_id = s.competition_id ";
-		$sql .= "  WHERE tp.player_id = " . $playerId; 
-		$sql .= "  AND t.team_type = 'club' AND actual_team = 1 AND s.active = 1 AND lc.format = 'domestic league' ";
+		$sql .= " WHERE tp.player_id = " . $playerId;
+		$sql .= " AND t.team_type = 'club' AND actual_team = 1 AND s.active = 1 AND lc.format = 'domestic league' ";
+		$sql .= " ORDER By s.start_date DESC ";
         //echo $sql;
         $result = $db->query ( $sql ) ;
 		$row = $result->fetch () ;
 		return $row ;
     }
-    
 
 
-    
-	
+
+
+
 	public function getActualNationalTeam ($playerId) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,tp.team_id,t.country_id,t.team_name,t.team_seoname,t.team_type,tp.actual_team,tp.jersey_number ";
@@ -289,9 +290,9 @@ class Player extends Zend_Db_Table_Abstract {
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
-		return $row ;	
+		return $row ;
 	}
-	
+
 	public function getPlayerTeamDetails ($playerId) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,p.player_name_short,tp.team_id,t.team_name,t.team_seoname,t.team_type,tp.jersey_number,tp.actual_team, s.title, tp.gp, tp.sb, tp.minp, tp.gl, tp.hd, tp.fk, tp.gin, tp.gout, tp.pn, tp.pa,";
@@ -307,7 +308,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function getPlayerTeamStatsDetailsOld ($playerId) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,p.player_name_short,p.player_common_name,tp.team_id,t.team_name,t.team_seoname,t.team_type,s.title, tp.gp, tp.sb, tp.minp, tp.gl, tp.hd, tp.fk, tp.gin, tp.gout, tp.pn, tp.pa, tp.ast, tp.dd,tp.sht,"; 		  $sql .= "tp.gw,tp.fls, tp.yc, tp.rc, tp.mpg, tp.sh, tp.g_90,tp.a_90, tp.sh_90, tp.fls_90 ";
@@ -322,7 +323,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
    public function getPlayerTeamStatsDetails ($playerId,$format) {
 		$db = $this->getAdapter () ;
 		$sql = "select p.player_name_short,p.player_common_name,tp.team_id,tp.team_name,t.team_seoname,tp.season_id,tp.season_name,lc.competition_id,lc.competition_name,tp.gp, tp.sb, tp.minp, tp.gl, tp.hd, tp.fk, tp.gin, tp.gout, tp.pn, tp.pa, tp.ast, tp.dd,tp.sht,tp.gw,tp.fls, tp.yc, tp.rc, tp.mpg, tp.sh, tp.g_90,tp.a_90, tp.sh_90, tp.fls_90";
@@ -331,7 +332,7 @@ class Player extends Zend_Db_Table_Abstract {
       	$sql .= " and p.player_id = tp.player_id ";
       	$sql .= " and tp.team_id = t.team_id ";
       	$sql .= " and tp.competition_id = lc.competition_id ";
-      if($format == 1){ 
+      if($format == 1){
         $sql .= " and lc.type = 'club' and lc.format = 'Domestic league' ";
         $sql .= " order by tp.season_name desc";
       } elseif ($format == 2) {
@@ -346,7 +347,7 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
    public function getPlayerTeamTotalStatsDetails ($playerId,$format) {
 		$db = $this->getAdapter () ;
 		$sql = "select p.player_name_short,p.player_common_name,tp.team_id,tp.team_name,t.team_seoname,tp.season_id,tp.season_name,lc.competition_id,tp.competition_name,sum(tp.gp) as total_gp,sum(tp.minp) as total_minp,sum(tp.gl) as total_gl,sum(tp.yc) as total_yc,sum(tp.rc) as total_rc";
@@ -355,7 +356,7 @@ class Player extends Zend_Db_Table_Abstract {
       	$sql .= " and p.player_id = tp.player_id ";
       	$sql .= " and tp.team_id = t.team_id ";
       	$sql .= " and tp.competition_id = lc.competition_id ";
-      if($format == 1){ 
+      if($format == 1){
         $sql .= " and lc.type = 'club' and lc.format = 'Domestic league' ";
         $sql .= " order by tp.season_name desc";
       } elseif ($format == 2) {
@@ -370,8 +371,8 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
-	
+
+
     public function getPlayerKeeperTeamStatsDetails ($playerId,$format) {
         $db = $this->getAdapter () ;
         $sql = " select p.player_name_short,p.player_common_name,tp.team_id,t.team_name,t.team_seoname,tp.season_id,tp.season_name,lc.competition_id,lc.competition_name, ";
@@ -397,11 +398,11 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchAll () ;
 		return $row ;
     }
-    
+
  public function getPlayerKeeperTeamTotalStatsDetails ($playerId,$format) {
         $db = $this->getAdapter () ;
         $sql = " SELECT p.player_name_short,p.player_common_name,tp.team_id,tp.team_name,t.team_seoname,tp.season_id,tp.season_name,lc.competition_id,lc.competition_name, " ;
-        $sql .= " sum(tp.games_played) AS total_gp,sum(tp.goals_allowed) AS total_ga,sum(tp.yellow_cards) AS total_yc,sum(tp.red_cards) AS total_rc,sum(tp.clean_sheets) AS total_cs";		
+        $sql .= " sum(tp.games_played) AS total_gp,sum(tp.goals_allowed) AS total_ga,sum(tp.yellow_cards) AS total_yc,sum(tp.red_cards) AS total_rc,sum(tp.clean_sheets) AS total_cs";
         $sql .= " from teamgoaliestats tp,team t,player p,league_competition lc" ;
 		$sql .= " where tp.player_id = ".$playerId ;
         $sql .= " and p.player_id = tp.player_id ";
@@ -430,7 +431,7 @@ class Player extends Zend_Db_Table_Abstract {
 		return $this->update ( $data, $where ) ;
 	}
 
-    
+
 	public function selectPlayersByAlphabet ( $letter ,$position = null , $dates = null , $countryId = null) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id, p.player_name_short,p.player_common_name,p.player_lastname, p.player_firstname, p.player_nickname, p.player_seoname, p.player_common_name " ;
@@ -448,21 +449,21 @@ class Player extends Zend_Db_Table_Abstract {
 			$sql .= " and player_country =" . $countryId  ;
 		}
 		$sql .= " order by player_lastname limit 0,20" ;
-		
-		
+
+
 		$result = $db->query ( $sql ) ;
 		//echo $sql ."<br>";
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function selectPlayers ( $letter = null , $from = null, $position = null ,$countryId = null ,$dates = null) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id, p.player_name_short,p.player_common_name,p.player_firstname, p.player_lastname,p.player_nickname,p.player_seoname,p.player_position,p.player_dob,t.team_id,t.team_name,t.team_seoname,p.player_country,p.player_nationality,c.country_name " ;
 		$sql .= " from player p,teamplayer tp, team t,country c " ;
 		$sql .= " where  p.player_id = tp.player_id  AND tp.team_id = t.team_id AND p.player_nationality = c.country_id AND t.team_type = 'club' AND tp.actual_team = 1" ;
 		if($letter != null){
-			$sql .= " AND  p.player_lastname like '$letter%' "; 
+			$sql .= " AND  p.player_lastname like '$letter%' ";
 		}
 		if($position!= null){
 			$sql .= " and player_position = '$position' " ;
@@ -483,7 +484,7 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function countPlayersByLetter ( $letter, $position = null , $dates = null , $countryId = null) {
 		$db = $this->getAdapter () ;
 		$sql = " select count(*) as playercount from player where player_lastname like '$letter%' " ;
@@ -501,12 +502,12 @@ class Player extends Zend_Db_Table_Abstract {
 		$row = $result->fetchColumn () ;
 		return $row ;
 	}
-	
+
 	public function countPlayersByLetter2 ( $letter , $position = null ,$countryId = null ,$dates = null ) {
 		$db = $this->getAdapter () ;
 		$sql = "  select count(*) as playercount " ;
 		$sql .= " from player p,teamplayer tp, team t,country c " ;
-		$sql .= " where  p.player_id = tp.player_id  AND tp.team_id = t.team_id AND t.country_id =c.country_id AND t.team_type = 'club' AND tp.actual_team = 1 "; 
+		$sql .= " where  p.player_id = tp.player_id  AND tp.team_id = t.team_id AND t.country_id =c.country_id AND t.team_type = 'club' AND tp.actual_team = 1 ";
 		if($letter != null){
 			$sql .= " AND  p.player_lastname like '$letter%' " ;
 		}
@@ -519,13 +520,13 @@ class Player extends Zend_Db_Table_Abstract {
 		if($dates!= null){
 			$sql .= " and player_creation  between '" . $dates[0] . "' and '" .  $dates[1] . "'" ;
 		}
-		
+
 		$sql .= " order by player_lastname" ;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchColumn () ;
 		//Zend_Debug::dump($row);
 		return $row ;
-	} 
+	}
 
 	public function findPlayersByLetterName($letter){
 		$db = $this->getAdapter () ;
@@ -538,7 +539,7 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function findPlayersByTeam($letter){
 		$db = $this->getAdapter () ;
 		$sql = "  select p.player_id,p.player_common_name,p.player_firstname,p.player_lastname,p.player_firstname, p.player_nickname , p.player_position,p.player_seoname,p.player_dob, t.team_id , t.team_name_official, tp.actual_team " ;
@@ -548,27 +549,27 @@ class Player extends Zend_Db_Table_Abstract {
 		$sql .= " and t.team_name_official like '%$letter%' " ;
 		$sql .= " and tp.actual_team = 1 " ;
 		$sql .= " order by p.player_lastname, t.team_name_official " ;
-		//echo $sql; 
+		//echo $sql;
  		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function findPlayersByCountry($letter){
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,p.player_firstname,p.player_lastname, p.player_common_name,p.player_nickname , p.player_position,p.player_seoname ,c.country_name " ;
 		$sql .= " from player p , country c " ;
 		$sql .= " where  p.player_nationality = c.country_id " ;
 		$sql .= " and c.country_name like '$letter%' " ;
-		$sql .= " order by p.player_lastname, c.country_name "; 
-		
+		$sql .= " order by p.player_lastname, c.country_name ";
+
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function findPlayersByCountryId($countryId){
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,player_name_short,p.player_common_name,p.player_firstname,p.player_lastname, p.player_nickname , p.player_position,p.player_seoname ,c.country_name " ;
@@ -581,19 +582,19 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function findTeammatesByPlayer($teamId ,$playerId ,$userid = null,$format = null) {
 		$db = $this->getAdapter () ;
 		$sql = " select p.player_id,p.player_name_short,p.player_common_name,p.player_dob,p.player_position,p.player_country,p.player_nationality,p.player_nickname,
 				p.player_firstname,p.player_lastname,p.player_seoname ,p.player_common_name ,c.country_name,t.team_id,t.team_name,t.team_seoname ";
 		if($format != null){
 			$sql .= ",pcs.gp as gamesplayed ,pcs.gl as goalscored, pcs.yc as yellowcards, pcs.rc as redcards ";
-		} 
+		}
         if(!is_null($userid)){
 			$sql .= " ,(SELECT IF(COUNT(*)=1,'y','n') FROM userplayer WHERE user_id = $userid AND player_id = p.player_id) ismyplayer" ;
 		}else {
 			$sql .= ", 'n' as ismyplayer";
-		}	
+		}
 		$sql .= " from player p ";
         $sql .= " inner join teamplayer tp on tp.player_id = p.player_id ";
         $sql .= " inner join team t on tp.team_id = t.team_id ";
@@ -608,27 +609,27 @@ class Player extends Zend_Db_Table_Abstract {
 		 $sql .= " and pcs.competition_format = '$format' " ;
         }
         $sql .= " order by pc.player_category_id ";
-        
+
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
-	
+
+
 	public function countTotalPlayersByName($criteria){
-		
+
 		$db = $this->getAdapter () ;
-		$sql = "select count(*) "; 
-		$sql .= " from player p,teamplayer tp, team t , country c  "; 	
-		$sql .= " where(lower(p.player_lastname) like lower('%$criteria%') ";   
+		$sql = "select count(*) ";
+		$sql .= " from player p,teamplayer tp, team t , country c  ";
+		$sql .= " where(lower(p.player_lastname) like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_firstname)   like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_name_short)  like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_nickname) 	  like lower('%$criteria%') ";
 		$sql .= " or lower(CONCAT_WS(' ',p.player_firstname ,p.player_lastname)) like lower('%$criteria%') ";
 		$sql .= " ) ";
-		$sql .= " and p.player_id = tp.player_id "; 
+		$sql .= " and p.player_id = tp.player_id ";
 		$sql .= " and p.player_nationality = c.country_id " ;
 		$sql .= " and tp.team_id = t.team_id  ";
 		$sql .= " and tp.actual_team = 1  ";
@@ -637,27 +638,27 @@ class Player extends Zend_Db_Table_Abstract {
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchColumn () ;
 		return $row ;
-		
+
 	}
-	
-	
+
+
 	public function findPlayerByName($criteria , $from = null , $userId = null){
-		
+
 		$db = $this->getAdapter () ;
 		$sql = "select p.player_id,p.player_common_name,p.player_firstname,p.player_lastname, p.player_nickname , p.player_position ,p.player_nickname,p.player_name_short,p.player_seoname ,t.team_name,t.team_seoname,c.country_name ";
-		if(!is_null($userId)){ 
+		if(!is_null($userId)){
 			$sql .= " ,(select player_id from userplayer where user_id = $userId and player_id = p.player_id ) as isyourplayer ";
 		}else {
 			$sql .= " ,NULL as isyourplayer ";
 		}
-		$sql .= " from player p,teamplayer tp, team t , country c  "; 	
-		$sql .= " where(lower(p.player_lastname) like lower('%$criteria%') ";   
+		$sql .= " from player p,teamplayer tp, team t , country c  ";
+		$sql .= " where(lower(p.player_lastname) like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_firstname)   like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_name_short)  like lower('%$criteria%') ";
 		$sql .= " or lower(p.player_nickname) 	  like lower('%$criteria%') ";
 		$sql .= " or lower(CONCAT_WS(' ',p.player_firstname ,p.player_lastname)) like lower('%$criteria%') ";
 		$sql .= " ) ";
-		$sql .= " and p.player_id = tp.player_id "; 
+		$sql .= " and p.player_id = tp.player_id ";
 		$sql .= " and p.player_nationality = c.country_id " ;
 		$sql .= " and tp.team_id = t.team_id  ";
 		$sql .= " and tp.actual_team = 1  ";
@@ -665,18 +666,18 @@ class Player extends Zend_Db_Table_Abstract {
 		if(!is_null($from)){
 			$sql .= " LIMIT " . $from . ",20" ;
 		}
-		
-		
+
+
 //select p.player_id,p.player_firstname,p.player_lastname, p.player_nickname , p.player_position ,p.player_nickname,player_seoname
 //from player p
 //where SUBSTRING(p.player_seoname,1,4) = 'Piza'
-		
+
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
 		return $row ;
-		
+
 		}
 
 
@@ -710,7 +711,7 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
        	public function getRedCardsCurrentSeason ($playerId,$seasonId) {
         $db = $this->getAdapter () ;
         $sql = " select count(*) as rcSeason ";
@@ -755,7 +756,7 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
     public function getGamesSubOutSeason ($playerId,$seasonId) {
         $db = $this->getAdapter () ;
         $sql = " select count(*) as gamesSubOut ";
@@ -800,8 +801,8 @@ class Player extends Zend_Db_Table_Abstract {
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
-	
+
+
 	/*public function getGoalPerMatchCurrentSeason($playerId,$seasonId) {
 		db = $this->getAdapter () ;
 		SELECT m.match_date,me.player_id,ta.team_name,tb.team_name,event_type_id,event_minute from matchevent me
@@ -813,25 +814,25 @@ AND me.event_type_id = 'G'
 AND m.season_id = 6118
 ORDER by match_date DESC
 	} */
-	
+
 
 	public function findPlayerEvents($playerId){
 		$db = $this->getAdapter () ;
 		//
-		$sql = "select m.match_date,m.match_time,m.team_a,m.team_b,m.fs_team_a,m.fs_team_b,me.*,p.player_nickname,p.player_seoname,p.player_name_short   "; 	 
-		$sql .= " from matchevent me , matchh m  ,player p  "; 	
-		$sql .= " where m.match_id = me.match_id   "; 
-		$sql .= " and me.player_id = p.player_id ";	
-		$sql .= " and me.player_id = " . $playerId; 	
-		//$sql .= " order by m.match_date desc   "; 	
+		$sql = "select m.match_date,m.match_time,m.team_a,m.team_b,m.fs_team_a,m.fs_team_b,me.*,p.player_nickname,p.player_seoname,p.player_name_short   ";
+		$sql .= " from matchevent me , matchh m  ,player p  ";
+		$sql .= " where m.match_id = me.match_id   ";
+		$sql .= " and me.player_id = p.player_id ";
+		$sql .= " and me.player_id = " . $playerId;
+		//$sql .= " order by m.match_date desc   ";
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
 		return $row ;
-		
+
 	}
-	
+
 	public function findTopPlayers()
 	{
 		$db = $this->getAdapter () ;
@@ -841,7 +842,7 @@ ORDER by match_date DESC
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 public function findUserPlayers()
 	{
 		$db = $this->getAdapter () ;
@@ -875,7 +876,7 @@ public function findPlayersBySeason ($seasonId, $count,$userid = null)   {
     $sql .= " INNER JOIN country AS c on p.player_nationality = c.country_id";
     $sql .= " INNER JOIN team AS t on t.team_id = tp.team_id";
     if (! is_null ( $userid )) {
-		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = tp.player_id "; 
+		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = tp.player_id ";
 	}
     $sql .= " WHERE tp.actual_team = 1";
     $sql .= " AND ts.season_id = " . $seasonId;
@@ -891,22 +892,22 @@ public function findPlayersBySeason ($seasonId, $count,$userid = null)   {
   }
 
 
-  
+
 public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid = null)
 	{
         $db = $this->getAdapter () ;
-	 	 
+
 		$sql = "select distinct p.player_nickname,
-				p.player_id, 
+				p.player_id,
 				p.player_common_name,
-				p.player_firstname, 
-				p.player_lastname, 
-				p.player_seoname, 
+				p.player_firstname,
+				p.player_lastname,
+				p.player_seoname,
 				p.player_country,
 				p.player_nationality,
 				c.country_name,
-				p.player_name_short, 
-				p.player_position, 
+				p.player_name_short,
+				p.player_position,
 				tp.team_id,
 				t.team_name,
 				t.team_seoname,
@@ -921,7 +922,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         $sql .= "  and tp.actual_team = 1 ";
         $sql .= "  inner join team t on t.team_id = tp.team_id  ";
     	if (! is_null ( $userid )) {
-    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = fp.player_id "; 
+    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = fp.player_id ";
     	}
         $sql .= "  and t.team_type ='club' ";
     	if(!is_null($regiongroupid)){
@@ -938,12 +939,12 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	// JOINS userplayer table to bring all players added by user on a joined table
 	public function findFeaturedPlayersUser($userid)
 	{
         $db = $this->getAdapter () ;
-	 	$sql = " SELECT DISTINCT ";  
+	 	$sql = " SELECT DISTINCT ";
 				 	$sql .= " p.player_nickname, ";
 					$sql .= " p.player_id, ";
 					$sql .= " p.player_common_name, ";
@@ -964,7 +965,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 						$sql .= " featuredplayers fp ";
 					$sql .= " INNER JOIN player p ON fp.player_id = p.player_id ";
 					$sql .= " INNER JOIN country c ON p.player_nationality = c.country_id ";
-					$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") upl ON upl.player_id = fp.player_id "; 
+					$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") upl ON upl.player_id = fp.player_id ";
 					$sql .= " LEFT JOIN teamplayer tp ON fp.player_id = tp.player_id ";
 					$sql .= " INNER JOIN team t ON t.team_id = tp.team_id ";
 					$sql .= " AND tp.actual_team = 1 ";
@@ -974,7 +975,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function findPopularPlayers($count,$userid=null)
 	{
 		$db = $this->getAdapter();
@@ -1002,20 +1003,20 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	    $sql .= " INNER JOIN teamplayer tp ON tp.player_id = p.player_id ";
 	    $sql .= " INNER JOIN team t ON t.team_id = tp.team_id ";
 	    if (! is_null ( $userid )) {
-    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = up.player_id "; 
+    		$sql .= " LEFT JOIN (SELECT user_id,player_id FROM userplayer WHERE user_id = ". $userid .") usp ON usp.player_id = up.player_id ";
     	}
 	    $sql .= " GROUP BY up.player_id ";
 	    $sql .= " ORDER BY rand() ";
 	    if(!is_null($count)){
 	    	$sql .= "  limit 0, ".$count;
-	    } 
+	    }
 	  	//echo $sql;
 	    $result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 			//Zend_Debug::dump($row);
 		return $row ;
 	}
-	
+
 	public function findPopularPlayersUser($count,$userid)
 	{
 		$db = $this->getAdapter();
@@ -1052,7 +1053,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		return $row ;
 	}
 
-	
+
 	public function selectThrophyByPlayer ( $playerId ) {
 	   	$db = $this->getAdapter () ;
 	   	$sql = "select  tp.years,lc.competition_name,tp.position" ;
@@ -1063,7 +1064,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		  $row = $result->fetchAll () ;
 			return $row ;
 	}
-	
+
 	public function getTopScorersByRegion ( $regionIds, $limitlist ) {
 	    $db = $this->getAdapter () ;
 	   	$sql = " select p.player_id,p.player_name_short,p.player_common_name,p.player_nickname, p.player_firstname, p.player_lastname,m.country_id,c.country_name,c.country_code,t.team_id, t.team_name,t.team_seoname, COUNT(*) as goalstotal " ;
@@ -1081,15 +1082,15 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	    $sql .= " and s.active = 1 ";
 	   	$sql .= " group by me.player_id " ;
 	   	$sql .= " order by goalstotal desc " ;
-	   	$sql .= " limit " . $limitlist ;	
+	   	$sql .= " limit " . $limitlist ;
 	   	//echo $sql;
 	  	$result = $db->query ( $sql ) ;
 	  	$row = $result->fetchAll () ;
 		return $row ;
-  
-  
+
+
   }
-	
+
 	public function getTopScorersByCountry ( $countryId, $seasonId, $limitlist ) {
 	  	$db = $this->getAdapter () ;
 	   	$sql = " select p.player_id,p.player_name_short,p.player_common_name,p.player_nickname, p.player_firstname, p.player_lastname ,p.player_common_name , m.country_id,c.country_name,c.country_code,t.team_id, t.team_name,t.team_seoname, COUNT(*) as goalstotal " ;
@@ -1108,7 +1109,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	    $sql .= " and s.active = 1 ";
 	   	$sql .= " group by me.player_id " ;
 	   	$sql .= " order by goalstotal desc " ;
-	   	$sql .= " limit " . $limitlist ;	
+	   	$sql .= " limit " . $limitlist ;
         //echo $sql;
   		$result = $db->query ( $sql ) ;
 	  	$row = $result->fetchAll () ;
@@ -1133,13 +1134,13 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         }
 	   	$sql .= " group by me.player_id " ;
 	   	$sql .= " order by goalstotal desc " ;
-	   	$sql .= " limit " . $limitlist ;	
+	   	$sql .= " limit " . $limitlist ;
 	   	//echo $sql;
 	  	$result = $db->query ( $sql ) ;
 	  	$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function getTopScorersByLeagueArchive ($season_Id , $limit = null) {
         $db = $this->getAdapter () ;
         $sql = " SELECT tp.player_id,p.player_name_short,p.player_common_name,p.player_nickname,p.player_firstname,p.player_lastname,tp.team_id,tp.team_name,t.team_seoname, tp.gl as goalstotal ";
@@ -1156,7 +1157,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	  	$row = $result->fetchAll () ;
 		return $row ;
     }
-	
+
 	public function getTopScorersByCountryCompetition ( $countryId, $compId, $limitlist  ) {
 	  	$db = $this->getAdapter () ;
 	   	$sql = " select p.player_name_short,p.player_common_name,p.player_firstname, p.player_lastname, t.team_name,t.team_seoname, COUNT(*) as goalstotal " ;
@@ -1172,12 +1173,12 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	    $sql .= " and t.team_type = 'club' " ;
 	   	$sql .= " group by me.player_id " ;
 	   	$sql .= " order by goalstotal desc " ;
-	   	$sql .= " limit " . $limitlist ;	
+	   	$sql .= " limit " . $limitlist ;
 	  	$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 	public function getPlayersCountryNull(){
 		$db = $this->getAdapter () ;
 		$sql = " SELECT player_id FROM player WHERE player_country is null ";
@@ -1186,7 +1187,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	  	$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
     public function getPlayersBySeasonNational($seasonId){
 		$db = $this->getAdapter () ;
 		$sql = " SELECT player_id FROM playerseason WHERE season_id =" . $seasonId;
@@ -1217,7 +1218,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		$row = $result->fetchAll () ;
 		return $row ;
 	}
-	
+
 
 	public function getPlayerMatchEventsTeams($playerId,$teamId=null) {
 		$db = $this->getAdapter () ;
@@ -1246,19 +1247,19 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		    $sql .= " AND (m.team_a =". $teamId ." OR m.team_b =". $teamId .")";
 		}
 		$sql .= " GROUP BY me.match_id";
-		$sql .= " ORDER BY m.match_date DESC ";	
-		//$sql .= " LIMIT 25" ;	
+		$sql .= " ORDER BY m.match_date DESC ";
+		//$sql .= " LIMIT 25" ;
 		//echo $sql;
 		$result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		return $row ;
-	}	
-	
-	
+	}
 
-        
-        
-	
+
+
+
+
+
 	//get player match events (lineups, appear,subs in,goals, yellow and red per season, round,
 	public function getPlayerMatchEventsTotals($playerId,$competitionId,$seasontitle) {
     $db = $this->getAdapter () ;
@@ -1266,8 +1267,8 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	  $sql .= " previous_table.league_id, ";
   	$sql .= " previous_table.league, ";
     $sql .= " SUM(ln) as total_lineups, ";
-    $sql .= " SUM(si)AS total_subins,  ";	
-    $sql .= " SUM(ln + si) AS total_appear,   ";	
+    $sql .= " SUM(si)AS total_subins,  ";
+    $sql .= " SUM(ln + si) AS total_appear,   ";
     $sql .= " SUM(ln)* 90 AS total_minutes,  ";
     $sql .= " SUM(subin_minutes) as total_subin_minutes,";
     $sql .= " SUM(ln*90 + subin_minutes) AS total_full_minutes,";
@@ -1321,8 +1322,8 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	$result = $db->query ( $sql ) ;
 	$row = $result->fetchAll () ;
 	return $row ;
-	
-	
+
+
 	}
 }
 ?>

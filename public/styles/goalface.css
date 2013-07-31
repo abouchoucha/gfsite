@@ -187,6 +187,15 @@ display:none;
 	height:101px;
 }
 
+.ajaxtabselect{
+    background-color: #E6EFF4;
+    background-image:url(../images/ajax-loader2.gif);
+    background-repeat:no-repeat;
+    background-position: center center;
+    width:714px;
+    height:200px;
+}
+
 .ajaxloadtable {
 	width:357px;
 	height:592px;

@@ -25,8 +25,9 @@ class PlayerController extends GoalFaceController
         Zend_Loader::loadClass('User');
         Zend_Loader::loadClass('Comment');
         //Zend_Loader::loadClass ( 'Tournament' );
-        //Zend_Loader::loadClass ( 'Participant' );        parent::init();
-        $this->breadcrumbs->addStep('Players', 
+        //Zend_Loader::loadClass ( 'Participant' );
+        parent::init();
+        $this->breadcrumbs->addStep('Players',
         $this->getUrl(null, 'players'));
         $this->updateLastActivityUserLoggedIn();
     }
@@ -35,7 +36,8 @@ class PlayerController extends GoalFaceController
     private function buildplayerbadge ($playerId, $countryId, $view, $rowset)
     {
         $player = new Player();
-        //from findUniquePlayer        $view->playerid = $rowset->player_id;
+        //from findUniquePlayer
+        $view->playerid = $rowset->player_id;
         $view->playername = $rowset->player_name_short;
         $view->playerfname = $rowset->player_firstname;
         $view->playerlname = $rowset->player_lastname;
@@ -48,10 +50,12 @@ class PlayerController extends GoalFaceController
         $view->playerweight = $rowset->player_weight;
         $view->playershortbio = $rowset->player_short_bio;
         $view->playercountryid = $rowset->player_country;
-        //get the countryname based on country_id = $view->playercountry        $country = new Country();
+        //get the countryname based on country_id = $view->playercountry
+        $country = new Country();
         $countryBirth = $country->fetchRow('country_id=' . $countryId);
         $view->playercountry = $countryBirth->country_name;
-        //get Current Club Team        $currentclubseason = null;
+        //get Current Club Team
+        $currentclubseason = null;
         $currentclubseason['team_id'] = null;
         $currentclubseason = $player->getActualClubTeamSeason($playerId);
         if ($currentclubseason != null) {
@@ -66,39 +70,8 @@ class PlayerController extends GoalFaceController
             $teamcurrentseason = $currentclubseason['season_id'];
             $view->seasontitle = $currentclubseason['title'];
         }
-        
-        
-        //Zend_Debug::dump($rowset);
-        
-        //get Player Current Season Goals,Games Played, Yellow Cards and Red Cards        /*	    $totalGoals = 0 ;
-	    $totalYC= 0 ;
-	    $totalRC = 0;
-	    $totalGames = 0;
-	    $playerCurrentStats = new PlayerCurrentStats();
-		
-	    if($teamcurrentseason != null){
 
-            //temp just to grab stats per individual player
-            $totalGoals = $player->getGoalsCurrentSeason ($playerId,$teamcurrentseason);        
-	        $totalYC = $player->getYellowCardsCurrentSeason ($playerId,$teamcurrentseason);
-	        $totalRC = $player->getRedCardsCurrentSeason ($playerId,$teamcurrentseason);
-	        $totalGames = $player->getGamesTotalSeason($playerId,$teamcurrentseason);
-	        $totalAssists = $player->getAssistsTotalSeason($playerId,$teamcurrentseason);
-	        
-		    $view->gamesplayed = $totalGames['gamesTotal'] ;
-			$view->glscored = $totalGoals['goalsSeason'];
-	        $view->yc =  $totalYC['ycSeason'];
-	        $view->rc = $totalRC['rcSeason'];
-	        $view->as = $totalAssists['assistsTotal'];
-
-		} else { 
-		   $view->gamesplayed = 'n/a' ;
-		   $view->glscored = 'n/a';
-		   $view->yc =  'n/a';
-		   $view->rc = 'n/a';
-		   $view->as = 'n/a';
-		}*/
-        //Zend_Debug::dump ( $teamcurrentseason );        $config = Zend_Registry::get('config');
+        $config = Zend_Registry::get('config');
         $path_player_photos = $config->path->images->players . $playerId . ".jpg";
         if (file_exists($path_player_photos)) {
             $view->imagefacebook = "http://www.goalface.com/public/images/players/" .$playerId . ".jpg";
@@ -107,18 +80,80 @@ class PlayerController extends GoalFaceController
         }
         return $currentclubseason;
     }
+
+    private function getfeedstats($playerId,$stat_type='league') {
+        //get stats from feed for domestic cup and regional competitions
+        $feedpath = 'soccerstats/player/' . $playerId;
+        $xml = parent::getGoalserveFeed($feedpath);
+        $stats_array = array();
+
+        switch($stat_type) {
+            case 'league':
+                $league_stats = $xml->xpath("/players/player/statistic/club");
+                $league_stats_total = $this->get_stats_total($league_stats);
+                $stats_array = array('stats' => $league_stats, 'stats_total' => $league_stats_total);
+                break;
+            case 'cup':
+                $cup_stats = $xml->xpath("/players/player/statistic_cups/club");
+                $cup_stats_total = $this->get_stats_total($cup_stats);
+                $stats_array = array('stats' => $cup_stats, 'stats_total' => $cup_stats_total);
+                break;
+            case 'cup_int':
+                $cup_int_stats = $xml->xpath("/players/player/statistic_cups_intl/club");
+                $cup_int_stats_total = $this->get_stats_total($cup_int_stats);
+                $stats_array = array('stats' => $cup_int_stats, 'stats_total' => $cup_int_stats_total);
+                break;
+            case 'nat_team':
+                 $nat_team_stats = $xml->xpath("/players/player/statistic_intl/club");
+                 $nat_team_stats_total = $this->get_stats_total($nat_team_stats);
+                 $stats_array = array('stats' => $nat_team_stats, 'stats_total' => $nat_team_stats_total);
+                break;
+        }
+        return $stats_array;
+        //Zend_Debug::dump ($cup_stats);
+    }
+
+    private function get_stats_total($stats) {
+        $total_stats = array();
+
+        if ($stats != null) {
+            $total_appearences=0;
+            $total_goals=0;
+            $total_minutes=0;
+            $total_yellowcards=0;
+            $total_redcards=0;
+            $total_stats_int = array();
+             foreach ($stats as $totalstats) {
+               $total_appearences += $totalstats['appearences'];
+               $total_goals += $totalstats['goals'];
+               $total_minutes += $totalstats['minutes'];
+               $total_yellowcards += $totalstats['yellowcards'];
+               $total_redcards += $totalstats['redcards'];
+            }
+            $total_stats['total_gp'] = $total_appearences;
+            $total_stats['total_min'] = $total_minutes;
+            $total_stats['total_gl'] = $total_goals;
+            $total_stats['total_yc'] = $total_yellowcards;
+            $total_stats['total_rc'] = $total_redcards;
+        }
+        return $total_stats;
+
+    }
+
+
     function showuniqueplayerAction ()
     {
         //http://staging.goalface.com/players/lionel-messi_119/
         $session = new Zend_Session_Namespace('userSession');
         $config = Zend_Registry::get('config');
-        //echo '--->>>'.strlen(cFacebook::getAccessToken());        if ($session->duser == null && $session->userId == null) {
+        //echo '--->>>'.strlen(cFacebook::getAccessToken());
+        if ($session->duser == null && $session->userId == null) {
             $appId = $config->facebook->appid;
             $secret = $config->facebook->secret;
             $servername = $config->path->index->server->name;
             $optionURL = "http://" . $_SERVER["SERVER_NAME"] .
              $_SERVER["REQUEST_URI"];
-            $valTemp = cFacebook::loginFacebook($optionURL, $session, $appId, 
+            $valTemp = cFacebook::loginFacebook($optionURL, $session, $appId,
             $secret, $servername);
             if ($valTemp != null) {
                 $this->_redirect("/login/fbdologin");
@@ -138,71 +173,62 @@ class PlayerController extends GoalFaceController
         $view->title = $title->getPageTitle($rowset,PageType::$_PLAYER_MASTER_PAGE);
         $view->description = $description->getMetaDescription('',PageType::$_PLAYER_MASTER_PAGE);
         $view->keywords = $keywords->getMetaKeywords($rowsetdetail,PageType::$_PLAYER_MASTER_PAGE);
-        //build left Player Badge        $currentClubSeason = $this->buildplayerbadge($playerId,$rowset->player_country, $view, $rowset);
-        
-        
-  /*      //get stats from feed for domestic cup and regional competitions        $feedpath = 'soccerstats/player/' . $playerId;
-        //Zend_Debug::dump($feedpath);
-        $xml = parent::getGoalserveFeed($feedpath);
-        //all league stats        $league_stats = $xml->xpath("/players/player/statistic/club");
-        //all cup stats        $cup_stats = $xml->xpath("/players/player/statistic_cups/club");
-        //all international stats        $cup_int_stats = $xml->xpath("/players/player/statistic_cups_intl/club");
-        //all international national team stats        $nat_team_stats = $xml->xpath("/players/player/statistic_intl/club");
-        // League stats
-        $stats = array();
-        if ($league_stats != null) {
-             $stats[] = $league_stats[0];
-        }
-        // Check if the season league of the player $league_stats[0]['season'] and filter all currents stats that match         // the current season        if ($cup_stats != null) {
-            foreach ($cup_stats as $cupstats) {
-                if ((string) $cupstats['season'] ==
-                 (string) $league_stats[0]['season']) {
-                    $stats[] = $cupstats;
-                }
-            }
-        $view->club_stats = $cupstats;
-        }
-        if ($cup_int_stats != null) {
-            foreach ($cup_int_stats as $cupintstats) {
-                if ((string) $cupintstats['season'] ==
-                 (string) $league_stats[0]['season']) {
-                    $stats[] = $cupintstats;
-                }
-            }
-        }
-        if ($nat_team_stats != null) {
-            foreach ($nat_team_stats as $natteamstats) {
-                if ((string) $natteamstats['season'] ==
-                 (string) $league_stats[0]['season']) {
-                    $stats[] = $natteamstats;
-                }
-            }
-        }
-        $view->stats = $stats;  */
-        //Zend_Debug::dump ($currentClubSeason);
+        //build left Player Badge
+        $currentClubSeason = $this->buildplayerbadge($playerId,$rowset->player_country, $view, $rowset);
 
+       //get player stats from feed for domestic cup and regional competitions
+        $feedpath = 'soccerstats/player/' . $playerId;
+        $xml = parent::getGoalserveFeed($feedpath);
+        //all league stats
+        $leaguestats = $this->getfeedstats($playerId,'league');
+        $league_stats = $leaguestats['stats'];
+        $league_stats_total = $leaguestats['stats_total'];
+        //all cup stats
+        $cupstats = $this->getfeedstats($playerId,'cup');
+        $cup_stats = $cupstats['stats'];
+        $cup_stats_total = $cupstats['stats_total'];
+        //all club international stats
+        $cupintstats = $this->getfeedstats($playerId,'cup_int');
+        $cup_int_stats = $cupintstats['stats'];
+        $cup_int_stats_total = $cupintstats['stats_total'];
+        //all national team stats
+        $natteamstats = $this->getfeedstats($playerId,'nat_team');
+        $nat_team_stats = $natteamstats['stats'];
+        $nat_team_stats_total = $natteamstats['stats_total'];
+        //pass to the view
+        $view->stats_league = $league_stats;
+        $view->total_stats_league = $league_stats_total;
+        $view->stats_cup = $cup_stats;
+        $view->total_stats_cup = $cup_stats_total;
+        $view->stats_club_int = $cup_int_stats;
+        $view->total_stats_int = $cup_int_stats_total;
+        $view->stats_national = $nat_team_stats;
+        $view->total_stats_nat = $nat_team_stats_total;
+
+        //old
         $teamsplayedagainst = $player->getPlayerMatchEventsTeamsSelect($playerId);
         $view->teamselect = $teamsplayedagainst;
         $currentmatchstats = $player->getPlayerMatchEventsTeams($playerId);
         $view->matchstats = $currentmatchstats;
-        
+
         //get competition(s) where player is participating (played) this season
         $playerseasoncompetition = $season->getActiveCompetitionPerTeamSeason($currentClubSeason['team_id'],$currentClubSeason['title']);
-        //$view->playerleagues = $playerseasoncompetition; 
-        
-        
+        //$view->playerleagues = $playerseasoncompetition;
+
+
         //get current player stats for all competitions the player is participating
         $stats = array();
         foreach ($playerseasoncompetition as $comp) {
             $activeseasonstats = $player->getPlayerMatchEventsTotals($playerId,$comp['competition_id'],$currentClubSeason['title']);
             if ($activeseasonstats[0]['league_id'] != null) {
-                $stats[] = $activeseasonstats; 
+                $stats[] = $activeseasonstats;
             }
         }
-        $view->stats = $stats; 
+        $view->stats = $stats;
         //Zend_Debug::dump ($playerseasoncompetition);
         //Zend_Debug::dump ($stats);
-                $team = new Team();
+
+        $team = new Team();
         $timezone = '+00:00';
         $matchesresultnext = null;
         $matchesresultprevious = null;
@@ -216,47 +242,57 @@ class PlayerController extends GoalFaceController
         }
         $view->nextMatch = $matchesresultnext;
         $view->previousMatch = $matchesresultprevious;
-        
-        //Zend_Debug::dump ($matchesresultprevious);
-        
-        //get position of team in league Standings        $teamtable[0]['position'] = null;
+
+        //Zend_Debug::dump ($currentClubSeason['competition_id']);
+
+        //get position of team in league Standings
+        $teamtable[0]['position'] = null;
         if ($currentClubSeason['competition_id'] != null) {
             $standing = new GoalserveStanding();
             $rowstanding = $standing->fetchRow(
             'competition_id = ' . $currentClubSeason['competition_id']);
             if ($rowstanding['description'] != null) {
-                //get tables display goalserve                $xmlsource = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/standings/" .$rowstanding['description'];
+                //get tables display goalserve
+                $xmlsource = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/standings/" .$rowstanding['description'];
                 $leagueTable = new SimpleXMLElement($xmlsource, null, true);
-                $teamtable = $leagueTable->xpath(
-                "//standings/tournament[@stage_id='" . $rowstanding['round_id'] .
-                 "']/team[@id='" . $currentClubSeason['team_gs_id'] . "']");
-                //$this->view->teamTable = $teamtable;                $this->view->teamposition = $teamtable[0]['position'];
+                $teamtable = $leagueTable->xpath("//standings/tournament[@stage_id='" . $rowstanding['round_id'] ."']/team[@id='" . $currentClubSeason['team_gs_id'] . "']");
+                //$this->view->teamTable = $teamtable;
+                $this->view->teamposition = $teamtable[0]['position'];
             }
         }
-        //get Player Photos        $photo = new Photo();
+        //get Player Photos
+        $photo = new Photo();
         $numphotos = 4;
         $type_id = 2;
-        //$photosTagList = $photo->selectPhotosPerTag ( $playerId, $type_id, $numphotos );        $view->homeProfilePhotos = null;
-        
-        //get Player RSS feed        $feed = new Feed();
+        //$photosTagList = $photo->selectPhotosPerTag ( $playerId, $type_id, $numphotos );
+        $view->homeProfilePhotos = null;
+
+        //get Player RSS feed
+        $feed = new Feed();
         $feed_url = 'http://api.bing.com/rss.aspx?Source=News&Market=en-US&Version=2.0&Query=' .urlencode($rowset->player_common_name)."%20Football";;
         //$teamfeed = Zend_Feed::import($feed_url);
-   
+
         $view->playerfeed = null;
-        
-        //Zend_Debug::dump ( $feed_url );        //Added player info for Head 2 Head Set up        $view->playera = $rowset;
+
+        //Zend_Debug::dump ( $feed_url );
+        //Added player info for Head 2 Head Set up
+        $view->playera = $rowset;
         $league = new Competitionfile();
         $rowCountry = $league->selectLeaguesByCountry();
         $view->countries = $rowCountry;
-        //get PLayer Teammates         $rowsetmates = null;
+        //get PLayer Teammates
+        $rowsetmates = null;
         if ($currentClubSeason['team_id'] != null) {
             $rowsetmates = $player->findTeammatesByPlayer(
             $currentClubSeason['team_id'], $playerId);
         }
         $view->playermates = $rowsetmates;
-        //Zend_Debug::dump ($rowsetmates);        //get Player Distinctions        $throphies = $player->selectThrophyByPlayer($playerId);
+        //Zend_Debug::dump ($rowsetmates);
+        //get Player Distinctions
+        $throphies = $player->selectThrophyByPlayer($playerId);
         $view->throphy = $throphies;
-        //get Player Stats        $playerposition = $rowset->player_position;
+        //get Player Stats
+        $playerposition = $rowset->player_position;
         if ($playerposition == 'Goalkeeper') {
             $rowsetclub = $player->getPlayerKeeperTeamStatsDetails($playerId, 1);
             $rowsetregional = $player->getPlayerKeeperTeamStatsDetails($playerId, 2);
@@ -272,6 +308,7 @@ class PlayerController extends GoalFaceController
             $rowsetregionaltotal = $player->getPlayerTeamTotalStatsDetails($playerId, 2);
             $rowsetnationaltotal = $player->getPlayerTeamTotalStatsDetails($playerId, 3);
         }
+
         $view->player_club_stats = $rowsetclub;
         $view->player_regional_stats = $rowsetregional;
         $view->player_national_stats = $rowsetnational;
@@ -281,7 +318,11 @@ class PlayerController extends GoalFaceController
         $view->total_club_stats = count($rowsetclub);
         $view->total_regional_stats = count($rowsetregional);
         $view->total_national_stats = count($rowsetnational);
-        //Zend_Debug::dump ($rowsetnationaltotal);        $isFavorite = "false";
+
+
+
+
+        $isFavorite = "false";
         if ($session->email != null) {
             $userPlayer = new UserPlayer();
             $row = $userPlayer->findUserPlayer($session->userId, $playerId);
@@ -290,7 +331,8 @@ class PlayerController extends GoalFaceController
             }
         }
         $view->isFavorite = $isFavorite;
-        //get the goalshouts of a given player        $uc = new Comment();
+        //get the goalshouts of a given player
+        $uc = new Comment();
         $playercomments = $uc->findCommentsPerPlayer($playerId, 5);
         $pa = new Activity();
         $playerActivities = $pa->selectActivitiesPerPlayer($playerId, null);
@@ -316,7 +358,7 @@ class PlayerController extends GoalFaceController
         if (! $userId && $this->getRequest()->isXmlHttpRequest()) {
             $this->_helper->viewRenderer->setNoRender(true);
             echo Zend_Json::encode(
-            array("status" => 0, 
+            array("status" => 0,
             "msg" => "You need to login to suscribe to get this player's information!"));
             return;
         }
@@ -341,7 +383,7 @@ class PlayerController extends GoalFaceController
         $this->_helper->viewRenderer->setNoRender(true);
         echo Zend_Json::encode($playerData);
     }
-    
+
     public function showmatchplayerstatsAction () {
          $view = Zend_Registry::get('view');
         //get Full stats by player
@@ -353,14 +395,14 @@ class PlayerController extends GoalFaceController
             $pageNumber = 1;
         }
            //when select is ALL
-        if ($teamId == 0){ 
+        if ($teamId == 0){
             $teamId = null;
         }
         $player = new Player();
         $rowset = $player->findUniquePlayer($playerId);
         $view->playerposition = $rowset->player_position;
         $teamsplayedagainst = $player->getPlayerMatchEventsTeamsSelect($playerId);
-        $view->teamselect = $teamsplayedagainst;     
+        $view->teamselect = $teamsplayedagainst;
         $currentmatchstats = $player->getPlayerMatchEventsTeams($playerId,$teamId);
         //Zend_Debug::dump ($rowset->player_position);
         $paginator = Zend_Paginator::factory($currentmatchstats);
@@ -375,7 +417,7 @@ class PlayerController extends GoalFaceController
             $this->_response->setBody($this->view->render('playermatchstatsdetailview.php'));
         }
     }
-    
+
     public function showplayerstatsdetailAction() {
         $view = Zend_Registry::get('view');
         $session = new Zend_Session_Namespace('userSession');
@@ -398,9 +440,9 @@ class PlayerController extends GoalFaceController
         $currentTeamId = $this->buildplayerbadge($playerId, $rowset->player_country, $view, $rowset);
         $teamsplayedagainst = $player->getPlayerMatchEventsTeamsSelect($playerId);
         $view->teamselect = $teamsplayedagainst;
-        
+
         $view->playerMenuSelected = 'stats';
-        
+
         /*//get stats from feed for domestic cup and regional competitions
         $feedpath = 'soccerstats/player/' . $playerId;
         $xml = parent::getGoalserveFeed($feedpath);
@@ -409,46 +451,57 @@ class PlayerController extends GoalFaceController
         $club_stats[] = $league_stats[0];*/
 
         //Get Current stats goals, lineups, subins, minutes, minutes subin, yc and card per LEAGUE season
-        $activeseasonstats = $player->getPlayerMatchEventsTotals($playerId,$currentTeamId['competition_id'],$currentTeamId['title']);
+        //$activeseasonstats = $player->getPlayerMatchEventsTotals($playerId,$currentTeamId['competition_id'],$currentTeamId['title']);
         //Zend_Debug::dump ($activeseasonstats);
-        
-        $view->season_appearences = $activeseasonstats[0]['total_appear'];
-        $view->season_minutes = $activeseasonstats[0]['total_full_minutes'];
-        $view->season_goals = $activeseasonstats[0]['total_goals'];
-        $view->season_goals_allowed = $activeseasonstats[0]['total_goals_allowed'];
-        $view->season_clean_sheets = $activeseasonstats[0]['total_clean_sheets'];
-        $view->season_yellowcards = $activeseasonstats[0]['total_yellow_cards'];
-        $view->season_redcards = $activeseasonstats[0]['total_red_cards'];
-        
+
+        // $view->season_appearences = $activeseasonstats[0]['total_appear'];
+        // $view->season_minutes = $activeseasonstats[0]['total_full_minutes'];
+        // $view->season_goals = $activeseasonstats[0]['total_goals'];
+        // $view->season_goals_allowed = $activeseasonstats[0]['total_goals_allowed'];
+        // $view->season_clean_sheets = $activeseasonstats[0]['total_clean_sheets'];
+        // $view->season_yellowcards = $activeseasonstats[0]['total_yellow_cards'];
+        // $view->season_redcards = $activeseasonstats[0]['total_red_cards'];
+
+        //current league stats
+
+        $leaguestats = $this->getfeedstats($playerId,'league');
+        $active_league_stats = $leaguestats['stats'][0];
+        $view->activeleaguestats = $active_league_stats;
+
+
+
         $view->actionTemplate = 'playerstatsdetail.php';
         $this->_response->setBody($view->render('site.tpl.php'));
-         
+
     }
-    
+
     public function showplayerministatsAction ()
     {
         $view = Zend_Registry::get('view');
-        //get Full stats by player        $playerId = (int) $this->_request->getParam('playerId', 0);
-        $format = (int) $this->_request->getParam('format', 0);
+        //get Full stats by player
+        $playerId = (int) $this->_request->getParam('playerId', 0);
+        $format = $this->_request->getParam('format', '');
         //$playerposition = (string) $this->_request->getParam('playerpos');
 
         $player = new Player();
         $rowset = $player->findUniquePlayer($playerId);
 
         if ($rowset->player_position == 'Goalkeeper') {
-            $rowsetdetailsfull = $player->getPlayerKeeperTeamStatsDetails($playerId, $format);
+            //$rowsetdetailsfull = $player->getPlayerKeeperTeamStatsDetails($playerId, $format);
+            $rowsetdetailsfull = $this->getfeedstats($playerId,$format);
         } else {
-            $rowsetdetailsfull = $player->getPlayerTeamStatsDetails($playerId,$format);
+            //$rowsetdetailsfull = $player->getPlayerTeamStatsDetails($playerId,$format);
+            $rowsetdetailsfull = $this->getfeedstats($playerId,$format);
         }
-
+        //Zend_Debug::dump ( $rowsetdetailsfull );
         $view->playerposition = $rowset->player_position;
-        $view->playerSeasonFull = $rowsetdetailsfull;
+        $view->playerSeasonFull = $rowsetdetailsfull['stats'];
         //$this->_response->setBody($this->view->render('playerministatsview.php'));
         $this->_response->setBody($this->view->render('playerseasonstatsview.php'));
     }
-    
-    
-    
+
+
+
     public function findactivitiesAction ()
     {
         $view = Zend_Registry::get('view');
@@ -474,27 +527,36 @@ class PlayerController extends GoalFaceController
     public function showplayerbycompetitionAction ()
     {
         $view = Zend_Registry::get('view');
-        $session = new Zend_Session_Namespace('userSession');        $seasonId = $this->_request->getParam('s', null);
+        $session = new Zend_Session_Namespace('userSession');
+        $seasonId = $this->_request->getParam('s', null);
         $player = new Player();
-        $playerseason = new PlayerSeason(); // fetch all records from the table        // getting request variables        $pageNumber = $this->_request->getParam('page');
+        $playerseason = new PlayerSeason(); // fetch all records from the table
+        // getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
-        
+
         if($session->userId != null) {
         	$playerfeatured = $player->findFeaturedPlayersUser($session->userId);
         } else {
         	$playerfeatured = $player->findFeaturedPlayers();
         }
-        $paginator = Zend_Paginator::factory($playerfeatured);
+        $paginator = Zend_Paginator::factory($playerfeatured);
         $paginator->setCurrentPageNumber($pageNumber);
         $numberOfItems = 20;
-        //if($type == 'modal'){        //	$numberOfItems = 10;        //}        $paginator->setItemCountPerPage($numberOfItems);
+        //if($type == 'modal'){
+        //	$numberOfItems = 10;
+        //}
+        $paginator->setItemCountPerPage($numberOfItems);
         $renderPage = 'playersbycompetition.php';
-        //if($type == 'modal'){        //	$renderPage = 'teamsearchresult.php';        //}        $view->paginator = $paginator;
+        //if($type == 'modal'){
+        //	$renderPage = 'teamsearchresult.php';
+        //}
+        $view->paginator = $paginator;
         $this->_response->setBody($view->render($renderPage));
     }
-    
+
     public function showplayerdirectoryAction ()
     {
         $view = Zend_Registry::get('view');
@@ -511,14 +573,16 @@ class PlayerController extends GoalFaceController
             if ($date == "today") {
                 $dates[0] = $todays_date . " 00:00:00";
                 $dates[1] = $todays_date . " 23:59:59";
-            } else 
+            } else
                 if ($date == "last3") {
-                    //substract 3 days                    $dates[0] = date("Y-m-d", 
+                    //substract 3 days
+                    $dates[0] = date("Y-m-d",
                     ($ts - 3 * $one_day)) . " 00:00:00";
                     $dates[1] = $todays_date . " 23:59:59";
-                } else 
+                } else
                     if ($date == "last7") {
-                        //substract 7 days                        $dates[0] = date("Y-m-d", 
+                        //substract 7 days
+                        $dates[0] = date("Y-m-d",
                         ($ts - 7 * $one_day)) . " 00:00:00";
                         $dates[1] = $todays_date . " 23:59:59";
                     }
@@ -527,28 +591,28 @@ class PlayerController extends GoalFaceController
         if ($position != null) {
             if ($position == "GK") {
                 $position = "Goalkeeper";
-            } else 
+            } else
                 if ($position == "AT") {
                     $position = "Attacker";
-                } else 
+                } else
                     if ($position == "MD") {
                         $position = "Midfielder";
-                    } else 
+                    } else
                         if ($position == "DF") {
                             $position = "Defender";
                         }
         }
         if ($fromTo == 'AF') {
             $alphabet_array = array('A', 'B', 'C', 'D', 'E', 'F');
-        } else 
+        } else
             if ($fromTo == 'GL') {
                 $alphabet_array = array('G', 'H', 'I', 'J', 'K', 'L');
-            } else 
+            } else
                 if ($fromTo == 'MR') {
                     $alphabet_array = array('M', 'N', 'O', 'P', 'Q', 'R');
-                } else 
+                } else
                     if ($fromTo == 'SZ') {
-                        $alphabet_array = array('S', 'T', 'U', 'V', 'W', 'X ', 
+                        $alphabet_array = array('S', 'T', 'U', 'V', 'W', 'X ',
                         'Y', 'Z');
                     }
         $player = new Player();
@@ -564,10 +628,12 @@ class PlayerController extends GoalFaceController
             $view->playersByLetter = $playerRow;
             $view->alphabetArray = $alphabet_array;
         } else {
-            $playersResult = $player->selectPlayers(null, null, null, null, 
+            $playersResult = $player->selectPlayers(null, null, null, null,
             $dates);
-            //			$totalRows = $player->countPlayersByLetter2 ( null, null, $dates );            $view->players = $playersResult;
-             //			$view->totalPlayers = $totalRows;	        }
+            //			$totalRows = $player->countPlayersByLetter2 ( null, null, $dates );
+            $view->players = $playersResult;
+             //			$view->totalPlayers = $totalRows;
+        }
         $view->playerByLetterTotal = $playerTotalRow;
         $view->countryId = $countryId;
         if ($date == null) {
@@ -581,32 +647,34 @@ class PlayerController extends GoalFaceController
     function showfeaturedplayersAction ()
     {
         $session = new Zend_Session_Namespace('userSession');
-        //$this->checkifUserIsRemembered();        $view = Zend_Registry::get('view');
-        $alphabet_array = null; //array ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X ', 'Y', 'Z' );        $fromTo = $this->_request->getParam('ft', "AF");
+        //$this->checkifUserIsRemembered();
+        $view = Zend_Registry::get('view');
+        $alphabet_array = null; //array ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X ', 'Y', 'Z' );
+        $fromTo = $this->_request->getParam('ft', "AF");
         $position = $this->_request->getParam('p', null);
         if ($position == "GK") {
             $position = "Goalkeeper";
-        } else 
+        } else
             if ($position == "AT") {
                 $position = "Attacker";
-            } else 
+            } else
                 if ($position == "MD") {
                     $position = "Midfielder";
-                } else 
+                } else
                     if ($position == "DF") {
                         $position = "Defender";
                     }
         if ($fromTo == 'AF') {
             $alphabet_array = array('A', 'B', 'C', 'D', 'E', 'F');
-        } else 
+        } else
             if ($fromTo == 'GL') {
                 $alphabet_array = array('G', 'H', 'I', 'J', 'K', 'L');
-            } else 
+            } else
                 if ($fromTo == 'MR') {
                     $alphabet_array = array('M', 'N', 'O', 'P', 'Q', 'R');
-                } else 
+                } else
                     if ($fromTo == 'SZ') {
-                        $alphabet_array = array('S', 'T', 'U', 'V', 'W', 'X ', 
+                        $alphabet_array = array('S', 'T', 'U', 'V', 'W', 'X ',
                         'Y', 'Z');
                     }
         $player = new Player();
@@ -620,14 +688,17 @@ class PlayerController extends GoalFaceController
         $keywords = new MetaKeywordGen();
         $description = new MetaDescriptionGen();
         $view->title = $title->getPageTitle('', PageType::$_PLAYERS_MAIN_PAGE);
-        $view->keywords = $keywords->getMetaKeywords('', 
+        $view->keywords = $keywords->getMetaKeywords('',
         PageType::$_PLAYERS_MAIN_PAGE);
-        $view->description = $description->getMetaDescription('', 
+        $view->description = $description->getMetaDescription('',
         PageType::$_PLAYERS_MAIN_PAGE);
         $view->playersByLetter = $playerRow;
         $view->playerByLetterTotal = $playerTotalRow;
         $view->alphabetArray = $alphabet_array;
-        //$playerArow = $player->selectPlayersByAlphabet('A');        //Zend_Debug::dump($playerArow);        //$view->listA = $playerArow;        $player = new Player();
+        //$playerArow = $player->selectPlayersByAlphabet('A');
+        //Zend_Debug::dump($playerArow);
+        //$view->listA = $playerArow;
+        $player = new Player();
         //Non International
         if($session->userId != null) {
               $this->view->featuredPlayers = $player->findFeaturedPlayers(4,null,$session->userId);
@@ -635,12 +706,18 @@ class PlayerController extends GoalFaceController
         } else {
              $this->view->featuredPlayers = $player->findFeaturedPlayers(4);
              $this->view->popularPlayers = $player->findPopularPlayers(12);
-        }       
-        //added for the worldcup featured players by season        //$seasonId = 4770;
+        }
+
+        //added for the worldcup featured players by season
+        //$seasonId = 4770;
         //$this->view->featuredPlayers = $player->findPlayersBySeason($seasonId,4);
-        
-        //$feedpath = 'soccerstats/player/119';        //$xmlfeed = parent::getGoalserveFeed($feedpath);        //Zend_Debug::dump($xmlfeed);        $this->view->breadcrumbs = $this->breadcrumbs;
-        //country List        $country = new Country();
+
+        //$feedpath = 'soccerstats/player/119';
+        //$xmlfeed = parent::getGoalserveFeed($feedpath);
+        //Zend_Debug::dump($xmlfeed);
+        $this->view->breadcrumbs = $this->breadcrumbs;
+        //country List
+        $country = new Country();
         $countries = $country->selectCountries();
         $view->countries = $countries;
         $view->playersMenuSelected = 'home';
@@ -663,11 +740,11 @@ class PlayerController extends GoalFaceController
         $title = new PageTitleGen();
         $keywords = new MetaKeywordGen();
         $description = new MetaDescriptionGen();
-        $view->title = $title->getPageTitle('', 
+        $view->title = $title->getPageTitle('',
         PageType::$_PLAYERS_FEATURED_PAGE);
-        $view->keywords = $keywords->getMetaKeywords('', 
+        $view->keywords = $keywords->getMetaKeywords('',
         PageType::$_PLAYERS_FEATURED_PAGE);
-        $view->description = $description->getMetaDescription('', 
+        $view->description = $description->getMetaDescription('',
         PageType::$_PLAYERS_FEATURED_PAGE);
         $this->breadcrumbs->addStep('Featured Players');
         $this->view->breadcrumbs = $this->breadcrumbs;
@@ -676,9 +753,10 @@ class PlayerController extends GoalFaceController
           //$this->view->featuredPlayers = $player->findFeaturedPlayers(16,null,$session->userId);
           $popularPlayers = $player->findFeaturedPlayers(null,null,$session->userId);
         } else {
-          //$this->view->featuredPlayers = $player->findFeaturedPlayers(16);  
-          $popularPlayers = $player->findFeaturedPlayers();  
-        }        //$seasonId = 4770;
+          //$this->view->featuredPlayers = $player->findFeaturedPlayers(16);
+          $popularPlayers = $player->findFeaturedPlayers();
+        }
+        //$seasonId = 4770;
         //$popularPlayers = $player->findPlayersBySeason($seasonId, 600);
         $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
@@ -699,11 +777,11 @@ class PlayerController extends GoalFaceController
         $title = new PageTitleGen();
         $keywords = new MetaKeywordGen();
         $description = new MetaDescriptionGen();
-        $view->title = $title->getPageTitle('', 
+        $view->title = $title->getPageTitle('',
         PageType::$_PLAYERS_POPULAR_PAGE);
-        $view->keywords = $keywords->getMetaKeywords('', 
+        $view->keywords = $keywords->getMetaKeywords('',
         PageType::$_PLAYERS_POPULAR_PAGE);
-        $view->description = $description->getMetaDescription('', 
+        $view->description = $description->getMetaDescription('',
         PageType::$_PLAYERS_POPULAR_PAGE);
         $this->breadcrumbs->addStep('Popular Players');
         $this->view->breadcrumbs = $this->breadcrumbs;
@@ -712,9 +790,12 @@ class PlayerController extends GoalFaceController
         if($session->userId != null) {
             $popularPlayers = $player->findPopularPlayers(null,$session->userId);
         } else {
-           $popularPlayers = $player->findPopularPlayers(null); 
-        }        
-        //Zend_Debug::dump($popularPlayers);        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+           $popularPlayers = $player->findPopularPlayers(null);
+        }
+
+        //Zend_Debug::dump($popularPlayers);
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
@@ -730,8 +811,8 @@ class PlayerController extends GoalFaceController
     {
         $view = Zend_Registry::get('view');
         $session = new Zend_Session_Namespace('userSession');
-        $alphabet_array = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
-        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 
+        $alphabet_array = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
         'X', 'Y', 'Z');
         $view->alphabetArray = $alphabet_array;
         $letter = $this->_request->getParam('letter', 0);
@@ -741,13 +822,13 @@ class PlayerController extends GoalFaceController
         $view->countryId = $countryId;
         if ($position == "GK") {
             $position = "Goalkeeper";
-        } else 
+        } else
             if ($position == "AT") {
                 $position = "Attacker";
-            } else 
+            } else
                 if ($position == "MD") {
                     $position = "Midfielder";
-                } else 
+                } else
                     if ($position == "DF") {
                         $position = "Defender";
                     }
@@ -759,16 +840,18 @@ class PlayerController extends GoalFaceController
         $title = new PageTitleGen();
         $keywords = new MetaKeywordGen();
         $description = new MetaDescriptionGen();
-        $view->title = $title->getPageTitle($letter, 
+        $view->title = $title->getPageTitle($letter,
         PageType::$_PLAYERS_BY_ALPHABET);
-        $view->keywords = $keywords->getMetaKeywords($letter, 
+        $view->keywords = $keywords->getMetaKeywords($letter,
         PageType::$_PLAYERS_BY_ALPHABET);
-        $view->description = $description->getMetaDescription($letter, 
+        $view->description = $description->getMetaDescription($letter,
         PageType::$_PLAYERS_BY_ALPHABET);
         $player = new Player();
-        //$this->view->featuredPlayers =$player->findFeaturedPlayers(3);        $this->view->popularPlayers = $player->findPopularPlayers(3);
+        //$this->view->featuredPlayers =$player->findFeaturedPlayers(3);
+        $this->view->popularPlayers = $player->findPopularPlayers(3);
         $rowAllPlayers = $player->selectPlayers($letter);
-        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         $itemNumber = null;
         if (empty($pageNumber)) {
             $pageNumber = 1;
@@ -801,16 +884,18 @@ class PlayerController extends GoalFaceController
         $playerId = $this->_request->getParam('id', 0);
         $type = $this->_request->getParam('type', 0);
         $view = Zend_Registry::get('view');
-        //from findUniquePlayer        $player = new Player();
+        //from findUniquePlayer
+        $player = new Player();
         $rowset = $player->findUniquePlayer($playerId);
         $view->title = $rowset->player_name_short . " Activities";
-        $this->buildplayerbadge($playerId, $rowset->player_country, $view, 
+        $this->buildplayerbadge($playerId, $rowset->player_country, $view,
         $rowset);
         $pa = new Activity();
-        $playerActivities = $pa->selectActivitiesPerPlayer($playerId, $type, 
+        $playerActivities = $pa->selectActivitiesPerPlayer($playerId, $type,
         'n');
         $view->playeractivities = $playerActivities;
-        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
@@ -821,8 +906,8 @@ class PlayerController extends GoalFaceController
         $view->submitvalue = $type;
         $urlGen = new SeoUrlGen();
         $playerUrlGen = $urlGen->getPlayerMasterProfileUrl(
-        $rowset->player_nickname, $rowset->player_firstname, 
-        $rowset->player_lastname, $rowset->player_id, true, 
+        $rowset->player_nickname, $rowset->player_firstname,
+        $rowset->player_lastname, $rowset->player_id, true,
         $rowset->player_common_name);
         $view->playerUrlGen = $playerUrlGen;
         $this->breadcrumbs->addStep($rowset->player_name_short, $playerUrlGen);
@@ -838,14 +923,17 @@ class PlayerController extends GoalFaceController
         $player = new Player();
         $rowset = $player->findUniquePlayer($playerId);
         $view->title = $rowset->player_name_short . " Goalshouts";
-        //build left Player Badge        $this->buildplayerbadge($playerId, $rowset->player_country, 
+        //build left Player Badge
+        $this->buildplayerbadge($playerId, $rowset->player_country,
         $view, $rowset);
-        //get the goalshouts of a given player        $uc = new Comment();
+        //get the goalshouts of a given player
+        $uc = new Comment();
         $playercomments = $uc->findCommentsPerPlayer($playerId);
         $totalPlayerComments = $uc->fetchAll("comment_party_id=" . $playerId);
         $view->totalPlayerComments = count($totalPlayerComments);
         $view->playercomments = $playercomments;
-        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
@@ -854,9 +942,9 @@ class PlayerController extends GoalFaceController
         $this->view->paginator = $paginator;
         $view->playerMenuSelected = 'shouts';
         $urlGen = new SeoUrlGen();
-        $this->breadcrumbs->addStep($rowset->player_name_short, 
-        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname, 
-        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id, 
+        $this->breadcrumbs->addStep($rowset->player_name_short,
+        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname,
+        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id,
         true, $rowset->player_common_name));
         $this->breadcrumbs->addStep('Gooal Shouts');
         $this->view->breadcrumbs = $this->breadcrumbs;
@@ -872,13 +960,16 @@ class PlayerController extends GoalFaceController
         $playerId = $this->_request->getParam('id', '');
         $rowset = $player->findUniquePlayer($playerId);
         $view->title = $rowset->player_name_short . " Fans";
-        //build left Player Badge        $this->buildplayerbadge($playerId, $rowset->player_country, 
+        //build left Player Badge
+        $this->buildplayerbadge($playerId, $rowset->player_country,
         $view, $rowset);
-        //get Players Fan Profile        $fanPlayerProfiles = $user->findUserProfilesByPlayer($playerId, 
+        //get Players Fan Profile
+        $fanPlayerProfiles = $user->findUserProfilesByPlayer($playerId,
         null, $session->userId != null ? $session->userId : null);
         $view->playerfanprofiles = $fanPlayerProfiles;
         $view->totalplayerfans = count($fanPlayerProfiles);
-        //pagination - getting request variables        /*$pageNumber = $this->_request->getParam('page');
+        //pagination - getting request variables
+        /*$pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)){
             $pageNumber = 1;
         }
@@ -887,9 +978,9 @@ class PlayerController extends GoalFaceController
         $this->view->paginator = $paginator;*/
         $view->playerMenuSelected = 'fans';
         $urlGen = new SeoUrlGen();
-        $this->breadcrumbs->addStep($rowset->player_name_short, 
-        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname, 
-        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id, 
+        $this->breadcrumbs->addStep($rowset->player_name_short,
+        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname,
+        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id,
         true, $rowset->player_common_name));
         $this->breadcrumbs->addStep('Fans');
         $this->view->breadcrumbs = $this->breadcrumbs;
@@ -907,7 +998,11 @@ class PlayerController extends GoalFaceController
         $playerId = $this->_request->getParam('id', '');
         $view->type = $this->_request->getParam('type', 'list');
         $rowset = $player->findUniquePlayer($playerId);
-        //$currentTeamId = $this->buildplayerbadge($playerId,$rowset->player_country,$view,$rowset);        //$format = 'Domestic league'; //show domestic league stats in default view - teammates detail page        //$rowsetmates = $player->findTeammatesByPlayer ( $currentTeamId, $playerId ,$session->userId!=null?$session->userId :null,$format);        //get Players Fan Profile        $fanPlayerProfiles = $user->findUserProfilesByPlayer(
+        //$currentTeamId = $this->buildplayerbadge($playerId,$rowset->player_country,$view,$rowset);
+        //$format = 'Domestic league'; //show domestic league stats in default view - teammates detail page
+        //$rowsetmates = $player->findTeammatesByPlayer ( $currentTeamId, $playerId ,$session->userId!=null?$session->userId :null,$format);
+        //get Players Fan Profile
+        $fanPlayerProfiles = $user->findUserProfilesByPlayer(
         $playerId, null, $session->userId != null ? $session->userId : null);
         $view->playerfanprofiles = $fanPlayerProfiles;
         $view->totalplayerfans = count($fanPlayerProfiles);
@@ -932,8 +1027,10 @@ class PlayerController extends GoalFaceController
         $playerId = $this->_request->getParam('id', '');
         $rowset = $player->findUniquePlayer($playerId);
         $view->title = $rowset->player_name_short . " Teammates";
-        //build player badge        $currentTeamId = $this->buildplayerbadge($playerId, $rowset->player_country, $view, $rowset);
-        $format = 'Domestic league'; //show domestic league stats in default view - teammates detail page        $rowsetmates = $player->findTeammatesByPlayer(
+        //build player badge
+        $currentTeamId = $this->buildplayerbadge($playerId, $rowset->player_country, $view, $rowset);
+        $format = 'Domestic league'; //show domestic league stats in default view - teammates detail page
+        $rowsetmates = $player->findTeammatesByPlayer(
         $currentTeamId['team_id'], $playerId, $session->userId != null ? $session->userId : null, $format);
         $view->playerteammates = $rowsetmates;
         $view->totalteammates = count($rowsetmates);
@@ -953,10 +1050,12 @@ class PlayerController extends GoalFaceController
         $playerId = $this->_request->getParam('id', '');
         $view->type = $this->_request->getParam('type', 'list');
         $rowset = $player->findUniquePlayer($playerId);
-        $currentTeamId = $this->buildplayerbadge($playerId, 
+        $currentTeamId = $this->buildplayerbadge($playerId,
         $rowset->player_country, $view, $rowset);
-        $format = 'Domestic league'; //show domestic league stats in default view - teammates detail page        $rowsetmates = $player->findTeammatesByPlayer($currentTeamId['team_id'], $playerId,$session->userId != null ? $session->userId : null, $format);
-        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+        $format = 'Domestic league'; //show domestic league stats in default view - teammates detail page
+        $rowsetmates = $player->findTeammatesByPlayer($currentTeamId['team_id'], $playerId,$session->userId != null ? $session->userId : null, $format);
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
@@ -975,15 +1074,18 @@ class PlayerController extends GoalFaceController
         $title = new PageTitleGen();
         $keywords = new MetaKeywordGen();
         $description = new MetaDescriptionGen();
-        $view->title = $title->getPageTitle($rowset, 
+        $view->title = $title->getPageTitle($rowset,
         PageType::$_PLAYER_MASTER_PAGE_STATS);
-        $view->keywords = $keywords->getMetaKeywords($rowset, 
+        $view->keywords = $keywords->getMetaKeywords($rowset,
         PageType::$_PLAYER_MASTER_PAGE_STATS);
-        $view->description = $description->getMetaDescription($rowset, 
+        $view->description = $description->getMetaDescription($rowset,
         PageType::$_PLAYER_MASTER_PAGE_STATS);
-        //build left Player Badge        $currentTeamId = $this->buildplayerbadge($playerId, 
+        //build left Player Badge
+        $currentTeamId = $this->buildplayerbadge($playerId,
         $rowset->player_country, $view, $rowset);
-        $format = 1; //$format == 1 , Domestic League        //get Player stats        $rowsetstats = $player->getPlayerTeamStatsDetails(
+        $format = 1; //$format == 1 , Domestic League
+        //get Player stats
+        $rowsetstats = $player->getPlayerTeamStatsDetails(
         $playerId, $format);
         $view->playerstats = $rowsetstats;
         $view->playerMenuSelected = 'stats';
@@ -994,15 +1096,15 @@ class PlayerController extends GoalFaceController
          "']");
         $view->leaguestats = $league_stats;
         $urlGen = new SeoUrlGen();
-        $this->breadcrumbs->addStep($rowset->player_name_short, 
-        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname, 
-        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id, 
+        $this->breadcrumbs->addStep($rowset->player_name_short,
+        $urlGen->getPlayerMasterProfileUrl($rowset->player_nickname,
+        $rowset->player_firstname, $rowset->player_lastname, $rowset->player_id,
         true, $rowset->player_common_name));
         $this->breadcrumbs->addStep('Career Statistics');
         $this->view->breadcrumbs = $this->breadcrumbs;
         $view->actionTemplate = 'viewplayerstats.php';
         $this->_response->setBody($view->render('site.tpl.php'));
-    } 
+    }
     public function addfavoriteAction ()
     {
         $urlGen = new SeoUrlGen();
@@ -1017,12 +1119,14 @@ class PlayerController extends GoalFaceController
         }
         $userId = $session->userId;
         $user_player = new UserPlayer();
-        //add country favority        $data = array('user_id' => $userId, 'player_id' => $playerId, 
+        //add country favority
+        $data = array('user_id' => $userId, 'player_id' => $playerId,
         'alert_email' => $checkEmail, 'alert_frecuency_type' => $frequency);
-        //If user is not logged in, return this message        if (! $userId && ! empty($jsonAction)) {
+        //If user is not logged in, return this message
+        if (! $userId && ! empty($jsonAction)) {
             $this->_helper->viewRenderer->setNoRender(true);
             echo Zend_Json::encode(
-            array("status" => 0, 
+            array("status" => 0,
             "msg" => "You need to login to suscribe to this player's updates!"));
             return;
         }
@@ -1031,10 +1135,12 @@ class PlayerController extends GoalFaceController
         //Insert Player on UserPlayer table
             $user_player->insert($data);
         } else {
-            //userplayer already exists show Error Message            //Return a JSON action            if (! empty($jsonAction)) {
+            //userplayer already exists show Error Message
+            //Return a JSON action
+            if (! empty($jsonAction)) {
                 $this->_helper->viewRenderer->setNoRender(true);
                 echo Zend_Json::encode(
-                array("status" => 0, 
+                array("status" => 0,
                 "msg" => "You've already subscribed to this player's udpates!"));
                 return;
             } else {
@@ -1042,32 +1148,35 @@ class PlayerController extends GoalFaceController
                 return;
             }
         }
-        //Create a new Activity Event for your feed        $screenName = $session->screenName;
+        //Create a new Activity Event for your feed
+        $screenName = $session->screenName;
         $player = new Player();
         $rowset = $player->findUniquePlayer($playerId);
         $player_name_seo = $urlGen->getPlayerMasterProfileUrl(
-	        $rowset->player_nickname, $rowset->player_firstname, 
-	        $rowset->player_lastname, $rowset->player_id, true, 
+	        $rowset->player_nickname, $rowset->player_firstname,
+	        $rowset->player_lastname, $rowset->player_id, true,
 	        $rowset->player_common_name);
-	        
+
         $config = Zend_Registry::get('config');
         $imageName = $config->path->images->fanphotos . $session->mainPhoto;
-        $variablesToReplace = array('username' => $screenName, 
-	        'player_name_seo' => $player_name_seo, 
-	        'player_name' => $rowset->player_name_short, 
+        $variablesToReplace = array('username' => $screenName,
+	        'player_name_seo' => $player_name_seo,
+	        'player_name' => $rowset->player_name_short,
 	        'gender' => ($session->user->gender == 'm' ? 'his' : 'her'));
         $activityType = Constants::$_ADD_FAVORITE_PLAYER_ACTIVITY;
         $activityAddFavoritePlayer = new Activity();
         $activityAddFavoritePlayer->insertUserActivityByActivityType(
-        $activityType, $variablesToReplace, $userId, 1, null, null, null, 
+        $activityType, $variablesToReplace, $userId, 1, null, null, null,
         $imageName);
-        //a new activity for the playeriteself        $activityAddFavoritePlayer->insertUserActivityByActivityType(
-        $activityType, $variablesToReplace, null, 'n', $playerId, null, null, 
+        //a new activity for the playeriteself
+        $activityAddFavoritePlayer->insertUserActivityByActivityType(
+        $activityType, $variablesToReplace, null, 'n', $playerId, null, null,
         $imageName);
-        //Return a JSON action        if (! empty($jsonAction)) {
+        //Return a JSON action
+        if (! empty($jsonAction)) {
             $this->_helper->viewRenderer->setNoRender(true);
             echo Zend_Json::encode(
-            array("status" => 1, 
+            array("status" => 1,
             	  "msg" => "The player was successfully added to your favorites"));
             return;
         }
@@ -1075,8 +1184,8 @@ class PlayerController extends GoalFaceController
             $this->_redirect("/profile/editfavorities/editAction/players/page/");
         }
     }
-    
-    
+
+
     public function removefavoriteAction ()
     {
         $session = new Zend_Session_Namespace('userSession');
@@ -1089,7 +1198,8 @@ class PlayerController extends GoalFaceController
     {
         $session = new Zend_Session_Namespace('userSession');
         $arrayFavPlayersToRemove = $this->_request->getPost('arrayFavorities');
-        //echo($session->userId);        $userPlayer = new UserPlayer();
+        //echo($session->userId);
+        $userPlayer = new UserPlayer();
         foreach ($arrayFavPlayersToRemove as $playerId) {
             $userPlayer->deleteUserPlayer($session->userId, $playerId);
         }
@@ -1099,7 +1209,8 @@ class PlayerController extends GoalFaceController
     {
         $filter = new Zend_Filter_StripTags();
         $param1 = null;
-        //Zend_Debug::dump ( $this->_request );        $param1 = $this->_request->getParam("q");
+        //Zend_Debug::dump ( $this->_request );
+        $param1 = $this->_request->getParam("q");
         if ($this->_request->isPost()) {
             $param1 = trim(
             $filter->filter($this->_request->getPost('value')));
@@ -1109,7 +1220,14 @@ class PlayerController extends GoalFaceController
                 ->getParam('q')));
         }
         $player = new Player();
-         //$results = $player->findPlayers ( $param1 ) ;    //		$results = $player->findPlayerByName ( $param1 );    //		echo '<ul>';    //		foreach ( $results as $result ) {    //			echo '<li id="' . $result ['player_id'] . '">' . trim($result ['player_name_short']) . '</li>';    //		}    //		echo '</ul>';    }
+         //$results = $player->findPlayers ( $param1 ) ;
+    //		$results = $player->findPlayerByName ( $param1 );
+    //		echo '<ul>';
+    //		foreach ( $results as $result ) {
+    //			echo '<li id="' . $result ['player_id'] . '">' . trim($result ['player_name_short']) . '</li>';
+    //		}
+    //		echo '</ul>';
+    }
     public function findplayersregisterAction ()
     {
         $filter = new Zend_Filter_StripTags();
@@ -1123,7 +1241,10 @@ class PlayerController extends GoalFaceController
         }
         $player = new Player();
         $results = $player->findPlayers($param1);
-        //Zend_Debug::dump($param1);        //$results = $player->findPlayerByName ( $param1 );        //echo '<ul>';        /*$items = array(
+        //Zend_Debug::dump($param1);
+        //$results = $player->findPlayerByName ( $param1 );
+        //echo '<ul>';
+        /*$items = array(
 			"0001"=>"Ronaldo",
 			"0002"=>"Pizarro",
 			"0003"=>"Adriano",
@@ -1133,7 +1254,8 @@ class PlayerController extends GoalFaceController
 			);
 		*/
         foreach ($results as $result) {
-            //echo '<li id="' . $result ['player_id'] . '">' . trim($result ['player_name_short']) . '</li>';            echo trim($result['player_name_short']) . '|' .
+            //echo '<li id="' . $result ['player_id'] . '">' . trim($result ['player_name_short']) . '</li>';
+            echo trim($result['player_name_short']) . '|' .
              $result['player_id'] . "\n";
         }
         /*foreach ($items as $key=>$value) {
@@ -1144,7 +1266,7 @@ class PlayerController extends GoalFaceController
     {
         $filter = new Zend_Filter_StripTags();
         $countryid = trim(
-        $filter->filter($this->getRequest()->getParam('id')));      
+        $filter->filter($this->getRequest()->getParam('id')));
         $player = new Player();
         $results = $player->findPlayersByCountryId($countryid);
         echo '<option value="0" selected>Select Player</option>';
@@ -1175,7 +1297,7 @@ class PlayerController extends GoalFaceController
              trim($data['player_name_short']);
         }
     }
-    
+
     public function findteamsbycountryAction ()
     {
         $view = Zend_Registry::get('view');
@@ -1223,7 +1345,8 @@ class PlayerController extends GoalFaceController
     {
         $filter = new Zend_Filter_StripTags();
         $regionId = trim($filter->filter($this->_request->getParam('r')));
-        //Zend_Debug::dump($regionId);        $compFile = new Competitionfile();
+        //Zend_Debug::dump($regionId);
+        $compFile = new Competitionfile();
         $row = $compFile->selectCountriesByContinent($regionId);
         echo '<option value="Select Country" selected>Select Country</option>';
         foreach ($row as $data) {
@@ -1242,17 +1365,18 @@ class PlayerController extends GoalFaceController
         $session = new Zend_Session_Namespace('userSession');
         if ($type == 'n') {
             if ($criteria != "") {
-                $result = $player->findPlayerByName($criteria, null, 
+                $result = $player->findPlayerByName($criteria, null,
                 $session->userId);
             }
-        } else 
+        } else
             if ($type == 't') {
                 if ($criteria != "") {
-                    $result = $team->findPlayersbyTeamSearch($session->userId, 
+                    $result = $team->findPlayersbyTeamSearch($session->userId,
                     $criteria);
                 }
             }
-        //pagination - getting request variables        $pageNumber = $this->_request->getParam('page');
+        //pagination - getting request variables
+        $pageNumber = $this->_request->getParam('page');
         if (empty($pageNumber)) {
             $pageNumber = 1;
         }
@@ -1307,18 +1431,25 @@ class PlayerController extends GoalFaceController
                 $filter->filter($this->_request->getPost('favsquad' . $i))) : '0';
             }
         }
-        //delete all previous favorite players        $user_player = new UserPlayer();
+        //delete all previous favorite players
+        $user_player = new UserPlayer();
         $session = new Zend_Session_Namespace('userSession');
         $user_id = $session->userId;
         $user_player->deleteAllUserPlayers($user_id);
-        //add the new players        for ($z = 0; $z < count($arrayPlayers); $z ++) {
-            $data2 = array('user_id' => $user_id, 
-            'player_id' => $arrayPlayers[$z], 'greatest' => $arrayAllTime[$z], 
-            'startingeleven' => $arrayStar11[$z], 
+        //add the new players
+        for ($z = 0; $z < count($arrayPlayers); $z ++) {
+            $data2 = array('user_id' => $user_id,
+            'player_id' => $arrayPlayers[$z], 'greatest' => $arrayAllTime[$z],
+            'startingeleven' => $arrayStar11[$z],
             'mysquad' => $arrayMySquad[$z]);
             $user_player->insert($data2);
         }
-        //		Zend_Debug::dump($arrayPlayers);        //		Zend_Debug::dump($arrayAllTime);        //		Zend_Debug::dump($arrayStar11);        //		Zend_Debug::dump($arrayMySquad);        //        echo "<span>Update successfull</span>";
+        //		Zend_Debug::dump($arrayPlayers);
+        //		Zend_Debug::dump($arrayAllTime);
+        //		Zend_Debug::dump($arrayStar11);
+        //		Zend_Debug::dump($arrayMySquad);
+        //
+        echo "<span>Update successfull</span>";
     }
     public function rssAction ()
     {
@@ -1329,36 +1460,43 @@ class PlayerController extends GoalFaceController
         $rowset = $player->findUniquePlayer($playerId);
         $urlGen = new SeoUrlGen();
         $playerseoname = $urlGen->getPlayerMasterProfileUrl(
-        $rowset->player_nickname, $rowset->player_firstname, 
-        $rowset->player_lastname, $rowset->player_id, true, 
+        $rowset->player_nickname, $rowset->player_firstname,
+        $rowset->player_lastname, $rowset->player_id, true,
         $rowset->player_common_name);
         $pa = new Activity();
         $playerActivities = $pa->selectActivitiesPerPlayer($playerId, 0);
         $domain = 'http://' . $this->getRequest()->getServer('HTTP_HOST');
         $feedData = array(
-        'title' => sprintf("GoalFace.com - %s's Feed", 
-        $rowset->player_name_short), 'link' => $domain, 'charset' => 'UTF-8', 
+        'title' => sprintf("GoalFace.com - %s's Feed",
+        $rowset->player_name_short), 'link' => $domain, 'charset' => 'UTF-8',
         'entries' => array());
-        // build feed entries based on returned posts        foreach ($playerActivities as $post) {
+        // build feed entries based on returned posts
+        foreach ($playerActivities as $post) {
             $entry = array(
-            'title' => $view->escape($post['activitytype_name']), 
-            'link' => $domain . $playerseoname, 
-            'description' => $post['activity_text'], 
+            'title' => $view->escape($post['activitytype_name']),
+            'link' => $domain . $playerseoname,
+            'description' => $post['activity_text'],
             'lastUpdate' => strtotime($post['activity_date']));
             $feedData['entries'][] = $entry;
         }
-        // create feed based on created data        $feed = Zend_Feed::importArray($feedData, 'rss');
-        // disable auto-rendering since we're outputting an image        $this->_helper->viewRenderer->setNoRender();
-        // output the feed to the browser        $feed->send();
+        // create feed based on created data
+        $feed = Zend_Feed::importArray($feedData, 'rss');
+        // disable auto-rendering since we're outputting an image
+        $this->_helper->viewRenderer->setNoRender();
+        // output the feed to the browser
+        $feed->send();
     }
     public function removeplayergoalshoutAction ()
     {
         $mc = new Comment();
         $session = new Zend_Session_Namespace('userSession');
-        //first delete goalshout        $commentId = $this->_request->getParam('id', 0);
+        //first delete goalshout
+        $commentId = $this->_request->getParam('id', 0);
         $playerid = $this->_request->getParam('playerid', 0);
-        //find message id in order to find the owner of the message        $comment = $mc->fetchRow("comment_id = " . $commentId);
-        $userWhoDeletesComment = 2; //if 1 = message owner , 2 = profile owner        if ($session->userId == $comment->friend_id) {
+        //find message id in order to find the owner of the message
+        $comment = $mc->fetchRow("comment_id = " . $commentId);
+        $userWhoDeletesComment = 2; //if 1 = message owner , 2 = profile owner
+        if ($session->userId == $comment->friend_id) {
             $userWhoDeletesComment = 1;
         }
         $mc->updateDeleteComment($commentId, $userWhoDeletesComment);
@@ -1367,7 +1505,8 @@ class PlayerController extends GoalFaceController
     public function editplayergoalshoutAction ()
     {
         $mc = new Comment();
-        //first delete goalshout        $commentId = $this->_request->getParam('id', 0);
+        //first delete goalshout
+        $commentId = $this->_request->getParam('id', 0);
         $playerid = $this->_request->getParam('playerId', 0);
         $dataEditted = $this->_request->getParam('dataEditted', null);
         $mc->updateComment($commentId, $dataEditted);
@@ -1381,9 +1520,9 @@ class PlayerController extends GoalFaceController
         $reportType = $this->_request->getParam('reportType', null);
         $to = $this->_request->getParam('reportTo', null);
         $report = new Report();
-        $data = array('report_comment_id' => $commentId, 
-        'report_text' => $dataReport, 'report_type' => $reportType, 
-        'report_reported_to' => $to, 
+        $data = array('report_comment_id' => $commentId,
+        'report_text' => $dataReport, 'report_type' => $reportType,
+        'report_reported_to' => $to,
         'report_comment_type' => Constants::$_REPORT_COMMENT_PLAYER);
         $report->insert($data);
         $this->_redirect("/player/showplayerprofilegoalshouts/id/" . $playerid);

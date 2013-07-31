@@ -1,6 +1,8 @@
 <?php $session = new Zend_Session_Namespace ( 'userSession' ); ?>
 <?php require_once 'Common.php'; ?>
 <?php require_once 'seourlgen.php'; ?>
+<?php require_once 'Team.php'; $equipo = new Team(); ?>
+
 <?php $urlGen = new SeoUrlGen ( );
     $config = Zend_Registry::get ( 'config' );
     $server = $config->server->host;
@@ -26,7 +28,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 			  var date_time_os = calcTimeOffset(date,<?php echo $offset;?>);
 			  jQuery(this).text(formatDate(date_time_os, 'EE, MMM dd,yyyy'));
 		});
-	
+
 		jQuery("span[id^='feature_matchHour']").each(function() {
 			  var date_time = jQuery(this).text();
 			  var date = new Date(date_time);
@@ -34,13 +36,13 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 			 jQuery(this).text(formatDate(date_time_os, 'HH:mm'));
 		});
 
-		   
+
 		 var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/findactivities/id/<?php echo $this->playerid; ?>';
-			 jQuery('#playerFeed').html('Loading...'); 
+			 jQuery('#playerFeed').html('Loading...');
 			 jQuery('#playerFeed').load(url);
 
-		
-			 
+
+
  	    //assign show player stats function to event click "ok" button in dropdown
       	jQuery('#buttonStats').click(function(){ //
        		showPlayerStats();
@@ -53,8 +55,8 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	  	//callHomePlayerGallery();
 
 
-	  	
-		//Media tabs 
+
+		//Media tabs
         jQuery('#menu14content,#menu16content').hide();
         jQuery('#menu16content').show();
         jQuery('#menu16').addClass('active');
@@ -76,7 +78,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
             jQuery('#menu5content').show();
             jQuery('#menu5').addClass('active');
        <?php }  ?>
-       
+
        jQuery('#matchTab ul li').click(function(){
             jQuery('#menu4content,#menu5content').hide();
             tab_id = jQuery(this).attr('id');
@@ -90,7 +92,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
         });
 
 
-       //Player's Stats 
+       //Player's Stats
        jQuery('#menu24').addClass('active');
        jQuery('#playerStatsTab ul li').click(function(){
            jQuery('#menu24content,#menu25content').hide();
@@ -100,11 +102,11 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
            jQuery('#menu24,#menu25').removeClass('active');
            jQuery(this).addClass('active');
         });
-		
-       jQuery('#menu6content,#menu7content,#menu8content').hide();
+
+       jQuery('#menu6content,#menu7content,#menu8content,#menu9content').hide();
        jQuery('#menu6content').show();
        jQuery('#playerstatsdropdown').change(function() {
-    	   jQuery('#menu6content,#menu7content,#menu8content').hide();
+    	   jQuery('#menu6content,#menu7content,#menu8content,#menu9content').hide();
            tab_id = jQuery(this).val();
            //show div content
            jQuery('#' + tab_id + 'content').show();
@@ -113,17 +115,17 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
   });
 
 
-  
+
   	function findMatchPlayerStats(teamid) {
   		var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/showmatchplayerstats/id/<?php echo $this->playerid;?>/team/'+teamid;
-		jQuery('#data').html("<div class='ajaxloadmodule'></div>"); 
+		jQuery('#data').html("<div class='ajaxloadmodule'></div>");
 		jQuery('#data').load(url);
   	}
-  	
+
 	function findUserActivity(type){
-	 	
+
  		var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/findactivities/id/<?php echo $this->playerid;?>/type/'+type;
-		jQuery('#playerFeed').html('Loading...'); 
+		jQuery('#playerFeed').html('Loading...');
 		jQuery('#playerFeed').load(url);
 
     }
@@ -139,18 +141,18 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
          var idtocomment = jQuery('#idtocommentId').val();
          var screennametocomment = jQuery('#screennametocommentId').val();
          var countryid = jQuery('#countryid').val();
-         var playerId = jQuery('#playerId').val(); 
+         var playerId = jQuery('#playerId').val();
          jQuery('#goalshoutId').load(url ,{countryid : countryid ,commentType: commentType , idtocomment : idtocomment ,screennametocomment : screennametocomment ,playerId :playerId, comment : commentText});
          jQuery('#commentGoalShoutId').val('');
 	}
 
 	 function editGoalShout(id){
-			
+
 			jQuery('#editGoalShoutModal').jqm({trigger: '#editGoalShoutTrigger', onHide: closeModal });
 			jQuery('#editGoalShoutModal').jqmShow();
 			var dataEdit = jQuery('#goalshout'+id).html();
 			jQuery('#textgoalshoutEdit').val(jQuery.trim(dataEdit));
-			
+
 				jQuery('#acceptEditGoalShoutButtonId').click(function() {
 					var commentText = jQuery('#textgoalshoutEdit').val();
 					if(jQuery.trim(commentText) == ''){
@@ -158,43 +160,43 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 			 			return;
 			 		 }
 					var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/editplayergoalshout';
-					var playerId = '<?php echo $this->playerid;?>';	
+					var playerId = '<?php echo $this->playerid;?>';
 					var dataEditted = jQuery('#textgoalshoutEdit').val();
 					jQuery('#editGoalShoutModal').jqmHide();
-					jQuery('#goalshoutId').html('Loading...'); 
+					jQuery('#goalshoutId').html('Loading...');
 					jQuery('#goalshoutId').load(url , {playerId :playerId , id : id , dataEditted : dataEditted});
-					
+
 				});
 	}
 
 	 function deleteGoalShout(id, isComment){
 
 		 jQuery('#acceptModalButtonId').show();
-		 jQuery('#cancelModalButtonId').attr('value','Cancel'); 	
+		 jQuery('#cancelModalButtonId').attr('value','Cancel');
 		 var modalTitle = (isComment)?'DELETE COMMENT?':'DELETE GOOOALSHOUT?';
 		 jQuery('#modalTitleConfirmationId').html(modalTitle);
 		 var confirmMessage = (isComment)?'Are you sure you want to delete this comment?':'Are you sure you want to delete a goalshout';
 		 var deleteMessage = (isComment)?'Your comment has been deleted.':'Your goalshout has been deleted.';
-		 jQuery('#messageConfirmationTextId').text(confirmMessage);	
-		 
+		 jQuery('#messageConfirmationTextId').text(confirmMessage);
+
 		 jQuery('#messageConfirmationId').jqm({ trigger: '#deleteGoalShout' , onHide: closeModal });
 		 jQuery('#messageConfirmationId').jqmShow();
-		 
+
 		 jQuery("#acceptModalButtonId").unbind();
-			
+
 		 jQuery('#acceptModalButtonId').click(function(){
-				
+
 			 var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/removeplayergoalshout/playerid/<?php echo $this->playerid;?>/id/'+id;
-				jQuery('#goalshoutId').html('Loading...'); 
+				jQuery('#goalshoutId').html('Loading...');
 				jQuery('#goalshoutId').load(url ,'' , function (){
 					jQuery('#messageConfirmationTextId').html('Your goalshout has been deleted.');
 					jQuery('#acceptModalButtonId').hide();
 					jQuery('#cancelModalButtonId').attr('value','Close');
 					jQuery('#messageConfirmationId').animate({opacity: '+=0'}, 2500).jqmHide();
 				});
-				 
-		  });	
-	}	
+
+		  });
+	}
 
 	 function toggleReplyContainerDisplay(replyContainerId)
 	 {
@@ -220,13 +222,13 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	 	{
 	 		//Increase plus rating by one
 	 		jQuery('#activity' + activityId + 'PlusCount').text(parseInt(jQuery('#activity' + activityId + 'PlusCount').text()) + 1);
-	 		
+
 	 	}
 	 	else
 	 	{
 	 		//Increase plus rating by one
 	 		jQuery('#activity' + activityId + 'MinusCount').text(parseInt(jQuery('#activity' + activityId + 'MinusCount').text()) + 1);
-	 	
+
 	 	}
 	 	jQuery('#activity' + activityId + 'HasBeenRated').val('1');
 	 }
@@ -237,7 +239,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	    	if(broadcast_reply == '' || broadcast_reply == 'Write a comment...'){
 				return;
 	        }
-	    	
+
 			jQuery.ajax({
 	    	type: "POST",
 	    	url: "<?php echo Zend_Registry::get("contextPath"); ?>/index/addbroadcast",
@@ -263,23 +265,23 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	             }
 	         });
 	}
-		 	
+
 
 	 function reportAbuse(id){
 
 			jQuery('#reportTypeId').val('0');
-			jQuery('#textReportAbuseId').val(''); 
+			jQuery('#textReportAbuseId').val('');
 			jQuery('#textReportAbuseId').attr('disabled','disabled');
 			jQuery('#reportAbuseBodyId').show();
 			jQuery('#reportAbuseBodyResponseId').hide();
-			jQuery('#acceptReportAbuseButtonId').show(); 
-			jQuery('#cancelReportAbuseButtonId').attr('value','Cancel'); 	
+			jQuery('#acceptReportAbuseButtonId').show();
+			jQuery('#cancelReportAbuseButtonId').attr('value','Cancel');
 			jQuery('#reportAbuseTitleId').html('REPORT GOALSHOUT ABUSE?');
-			jQuery('#reportAbuseTextId').html('Are you sure you want to report abuse in this goalshout?');	
+			jQuery('#reportAbuseTextId').html('Are you sure you want to report abuse in this goalshout?');
 
 			jQuery('#reportAbuseModal').jqm({trigger: '#reportAbuseUserTrigger', onHide: closeModal });
 			jQuery('#reportAbuseModal').jqmShow();
-			
+
 			jQuery("#acceptReportAbuseButtonId").unbind();
 			jQuery('#acceptReportAbuseButtonId').click(function() {
 
@@ -296,27 +298,27 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 					jQuery('#cancelReportAbuseButtonId').attr('value','Close');
 					jQuery('#reportAbuseModal').animate({opacity: '+=0'}, 2500).jqmHide();
 				});
-			});	
-	}	
+			});
+	}
 </script>
 
 <div id="ContentWrapper">
 
      <div class="FirstColumn">
          <?php echo $this->render('include/topleftbanner.php')?>
-     	
-         <?php 
+
+         <?php
               $session = new Zend_Session_Namespace ( 'userSession' );
               if($session->email != null){
-          ?> 
+          ?>
               <div class="img-shadow">
                   <div class="WrapperForDropShadow">
                       <?php include 'include/loginbox.php';?>
 
                   </div>
               </div>
-              
-          <?php }else { ?>           
+
+          <?php }else { ?>
               <!--Me box Non-authenticated-->
               <div class="img-shadow">
                   <div class="WrapperForDropShadow">
@@ -324,7 +326,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
                   </div>
               </div>
  		<?php } ?>
- 
+
          <?php echo $this->render('include/badgePlayerNew.php');?>
 
         <div class="img-shadow" style="margin-left:2px;margin-top:10px;">
@@ -332,7 +334,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
         </div>
 
      </div><!--/FirstColumnOfThree-->
-     
+
      <div class="SecondColumn">
      	  <div class="proff">
              <div class="prof1">
@@ -358,24 +360,24 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
         					    <a id="btn_playerid_<?php echo $this->playerid;?>" class="subscribe" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
         							<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
         						</a>
-            				<?php }  ?>		
+            				<?php }  ?>
                     </span>
 
 	               	<span class="twitter">
 	                	<a href="http://twitter.com/share" class="twitter-share-button" style="padding-bottom:5px;width:100px;" data-count="horizontal">Tweet</a>
 	              	</span>
-	              	
+
 	              	<span class="facebook">
 		              	<iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>
 	              	</span>
-	              	
+
 	              	<span class="gplus">
 	              		<!-- Place this tag in your head or just before your close body tag -->
 						<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 						<!-- Place this tag where you want the +1 button to render -->
 						<g:plusone size="medium"></g:plusone>
 	              	</span>
-	              	
+
 	              	<span class="twitter">
                         <!--START PIN BUTTON-->
 							<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
@@ -390,16 +392,16 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
                 <span class="age1"><b>Height: </b>&nbsp;<?php if (empty($this->playerheight)){echo "&nbsp;Unavailable"; } else {echo $this->playerheight . "&nbsp;cm";}?></span>
                 <span class="age1"><b>Weight:</b>&nbsp;<?php if (empty($this->playerweight)){echo "&nbsp;Unavailable"; } else {echo $this->playerweight . "&nbsp;kg" ;}?></span>
             </div>
-              
+
 		<!--/ TO DO LIST
 
                 <span class="age2"><b>Profile</b><br/>Up to # lines/## characters of bio text displays here if entered by user and set to public. If not entered or set to private it would not display here. </span>
                 <span class="full"><a href="#">View Full Profile &gt;</a></span>
                 <span class="report"><span class="report1">Contribute or report an error on this page</span></span>
-       -->         
+       -->
             </div>
-        
-	
+
+
         <div class="prof">
           <p class="mblack">
             <span class="black"><?php echo $this->playername;?>'s Current Season Overview</span>
@@ -418,7 +420,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
               		<?php }  ?>
               	  </a>
                 </span>
-                
+
                 <span class="wter2">
                     <span class="chel"><a href="<?php echo $urlGen->getClubMasterProfileUrl ( $this->playerteamid, $this->playerteamseoclub, True ); ?>"><?php echo $this->playerteamclub; ?></a></span>
                     <span class="lea">League: <a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->playerteamleague, $this->playerteamleagueid, True); ?>"><?php echo $this->playerteamleague; ?></a></span>
@@ -447,16 +449,16 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
             </div>
 
            	<?php $i = 0;
-      			 
+
 		          	foreach ($this->stats as $stat) {
-		          
+
 		                      if(($i+1) % 2 == 1) { $style = "pre1"; }else{ $style = "pre";}
-	              ?> 
+	              ?>
 					          <div class="<?php echo $style; ?>">
 
 					                <ul>
-					                 
-					                    
+
+
 					                    <?php if ($this->playerpos == 'Goalkeeper') {  ?>
     					                    	<li class="pree" style="width: 150px;">
     					                    	<a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($stat[0]['league'], $stat[0]['league_id'], True); ?>">
@@ -492,144 +494,144 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
     					                    	<?php if (empty($stat[0]['total_goals'])){echo "0"; } else {echo $stat[0]['total_goals'];}?>
     					                    </li>
 					                    <?php }  ?>
-					                    
+
   														<li class="no1">
     					                    	<?php if (empty($stat[0]['total_yellow_cards'])){echo "0"; } else {echo $stat[0]['total_yellow_cards'];}?>
-    					                    </li> 
+    					                    </li>
 					                    <li class="no1">
 					                    	<?php if (empty($stat[0]['total_red_cards'])){echo "0"; } else {echo $stat[0]['total_red_cards'];}?>
 					                    </li>
 
 					                </ul>
 					           </div>
-		           		
+
 		         <?php $i++; } ?>
 
-           
+
            <div id="matchTab" class="nxt">
                 <ul>
                         <li id="menu4"><a href="javascript:void(0);">Next Match</a></li>
                         <li id="menu5"><a href="javascript:void(0);">Latest Match</a></li>
                 </ul>
            </div>
-           
-           
+
+
 	          <div class="nmatch" id="menu4content">
 	          	<?php if($this->nextMatch != null) {?>
 	                <p class="sfull"><a href="<?php echo Zend_Registry::get("contextPath"); ?>/team/showteamscoresschedules/id/<?php echo $this->playerteamid;?>">See Full Schedules &raquo;</a></p>
-	                <p class="champ">Competition: <a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->nextMatch[0]['competition'], $this->nextMatch[0]["league"], True); ?>"><?php echo $this->nextMatch[0]['competition']; ?></a>            
+	                <p class="champ">Competition: <a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->nextMatch[0]['competition'], $this->nextMatch[0]["league"], True); ?>"><?php echo $this->nextMatch[0]['competition']; ?></a>
 	                <br/> Date:<span id="feature_matchDate_nxt">
-	                    		<?php echo date('Y/m/d H:i:s',strtotime($this->nextMatch[0]['mdate'] ." ". $this->nextMatch[0]['time'])) ?> 
+	                    		<?php echo date('Y/m/d H:i:s',strtotime($this->nextMatch[0]['mdate'] ." ". $this->nextMatch[0]['time'])) ?>
 	                    	</span> &nbsp;&nbsp;
 	                    	 <span id="feature_matchHour_nxt">
-                    	<?php echo date('Y/m/d H:i:s',strtotime($this->nextMatch[0]['mdate'] ." ". $this->nextMatch[0]['time'])) ?> 
+                    	<?php echo date('Y/m/d H:i:s',strtotime($this->nextMatch[0]['mdate'] ." ". $this->nextMatch[0]['time'])) ?>
                     	</span>
 	                </p>
 
 	                <div class="vs">
-	                
+
 	                        <p class="chelsa">
-	                        	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->nextMatch[0]["teama"], $this->nextMatch[0]["teamb"], $this->nextMatch[0]["matchid"], true);?>">	
+	                        	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->nextMatch[0]["teama"], $this->nextMatch[0]["teamb"], $this->nextMatch[0]["matchid"], true);?>">
 		                        	<?php
 		                                  $config = Zend_Registry::get ( 'config' );
 		                                  $path_team_logos = $config->path->images->teamlogos . $this->nextMatch[0]["cteama"].".gif" ;
-		
+
 		                                  if (file_exists($path_team_logos))
 		                                  {  ?>
-		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->nextMatch[0]["cteama"] ; ?>.gif"/>	
-		                                  <?php } else {  ?>	
+		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->nextMatch[0]["cteama"] ; ?>.gif"/>
+		                                  <?php } else {  ?>
 		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/TeamText80.gif"/>
 	                              	<?php }   ?>
 	                        	</a>
 	                        </p>
-	                        
+
 	                        <p class="vs1">Vs</p>
-	                        
+
 	                        <p class="wterr">
 	                        	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->nextMatch[0]["teama"], $this->nextMatch[0]["teamb"], $this->nextMatch[0]["matchid"], true);?>">
 	                        		<?php
 		                                  $config = Zend_Registry::get ( 'config' );
 		                                  $path_team_logos = $config->path->images->teamlogos . $this->nextMatch[0]["cteamb"].".gif" ;
-		
+
 		                                  if (file_exists($path_team_logos))
 		                                  {  ?>
-		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->nextMatch[0]["cteamb"] ; ?>.gif"/>	
-		                                  <?php } else {  ?>	
+		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->nextMatch[0]["cteamb"] ; ?>.gif"/>
+		                                  <?php } else {  ?>
 		                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/TeamText80.gif"/>
 	                              	<?php }   ?>
 	                        	</a>
 	                        </p>
-	                        
+
 	                </div>
 	                <p class="smatch"><a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->nextMatch[0]["teama"], $this->nextMatch[0]["teamb"], $this->nextMatch[0]["matchid"], true);?>">See Match Preview &raquo;</a></p>
-	            <?php } else {  
+	            <?php } else {
 	            	echo "<br><center><strong>No Matches played yet.</strong></center>";
 	              } ?>
 	            </div>
-	            
+
 	            <div class="nmatch" id="menu5content" style="display:none;">
 	             <?php if($this->previousMatch != null) {?>
 	                <p class="sfull"><a href="<?php echo Zend_Registry::get("contextPath"); ?>/team/showteamscoresschedules/id/<?php echo $this->playerteamid;?>">See Full Scores &raquo;</a></p>
-	               
-	                <p class="champ">Competition: <a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->previousMatch[0]['competition'], $this->previousMatch[0]["league"], True); ?>"><?php echo $this->previousMatch[0]['competition']; ?></a> 
-	                <br/> 
+
+	                <p class="champ">Competition: <a href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->previousMatch[0]['competition'], $this->previousMatch[0]["league"], True); ?>"><?php echo $this->previousMatch[0]['competition']; ?></a>
+	                <br/>
 	                Date:<span id="feature_matchDate_nxt">
-	                    		<?php echo date('Y/m/d H:i:s',strtotime($this->previousMatch[0]['mdate'] ." ". $this->previousMatch[0]['time'])) ?> 
+	                    		<?php echo date('Y/m/d H:i:s',strtotime($this->previousMatch[0]['mdate'] ." ". $this->previousMatch[0]['time'])) ?>
 	                    	</span> &nbsp;&nbsp;
 	                    	 <span id="feature_matchHour_nxt">
                     	<?php echo date('Y/m/d H:i:s',strtotime($this->previousMatch[0]['mdate'] ." ". $this->previousMatch[0]['time'])) ?>
-                    		</span> 
+                    		</span>
 	                </p>
 	                <div class="vs">
-	                
+
                         <p class="chelsa">
-                        	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->previousMatch[0]["teama"], $this->previousMatch[0]["teamb"], $this->previousMatch[0]["matchid"], true);?>">	
+                        	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->previousMatch[0]["teama"], $this->previousMatch[0]["teamb"], $this->previousMatch[0]["matchid"], true);?>">
 	                        	<?php
 	                                  $config = Zend_Registry::get ( 'config' );
 	                                  $path_team_logos = $config->path->images->teamlogos . $this->previousMatch[0]["cteama"].".gif" ;
-	
+
 	                                  if (file_exists($path_team_logos))
 	                                  {  ?>
-	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->previousMatch[0]["cteama"] ; ?>.gif"/>	
-	                                  <?php } else {  ?>	
+	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->previousMatch[0]["cteama"] ; ?>.gif"/>
+	                                  <?php } else {  ?>
 	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/TeamText80.gif"/>
                               	<?php }   ?>
                         	</a>
                         </p>
-                        
+
                         <p class="vs1">Vs</p>
-                        
+
                         <p class="wterr">
                         	<a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->previousMatch[0]["teama"], $this->previousMatch[0]["teamb"], $this->previousMatch[0]["matchid"], true);?>">
                         		<?php
 	                                  $config = Zend_Registry::get ( 'config' );
 	                                  $path_team_logos = $config->path->images->teamlogos . $this->previousMatch[0]["cteamb"].".gif" ;
-	
+
 	                                  if (file_exists($path_team_logos))
 	                                  {  ?>
-	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->previousMatch[0]["cteamb"] ; ?>.gif"/>	
-	                                  <?php } else {  ?>	
+	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/teamlogos/<?php echo $this->previousMatch[0]["cteamb"] ; ?>.gif"/>
+	                                  <?php } else {  ?>
 	                                    <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imageCrop?w=64&h=64&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/TeamText80.gif"/>
                               	<?php }   ?>
                         	</a>
                         </p>
-	                        
+
 	                </div>
 	                <p class="smatch"><a href="<?php echo $urlGen->getMatchPageUrl($this->compName, $this->previousMatch[0]["teama"], $this->previousMatch[0]["teamb"], $this->previousMatch[0]["matchid"], true);?>">See Match Details &raquo;</a></p>
-		           <?php } else {  
+		           <?php } else {
 	            	echo "<br><center><strong>No Matches played yet.</strong></center>";
 	              } ?>
-		         
+
 		         </div>
-	         
+
         </div>
-        
-        
-      <?php //if($this->total_club_stats > 0) {?> 
-      
-      
+
+
+      <?php //if($this->total_club_stats > 0) {?>
+
+
       <!-- Season and Match Stats -->
-      
+
       <div class="prof2" style="margin-top: 0px;">
             <p class="mblack">
                <span class="black"><?php echo $this->playername;?>'s Career Statistics</span>
@@ -640,21 +642,23 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
                   <li id="menu25"><a href="javascript:void(0);">Season Statistics</a></li>
                 </ul>
             </div>
-            
-        <div class="nmatch" id="menu24content"> 
+
+
+
+        <div class="nmatch" id="menu24content">
                <p class="show">
                     <label>Show:</label>
                     <select id="playermatchstatsdropdown" class="all" onchange="javascript:findMatchPlayerStats(this.value)">
                       <option value="0" selected>All</option>
                       <?php $team_type = "";  ?>
-                      <?php foreach ($this->teamselect as $teamdata) {  ?>  
+                      <?php foreach ($this->teamselect as $teamdata) {  ?>
         							<?php if ($teamdata['team_other_type'] != $team_type) { ?> <!-- If type has changed -->
         								<?php if ($team_type != "") { ?>  <!-- If there was already a type active -->
-        								  <?php  echo "</optgroup><option></option>"; ?> 
-        								<?php  } ?> 
+        								  <?php  echo "</optgroup><option></option>"; ?>
+        								<?php  } ?>
         								<optgroup label="<?php if($teamdata['team_other_type'] =='club') {echo "Club Teams";} else {echo "National Teams";} ?>"> <!-- open a new group -->
         								<?php  $team_type = $teamdata['team_other_type']; ?>
-                                    <?php  } ?>  
+                                    <?php  } ?>
         							<option value="<?php echo $teamdata["team_other_id"]; ?>" ><?php echo $teamdata["team_other_name"]; ?></option>
                               <?php  } ?>
                       </optgroup>
@@ -664,263 +668,364 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
              <div id="data" class="modulo_container">
              	<!-- League Match Season Stats -->
   					</div>
-  			
+
   					<span class="thread3">
             	<a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerstatsdetail/id/<?php echo $this->playerid; ?>">See Detailed Match Statistics &raquo;</a>
           	</span>
          </div>
-             
-         <div class="nmatch" id="menu25content" style="display:none;">
-              <p class="show">
-                <label>Show:</label>
-                <select id="playerstatsdropdown" class="all">
-                  <option value="menu6">League</option>
-                  <option value="menu7">Regional Competition</option>
-                  <option value="menu8">National Team</option>
-                </select>
-             </p>
 
-					<!-- Club Season Stats -->
-            <div id="menu6content" class="cont"> 
-            	<div class="scores">
-					<ul>
-						<li class="name">Season</li>
-						<li class="team">Team</li>						
-						<li class="score">GP</li>
-	                <?php if ($this->playerpos == 'Goalkeeper') {  ?>
-	                		<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
-                    	<li class="score">GA</li>
-                    	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
-                    	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
-                    <?php } else { ?>
-                    	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
-                    	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
-                    	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
-                    <?php }  ?>
-	               
-					</ul>
-	              </div>
-	              
-	             <?php foreach ($this->player_club_stats_totals as $data) { ?>
-		            	<div class="scores scoresTotals">
-							<ul>
-								<li class="name">Totals</li>
-								<li class="team">&nbsp;</li>
-								<li class="score"><?php echo $data['total_gp'] ?></li>
-								<?php if ($this->playerpos == 'Goalkeeper') {  ?>    		
-												<li class="score"><?php echo $data['total_cs'] ?></li>	                    	
-                    	<li class="score"><?php echo $data['total_ga'] ?></li>
-                    	<li class="score"><?php echo $data['total_yc'] ?></li>
-                    	<li class="score"><?php echo $data['total_rc'] ?></li>
-                    	
+
+    <div class="nmatch" id="menu25content" style="display:none;">
+        <p class="show">
+          <label>Show:</label>
+          <select id="playerstatsdropdown" class="all">
+            <option value="menu6">League</option>
+            <option value="menu9">Cup</option>
+            <option value="menu7">Regional Competition</option>
+            <option value="menu8">National Team</option>
+          </select>
+        </p>
+
+			  <!-- Club Season Stats -->
+        <div id="menu6content" class="cont">
+
+          <div class="scores">
+  					<ul>
+  						<li class="name">Season</li>
+  						<li class="team">Team</li>
+  						<li class="score">GP</li>
+              <?php if ($this->playerpos == 'Goalkeeper') {  ?>
+              		<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
+                	<li class="score">GA</li>
+                	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+                	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
+                <?php } else { ?>
+                  <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/minutes.jpg" alt="Minutes Played"/></li>
+                	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
+                	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+                	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
+                <?php }  ?>
+  					</ul>
+           </div>
+
+		      <div class="scores scoresTotals">
+  					<ul>
+							<li class="name">Totals</li>
+							<li class="team">&nbsp;</li>
+							<li class="score"><?php echo $this->total_stats_league['total_gp'] ?></li>
+							<?php if ($this->playerpos == 'Goalkeeper') {  ?>
+								    <li class="score"><?php if (empty($this->total_stats_league['total_cs'])){echo "--"; } else {echo $this->total_stats_league['total_cs'];}?></li>
+                    <li class="score"><?php if (empty($this->total_stats_league['total_ga'])){echo "--"; } else {echo $this->total_stats_league['total_ga'];}?></li>
+                  	<li class="score"><?php echo $this->total_stats_league['total_yc'] ?></li>
+                  	<li class="score"><?php echo $this->total_stats_league['total_rc'] ?></li>
+
+                <?php } else { ?>
+                  	<li class="score"><?php echo $this->total_stats_league['total_min'] ?></li>
+                    <li class="score"><?php echo $this->total_stats_league['total_gl'] ?></li>
+                  	<li class="score"><?php echo $this->total_stats_league['total_yc'] ?></li>
+                  	<li class="score"><?php echo $this->total_stats_league['total_rc'] ?></li>
+                 <?php }  ?>
+  						</ul>
+	         </div>
+
+
+
+	         <?php $i = 1;
+  		      foreach ($this->stats_league as $data) {
+  		          if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
+  	           ?>
+  		         <div class="<?php echo $style ?>">
+  							<ul>
+  									<li class="name"><?php echo $data['season'] ?></li>
+                     <?php  $teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); ?>
+  									<li class="team">
+  										<a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
+                            <?php echo mb_convert_encoding($data['name'], "ISO-8859-1", "UTF-8"); ?>
+  									  </a>
+  									</li>
+
+  									<li class="score"><?php echo $data['appearences'] ?></li>
+  									<?php if ($this->playerpos != 'Goalkeeper'){ ?>
+                          <li class="score"><?php if (empty($data['minutes'])){echo "--"; } else {echo $data['minutes'];}?></li>
+                          <li class="score"><?php if (empty($data['goals'])){echo "--"; } else {echo $data['goals'];}?></li>
+                          <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                          <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+  	                    <?php } else { ?>
+  	                       <li class="score"><?php if (empty($data['cs'])){echo "--"; } else {echo $data['cs'];}?></li>
+                          <li class="score"><?php if (empty($data['ga'])){echo "--"; } else {echo $data['ga'];}?></li>
+  	                      <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                          <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+  				          <?php } ?>
+  							</ul>
+  					   </div>
+  				    <?php $i++; } ?>
+          </div>
+
+          <!-- Cup Season Stats -->
+          <div id="menu9content" class="cont">
+            <?php  if (sizeOf($this->stats_cup) > 0) { ?>
+              <div class="scores">
+                <ul>
+                  <li class="name">Season</li>
+                  <li class="team">Team</li>
+                  <li class="score">GP</li>
+                       <?php if ($this->playerpos == 'Goalkeeper') {  ?>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
+                            <li class="score">GA</li>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+
+                          <?php } else { ?>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/minutes.jpg" alt="Minutes Played"/></li>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+                            <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
+                          <?php }  ?>
+
+                  </ul>
+              </div>
+
+              <div class="scores scoresTotals">
+                <ul>
+                  <li class="name">Totals</li>
+                  <li class="team">&nbsp;</li>
+
+                  <li class="score"><?php echo $this->total_stats_cup['total_gp'] ?></li>
+                  <?php if ($this->playerpos == 'Goalkeeper') {  ?>
+                    <li class="score"><?php if (empty($this->total_stats_cup['total_cs'])){echo "--"; } else {echo $this->total_stats_cup['total_cs'];}?></li>
+                    <li class="score"><?php if (empty($this->total_stats_cup['total_ga'])){echo "--"; } else {echo $this->total_stats_cup['total_ga'];}?></li>
+                    <li class="score"><?php echo $this->total_stats_cup['total_yc'] ?></li>
+
                   <?php } else { ?>
-                    	<li class="score"><?php echo $data['total_gl'] ?></li>
-                    	<li class="score"><?php echo $data['total_yc'] ?></li>
-                    	<li class="score"><?php echo $data['total_rc'] ?></li>
-                   <?php }  ?>   
-             
-							</ul>
-	              		</div>   
-	             <?php } ?> 
-	              <?php $i = 1;
-	
-		          	foreach ($this->player_club_stats as $data) {
-		                      if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
-	              ?> 
-		             <div class="<?php echo $style ?>"> 
-							<ul>
-									<li class="name"><?php echo $data['season_name'] ?></li>
-									<li class="team">
-										<a href="<?php echo $urlGen->getClubMasterProfileUrl ( $data['team_id'], $data['team_seoname'], True ); ?>">
-									        <?php echo $data['team_name'] ?>
-									  </a>
-									</li>
-									
-									<li class="score"><?php echo $data['gp'] ?></li>
-									<?php if ($this->playerpos != 'Goalkeeper'){ ?>
-			                    		<li class="score"><?php echo $data['gl'] ?></li>
-			                    		<li class="score"><?php echo $data['yc'] ?></li>
-															<li class="score"><?php echo $data['rc'] ?></li>
-				                    <?php } else { ?> 	
-				                    	<li class="score"><?php echo $data['cs'] ?></li>
-				                    	<li class="score"><?php echo $data['ga'] ?></li>
-				                    	<li class="score"><?php echo $data['yc'] ?></li>
-				                    	<li class="score"><?php echo $data['rc'] ?></li>
-										
-				                     <?php } ?> 
-						
-									
-							</ul>
-					</div>
-				<?php $i++; } ?>
-            </div>
-            
-           	<!-- Regional Season Stats -->
-	       <div id="menu7content" class="cont"> 
-	              <?php if($this->total_regional_stats > 0) {?>
-		              <div class="scores">
-						<ul>
-							<li class="name">Season</li>
-							<li class="team">Team</li>
-						
-							<li class="score">GP</li>
-		                     <?php if ($this->playerpos == 'Goalkeeper') {  ?>
-		                     			<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
-                            	<li class="score">GA</li>
-                            	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
-                            	
-                            <?php } else { ?>
-                            	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
-                            	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
-                            	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
-                            <?php }  ?>
-		                   
-						</ul>
-		              </div>
-		              
-		            <?php foreach ($this->player_regional_stats_totals as $data) { ?>
-		            	<div class="scores scoresTotals">
-							<ul>
-								<li class="name">Totals</li>
-								<li class="team">&nbsp;</li>
-								
-								<li class="score"><?php echo $data['total_gp'] ?></li>
-								<?php if ($this->playerpos == 'Goalkeeper') {  ?>
-										<li class="score"><?php echo $data['total_cs'] ?></li>
-										<li class="score"><?php echo $data['total_ga'] ?></li>
-			              <li class="score"><?php echo $data['total_yc'] ?></li>      	
-								<?php } else { ?>
-								  	<li class="score"><?php echo $data['total_gl'] ?></li>
-			              <li class="score"><?php echo $data['total_yc'] ?></li>
-			              <li class="score"><?php echo $data['total_rc'] ?></li>
-								<?php }  ?>
+                   <li class="score"><?php echo $this->total_stats_cup['total_min'] ?></li>
+                    <li class="score"><?php echo $this->total_stats_cup['total_gl'] ?></li>
+                    <li class="score"><?php echo $this->total_stats_cup['total_yc'] ?></li>
+                    <li class="score"><?php echo $this->total_stats_cup['total_rc'] ?></li>
+                  <?php }  ?>
+                </ul>
+              </div>
 
-							</ul>
-	              		</div>   
-	                <?php } ?> 
-		              
-		              
-		               <?php $i = 1;
-		
-			          	foreach ($this->player_regional_stats as $data) {
+              <?php $i = 1;
+                  foreach ($this->stats_cup as $data) {
+                            if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
+                  ?>
+                  <div class="<?php echo $style ?>">
+                      <ul>
+                          <li class="name">
+                              <?php echo str_replace ( '20', '', str_replace ( '/', '-', $data['season'] ) ) ."-" .substr($data['league'], 0, 4);  ; ?>
+                          </li>
+                           <?php  $teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); ?>
+                          <li class="team">
+                            <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
+                              <?php echo mb_convert_encoding($data['name'], "ISO-8859-1", "UTF-8"); ?>
+                            </a>
+                          </li>
+
+                          <li class="score"><?php echo $data['appearences'] ?></li>
+                          <?php if ($this->playerpos != 'Goalkeeper'){ ?>
+                         <li class="score"><?php if (empty($data['minutes'])){echo "--"; } else {echo $data['minutes'];}?></li>
+                              <li class="score"><?php if (empty($data['goals'])){echo "--"; } else {echo $data['goals'];}?></li>
+                              <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                              <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+                         <?php } else { ?>
+                                <li class="score"><?php if (empty($data['cs'])){echo "--"; } else {echo $data['cs'];}?></li>
+                                <li class="score"><?php if (empty($data['ga'])){echo "--"; } else {echo $data['ga'];}?></li>
+                                <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                                <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+
+                         <?php } ?>
+                      </ul>
+                  </div>
+              <?php $i++; } ?>
+
+            <?php } else { ?>
+              <span>No Data Available1</span>
+            <?php }  ?>
+          </div>
+
+        <!-- Regional Season Stats -->
+	        <div id="menu7content" class="cont">
+	              <?php  if (sizeOf($this->stats_club_int) > 0) { ?>
+		              <div class="scores">
+        						<ul>
+        							<li class="name">Season</li>
+        							<li class="team">Team</li>
+        							<li class="score">GP</li>
+                           <?php if ($this->playerpos == 'Goalkeeper') {  ?>
+                           			<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
+                              	<li class="score">GA</li>
+                              	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+
+                              <?php } else { ?>
+                                <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/minutes.jpg" alt="Minutes Played"/></li>
+                              	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
+                              	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
+                              	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
+                              <?php }  ?>
+
+        						  </ul>
+		              </div>
+
+		            	<div class="scores scoresTotals">
+      							<ul>
+      								<li class="name">Totals</li>
+      								<li class="team">&nbsp;</li>
+
+      								<li class="score"><?php echo $this->total_stats_int['total_gp'] ?></li>
+      								<?php if ($this->playerpos == 'Goalkeeper') {  ?>
+                        <li class="score"><?php if (empty($this->total_stats_int['total_cs'])){echo "--"; } else {echo $this->total_stats_int['total_cs'];}?></li>
+                        <li class="score"><?php if (empty($this->total_stats_int['total_ga'])){echo "--"; } else {echo $this->total_stats_int['total_ga'];}?></li>
+                        <li class="score"><?php echo $this->total_stats_int['total_yc'] ?></li>
+
+      								<?php } else { ?>
+      					       <li class="score"><?php echo $this->total_stats_int['total_min'] ?></li>
+                        <li class="score"><?php echo $this->total_stats_int['total_gl'] ?></li>
+                        <li class="score"><?php echo $this->total_stats_int['total_yc'] ?></li>
+                        <li class="score"><?php echo $this->total_stats_int['total_rc'] ?></li>
+      								<?php }  ?>
+      							</ul>
+	              	</div>
+
+
+		              <?php $i = 1;
+			          	foreach ($this->stats_club_int as $data) {
 			                      if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
-		              ?> 
-			             <div class="<?php echo $style ?>"> 
-								<ul>
-										<li class="name"><?php echo $data['season_name'] ?></li>
-										<li class="team"><a href="<?php echo $urlGen->getClubMasterProfileUrl ( $data['team_id'], $data['team_name'], True ); ?>"><?php echo $data['team_name'] ?></a></li>
-										
-										<li class="score"><?php echo $data['gp'] ?></li>
-										<?php if ($this->playerpos != 'Goalkeeper'){ ?>
-			                    			<li class="score"><?php echo $data['gl'] ?></li>
-			                    			<li class="score"><?php echo $data['yc'] ?></li>
-											<li class="score"><?php echo $data['rc'] ?></li>
-			                    		<?php } else { ?> 	
-			                    		<li class="score"><?php echo $data['cs'] ?></li>
-			                    			<li class="score"><?php echo $data['ga'] ?></li>
-			                    			<li class="score"><?php echo $data['yc'] ?></li>
-											
-			                     		<?php } ?> 
-								
-										
-								</ul>
-						</div>
-						<?php $i++; } ?>
-					<?php } else { ?>
+		              ?>
+			            <div class="<?php echo $style ?>">
+      								<ul>
+      										<li class="name">
+                              <?php echo str_replace ( '20', '', str_replace ( '/', '-', $data['season'] ) ) ."-" .substr($data['league'], 0, 4);  ; ?>
+                          </li>
+                          <?php  $teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); ?>
+      										<li class="team">
+                            <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
+                              <?php echo mb_convert_encoding($data['name'], "ISO-8859-1", "UTF-8"); ?>
+                            </a>
+                          </li>
+
+      										<li class="score"><?php echo $data['appearences'] ?></li>
+      										<?php if ($this->playerpos != 'Goalkeeper'){ ?>
+      			             <li class="score"><?php if (empty($data['minutes'])){echo "--"; } else {echo $data['minutes'];}?></li>
+                              <li class="score"><?php if (empty($data['goals'])){echo "--"; } else {echo $data['goals'];}?></li>
+                              <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                              <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+      			             <?php } else { ?>
+      			                    <li class="score"><?php if (empty($data['cs'])){echo "--"; } else {echo $data['cs'];}?></li>
+      			                    <li class="score"><?php if (empty($data['ga'])){echo "--"; } else {echo $data['ga'];}?></li>
+      			                    <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                                <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+
+      			             <?php } ?>
+      								</ul>
+						        </div>
+						        <?php $i++; } ?>
+
+
+					 <?php } else { ?>
 						<span>No Data Available</span>
 					<?php }  ?>
-	            </div>
-   
-    
-            
+
+
+          </div>
+
+
+
             <!-- Regional Season Stats -->
-              <div id="menu8content" class="cont"> 
-                <?php if($this->total_national_stats > 0) {?>
+              <div id="menu8content" class="cont">
+                <?php  if (sizeOf($this->stats_national) > 0) { ?>
 	               <div class="scores">
-					<ul>
-						<li class="name">Season</li>
-						<li class="team">Team</li>
-						
-						<li class="score">GP</li>
-		                     <?php if ($this->playerpos == 'Goalkeeper') {  ?>
-		                     			<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
+        					<ul>
+        						<li class="name">Season</li>
+        						<li class="team">Team</li>
+
+        						<li class="score">GP</li>
+                         <?php if ($this->playerpos == 'Goalkeeper') {  ?>
+                         			<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/icons/hand_for_high_five.gif" alt="Clean Sheets"/></li>
                             	<li class="score">GA</li>
                             	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
-                            	
+
                             <?php } else { ?>
+                              <li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/minutes.jpg" alt="Minutes Played"/></li>
                             	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score1.jpg" alt="Goals Scored"/></li>
                             	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score2.jpg" alt="Yellow Cards"/></li>
                             	<li class="score"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/score3.jpg" alt="Red Cards"/></li>
                             <?php }  ?>
-	                    <li class="competition">Comp</li>
-					</ul>
+        					</ul>
 	              </div>
-	              
-	              <?php foreach ($this->player_national_stats_total as $data) { ?>
-		            	<div class="scores scoresTotals">
-							<ul>
-								<li class="name">Totals</li>
-								<li class="team">&nbsp;</li>
-								
-								<li class="score"><?php echo $data['total_gp'] ?></li>
-								<?php if ($this->playerpos == 'Goalkeeper') {  ?>
-									<li class="score"><?php echo $data['total_cs'] ?></li>
-									<li class="score"><?php echo $data['total_ga'] ?></li>
-			            <li class="score"><?php echo $data['total_yc'] ?></li>       	
-								<?php } else { ?>
-								  <li class="score"><?php echo $data['total_gl'] ?></li>
-			            <li class="score"><?php echo $data['total_yc'] ?></li>
-			            <li class="score"><?php echo $data['total_rc'] ?></li>
-								<?php }  ?>
-			                   
-							</ul>
-	              		</div>   
-	                <?php } ?> 
-	              
-	              
+
+
+  		          <div class="scores scoresTotals">
+    							<ul>
+    								<li class="name">Totals</li>
+    								<li class="team">&nbsp;</li>
+
+    								<li class="score"><?php echo $this->total_stats_nat['total_gp'] ?></li>
+    								<?php if ($this->playerpos == 'Goalkeeper') {  ?>
+    									<li class="score"><?php if (empty($this->total_stats_nat['total_cs'])){echo "--"; } else {echo $this->total_stats_nat['total_cs'];}?></li>
+    									<li class="score"><?php if (empty($this->total_stats_nat['total_ga'])){echo "--"; } else {echo $this->total_stats_nat['total_ga'];}?></li>
+    			            <li class="score"><?php echo $this->total_stats_nat['total_yc'] ?></li>
+    								<?php } else { ?>
+                      <li class="score"><?php echo $this->total_stats_nat['total_min'] ?></li>
+    								  <li class="score"><?php echo $this->total_stats_nat['total_gl'] ?></li>
+    			            <li class="score"><?php echo $this->total_stats_nat['total_yc'] ?></li>
+    			            <li class="score"><?php echo $this->total_stats_nat['total_rc'] ?></li>
+    								<?php }  ?>
+
+    							</ul>
+  	              </div>
+
 
                 <?php $i = 1;
-	
-		          	foreach ($this->player_national_stats as $data) {
+		          	foreach ($this->stats_national as $data) {
 		                      if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
-	              ?> 
-		             <div class="<?php echo $style ?>"> 
+	              ?>
+		             <div class="<?php echo $style ?>">
 							<ul>
-									<li class="name"><?php echo $data['season_name'] ?></li>
-									<li class="team"><a href="<?php echo $urlGen->getClubMasterProfileUrl ( $data['team_id'], $data['team_name'], True ); ?>"><?php echo $data['team_name'] ?></a></li>
-				
-									<li class="score"><?php echo $data['gp'] ?></li>
+									<li class="name">
+                      <?php echo str_replace ( '20', '', str_replace ( '/', '-', $data['season'] ) ) ."-" .substr($data['league'], 0, 7);  ; ?>
+                  </li>
+                  <?php  $teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); ?>
+									<li class="team">
+                     <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
+                    <?php echo mb_convert_encoding($data['name'], "ISO-8859-1", "UTF-8"); ?>
+                    </a>
+                  </li>
+
+									<li class="score"><?php echo $data['appearences'] ?></li>
 									<?php if ($this->playerpos != 'Goalkeeper'){ ?>
-			                    			<li class="score"><?php echo $data['gl'] ?></li>
-			                    			<li class="score"><?php echo $data['yc'] ?></li>
-											<li class="score"><?php echo $data['rc'] ?></li>
-			                    	<?php } else { ?> 	
-			                    	<li class="score"><?php echo $data['cs'] ?></li>
-			                    			<li class="score"><?php echo $data['ga'] ?></li>
-			                    			<li class="score"><?php echo $data['yc'] ?></li>
-											
+  			                      <li class="score"><?php if (empty($data['minutes'])){echo "--"; } else {echo $data['minutes'];}?></li>
+                              <li class="score"><?php if (empty($data['goals'])){echo "--"; } else {echo $data['goals'];}?></li>
+                              <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                              <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
+			                    	<?php } else { ?>
+			                        <li class="score"><?php if (empty($data['cs'])){echo "--"; } else {echo $data['cs'];}?></li>
+                              <li class="score"><?php if (empty($data['ga'])){echo "--"; } else {echo $data['ga'];}?></li>
+                              <li class="score"><?php if (empty($data['yellowcards'])){echo "--"; } else {echo $data['yellowcards'];}?></li>
+                              <li class="score"><?php if (empty($data['redcards'])){echo "--"; } else {echo $data['redcards'];}?></li>
 			                     	<?php } ?>
-								
-		
-							</ul>
-					</div>
-					<?php $i++; } ?>
-				
-				<?php } else { ?> 
-					<span>No Data Available</span>
-				<?php }  ?> 
+
+
+          							</ul>
+          					</div>
+          					<?php $i++; } ?>
+
+          				<?php } else { ?>
+          					<span>No Data Available</span>
+          				<?php }  ?>
 	           </div>
-	           
+
+
+
+
 	           <span class="thread3">
             	<a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerstatsdetail/id/<?php echo $this->playerid; ?>">See Seasom Statistics &raquo;</a>
           	   </span>
 
              </div>
-    
-       </div>    
 
-      <?php // } ?> 
-        
+       </div>
+
+      <?php // } ?>
+
     <div class="featured1" style="margin-top: 12px;">
 			<p class="mblack">
 	           <span class="black"><?php echo $this->playername;?> Teammates</span>
@@ -939,18 +1044,18 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	                 </ul>
 	              </div>
 	             <?php $i = 1;
-	
+
 		          	foreach ($this->playermates as $data) {
 		                      if($i % 2 == 1) { $style = "scores1"; }else{ $style = "scores2";}
-	              ?> 
-	              
+	              ?>
+
 	              		<div class="<?php echo $style; ?>">
 			                   <ul>
 				                 <?php
 						                $path_player_photos = $config->path->images->players . $data["player_id"] .".jpg" ;
-						                if (file_exists($path_player_photos)) { 
+						                if (file_exists($path_player_photos)) {
 						          ?>
-						          
+
 						            <li class="silueta">
 						              <img src="<?php echo Zend_Registry::get("contextPath"); ?>/utility/imagecrop?w=18&h=18&zc=1&src=<?php echo Zend_Registry::get("contextPath"); ?><?php echo $this->root_crop;?>/players/<?php echo $data["player_id"]; ?>.jpg" alt="<?php echo $data["player_common_name"]; ?>"/>
 						            </li>
@@ -969,10 +1074,10 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 			                       <li class="nationality" style="background: url('<?php echo Zend_Registry::get("contextPath"); ?>/public/images/flags/<?php echo $data["player_country"]; ?>.png') no-repeat scroll left center transparent;">
 			                            <?php echo $data["country_name"]; ?>
 			                       </li>
-			        
+
 			                   </ul>
 			             </div>
-		        
+
 		          <?php $i++; } ?>
 
 	          </div>
@@ -983,22 +1088,22 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
         </div>
 
 
-     </div><!--/SecondColumn--> 
+     </div><!--/SecondColumn-->
 
      <div class="ThirdColumn">
-     
-     	  <div id="banner_right_wide" class="img-shadow" style="margin-top: -10px;">          
+
+     	  <div id="banner_right_wide" class="img-shadow" style="margin-top: -10px;">
   					<div style="float: left; padding:0px;border:none;">
-                 <a href="<?php echo Zend_Registry::get("contextPath"); ?>/subscribe#playerSection" title="Subscriptions and Alers">                          
+                 <a href="<?php echo Zend_Registry::get("contextPath"); ?>/subscribe#playerSection" title="Subscriptions and Alers">
                      <img border="0" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/banners_player_wide.png" style="margin-top:10px;"/>
               	</a>
             </div>
           </div>
-          
+
       <!-- Team Media Gallery -->
       <!-- END - Team Media Gallery -->
 
-        <!--/Activity Feed--> 
+        <!--/Activity Feed-->
 	       <div class="img-shadow">
 		      <div class="WrapperForDropShadow">
 		        <div class="DropShadowHeader BlueGradientForDropShadowHeader">
@@ -1019,40 +1124,40 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 						    <option value="0" selected>All Activity</option>
 						    <option value="1">Goals </option>
 						     <option value="2">Appearances</option>
-						    <option value="3">Cards</option> 
+						    <option value="3">Cards</option>
 						    <!--<option value="4">Community</option>-->
 						</select>
 		          <div class="JoinedDate">
-		          	  	
+
 		              <a class="OrangeLink" style="padding-right:20px;" href="<?php echo Zend_Registry::get("contextPath"); ?>/player/rss/id/<?php echo $this->playerid?>">Subscribe</a>
 		          </div>
 		        </div>
 		        <div id="playerFeed">
-		          
+
 		        </div>
 		        <?php } else { ?>
 					<center><strong>No Player Activity Available</strong></center>
 				<?  }?>
-				
+
 		       	<?php if (sizeOf($this->playeractivities) > 0) { ?>
 		          <div id="SeeMoreNews" class="SeeMoreNews">
 		              <a class="OrangeLink" href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayeractivity/id/<?php echo $this->playerid?>">See More <?php echo $this->playername?> Activity</a>
 		          </div>
 		         <?  }?>
-		      </div>  
+		      </div>
 		    </div>
 	    	 <?php if ($session->email != null) { ?>
-	        <!--/Goooalshout--> 
+	        <!--/Goooalshout-->
 	        <div id="goalshoutId" class="img-shadow">
 	          <?php echo $this->render('goalshoutplayer.php');?>
 	        </div>
 			<?php }  else{?>
-		    <div class="img-shadow">   
+		    <div class="img-shadow">
 		            <div class="WrapperForDropShadow">
 		                <div class="DropShadowHeader BlueGradientForDropShadowHeader">
-		              
+
 		                    <h4 class="NoArrowLeft">
-		                    	<?php echo $this->playername;?> Goooal Shouts 
+		                    	<?php echo $this->playername;?> Goooal Shouts
 		                    </h4>
 							<span class="sm" id="menu6_more">
 			                   <a href="javascript:loginModal();"" title="<?php echo $this->playername;?> Fans">More »</a>
@@ -1071,11 +1176,11 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 		           </div>
 		    </div>
 		    <?php } ?>
-		   <div class="img-shadow">   
+		   <div class="img-shadow">
 		            <div class="WrapperForDropShadow">
 		             <?php if ($session->email != null) { ?>
 		                <div class="DropShadowHeader BlueGradientForDropShadowHeader">
-		              
+
 		                    <h4 class="NoArrowLeft">
 		                    	<?php echo $this->playername;?> Fans
 		                    </h4>
@@ -1097,10 +1202,10 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 		                <?php }?>
 		           </div>
 		    </div>
-   
 
 
-     </div><!--/ThirdColumn--> 
+
+     </div><!--/ThirdColumn-->
 
 </div> <!--/ContentWrapper-->
 
@@ -1126,7 +1231,7 @@ var playerBInitCountryId="";
 function showScoresScheduleTab(tab){
 	var page = null;
 	var date = null;
-	if(tab == ''){ 
+	if(tab == ''){
 		tab = 'scoresTab';
 		page = 'scores';
 	}
@@ -1134,20 +1239,20 @@ function showScoresScheduleTab(tab){
 		page = 'scores';
 	}else if(tab == 'schedulesTab'){
 		page = 'schedules';
-		
+
 	}
 
 	 var seasonId = '<?php echo $this->seasonId; ?>';
 	 var roundid = '<?php echo $this->roundId; ?>';
 	 var url = null;
-	 
+
      if(roundid != ''){
-		 var url = '<?php echo Zend_Registry::get("contextPath"); ?>/scoreboard/showfullmatchesbyseason/roundid/'+roundid+'/type/'+page;	
+		 var url = '<?php echo Zend_Registry::get("contextPath"); ?>/scoreboard/showfullmatchesbyseason/roundid/'+roundid+'/type/'+page;
 	 }else {
 		 var url = '<?php echo Zend_Registry::get("contextPath"); ?>/scoreboard/showfullmatchesbyseason/id/'+seasonId+'/type/'+page;
 	 }
-     
-     jQuery('#data').html('Loading...'); 
+
+     jQuery('#data').html('Loading...');
      jQuery('#data').load(url);
 	 jQuery('a.selected').removeClass('selected');
      jQuery('li.selected').removeClass('selected');
@@ -1159,8 +1264,8 @@ function showScoresScheduleTab(tab){
 function commonScoreBoardLoad(seasonId  , page){
 
 	  var url = '<?php echo Zend_Registry::get("contextPath"); ?>/scoreboard/showfullmatchesbyseason/id/'+seasonId+'/type/'+page;
-     
-     jQuery('#data').html('Loading...'); 
+
+     jQuery('#data').html('Loading...');
      jQuery('#data').load(url);
 	 jQuery('a.selected').removeClass('selected');
      jQuery('li.selected').removeClass('selected');
@@ -1182,12 +1287,12 @@ function populateCombo(dtarget , id , data){
 		 ajaxload = 'ajaxloaderPlayer';
 	 }else if(data == 'league'){
 		 url = '<?php echo Zend_Registry::get("contextPath"); ?>/competitions/searchcompetitionsselect';
-	 }	 	
+	 }
 	 jQuery('#'+ajaxload).show();
 	 jQuery('#'+dtarget).load(url , {id : id , t : data} ,function(){
 		 jQuery('#'+ajaxload).hide();
 	 });
-} 
+}
 </script>
 
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>

@@ -5,38 +5,38 @@
 <?php
     $config = Zend_Registry::get ( 'config' );
     $server = $config->server->host;
- ?> 
+ ?>
 <script type="text/JavaScript">
 jQuery(document).ready(function() {
     jQuery('.tabscontainer').hide();
     jQuery('div.cont').hide();
     jQuery('#tab1AllContent').show();
     jQuery('#tab2AllContent').hide();
-    jQuery('#tab1content').show();     
+    jQuery('#tab1content').show();
     jQuery('#tab1').addClass('active');
 	  //Default load all matches stats
   	findMatchPlayerStats(0);
-  	findPlayerSeasonStats(1);
+  	findPlayerSeasonStats('league');
  	  jQuery('#statTab ul li').click(function(){
   		 jQuery('#tab1AllContent,#tab2AllContent').hide();
-  		 tab_id = jQuery(this).attr('id');  		 
+  		 tab_id = jQuery(this).attr('id');
  	     //show div content
        	 jQuery('#' + tab_id + 'AllContent').show();
          jQuery('#tab1,#tab2').removeClass('active');
          jQuery(this).addClass('active');
  	  });
 
-	});	
+	});
 
 function findMatchPlayerStats(teamid) {
 	var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/showmatchplayerstats/detail/yes/id/<?php echo $this->playerid;?>/team/'+teamid;
-	jQuery('#data').html("<div class='ajaxloadmodule'></div>"); 
+	jQuery('#data').html("<div class='ajaxtabselect'></div>");
 	jQuery('#data').load(url);
-}   
+}
 
 function findPlayerSeasonStats(formatType) {
 	var url = '<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerministats/playerId/<?php echo $this->playerid;?>/format/'+formatType;
-	jQuery('#ajaxdata').html("<div class='ajaxloadmodule'></div>"); 
+	jQuery('#ajaxdata').html("<div class='ajaxtabselect'></div>");
 	jQuery('#ajaxdata').load(url);
 }
 </script>
@@ -45,28 +45,28 @@ function findPlayerSeasonStats(formatType) {
 
 <div id="ContentWrapper" class="TwoColumnLayout">
           <div class="FirstColumn">
-               <?php 
+               <?php
                     $session = new Zend_Session_Namespace('userSession');
                     if($session->email != null){
-                ?> 
+                ?>
                     <div class="img-shadow">
                         <div class="WrapperForDropShadow">
                             <?php include 'include/loginbox.php';?>
-                            
+
                         </div>
                     </div>
-                    
+
                     <?php }else { ?>
-                    
+
                     <!--Me box Non-authenticated-->
                     <div class="img-shadow">
                         <div class="WrapperForDropShadow">
                             <?php include 'include/loginNonAuthBox.php';?>
                         </div>
                     </div>
-                    
+
                     <!--Goalface Register Ad-->
-           
+
                     <?php } ?>
 
               		<!--Player Profile Badge-->
@@ -92,7 +92,7 @@ function findPlayerSeasonStats(formatType) {
 
 
           </div><!--end FirstColumnOfThree-->
-                
+
         <div id="SecondColumnStats" class="SecondColumn">
             <div class="ammid" style=" padding-left: 10px;padding-top: 10px;">
             <?php if ($session->email != null) { ?>
@@ -131,7 +131,7 @@ function findPlayerSeasonStats(formatType) {
                                 <li>Club:<span><?php echo $this->playerteamclub; ?></span></li>
                                 <li>Date of Birth:<span><?php echo $this->playerdob; ?></span></li>
                                 <li>Place of Birth:<span><?php echo $this->playerdobcity; ?></span></li>
-                            </ul>                                           
+                            </ul>
                         </div>
 										</div>
 									</div>
@@ -143,40 +143,40 @@ function findPlayerSeasonStats(formatType) {
                     <li id="tab2"><a href="javascript:void(0);">Season Statistics</a></li>
         					</ul>
         				</div>
-                
+
                 <div id="tab1AllContent" class="tabscontainer nosideborder">
                    <span class="show">Show:&nbsp;&nbsp;</span>
                    <p class="all">
-                    	
+
                       	<select id="playermatchstatsdropdown" class="all" onchange="javascript:findMatchPlayerStats(this.value)">
                          	<option value="0" selected>All</option>
                           <?php $team_type = "";  ?>
-                          <?php foreach ($this->teamselect as $teamdata) {  ?>  
+                          <?php foreach ($this->teamselect as $teamdata) {  ?>
                 							<?php if ($teamdata['team_other_type'] != $team_type) { ?> <!-- If type has changed -->
                 								<?php if ($team_type != "") { ?>  <!-- If there was already a type active -->
-                								  <?php  echo "</optgroup><option></option>"; ?> 
-                								<?php  } ?> 
+                								  <?php  echo "</optgroup><option></option>"; ?>
+                								<?php  } ?>
                 								<optgroup label="<?php if($teamdata['team_other_type'] =='club') {echo "Club Teams";} else {echo "National Teams";} ?>"> <!-- open a new group -->
                 								<?php  $team_type = $teamdata['team_other_type']; ?>
-                                            <?php  } ?>  
+                                            <?php  } ?>
                 							<option value="<?php echo $teamdata["team_other_id"]; ?>" ><?php echo $teamdata["team_other_name"]; ?></option>
                           <?php  } ?>
                             </optgroup>
                        </select>
                      </p>
- 
+
 									<div id="data" class="statdata1">
 
                  	</div>
-                 	
+
                      <!-- End Tab Player Wrapper  -->
                 </div>
-                
+
                 <div id="tab2AllContent" class="tabscontainer" >
-                    
+
                   <div class="PlayerInfoWrapperSeason DetailStatSubHeader">
 										<div class="PlayerInfoStat">
-											
+
                         	<p style="font-size: 24px;margin-bottom: 5px;margin-top: 5px;">
                         	    <?php //echo $this->playername; ?>&nbsp;Current Season Stats
                         	</p>
@@ -186,7 +186,7 @@ function findPlayerSeasonStats(formatType) {
                                 	<span>Games</span>
                                 </li>
                                      <li>
-                                	<span><?php if (empty($this->season_appearences)){echo "0"; } else {echo $this->season_appearences;}?></span>
+                                	<span><?php if (empty($this->activeleaguestats['appearences'])){echo "0"; } else {echo $this->activeleaguestats['appearences'];}?></span>
                                 </li>
                             </ul>
       										</div>
@@ -196,7 +196,7 @@ function findPlayerSeasonStats(formatType) {
                                 	<span>Mins</span>
                                 </li>
                                      <li>
-                                	<span><?php if (empty($this->season_minutes)){echo "0"; } else {echo $this->season_minutes;}?></span>
+                                	<span><?php if (empty($this->activeleaguestats['minutes'])){echo "0"; } else {echo $this->activeleaguestats['minutes'];}?></span>
                                 </li>
                             </ul>
       										</div>
@@ -208,73 +208,76 @@ function findPlayerSeasonStats(formatType) {
                                 	<?php } else {  ?>
                                 		<span>Goals</span>
                                 	<?php }  ?>
-                                	
+
                                 </li>
                                  <li>
                                     	<?php if ($this->playerpos == 'Goalkeeper') {  ?>
-                                    		<span><?php if (empty($this->season_goals_allowed)){echo "0"; } else {echo $this->season_goals_allowed;}?></span>
+                                    		<span><?php if (empty($this->activeleaguestats['goals_allowed'])){echo "0"; } else {echo $this->activeleaguestats['goals_allowed'];}?></span>
                                     	<?php } else {  ?>
-                                    		<span><?php if (empty($this->season_goals)){echo "0"; } else {echo $this->season_goals;}?></span>
+                                    		<span><?php if (empty($this->activeleaguestats['goals'])){echo "0"; } else {echo $this->activeleaguestats['goals'];}?></span>
                                     	<?php }  ?>
                                 	</li>
-                            </ul>                         
-      										</div> 
-      										
+                            </ul>
+      										</div>
+
       											<?php if ($this->playerpos == 'Goalkeeper') {  ?>
                             	<div class="PersonalInfoStat">
                             		<ul>
                                 	 <li>
                                     	<span>CS</span>
                                     </li>
-                                    	<li><span><?php if (empty($this->season_clean_sheets)){echo "0"; } else {echo $this->season_clean_sheets;}?></span></li>
-                                   
+                                    	<li><span><?php if (empty($this->activeleaguestats['clean_sheets'])){echo "0"; } else {echo $this->activeleaguestats['clean_sheets'];}?></span></li>
+
                                    </ul>
                                 </div>
                              <?php }  ?>
-      										
-      										
+
+
       										<div class="PersonalInfoStat">
       											<ul>
                                 <li>
                                 	<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/stat_yc.gif">
                                 </li>
                                      <li>
-                                	<span><?php if (empty($this->season_yellowcards)){echo "0"; } else {echo $this->season_yellowcards;}?></span>
+                                	<span><?php if (empty($this->activeleaguestats['yellowcards'])){echo "0"; } else {echo $this->activeleaguestats['yellowcards'];}?></span>
                                 </li>
                             </ul>
-      										</div> 
+      										</div>
       										<div class="PersonalInfoStat">
       											<ul>
                                 <li>
                                 	<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/stat_rc.gif">
                                 </li>
                                      <li>
-                                	<span><?php if (empty($this->season_redcards)){echo "0"; } else {echo $this->season_redcards;}?></span>
+                                	<span><?php if (empty($this->activeleaguestats['redcards'])){echo "0"; } else {echo $this->activeleaguestats['redcards'];}?></span>
                                 </li>
                             </ul>
-      										</div>                      
+      										</div>
                     </div>
                   </div>
-                    
+
                     <span class="show">Show:&nbsp;&nbsp;</span>
              					<p class="all">
 
                          <select id="typeComp" class="slct" name="typeComp" onchange="javascript:findPlayerSeasonStats(this.value);">
-                             <option selected="selected" value="1">League</option>
-                             <option value="2">Regional Competition</option>
-                             <option value="3">National Team</option>
+                             <option selected="selected" value="league">League</option>
+                             <option value="cup">Domestic Cup</option>
+                             <option value="cup_int">Regional Competition</option>
+                             <option value="nat_team">National Team</option>
                          </select>
-                        
+
                      </p>
-                   
-                   
+
+
                    <div id="ajaxdata" class="statdata">
 
                  	</div>
-                   
+
                 </div>
 
-         </div>           
-      </div><!--/SecondColumn--> 
+         </div>
+      </div><!--/SecondColumn-->
 </div>
 <script  src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/subscribeplayer.js" type="text/javascript"></script>
+
+
