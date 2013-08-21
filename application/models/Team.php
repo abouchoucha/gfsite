@@ -245,10 +245,47 @@ class Team extends Zend_Db_Table_Abstract {
 		//$sql .= " and t.team_type = 'club' " ;
 		$sql .= " and  tp.team_id =" . $teamId;
 		$sql .= " order by pc.player_category_id,p.player_firstname";
-		//echo $sql;
+		echo $sql;
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		return $row;
+	}
+
+	//Eventually Merge these 2 queries
+
+	public function findPlayersbyTeamNational($teamId) {
+		$db = $this->getAdapter();
+		$sql = " SELECT p.player_id, ";
+		$sql .= " p.player_firstname, "; 
+		$sql .= " p.player_lastname, ";
+		$sql .= " p.player_name_short, ";
+		$sql .= " p.player_common_name, ";
+		$sql .= " p.player_nickname, ";
+		$sql .= " p.player_position, ";
+		$sql .= " p.player_country, ";
+		$sql .= " t2.team_id, ";
+		$sql .= " t2.team_name, ";
+		$sql .= " t2.team_seoname, ";
+		$sql .= " c.country_id, ";
+		$sql .= " c.country_name ";
+		$sql .= " FROM player p "; 
+		$sql .= " INNER join playerseason ps on p.player_id = ps.player_id "; 
+		$sql .= " INNER join team t on ps.team_id = t.team_id ";
+		$sql .= " INNER join playercategory pc on p.player_position = pc.player_category_name ";  
+		$sql .= " LEFT join teamplayer tp on tp.player_id = ps.player_id ";
+		$sql .= " INNER join team t2 on t2.team_id = tp.team_id ";
+		$sql .= " INNER join country c on t2.country_id = c.country_id ";
+		if(!is_null($teamId)){
+			$sql .= " AND ps.team_id = " . $teamId;
+		}
+		$sql .= " and ps.season_id = " . $seasonId;
+		$sql .= " AND t2.team_type = 'club' ";
+		$sql .= " AND tp.actual_team = 1";
+		$sql .= " ORDER BY pc.player_category_id ";
+		echo $sql;
+    $result = $db->query ( $sql ) ;
+    $row = $result->fetchAll () ;
+    return $row ;
 	}
 	
 	public function countPlayersbyTeamSearch($teamId) {
@@ -604,6 +641,19 @@ class Team extends Zend_Db_Table_Abstract {
 
 		$sql .= " where t.country_id = c.country_id and t.team_soccer_type = 'default' ";
 		$sql .= " order by t.team_id limit 0, " . $count;
+		$result = $db->query ( $sql );
+		$row = $result->fetchAll ();
+		return $row;
+	}
+
+	public function findAllTeamsMapped() {
+		$db = $this->getAdapter ();
+		$sql = " select t.team_id, t.team_gs_id,replace(t.team_name, '&', '&amp;') as team_name,c.country_id,c.country_name ,replace(t.team_name_official, '&', '&amp;') as team_name_official ";
+		$sql .= " from team t, country c ";
+		$sql .= " where t.country_id = c.country_id and t.team_soccer_type = 'default' ";
+		$sql .= " and t.team_gs_id is not null";
+		//$sql .= " LIMIT 5";
+		//echo $sql;
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		return $row;
