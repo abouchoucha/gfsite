@@ -35,6 +35,8 @@ class Constants {
 	public static $_MATCH_SCORE_TEAM_A_WON = "35";
 	public static $_MATCH_SCORE_TEAM_DRAW = "36";
 	public static $_CLEAN_SHEET_PLAYER_ACTIVITY = "37";
+	public static $_DOUBLE_PLAYER_ACTIVITY = "38";
+	public static $_HAT_TRICK_PLAYER_ACTIVITY = "39";
 	//comment types
 	public static $_COMMENT_GOALSHOUT = "1";
 	public static $_COMMENT_MATCH = "2";
