@@ -9,7 +9,7 @@ $translationStrings = array(
 	'lost to'=>'perdió ante el',
 	// Player Alerts
 	'started' => 'alineó en el partido',
-	'scored a goal in' => 'anotó un gol en',
+	'scored a goal in' => 'anotó un gol en el partido',
 	'scored an own goal in' => 'anotó un autogol en el partido',
 	'scored a penalty in' => 'anotó un penalty en el partido',
 	'received a red card in' => 'recibió una tarjeta roja en el partido',
