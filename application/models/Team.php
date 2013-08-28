@@ -245,7 +245,7 @@ class Team extends Zend_Db_Table_Abstract {
 		//$sql .= " and t.team_type = 'club' " ;
 		$sql .= " and  tp.team_id =" . $teamId;
 		$sql .= " order by pc.player_category_id,p.player_firstname";
-		echo $sql;
+		//echo $sql;
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		return $row;
