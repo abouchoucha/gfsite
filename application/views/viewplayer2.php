@@ -983,12 +983,29 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 									<li class="name">
                       <?php echo str_replace ( '20', '', str_replace ( '/', '-', $data['season'] ) ) ."-" .substr($data['league'], 0, 7);  ; ?>
                   </li>
-                  <?php  $teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); ?>
-									<li class="team">
-                     <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
-                    <?php echo mb_convert_encoding($data['name'], "ISO-8859-1", "UTF-8"); ?>
-                    </a>
-                  </li>
+                  <?php  
+                  		if ($data['id'] != '') {
+                  			$teamRow = $equipo->fetchRow( 'team_gs_id = ' . $data['id'] ); 
+                  ?>
+                  				<li class="team">
+					                     <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $teamRow['team_id'], $teamRow['team_seoname'], True ); ?>">
+					                    <?php echo $teamRow['team_name']; ?>
+					                    </a>
+					                  </li>
+                  	<?php	} else {
+                  			$teamRow['team_id'] = null;
+                  			$teamRow['team_seoname'] = $data['name'];
+
+                  	?>
+       				<li class="team">
+					                
+					                    <?php echo $data['name']; ?>
+					                    </a>
+					                  </li>
+                  	<?php
+                  		}                 			
+                  ?>
+
 
 									<li class="score"><?php echo $data['appearences'] ?></li>
 									<?php if ($this->playerpos != 'Goalkeeper'){ ?>

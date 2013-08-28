@@ -205,6 +205,7 @@ class PlayerController extends GoalFaceController
         $view->stats_national = $nat_team_stats;
         $view->total_stats_nat = $nat_team_stats_total;
 
+     
         //old
         $teamsplayedagainst = $player->getPlayerMatchEventsTeamsSelect($playerId);
         $view->teamselect = $teamsplayedagainst;
