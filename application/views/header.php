@@ -49,9 +49,6 @@ jQuery(document).ready(function() {
     	$.cookie('fb_popup', 'yes', { path: '/', domain: '<?php echo $domain; ?>' });
    }
  */
- if ($.cookie('fb_popup') != 'yes') { 
- console.log('popup cockie yes');
- }
  
  $().facebookTrafficPop({
         timeout: 120,
@@ -60,6 +57,7 @@ jQuery(document).ready(function() {
         message: "Follow GoalFace on Facebook</a> for the latest updates from around the world of football<br>",
         url: "https://www.facebook.com/goalface",
         closeable: true,
+        closeCooke:'true',
         advancedClose: true,
         share_button: false,
         app_id: '<?php echo $appid; ?>'
