@@ -49,20 +49,24 @@ jQuery(document).ready(function() {
     	$.cookie('fb_popup', 'yes', { path: '/', domain: '<?php echo $domain; ?>' });
    }
  */
+
+
  
- $().facebookTrafficPop({
-        timeout: 120,
-        delay: 15,
-        title: "Get the latest football updates",
-        message: "Follow GoalFace on Facebook</a> for the latest updates from around the world of football<br>",
-        url: "https://www.facebook.com/goalface",
-        closeable: true,
-        closeCooke:'true',
-        advancedClose: true,
-        share_button: false,
-        app_id: '<?php echo $appid; ?>'
-  });
- 
+if ($.cookie('fb_popup') != "yes") { 
+   $().facebookTrafficPop({
+          timeout: 120,
+          delay: 15,
+          title: "Get the latest football updates",
+          message: "Follow GoalFace on Facebook</a> for the latest updates from around the world of football<br>",
+          url: "https://www.facebook.com/goalface",
+          closeable: true,
+          closeCooke:'true',
+          advancedClose: true,
+          share_button: false,
+          app_id: '<?php echo $appid; ?>'
+    });
+    $.cookie('fb_popup', 'yes', { path: '/', domain: '<?php echo $domain; ?>' });
+ }
  
   
 	/* Active and Unactive */
