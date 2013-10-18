@@ -9,6 +9,7 @@
     $server = $config->server->host;
     $root_crop = $config->path->crop;
     $domain = $config->path->index->server->name;
+    $appid = $config->facebook->appid;
     include 'include/functions.php';
     
     //to be used to check active menu
@@ -34,7 +35,7 @@ pageurl = "<?php echo $this->actualURL;?>";
 jQuery(document).ready(function() {
 
 
-  //if ($.cookie('fb_popup') != 'yes') { 
+/*  if ($.cookie('fb_popup') != 'yes') { 
     	 //FB Traffic Pop   
     	$().facebookTrafficPop({
             timeout: 300,
@@ -42,11 +43,29 @@ jQuery(document).ready(function() {
             title: "Get the latest football updates",
             message: '<a href=\'http://www.facebook.com/goalface\'>Follow GoalFace on Facebook</a> for the latest updates from around the world of football<center><a href="http://www.facebook.com/goalface"><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/interlogo.jpg" border="0" style="margin:20px 0px;" /></a></center>',
             url: "https://www.facebook.com/goalface",
+            share_button: false,
             closeable: true
     	}); 
     	$.cookie('fb_popup', 'yes', { path: '/', domain: '<?php echo $domain; ?>' });
-   // }
-
+   }
+ */
+ if ($.cookie('fb_popup') != 'yes') { 
+ console.log('popup cockie yes');
+ }
+ 
+ $().facebookTrafficPop({
+        timeout: 120,
+        delay: 0,
+        title: "Get the latest football updates",
+        message: "Follow GoalFace on Facebook</a> for the latest updates from around the world of football<br>",
+        url: "https://www.facebook.com/goalface",
+        closeable: true,
+        advancedClose: true,
+        share_button: false,
+        app_id: '<?php echo $appid; ?>'
+  });
+ 
+ 
   
 	/* Active and Unactive */
 	 jQuery('.chromestyle ul li a').click(function(){

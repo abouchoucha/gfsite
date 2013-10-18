@@ -132,7 +132,7 @@
 				e.innerHTML = input;
 				return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 			}
-			
+	
 			// function to remove the pop up from the screen
 			fbtp_dump = function(action){
 				if(action == true){fbtp_createCookie('fblikepop', 'true', 30);}; 
@@ -229,7 +229,7 @@
 					}
 						
 					// Create Popup Markup -- Default
-					var tPop = '<div id="fblikebg"></div><div id="fblikepop"><div id="popup_head"><div id="closeable"></div><h1>'+defaults.title+'</h1></div><div id="popupMessage">'+fbtp_htmlDecode(defaults.message)+'</div><div id="buttonArea"><div id="actionHolder">'+shareButton+likeButton+'</div><div id="counter-display">'+tstrings.orwait[defaults.lang]+' <span id="counter"> </span>  '+tstrings.seconds[defaults.lang]+'.<br /><a id="fbtplink" href="http://goo.gl/LKCTz" title="Facebook Traffic Pop" target="_blank">Powered By FBTP</a></div><div style="clear:both"></div></div></div>';
+					var tPop = '<div id="fblikebg"></div><div id="fblikepop"><div id="popup_head"><div id="closeable"></div><h1>'+defaults.title+'</h1></div><div id="popupMessage">'+fbtp_htmlDecode(defaults.message)+'<center><a href="https://www.facebook.com/goalface"><img src="http://www.goalface.com/public/images/interlogo.jpg" border="0" style="margin:20px 0px;" /></a></center></div><div id="buttonArea"><div id="actionHolder">'+shareButton+likeButton+'</div><div id="counter-display">'+tstrings.orwait[defaults.lang]+' <span id="counter"> </span>  '+tstrings.seconds[defaults.lang]+'.</div><div style="clear:both"></div></div></div>';
 
 					// Return the pop up markup
 					return tPop;
