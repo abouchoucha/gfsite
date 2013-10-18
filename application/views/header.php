@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
  
  $().facebookTrafficPop({
         timeout: 120,
-        delay: 0,
+        delay: 15,
         title: "Get the latest football updates",
         message: "Follow GoalFace on Facebook</a> for the latest updates from around the world of football<br>",
         url: "https://www.facebook.com/goalface",
