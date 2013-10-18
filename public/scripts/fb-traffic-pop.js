@@ -1,7 +1,7 @@
 /* 
 
 	Facebook Traffic Pop for JQuery
-	Version:    JQ 3.5
+	Version:    JQ 3.3.2
 	Created By: Tyler Colwell
 	Website:    http://tyler.tc/
 	
@@ -16,18 +16,32 @@
 			/* Setup the options for the tooltip that can be
 			   accessed from outside the plugin              */
 			var defaults = {
+				// Timers
 				wait: 0,
 				delay: 0,
 				timeout: 25,
+				// Popup Settings
 				lang: "en",
 				opacity: '25',
 				title: "Your Popup Title",
 				message: "Your popup / call to action message!",
-				url: "http://tyler.tc",
-				showfaces: true,
 				closeable: false,
 				advancedClose: false,
-				onClick: 'fbtp-open'
+				onClick: 'fbtp-open',
+				closeCookie: 'false',
+				// FB / Like Settings
+				like_button: true,
+				url: 'http://codecanyon.net/item/facebook-traffic-pop-for-wordpress/150963',
+				showfaces: true,
+				layout: 'standard',
+				colorscheme: 'light',
+				app_id: '',
+				// Share Button
+				share_button: true,
+				share_url: 'http://codecanyon.net/item/facebook-traffic-pop-for-wordpress/150963',
+				share_label: 'Share',
+				share_title: "",
+				share_message: ""
 			};
 			
 			// Extend options and apply defaults if they are not set
@@ -39,7 +53,7 @@
 			defaults.opacity = '0.' + defaults.opacity;
 			
 			/* NEW In Version 1.4 - Localization
-			   Setup the localzation strings, add your own if needed              */
+			   Setup the localzation strings, add your own if needed */
 			var tstrings = {
 				
 				// This is your wait text i.e. '{or wait} xx seconds'
@@ -75,6 +89,50 @@
 			fbtp_readCookie = function(name){var nameEQ=name+"=";var ca=document.cookie.split(';');for(var i=0;i<ca.length;i++){var c=ca[i];while(c.charAt(0)==' ')c=c.substring(1,c.length);if(c.indexOf(nameEQ)==0)return c.substring(nameEQ.length,c.length);} return null;};
 			fbtp_createWait = function(name,value,mins) { if (mins) { var date = new Date(); date.setTime(date.getTime()+(mins*60*1000)); var expires = "; expires="+date.toGMTString(); } else var expires = ""; document.cookie = name+"="+value+expires+"; path=/"; };
 			
+			// Function to Create Share UI
+			fbtp_share = function(){
+			   console.log('Button Hit');
+			   FB.init({appId: defaults.app_id, status: true, cookie: true});
+			   FB.ui({
+					method: 'feed',
+					link: defaults.share_url,
+					name: defaults.share_title,
+					description: defaults.share_message,
+					show_error: true
+				}, 
+				function(response){
+					if(response){
+						fbtp_dump(true);
+					} // end if
+				}); // end FB.ui
+
+			} // end share function
+			
+			// function to center popup on page
+			fbtp_recenter = function(){
+				// Get window width and height to center the pop up
+				var fbtp = $("#fblikepop");
+				var windowWidth = document.documentElement.clientWidth;
+				var windowHeight = document.documentElement.clientHeight;
+				var popupHeight = fbtp.outerHeight(true);
+				var popupWidth = fbtp.width();
+				// Simple division will let us make sure the box is centered on all screen resolutions
+				fbtp.css({"top": ( (windowHeight - popupHeight) / 2 ) + "px", "left": windowWidth/2-popupWidth/2});
+				$("#fblikebg").css({"height": windowHeight});
+			};
+			
+			// Bind to window resize
+			$(window).resize(function(){
+				fbtp_recenter();
+			});
+			
+			// Safe HTML Decode
+			function fbtp_htmlDecode(input){
+				var e = document.createElement('div');
+				e.innerHTML = input;
+				return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+			}
+			
 			// function to remove the pop up from the screen
 			fbtp_dump = function(action){
 				if(action == true){fbtp_createCookie('fblikepop', 'true', 30);}; 
@@ -82,25 +140,69 @@
 				$("#fblikepop").fadeOut("slow");
 				$("#fblikepop #counter").countdown('destroy')
 			};
-			
+						
 			// Popup Display Function
 			fbtp_display = function(){
 				
-				// Show Popup
-				$("#fblikebg").css({"opacity": defaults.opacity});
-				$("#fblikebg").fadeIn("slow");
-				$("#fblikepop").fadeIn("slow");
-
-				// Check if timer is set to zero
-				if(defaults.timeout == '0'){$("#counter-display").hide();}else{$('#fblikepop #counter').countdown({until: '+'+defaults.timeout+'s', format: 'S', compact: true, description: '', onExpiry: fbtp_dump});}; // end if timer = 0
+				// Only run on devices with enough space
+				if($(window).width() > 700){
+					
+					// Center Popup
+					fbtp_recenter();
+									
+					// Show Popup
+					$("#fblikebg").css({"opacity": defaults.opacity});
+					$("#fblikebg").fadeIn("slow");
+					$("#fblikepop").fadeIn("slow");
+	
+					// Check if timer is set to zero
+					if(defaults.timeout == '0'){$("#counter-display").hide();}else{$('#fblikepop #counter').countdown({until: '+'+defaults.timeout+'s', format: 'S', compact: true, description: '', onExpiry: fbtp_dump});}; // end if timer = 0
+					
+					// Check if the script should wait between popups
+					if(defaults.wait != 0){fbtp_createWait('fblikepopwait', 'true', defaults.wait);};
+					
+					// Final parse check to ensure Like button appears on all browsers of all speeds
+					FB.XFBML.parse();
+					
+					// start escape key + outside click to close if true
+					if(defaults.advancedClose == true){
+						
+						// detect key up
+						$(document).keyup(function(e) {
+							
+							// of escape key
+							if (e.keyCode == 27) {
+								
+								// dump the popup, but dont set the cookie!  
+								fbtp_dump(false);
+											   
+							} // end if escape key
+									  
+						}); // end key up event
+															
+						// detect click in body and dump the popup
+						$('body').click(function() {
+							
+							fbtp_dump(false);
+							
+						}); // end body detect
+						
+						// Detect a click in the popup area to prevent it from closing
+						$('#fblikepop').click(function(event){
+							
+							// Strop prop. of close event
+							event.stopPropagation();
+							
+						}); // end popup click detection
+						 
+					} // end advanced close
+					
+				} // end mobile check
 				
-				// Check if the script should wait between popups
-				if(defaults.wait != 0){fbtp_createWait('fblikepopwait', 'true', defaults.wait);};
+				// Center Popup
+				setTimeout(fbtp_recenter, 300);
 				
-				// Final parse check to ensure Like button appears on all browsers of all speeds
-				FB.XFBML.parse();
-				
-			};
+			}; // end display popup
 			
 			// set delay if there is one
 			setTimeout(function(){
@@ -109,12 +211,26 @@
 				   markup. Then, prepend the popup to the body */
 				getPopHTML = function(){
 					
+					// Cache Vars
+					var shareButton = '';
+					var likeButton = '';
+					
 					// Check to use current URL
 					if(defaults.url == 'current'){defaults.url = window.location;}
 					
-					// Create Popup Markup
-					var tPop = '<div id="fblikebg"></div><div id="fblikepop"><div id="popup_head"><div id="closeable"></div><h1>'+defaults.title+'</h1></div><div id="popupMessage">'+defaults.message+'</div><div id="buttonArea"><div id="actionHolder"><fb:like id="fbtplike" href="'+defaults.url+'" show_faces="'+defaults.showfaces+'" width="450"></fb:like></div><div id="counter-display">'+tstrings.orwait[defaults.lang]+' <span id="counter"> </span>  '+tstrings.seconds[defaults.lang]+'.<br></div><div style="clear:both"></div></div></div>';
-								
+					// Share Button Creation
+					if(defaults.share_button == true){
+						shareButton = '<div class="fbtp-social-button share '+defaults.layout+'"><a href="#" class="fbtp-share '+defaults.colorscheme+'" onClick="fbtp_share();"><span>'+defaults.share_label+'</span></a></div>';
+					}
+					
+					// Like Button Creation
+					if(defaults.like_button == true){
+						likeButton = '<div class="fbtp-social-button like"><fb:like id="fbtplike" href="'+defaults.url+'" show_faces="'+defaults.showfaces+'" width="300" layout="'+defaults.layout+'" colorscheme="'+defaults.colorscheme+'"></fb:like>';
+					}
+						
+					// Create Popup Markup -- Default
+					var tPop = '<div id="fblikebg"></div><div id="fblikepop"><div id="popup_head"><div id="closeable"></div><h1>'+defaults.title+'</h1></div><div id="popupMessage">'+fbtp_htmlDecode(defaults.message)+'</div><div id="buttonArea"><div id="actionHolder">'+shareButton+likeButton+'</div><div id="counter-display">'+tstrings.orwait[defaults.lang]+' <span id="counter"> </span>  '+tstrings.seconds[defaults.lang]+'.<br /><a id="fbtplink" href="http://goo.gl/LKCTz" title="Facebook Traffic Pop" target="_blank">Powered By FBTP</a></div><div style="clear:both"></div></div></div>';
+
 					// Return the pop up markup
 					return tPop;
 					
@@ -130,19 +246,9 @@
 				
 				// Only show the pop up if the user has not clicked like already
 				if(cook != 'true' && waitCook != 'true'){
-											
-					// Get window width and height to center the pop up
-					var windowWidth = document.documentElement.clientWidth;
-					var windowHeight = document.documentElement.clientHeight;
-					var popupHeight = 500;
-					var popupWidth = $("#fblikepop").width();
-					
-					// Simple division will let us make sure the box is centered on all screen resolutions
-					$("#fblikepop").css({"top": "180px", "left": windowWidth/2-popupWidth/2});
-					$("#fblikebg").css({"height": windowHeight});
-					
+										
 					// Check for close button
-					if(defaults.closeable == true){$("#closeable").html('<a id="#fbflush" class="fbflush" onClick="fbtp_dump();" href="#_">'+tstrings.closeable[defaults.lang]+' x</a>');};
+					if(defaults.closeable == true){$("#closeable").html('<a id="#fbflush" class="fbflush" onClick="fbtp_dump('+defaults.closeCookie+');" href="#_">'+tstrings.closeable[defaults.lang]+' x</a>');};
 				
 					// Show Popup
 					fbtp_display();
@@ -151,53 +257,24 @@
 			
 			}, defaults.delay); // end delay
 			
-			// start escape key + outside click to close if true
-			if(defaults.advancedClose == true){
-				
-				// detect key up
-				$(document).keyup(function(e) {
-					
-					// of escape key
-					if (e.keyCode == 27) {
-						
-						// dump the popup, but dont set the cookie!  
-						fbtp_dump(false);
-									   
-					} // end if escape key
-							  
-				}); // end key up event
-													
-				// detect click in body and dump the popup
-				$('body').click(function() {
-					
-					fbtp_dump(false);
-					
-				}); // end body detect
-				
-				// Detect a click in the popup area to prevent it from closing
-				$('#fblikepop').click(function(event){
-					
-					// Strop prop. of close event
-					event.stopPropagation();
-					
-				}); // end popup click detection
-				 
-			} // end advanced close
-			
 			// OnClick Trigger
 			$('.'+defaults.onClick).live('click', function(e){
 				e.preventDefault();
 				e.stopImmediatePropagation();
 				fbtp_display();
 			});
-									
-			// FB Trigger
+												
+			// Facebook Trigger			
 			FB.Event.subscribe("edge.create", function(href, widget){
-				var thisLocker = $('#'+widget.dom.id).attr('id');
-				if(thisLocker == 'fbtplike'){
+				if( typeof widget != "undefined" ){
+					var thisLocker = jQuery(widget).attr('id');
+					if(thisLocker == 'fbtplike'){
+						fbtp_dump(true);
+					}
+				} else {
 					fbtp_dump(true);
 				}
-			});
+			});			
 	
 	}; // End Main Function
 	
