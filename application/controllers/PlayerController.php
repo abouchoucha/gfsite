@@ -244,7 +244,7 @@ class PlayerController extends GoalFaceController
         $view->nextMatch = $matchesresultnext;
         $view->previousMatch = $matchesresultprevious;
 
-        //Zend_Debug::dump ($currentClubSeason['competition_id']);
+
 
         //get position of team in league Standings
         $teamtable[0]['position'] = null;
@@ -253,11 +253,10 @@ class PlayerController extends GoalFaceController
             $rowstanding = $standing->fetchRow(
             'competition_id = ' . $currentClubSeason['competition_id']);
             if ($rowstanding['description'] != null) {
-                //get tables display goalserve
-                $xmlsource = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/standings/" .$rowstanding['description'];
-                $leagueTable = new SimpleXMLElement($xmlsource, null, true);
+                //get team position in domestic league table based on standings goalserve feed
+                $feedpath = 'standings/'. $rowstanding['description']; 
+					      $leagueTable = parent::getGoalserveFeed($feedpath);
                 $teamtable = $leagueTable->xpath("//standings/tournament[@stage_id='" . $rowstanding['round_id'] ."']/team[@id='" . $currentClubSeason['team_gs_id'] . "']");
-                //$this->view->teamTable = $teamtable;
                 $this->view->teamposition = $teamtable[0]['position'];
             }
         }
@@ -350,6 +349,7 @@ class PlayerController extends GoalFaceController
         $view->actionTemplate = 'viewplayer2.php';
         $this->_response->setBody($view->render('site.tpl.php'));
     }
+    
     function getuniqueplayerAction ()
     {
         $session = new Zend_Session_Namespace('userSession');
