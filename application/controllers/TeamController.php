@@ -316,7 +316,7 @@ class TeamController extends GoalFaceController {
 	
 	function showuniqueteamAction() {
 	
-        $teamSeoName = $this->_request->getParam ( 'name', 0 );
+      $teamSeoName = $this->_request->getParam ( 'name', 0 );
 	    $view = Zend_Registry::get ( 'view' );
 	    $session = new Zend_Session_Namespace("userSession");
 	
@@ -392,47 +392,48 @@ class TeamController extends GoalFaceController {
 				$view->lineups = $leaguelineups;
 
 				if ($rowset[0]['team_gs_id'] != null) {
-					
-				   //get minutes played from feed
+					//$feedpath = 'team/'. $rowset[0]['team_gs_id']; 
+					//$teamxml = parent::getGoalserveFeed($feedpath);
+	
+			   //get minutes played from feed
+			   /* 
 					$teamurl = 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/'.$rowset[0]['team_gs_id'];
-					$request_url = file_get_contents($teamurl);
+          $request_url = file_get_contents($teamurl);
 					$xml = new SimpleXMLElement ($request_url);
-					
+					*/			      	
 					//Competions the team is participating
-					foreach ($xml->team->leagues->league_id as $leaguexml) {
-						//$leagueTeam[]=array("competition_id"=>$leaguexml);
+					/*foreach ($xml->team->leagues->league_id as $leaguexml) {
 						$leagueTeam[] = $leaguexml;
-					}	
+					}	*/
 					
-					//ge Player Stats
+					//get Player Stats
+					
+					/*
 					foreach ( $xml->team->squad->player as $playerxml ) {
 							$playerArray[] = array("player_id"=>$playerxml['id'],
-	                                               "player_appearences"=>$playerxml ['appearences'],
-	                                               "player_minutes"=>$playerxml ['minutes'],);
+	                                   "player_appearences"=>$playerxml ['appearences'],
+	                                   "player_minutes"=>$playerxml ['minutes'],);
 					}
-						
-						
 					$common = new Common ( );
 					$playerStatSorted = $common->array_sort($playerArray, 'player_minutes', SORT_DESC);
+          */
+          
 				}
 
-			//get position of team in league Standings
+			  //get position of team in league Standings
 				$standing = new GoalserveStanding();
 				$rowstanding = $standing->fetchRow ( 'competition_id = ' . $badgeteam['competition_id'] );
 				if ($rowstanding != null) {
-					//get tables display goalserve
-					 $xmlsource = "http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/standings/".$rowstanding['description'];
-					 //Zend_Debug::dump ($xmlsource);
-					 $leagueTable = new SimpleXMLElement($xmlsource,null,true); 
-					 $teamtable = $leagueTable->xpath("//standings/tournament[@stage_id='".$rowstanding['round_id']."']/team[@id='".$rowset[0]['team_gs_id']."']"); 
-					 //$this->view->teamTable = $teamtable;
-					 $this->view->teamposition = $teamtable[0]['position'];
-					 $this->view->teamstatus = $teamtable[0]['status'];
-					 $this->view->gp = $teamtable[0]->overall['gp'];
-					 $this->view->w = $teamtable[0]->overall['w'];
-					 $this->view->d = $teamtable[0]->overall['d'];
-					 $this->view->l = $teamtable[0]->overall['l'];
-					 $this->view->pts = $teamtable[0]->total['p'];
+				  $feedpath = 'standings/'. $rowstanding['description']; 
+					$leagueTable = parent::getGoalserveFeed($feedpath);
+          $teamtable = $leagueTable->xpath("//standings/tournament[@stage_id='".$rowstanding['round_id']."']/team[@id='".$rowset[0]['team_gs_id']."']"); 
+          $this->view->teamposition = $teamtable[0]['position'];
+  				$this->view->teamstatus = $teamtable[0]['status'];
+  				$this->view->gp = $teamtable[0]->overall['gp'];
+  				$this->view->w = $teamtable[0]->overall['w'];
+  				$this->view->d = $teamtable[0]->overall['d'];
+  				$this->view->l = $teamtable[0]->overall['l'];
+  				$this->view->pts = $teamtable[0]->total['p'];
 				} 			
 	    }
 
