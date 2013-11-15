@@ -5,9 +5,12 @@ require_once 'GoalFaceController.php';
 
 class DemonioController extends GoalFaceController {
 
+
 	private static $host_domain;
+	private static $server_host;
 
 	public function init() {
+
 		Zend_Loader::loadClass ('Zend_Debug');
 		Zend_Loader::loadClass ('Player');
 		Zend_Loader::loadClass ('Team');
@@ -18,9 +21,10 @@ class DemonioController extends GoalFaceController {
 		Zend_Loader::loadClass ('Round');
 		Zend_Loader::loadClass ('Stadium');
 
+
 		$config = Zend_Registry::get ( 'config' );
 		self::$host_domain = $config->path->index->server->name;
-
+		self::$server_host = $config->server->host;
 	}
 
 	private function getplayerimage($playerid) {
@@ -48,60 +52,116 @@ class DemonioController extends GoalFaceController {
 		}
 	}
 
+
+	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/competition/COMPETITION_NAME_URL_FEED
     public function getteammapfromfixtureAction() {
       //$stage = $this->_request->getParam ( 'stage', null );
       $teamdata = new Team ();
-	    $feedpath = 'soccerfixtures/eurocups/champleague';
-	    $xml = parent::getGoalserveFeed($feedpath);
-      $seasonid = 13141005;
-      $competitionId = 10;
-	    $stage['stage_id'] = 10051547;
-	    $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
+	  $country = $this->_request->getParam ( 'country', null );
+	  $competition = $this->_request->getParam ( 'league', null );
+	  $stage = $this->_request->getParam ( 'stage', null );
+	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
+      $xml = parent::getGoalserveFeed($feedpath);
+
+		//$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
 	    //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
+		$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
+
 	    foreach($match_aggregate as $aggregate) {
-	        foreach ($aggregate->match as $match) {
+			Zend_Debug::dump($aggregate);
+			//echo $aggregate->match . "<BR>";
+	       /* foreach ($aggregate->match as $match) {
 	           $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
 	           $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
-	           echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
-	           //echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
-	           //echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamLocal['team_id']. "<br>";
-              //echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamVisitor['team_id']. "<br>";
-              //echo "INSERT INTO teamseason VALUES(".$rowTeamLocal['team_id'].",".$seasonid.",0);<br>";
-	        		//echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonid.",0);<br>";
-	        }
+				echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
+	           echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
+	           echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamLocal['team_id']. "<br>";
+               echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamVisitor['team_id']. "<br>";
+               echo "INSERT INTO teamseason VALUES(".$rowTeamLocal['team_id'].",".$seasonid.",0);<br>";
+	           echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonid.",0);<br>";
+	        }*/
 	    }
+
+
 	}
 
-
+	// Individual Player
 	public function getplayerimageAction() {
     $player = new Player ();
     $playerId = $this->_request->getParam ( 'player', null );
-    //$teamId = $this->_request->getParam ( 'team', null );
-		//$rowplayers = $player->findAllPlayersForSearch(140000,142000);
-    if (isset($playerId)) {
-      $rowplayers = $player->findPlayerProfileDetails($playerId);
+	//$rowplayers = $player->findAllPlayersForSearch(140000,142000);
+		if (isset($playerId)) {
+			$rowplayers = $player->findPlayerProfileDetails($playerId);
 		}
-		//if (isset($teamId)) {
-     // $rowplayers = $player->findPlayerTeamNoPic($playerId);
-      //Zend_Debug::dump($rowplayers);
-		//}
 		foreach ($rowplayers as $rowplayer) {
 			$playerxml = parent::getGoalserveFeed('soccerstats/player/'.$rowplayer['player_id']);
+
 			if ($playerxml != null || $playerxml != '') {
 				$string = $playerxml->player->image;
-				if ($string != "") {
+				if ($string != null || $string != '') {
+          $filesize = strlen(base64_decode($string));
+          if ($filesize > 8624) {
+            $img = imagecreatefromstring(base64_decode($string));
+  					if($img != false)
+  					{
+  						imagejpeg($img, '/home/goalface/public_html/staging/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
+  					  echo "image for player = ".$rowplayer['player_id']." saved<br><br>";
+  					}
+  					imagedestroy($img);
+          }
+				}
+			}
+		}
+	}
 
-					$img = imagecreatefromstring(base64_decode($string));
-					if($img != false)
-					{
-					  //imagejpeg($img, 'C:\wamp\www\goalface08\public\images\playerphotos\\'. $rowplayer['player_id'].'.jpg');
-				    imagejpeg($img, '/home/goalface/public_html/goalfaceapp/public/images/players/'. $rowplayer['player_id'].'.jpg');
-					  echo "image for player = ".$rowplayer['player_id']." saved<br><br>";
+	public function updateplayerimagesAction() {
+		$config = Zend_Registry::get( 'config' );
+        $file = $config->path->log->playerstats;
+        /***FILE LOG **/
+        $logger = new Zend_Log();
+        $writer = new Zend_Log_Writer_Stream($file);
+        $logger->addWriter($writer);
+
+		if (self::$server_host == 'beta') {
+			self::$server_host = 'goalfaceapp';
+		}
+
+		$from = $this->_request->getParam ( 'from', null );
+		$to = $this->_request->getParam ( 'to', null );
+
+		$player = new Player ();
+		$players = $player->getPlayersUpdateImages($from,$to);
+		foreach ($players as $rowplayer) {
+
+			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
+			//Show only players with no images in goalface
+			if (!file_exists($image_file)) {
+				echo "The file $image_file does not exist for ". $rowplayer['player_name_short']."<br>/n";
+				$playerxml = parent::getGoalserveFeed('soccerstats/player/'.$rowplayer['player_id']);
+				if ($playerxml != null || $playerxml != '') {
+					$string = $playerxml->player->image;
+					if ($string != null || $string != '') {
+						$filesize = strlen(base64_decode($string));
+						// create image only if incoming file size is greater than the size of the default "no image yet"
+						if ($filesize > 8624) {
+							$img = imagecreatefromstring(base64_decode($string));
+							if($img != false)
+							{
+								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
+								$logger->info("Image for player ".$rowplayer['player_name_short']. "(" .$rowplayer['player_id'] .") has been added.");
+							}
+							imagedestroy($img);
+						}
+
+
+
 					}
 				}
 			}
 		}
 	}
+
+
 
 	public function getteamimageAction() {
 	    $team = new Team();
@@ -124,7 +184,9 @@ class DemonioController extends GoalFaceController {
 	   }
 	}
 
-	//getmapteams/country/argentina
+	//getmapteams/country/YYYY/league/XX
+	// YYY name from standings
+	// XX id from competition_id
 
 	public function getteamsbyseasonAction() {
 	    $standing_country = $this->_request->getParam ( 'country', null );
@@ -135,23 +197,24 @@ class DemonioController extends GoalFaceController {
       $xml = parent::getGoalserveFeed($feedpath);
       $teamdata = new Team ();
 
-		foreach ($xml->tournament as $group) {
+	   /*foreach ($xml->tournament as $group) {
 		    //echo $group['name']."<BR>";
 		    foreach ($group->team as $team) {
     		  $rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
     			echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-    			//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
-    			//echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
-    			//echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+    			echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
+    			echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
+    			echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
 		     }
-		}
+		  } */
 
-		// foreach ($xml->tournament->team as $team) {
-		// 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-	 //    	//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
-		//  	echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-		//   	//echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
-		//  }
+
+		 foreach ($xml->tournament->team as $team) {
+		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+	    	//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
+		  	//echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+		   	echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		  }
 
 /*		$rowTeam ['team_gs_id'] = 13904;
 		$xml = $this->getgsfeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
