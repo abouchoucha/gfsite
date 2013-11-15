@@ -103,14 +103,27 @@ class GoalFaceController extends Zend_Controller_Action {
 		
 		curl_close($this->curl);
 		
-
+/*
 		if($xmlResult != null){
   			# SET UP XML OBJECT.
   			$xml = new SimpleXMLElement ( $xmlResult );
   			return $xml;
-  		} else {
+  	} else {
   			return null;
-  		}
+  	}
+*/
+    //sends null if XML is malformed
+    libxml_use_internal_errors(true);
+    try{
+      $xml = new SimpleXMLElement($xmlResult);
+      return $xml;
+    } catch (Exception $e){
+      //echo 'Please try again later...';
+      return null;
+      exit();
+    } 
+  	
+  	
 	}
 	
 	/**
