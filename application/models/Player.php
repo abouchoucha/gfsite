@@ -1323,7 +1323,22 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 	$row = $result->fetchAll () ;
 	return $row ;
 
-
 	}
+
+	public function getPlayersUpdateImages($from,$to){
+		$db = $this->getAdapter () ;
+		$sql = " SELECT DISTINCT tp.player_id, p.player_name_short FROM teamplayer tp INNER JOIN player p ON p.player_id = tp.player_id ";
+		$sql .= " where tp.player_id > " .$from ;
+    $sql .= " and tp.player_id <= " .$to ;
+    $sql .= " ORDER by tp.player_id ASC ";
+		echo $sql;
+	  	$result = $db->query ( $sql ) ;
+	  	$row = $result->fetchAll () ;
+		return $row ;
+	}
+
+
+
+
 }
 ?>
