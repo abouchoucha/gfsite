@@ -1631,6 +1631,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 				foreach ($allmatches as $match) {
 
 						//Does match exist on GoalFace DB
+						self::$logger->debug ( "Match Id Processing:" .$match ['id']);
+
 						$matchExist = $matchObject->fetchRow ( 'match_id_goalserve = ' .$match ['id'] );
 
 						$match_id = 'G'. $match ['id'];
@@ -1777,101 +1779,121 @@ class GoalservetogoalfaceController extends GoalFaceController {
 							// localteam
 							$j = $i;
 							foreach($match->lineups->localteam->player as $lineuplocal) {
-								if ($lineuplocal['id'] != "") {
-									$datalineuplocal = array (
-										'event_id' => 'E' . $match ['id'] . $j,
-										'player_id' => $lineuplocal['id'],
-										'event_type_id'=>'L',
-										'match_id' => 'G' . $match ['id'],
-										'team_id' => $rowTeamA ['team_id'],
-										'time' => $new_gf_date ." ". $new_gf_time,
-										'jersey_number' => $lineuplocal['number'],
-									);
-									echo '---->Inserting Matchevent: <strong>' . 'E' . $match ['id'] . $j . '</strong> Event: <b>L</b> - Team: '. $rowTeamA ['team_id'] .' - Player: '. $lineuplocal['id'] .'<br>';
-									//Zend_Debug::dump($datalineuplocal)."<BR>";
-									$matchEventObject->insert ( $datalineuplocal );
+								try {
+									if ($lineuplocal['id'] != "") {
+										$datalineuplocal = array (
+											'event_id' => 'E' . $match ['id'] . $j,
+											'player_id' => $lineuplocal['id'],
+											'event_type_id'=>'L',
+											'match_id' => 'G' . $match ['id'],
+											'team_id' => $rowTeamA ['team_id'],
+											'time' => $new_gf_date ." ". $new_gf_time,
+											'jersey_number' => $lineuplocal['number'],
+										);
+										echo '---->Inserting Matchevent: <strong>' . 'E' . $match ['id'] . $j . '</strong> Event: <b>L</b> - Team: '. $rowTeamA ['team_id'] .' - Player: '. $lineuplocal['id'] .'<br>';
+										//Zend_Debug::dump($datalineuplocal)."<BR>";
+										$matchEventObject->insert ( $datalineuplocal );
 
-									//Activity Lineup Local
-									$playerid = $player->fetchRow ( 'player_id = ' . $lineuplocal['id'] );
+										//Activity Lineup Local
+										$playerid = $player->fetchRow ( 'player_id = ' . $lineuplocal['id'] );
 
-									// Added 5-5-13
-									if ($playerid == null) {
-										self::$logger->debug ( 'Lineup Local Player NOT FOUND on DB - playerId: ' .$lineuplocal['id'] );
-										$playerid = self::insertNewPlayer($lineuplocal['id'] ,$rowTeamA ['team_id']);
-										if($playerid == null){
-											//insert a player with minimal data
-											$playerid = self::insertBasicInfoPlayer($lineuplocal['id'], $rowTeamA ['team_id']);
+										// Added 5-5-13
+										if ($playerid == null) {
+											self::$logger->debug ( 'Lineup Local Player NOT FOUND on DB - playerId: ' .$lineuplocal['id'] );
+											$playerid = self::insertNewPlayer($lineuplocal['id'] ,$rowTeamA ['team_id']);
+											if($playerid == null){
+												//insert a player with minimal data
+												$playerid = self::insertBasicInfoPlayer($lineuplocal['id'], $rowTeamA ['team_id']);
+											}
 										}
+
+										$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
+										$player_shortname = $playerid ['player_name_short'];
+										$matchscore = null;
+										$playersPathName = $this->getplayerimage($lineuplocal['playerid']);
+										$event = null;
+										$event = array(
+											'id' => 'E' . $match ['id'] . $j,
+											'eventtype' => 'L',
+											'player_id' => $lineuplocal['id'],
+											'date_event' => $new_gf_date ." ". $new_gf_time,
+										);
+
+										self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $match_id,null );
+
+									} else {
+										self::$logger->debug ( "Player Id missing for event Lineup on match:" .$match ['id'] ." for team: ". $rowTeamA ['team_id']);
 									}
 
-									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
-									$player_shortname = $playerid ['player_name_short'];
-									$matchscore = null;
-									$playersPathName = $this->getplayerimage($lineuplocal['playerid']);
-									$event = null;
-									$event = array(
-										'id' => 'E' . $match ['id'] . $j,
-										'eventtype' => 'L',
-										'player_id' => $lineuplocal['id'],
-										'date_event' => $new_gf_date ." ". $new_gf_time,
-									);
-
-									self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $match_id,null );
-
-								} else {
-									self::$logger->debug ( "Player Id missing for event Lineup on match:" .$match ['id'] ." for team: ". $rowTeamA ['team_id']);
+								} catch ( Exception $e ) {
+															
+									self::$logger->err ( "Caught LINEUP LOCAL exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
+									self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
+									continue;
 								}
-							$j++;}
+							$j++;
+							}
 
 							// visitorteam
 							$k = $j;
 							foreach($match->lineups->visitorteam->player as $lineupvisitor) {
-								if ($lineupvisitor['id'] != "") {
-									$datalineupvisitor = array (
-										'event_id' => 'E' . $match ['id'] . $k,
-										'player_id' => $lineupvisitor['id'],
-										'event_type_id'=>'L',
-										'match_id' => 'G' . $match ['id'],
-										'team_id' => $rowTeamB ['team_id'],
-										'time' => $new_gf_date ." ". $new_gf_time,
-										'jersey_number' => $lineupvisitor['number'],
-									);
-									echo '---->Inserting Matchevent: <strong>' . 'E' . $match ['id'] . $k . '</strong> Event: <b>L</b> - Team: '. $rowTeamB ['team_id'] .' - Player: '. $lineupvisitor['id'] .'<br>';
-									//Zend_Debug::dump($datalineupvisitor)."<BR>";
-									$matchEventObject->insert ( $datalineupvisitor );
+								try{
 
-									//Activity Lineup Visitor
-									$playerid = $player->fetchRow ( 'player_id = ' . $lineupvisitor['id'] );
+									if ($lineupvisitor['id'] != "") {
+										$datalineupvisitor = array (
+											'event_id' => 'E' . $match ['id'] . $k,
+											'player_id' => $lineupvisitor['id'],
+											'event_type_id'=>'L',
+											'match_id' => 'G' . $match ['id'],
+											'team_id' => $rowTeamB ['team_id'],
+											'time' => $new_gf_date ." ". $new_gf_time,
+											'jersey_number' => $lineupvisitor['number'],
+										);
+										echo '---->Inserting Matchevent: <strong>' . 'E' . $match ['id'] . $k . '</strong> Event: <b>L</b> - Team: '. $rowTeamB ['team_id'] .' - Player: '. $lineupvisitor['id'] .'<br>';
+										//Zend_Debug::dump($datalineupvisitor)."<BR>";
+										$matchEventObject->insert ( $datalineupvisitor );
 
-									// Added 5-5-13
-									if ($playerid == null) {
-										self::$logger->debug ( 'Lineup Visitor Player NOT FOUND on DB - playerId: ' .$lineupvisitor['id'] );
-										$playerid = self::insertNewPlayer($lineupvisitor['id'] ,$rowTeamB ['team_id']);
-										if($playerid == null){
-											//insert a player with minimal data
-											$playerid = self::insertBasicInfoPlayer($lineupvisitor['id'], $rowTeamB ['team_id']);
+										//Activity Lineup Visitor
+										$playerid = $player->fetchRow ( 'player_id = ' . $lineupvisitor['id'] );
+
+										// Added 5-5-13
+										if ($playerid == null) {
+											self::$logger->debug ( 'Lineup Visitor Player NOT FOUND on DB - playerId: ' .$lineupvisitor['id'] );
+											$playerid = self::insertNewPlayer($lineupvisitor['id'] ,$rowTeamB ['team_id']);
+											if($playerid == null){
+												//insert a player with minimal data
+												$playerid = self::insertBasicInfoPlayer($lineupvisitor['id'], $rowTeamB ['team_id']);
+											}
 										}
+
+
+										$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
+										$player_shortname = $playerid ['player_name_short'];
+										$matchscore = null;
+										$playersPathName = $this->getplayerimage($lineupvisitor['playerid']);
+										$event = null;
+										$event = array(
+											'id' => 'E' . $match ['id'] . $j,
+											'eventtype' => 'L',
+											'player_id' => $lineupvisitor['id'],
+											'date_event' => $new_gf_date ." ". $new_gf_time,
+										);
+
+										self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $match_id,null );
+
+									} else {
+										self::$logger->debug ( "Player Id missing for event Lineup on match:" .$match ['id'] ." for team: ". $rowTeamB ['team_id']);
 									}
 
-
-									$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
-									$player_shortname = $playerid ['player_name_short'];
-									$matchscore = null;
-									$playersPathName = $this->getplayerimage($lineupvisitor['playerid']);
-									$event = null;
-									$event = array(
-										'id' => 'E' . $match ['id'] . $j,
-										'eventtype' => 'L',
-										'player_id' => $lineupvisitor['id'],
-										'date_event' => $new_gf_date ." ". $new_gf_time,
-									);
-
-									self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $match_id,null );
-
-								} else {
-									self::$logger->debug ( "Player Id missing for event Lineup on match:" .$match ['id'] ." for team: ". $rowTeamB ['team_id']);
+								} catch ( Exception $e ) {
+															
+									self::$logger->err ( "Caught LINEUP VISITOR exception: " . get_class ( $e ) . " ->" . $e->getMessage () );
+									self::$logger->err ( $e->getTraceAsString () . "\n-----------------------------" );
+									continue;
 								}
-							$k++;}
+									
+								$k++;
+							}
 
 							//localteam subs
 							$l = $k;
@@ -1977,7 +1999,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 									//Insert New PLayer HERE - Added 5-5-13
 									if ($playerid == null) {
-										self::$logger->debug ( 'Lineup Visitor Player NOT FOUND on DB - playerId: ' .$subvisitor['player_in_id'] );
+										self::$logger->debug ( 'Sub in Visitor Player NOT FOUND on DB - playerId: ' .$subvisitor['player_in_id'] );
 										$playerid = self::insertNewPlayer($subvisitor['player_in_id'] ,$rowTeamB ['team_id']);
 										if($playerid == null){
 											//insert a player with minimal data
@@ -2454,16 +2476,17 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		}
 	}
 
-
+ // updatesquad/league/7 - ALL teams from la liga (7))
+ // updatesquad/league/7/team/2017 - Only team id
 
 	public function updatesquadAction() {
 		$config = Zend_Registry::get( 'config' );
-        $file = $config->path->log->updatesquad;
+    $file = $config->path->log->updatesquad;
 
-        /***FILE LOG **/
-        $logger = new Zend_Log();
-        $writer = new Zend_Log_Writer_Stream($file);
-        $logger->addWriter($writer);
+      /***FILE LOG **/
+      $logger = new Zend_Log();
+      $writer = new Zend_Log_Writer_Stream($file);
+      $logger->addWriter($writer);
 
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
@@ -2512,9 +2535,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 							  	foreach ($xmlplayer->player as $xmlPlayer) {
 
-					  				$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
+					  			$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
 									$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-									$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+									$birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
+									$mydate = date ( "Y-m-d", strtotime ( $birthdate ) );
 									$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 									$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 									$player_height = $arr_height [0];
@@ -2564,7 +2588,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									foreach ($xmlplayer->player as $xmlPlayer) {
 
 										//Updating Player Details Missing Fields
-										$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+										$birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
+									  $mydate = date ( "Y-m-d", strtotime ( $birthdate ) );
 										$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 										$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 										$player_height = $arr_height [0];
