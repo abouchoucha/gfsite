@@ -273,7 +273,7 @@ class DemonioController extends GoalFaceController {
     			echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
     			echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
     			echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
-    			echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+    			echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
 		     }
 		  } */
 
@@ -290,8 +290,8 @@ class DemonioController extends GoalFaceController {
 		  
 		  foreach ($xml->tournament->team as $team) {
 		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-		   	echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
-		  }
+		   	echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		  }   
 
 /*		$rowTeam ['team_gs_id'] = 13904;
 		$xml = $this->getgsfeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
