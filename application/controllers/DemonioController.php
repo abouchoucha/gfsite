@@ -1,5 +1,6 @@
 <?php
 require_once 'util/Constants.php';
+require_once 'util/Common.php';
 require_once 'scripts/seourlgen.php';
 require_once 'GoalFaceController.php';
 
@@ -37,8 +38,77 @@ class DemonioController extends GoalFaceController {
 		}
 		return $imageplayer;
 	}
-
-
+	
+	//Fetches Player Data from Feed
+	private function getplayerfeed($id,$shortname) {
+  
+    $common = new Common ();
+  	$date = new Zend_Date ();
+		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
+    $country = new Country ();
+    // fetch player feed from provider
+    $feedpath = 'soccerstats/player/' . $id;
+    $player = parent::getGoalserveFeed($feedpath);
+        
+    
+    foreach ($player->player as $xmlPlayer) {
+      $rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
+  		$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
+      $birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
+      $dob_date = date ( "Y-m-d", strtotime ($birthdate) );
+      $arr_height = explode ( " ", $xmlPlayer->height, 2 );
+  		$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
+  		$player_height = $arr_height [0];
+  		$player_weight = $arr_weight [0];
+  		if ($xmlPlayer->position == 'Attacker') {
+  			$player_position = 'Forward';
+  		} else {
+  			$player_position = $xmlPlayer->position;
+  		}
+  		
+  		//Load Data Player Array
+      $dataPlayer = array ('player_id' => $xmlPlayer ['id'], //1
+  			'player_firstname' => $xmlPlayer->firstname, //2
+  			'player_middlename' => '',
+  			'player_lastname' => $xmlPlayer->lastname, //3
+  			'player_common_name' => $common->stripAccents($xmlPlayer->name),
+  			'player_name_short' => $shortname,
+  			'player_dob' => $dob_date, //4
+  			'player_dob_city' => $xmlPlayer->birthplace,
+  			'player_type' => 'player', //5
+  			'player_country' => $rowBirthCountry ['country_id'], //5
+  			'player_nationality' => $rowNationalityCountry ['country_id'], //5
+  			'player_position' => $player_position, //5
+  			'player_creation' => $today,
+  			'player_height' => $player_height,
+  			'player_weight' => $player_weight, 
+      );
+    }
+        
+    return $dataPlayer;
+  }
+  
+  private function saveplayerimage($playerId) {
+  
+    $feedpath = 'soccerstats/player/' . $playerId;
+    $playerxml = parent::getGoalserveFeed($feedpath);
+    $string = $playerxml->player->image;
+		
+    if ($string != null || $string != '') {
+			$filesize = strlen(base64_decode($string));
+			Zend_Debug::dump("image size : " . $filesize);
+      // create image only if incoming file size is greater than the size of the default "no image yet"
+			if ($filesize > 8624) {
+				$img = imagecreatefromstring(base64_decode($string));
+				if($img != false)
+				{
+					imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/players/'. $playerId .'.jpg');
+				}
+				imagedestroy($img);
+			}
+		}			
+  }
+	
 
 	public function indexAction() {
 		$standing_country = $this->_request->getParam ( 'country', null );
@@ -46,7 +116,7 @@ class DemonioController extends GoalFaceController {
         $xml = parent::getGoalserveFeed($feedpath);
 		$teamdata = new Team ();
 
-		//Zend_Debug::dump($xml);
+		
 		foreach ($xml->tournament->team as $team) {
 		    echo $team['id'] ."<BR>";
 		}
@@ -152,9 +222,6 @@ class DemonioController extends GoalFaceController {
 							}
 							imagedestroy($img);
 						}
-
-
-
 					}
 				}
 			}
@@ -184,9 +251,7 @@ class DemonioController extends GoalFaceController {
 	   }
 	}
 
-	//getmapteams/country/YYYY/league/XX
-	// YYY name from standings
-	// XX id from competition_id
+//http://staging.goalface.com/demonio/getteamsbyseason/country/bolivia/league/69/season/13141109
 
 	public function getteamsbyseasonAction() {
 	    $standing_country = $this->_request->getParam ( 'country', null );
@@ -211,8 +276,16 @@ class DemonioController extends GoalFaceController {
 
 		 foreach ($xml->tournament->team as $team) {
 		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-	    	//echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
-		  	//echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+	    	echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
+		  }
+		  
+		 foreach ($xml->tournament->team as $team) {
+		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+		  	echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+		  }
+		  
+		  foreach ($xml->tournament->team as $team) {
+		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
 		   	echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
 		  }
 
@@ -537,6 +610,123 @@ class DemonioController extends GoalFaceController {
 			}
 		}
 	}
+	
+	 //Zend_Debug::dump($xml->team->squad);
+	// updatesquad/league/7 - ALL teams from la liga (7))
+ // updatesquad/league/7/team/2017 - Only team id
+
+	public function updatesquadAction() {
+	  $config = Zend_Registry::get( 'config' );
+    $file = $config->path->log->updatesquad;
+
+		$date = new Zend_Date ();
+		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
+	
+		$team = new Team ();
+		$teamplayer = new TeamPlayer ();
+		$player = new Player ();
+		$teamplayer = new TeamPlayer ();
+		$country = new Country ();
+		$teamid = $this->_request->getParam ( 'team', null );
+		$leagueid = $this->_request->getParam ( 'league', null );
+		$teams_league = $team->getTeamsPerCompetitionParse($leagueid,$teamid);
+
+		// iterate over all team on a league
+		foreach($teams_league as $teamleague) {
+		
+		  
+		  //get team information array
+			$rowTeam = $team->fetchRow ( 'team_id = ' . $teamleague['team_id'] );
+			if ($rowTeam ['team_gs_id'] != null)  {
+			 
+			 $feed_team_path = 'soccerstats/team/' . $rowTeam ['team_gs_id'];
+       $xml = parent::getGoalserveFeed($feed_team_path);
+			 
+				//iterate over all players on team roaster
+				echo "===" .$xml->team->name . "--" . $teamleague['team_id'] ."=====\n"; 
+        foreach ( $xml->team->squad->player as $playersquad )	{
+            
+            $player_feed_array[] = $playersquad['id'];
+						
+            //check if player exists GoalFace DB
+						$rowPlayer = $player->fetchRow ( 'player_id = ' . $playersquad ['id'] );
+						if ($rowPlayer == null ) {
+						  //player not in goalface db
+						  echo "<strong>".$playersquad ['id']. " ". $playersquad ['name']." NOT in DB</strong><BR>\n";
+						  
+						  $player_short_name = $playersquad ['name'];
+						  $playersData = $this->getplayerfeed($playersquad ['id'],$player_short_name);
+						  
+              //Insert New Player
+              $player->insert ($playersData);
+              echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED</strong><br>\n";
+              
+              //insert teamplayer relation
+							$dataTeamPlayer = array ('player_id' => $playersquad ['id'],
+                                        'team_id' => $teamleague['team_id'], 
+                                        'actual_team' => '1' );	
+							$teamplayer->insert($dataTeamPlayer );
+			
+              echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED INSERT INTO " . $teamleague['team_id'] ." SQUAD</strong><br>\n";
+              
+              //Save player image from feed if Exists
+              $this->saveplayerimage($playersquad ['id']);
+              echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." IMAGE ADDED</strong><br>\n";
+              
+              //Insert Player Team Relation
+              
+            } else {
+                //player Exists goalface db
+                echo $playersquad ['id']. " ". $playersquad ['name']." OK<br>\n";
+            }
+				}
+				
+				//Relocate Orphan Players Not on this team squad anymore. Compare Current DB teamsquad against Feed Squad
+				$CurrentTeamPlayers = $teamplayer->findAllPlayersByTeam($teamleague['team_id']);
+				foreach ($CurrentTeamPlayers as $teamplayers) {
+					$playerteam[] = $teamplayers['player_id'];
+				}
+    		$orphans = array_diff($playerteam,$player_feed_array);
+        if ($orphans != null) {
+          foreach ($orphans as $playerorphan) {
+            $feed_team_path = 'soccerstats/player/' . $playerorphan;
+            $xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
+               if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
+                   foreach ($xmlplayerfeed->player as $xmlPlayer) {
+                      if(!empty($xmlPlayer->teamid) AND  $xmlPlayer->teamid != null AND $xmlPlayer->teamid != 0) {
+                          $rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
+      										//Update to new team
+      										$dataTeamPlayerUpdate = array ('actual_team' => '0' );
+      										$teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
+      										//new team
+      										$dataTeamPlayerUpdateNew = array ('player_id' => $playerorphan, 'team_id' => $rowTeamNewCurrent['team_id'], 'actual_team' => '1' );
+      										$teamplayer->insert ( $dataTeamPlayerUpdateNew );
+    										echo $xmlPlayer->name ." ".$playerorphan . "----->Updating old to (0) ".$teamid ." and (1) Current Team : -> " . $rowTeamNewCurrent['team_id'] . "<br>\n";
+                      } else {
+                          // Current TEAM ID EMPTY on feed no current team in feed , update current team to 0 and leave it
+      										$dataTeamPlayerUpdate = array ('actual_team' => '0' );
+      										$teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
+      										echo $xmlPlayer->name ." ".$playerorphan . "----->Updating old to (0) ".$teamid ." No current team on feed <br>\n";
+  									  }
+                   }
+               } 
+          }
+        }
+
+			} else {
+					echo "Team Id :" . $teamid . " has not been mapped";
+					$logger->info("Team Not Mapped : " .$teamleague['team_id']);
+			}
+		  //$logger->info("Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']);
+			//echo "Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']."<BR>";
+
+		}
+		
+		
+		
+	}
+	
+	
 
 }
 ?>
