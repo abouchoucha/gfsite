@@ -93,6 +93,10 @@ class DemonioController extends GoalFaceController {
     $feedpath = 'soccerstats/player/' . $playerId;
     $playerxml = parent::getGoalserveFeed($feedpath);
     $string = $playerxml->player->image;
+    
+    if (self::$server_host == 'beta') {
+			self::$server_host = 'goalfaceapp';
+		}
 		
     if ($string != null || $string != '') {
 			$filesize = strlen(base64_decode($string));
