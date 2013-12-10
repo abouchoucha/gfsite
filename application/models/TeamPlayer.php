@@ -1,12 +1,12 @@
-<?php 
+<?php
 class TeamPlayer extends Zend_Db_Table_Abstract
 {
     protected $_primary = "team_id";
     protected $_name = "teamplayer";
-    
+
     public function findTeamPlayer($playerId , $teamId){
         $db = $this->getAdapter();
-        $sql =  " select * "; 
+        $sql =  " select * ";
         $sql .= " from teamplayer ";
         $sql .= " where team_id = ".$teamId;
         $sql .= " and player_id = ".$playerId;
@@ -15,10 +15,10 @@ class TeamPlayer extends Zend_Db_Table_Abstract
         $row = $result->fetchAll();
         return $row;
     }
-    
+
     public function findCurrentTeamPlayer($playerId , $teamType , $actualTeam , $teamId = null){
     	$db = $this->getAdapter();
-        $sql =  " select tp.team_id "; 
+        $sql =  " select tp.team_id ";
         $sql .= " from teamplayer tp, team t ";
         $sql .= " where tp.team_id = t.team_id ";
         $sql .= " and tp.player_id = ".$playerId;
@@ -32,10 +32,10 @@ class TeamPlayer extends Zend_Db_Table_Abstract
         $row = $result->fetchColumn() ;
         return $row;
     }
-    
+
 	public function findCurrentTeamPlayerTemp($playerId , $teamType,$teamId = null){
     	$db = $this->getAdapter();
-        $sql =  " select tp.team_id "; 
+        $sql =  " select tp.team_id ";
         $sql .= " from teamplayer tp, team t ";
         $sql .= " where tp.team_id = t.team_id ";
         $sql .= " and tp.player_id = ".$playerId;
@@ -49,7 +49,7 @@ class TeamPlayer extends Zend_Db_Table_Abstract
         $row = $result->fetchColumn() ;
         return $row;
     }
-    
+
     public function findActiveTeamBoolean ($playerid ,$teamid) {
     	$db = $this->getAdapter();
     	 $sql =  " select tp.team_id ";
@@ -60,27 +60,27 @@ class TeamPlayer extends Zend_Db_Table_Abstract
     	 $result = $db->query ($sql);
          $row = $result->fetchAll();
          return $row;
-    	
+
     }
-    
+
     public function findAllPlayersByTeam($teamId){
-    	
+
     	$db = $this->getAdapter();
         $sql = " select player_id from teamplayer where team_id = ". $teamId ." and actual_team = 1 " ;
         $result = $db->query ( $sql ) ;
         $row = $result->fetchAll () ;
         return $row ;
     }
-    
+
     public function findAllPlayersByTeamTemp($teamId){
-    	
+
     	$db = $this->getAdapter();
         $sql = " select player_id,team_id from teamplayer where team_id = ". $teamId ." and actual_team = 2 " ;
         $result = $db->query ( $sql ) ;
         $row = $result->fetchAll () ;
         return $row ;
     }
-    
+
     public function updateTeamPlayer($playerid ,$teamid ,$data)
     {
         $db = $this->getAdapter();
@@ -96,15 +96,15 @@ class TeamPlayer extends Zend_Db_Table_Abstract
     }
 
     public function updateTeamPlayerTemp($teamId,$data) {
-    	$db = $this->getAdapter ();   	
+    	$db = $this->getAdapter ();
     	$where[] = "team_id=".$teamId;
 		$where[] = "actual_team = 1";
     	$db->update( 'teamplayer' ,$data ,$where);
     }
 	public function deleteTeamPlayer($teamId ){
 		$db = $this->getAdapter ();
-		$db->delete( 'teamplayer' , 'team_id='.$teamId .' and actual_team = 1');
+		$db->delete( 'teamplayer' , 'team_id='.$teamId);
 	}
 
-      
-}      
+
+}
