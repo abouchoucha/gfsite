@@ -291,7 +291,7 @@ class DemonioController extends GoalFaceController {
 		  
 		  foreach ($xml->tournament->team as $team) {
 		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-		   	echo "http://www.goalface.com/demoni/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		   	echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
 		  }   
 
 /*		$rowTeam ['team_gs_id'] = 13904;
