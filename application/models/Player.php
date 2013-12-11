@@ -257,7 +257,8 @@ class Player extends Zend_Db_Table_Abstract {
 
     public function  getActualClubTeamSeason($playerId)  {
         $db = $this->getAdapter () ;
-		$sql = " SELECT tp.team_id,tp.actual_team,t.team_name,t.team_gs_id,t.team_seoname,t.team_type,lc.competition_id,lc.competition_name,s.season_id,s.title,c.country_id,c.country_name ";
+		$sql = " SELECT tp.team_id,tp.actual_team,t.team_name,t.team_gs_id,t.team_seoname, ";
+    $sql .= " t.team_type,lc.competition_id,lc.competition_name,s.season_id,s.title,c.country_id,c.country_name ";
 		$sql .= " FROM teamplayer tp ";
 		$sql .= " INNER JOIN team t ON t.team_id = tp.team_id ";
 		$sql .= " INNER JOIN country c ON c.country_id = t.country_id ";
@@ -265,10 +266,10 @@ class Player extends Zend_Db_Table_Abstract {
 		$sql .= " INNER JOIN season s ON ts.season_id = s.season_id ";
 		$sql .= " INNER JOIN league_competition lc ON lc.competition_id = s.competition_id ";
 		$sql .= " WHERE tp.player_id = " . $playerId;
-		$sql .= " AND t.team_type = 'club' AND actual_team = 1 AND s.active = 1 AND lc.format = 'domestic league' ";
+		$sql .= " AND t.team_type = 'club' AND actual_team != 0 AND s.active = 1 AND lc.format = 'domestic league' ";
 		$sql .= " ORDER By s.start_date DESC ";
-        //echo $sql;
-        $result = $db->query ( $sql ) ;
+    //echo $sql;
+    $result = $db->query ( $sql ) ;
 		$row = $result->fetch () ;
 		return $row ;
     }

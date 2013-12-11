@@ -38,6 +38,7 @@ class PlayerController extends GoalFaceController
         $player = new Player();
         //from findUniquePlayer
         $view->playerid = $rowset->player_id;
+        $view->playertype = $rowset->player_type;
         $view->playername = $rowset->player_name_short;
         $view->playerfname = $rowset->player_firstname;
         $view->playerlname = $rowset->player_lastname;
@@ -59,6 +60,7 @@ class PlayerController extends GoalFaceController
         $currentclubseason['team_id'] = null;
         $currentclubseason = $player->getActualClubTeamSeason($playerId);
         if ($currentclubseason != null) {
+            $view->playeractualteam = $currentclubseason['actual_team'];
             $view->playerteamleagueid = $currentclubseason['competition_id'];
             $view->playerteamleague = $currentclubseason['competition_name'];
             $view->playerteamid = $currentclubseason['team_id'];
@@ -204,8 +206,7 @@ class PlayerController extends GoalFaceController
         $view->total_stats_int = $cup_int_stats_total;
         $view->stats_national = $nat_team_stats;
         $view->total_stats_nat = $nat_team_stats_total;
-
-     
+    
         //old
         $teamsplayedagainst = $player->getPlayerMatchEventsTeamsSelect($playerId);
         $view->teamselect = $teamsplayedagainst;
@@ -214,8 +215,6 @@ class PlayerController extends GoalFaceController
 
         //get competition(s) where player is participating (played) this season
         $playerseasoncompetition = $season->getActiveCompetitionPerTeamSeason($currentClubSeason['team_id'],$currentClubSeason['title']);
-        //$view->playerleagues = $playerseasoncompetition;
-
 
         //get current player stats for all competitions the player is participating
         $stats = array();
@@ -243,8 +242,6 @@ class PlayerController extends GoalFaceController
         }
         $view->nextMatch = $matchesresultnext;
         $view->previousMatch = $matchesresultprevious;
-
-
 
         //get position of team in league Standings
         $teamtable[0]['position'] = null;
@@ -308,7 +305,6 @@ class PlayerController extends GoalFaceController
             $rowsetregionaltotal = $player->getPlayerTeamTotalStatsDetails($playerId, 2);
             $rowsetnationaltotal = $player->getPlayerTeamTotalStatsDetails($playerId, 3);
         }
-
         $view->player_club_stats = $rowsetclub;
         $view->player_regional_stats = $rowsetregional;
         $view->player_national_stats = $rowsetnational;
@@ -318,9 +314,6 @@ class PlayerController extends GoalFaceController
         $view->total_club_stats = count($rowsetclub);
         $view->total_regional_stats = count($rowsetregional);
         $view->total_national_stats = count($rowsetnational);
-
-
-
 
         $isFavorite = "false";
         if ($session->email != null) {

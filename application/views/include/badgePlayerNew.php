@@ -21,10 +21,17 @@
     <p class="posit">
     	Position: &nbsp;<?php  if (empty($this->playerpos)){echo "Unavailable"; } else {echo $this->playerpos;} ?>
     	<br>
-		Club:&nbsp;
-		<a href="<?php echo $urlGen->getClubMasterProfileUrl ( $this->playerteamid, $this->playerteamseoclub, True ); ?>">
-                <?php echo $this->playerteamclub; ?>
+		  Club:&nbsp;
+		 <?php if ($this->playeractualteam == 1) { ?>
+		    <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $this->playerteamid, $this->playerteamseoclub, True ); ?>">
+                <?php echo $this->playerteamclub; ?>--<?php echo $this->playeractualteam; ?>
          </a>
+      <?php } elseif ($this->playeractualteam == 2) { ?>
+       <strong>Free Agent</strong>
+      <?php } else { ?> 
+      <strong>Retired</strong>
+      <?php } ?>     
+         
          <br>
          Nationality:&nbsp;<?php if (empty($this->playercountry)){echo "Unavailable"; } else {echo  $this->playercountry;} ?>
     </p>

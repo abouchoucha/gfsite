@@ -103,17 +103,8 @@ class GoalFaceController extends Zend_Controller_Action {
 		
 		curl_close($this->curl);
 		
-/*
-		if($xmlResult != null){
-  			# SET UP XML OBJECT.
-  			$xml = new SimpleXMLElement ( $xmlResult );
-  			return $xml;
-  	} else {
-  			return null;
-  	}
-*/
     //sends null if XML is malformed
-    libxml_use_internal_errors(true);
+    /*libxml_use_internal_errors(true);
     try{
       $xml = new SimpleXMLElement($xmlResult);
       return $xml;
@@ -121,9 +112,13 @@ class GoalFaceController extends Zend_Controller_Action {
       //echo 'Please try again later...';
       return null;
       exit();
-    } 
-  	
-  	
+    } */
+  	if(simplexml_load_string($xmlResult)) {
+  	   $xml = new SimpleXMLElement($xmlResult);
+  	   return $xml;
+    } else {
+       return null;
+    }
 	}
 	
 	/**

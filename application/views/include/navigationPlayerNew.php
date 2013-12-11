@@ -18,9 +18,11 @@
          <li class="<?php echo($this->playerMenuSelected == 'stats'?'active':'noactive'); ?>">
             <a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerstatsdetail/id/<?php echo $this->playerid; ?>">Player Statistics</a>
          </li> 
-         <li class="<?php echo($this->playerMenuSelected == 'mates'?'active':'noactive'); ?>">
-            <a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerteammates/id/<?php echo $this->playerid; ?>">Teammates</a>
-         </li>
+         <?php if ($this->playeractualteam == 1) { ?>
+           <li class="<?php echo($this->playerMenuSelected == 'mates'?'active':'noactive'); ?>">
+              <a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerteammates/id/<?php echo $this->playerid; ?>">Teammates</a>
+           </li>
+        <?php }  ?>
          <li class="<?php echo($this->playerMenuSelected == 'fans'?'active':'noactive'); ?>">
             <?php if ($session->email != null) { ?>
             	<a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerfans/id/<?php echo $this->playerid; ?>">Fans</a>

@@ -339,29 +339,32 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
      	  <div class="proff">
              <div class="prof1">
                 <h1><?php echo $this->playername;?></h1>
+                  
+            <?php if($this->playeractualteam == 1) {?>       
                   <span class="subscribe">
-                   <?php if ($session->email != null) { ?>
-              			<?php if ($this->isFavorite == 'false') { ?>
-          			        <a id="btn_player_on_<?php echo $this->playerid;?>" class="subscribe" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
-                    			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
-                    		</a>
-                    		<a id="btn_player_off_<?php echo $this->playerid;?>" class="unsubscribe ScoresClosed" href="javascript:" onclick="unsubscribeToPlayer(<?php echo $this->playerid;?>);">
-                    			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/unsubscribeprofile.png" alt="Unsubscribe to <?php echo $this->playername;?>'s updates">
-                    		</a>
-                          <?php } else { ?>
-                        	<a id="btn_player_off_<?php echo $this->playerid;?>" class="unsubscribe" href="javascript:" onclick="unsubscribeToPlayer(<?php echo $this->playerid;?>);">
-                    			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/unsubscribeprofile.png" alt="Unsubscribe to <?php echo $this->playername;?>'s updates">
-                    		</a>
-                    		<a id="btn_player_on_<?php echo $this->playerid;?>" class="subscribe  ScoresClosed" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
-                    			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
-                    		</a>
-                            <?php }  ?>
-            				<?php } else { ?>
-        					    <a id="btn_playerid_<?php echo $this->playerid;?>" class="subscribe" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
-        							<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
-        						</a>
-            				<?php }  ?>
+                     <?php if ($session->email != null) { ?>
+                			<?php if ($this->isFavorite == 'false') { ?>
+            			        <a id="btn_player_on_<?php echo $this->playerid;?>" class="subscribe" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
+                      			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
+                      		</a>
+                      		<a id="btn_player_off_<?php echo $this->playerid;?>" class="unsubscribe ScoresClosed" href="javascript:" onclick="unsubscribeToPlayer(<?php echo $this->playerid;?>);">
+                      			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/unsubscribeprofile.png" alt="Unsubscribe to <?php echo $this->playername;?>'s updates">
+                      		</a>
+                            <?php } else { ?>
+                          	<a id="btn_player_off_<?php echo $this->playerid;?>" class="unsubscribe" href="javascript:" onclick="unsubscribeToPlayer(<?php echo $this->playerid;?>);">
+                      			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/unsubscribeprofile.png" alt="Unsubscribe to <?php echo $this->playername;?>'s updates">
+                      		</a>
+                      		<a id="btn_player_on_<?php echo $this->playerid;?>" class="subscribe  ScoresClosed" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
+                      			<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
+                      		</a>
+                              <?php }  ?>
+              				<?php } else { ?>
+          					    <a id="btn_playerid_<?php echo $this->playerid;?>" class="subscribe" href="javascript:" onclick="subscribeToPlayer(<?php echo $this->playerid;?>);">
+          							<img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/subscribeprofile.png" alt="Subscribe to <?php echo $this->playername;?>'s updates">
+          						</a>
+              				<?php }  ?>
                     </span>
+                <?php } ?>     
 
 	               	<span class="twitter">
 	                	<a href="http://twitter.com/share" class="twitter-share-button" style="padding-bottom:5px;width:100px;" data-count="horizontal">Tweet</a>
@@ -401,6 +404,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
        -->
             </div>
 
+ <?php if($this->playeractualteam == 1) {?>
 
         <div class="prof">
           <p class="mblack">
@@ -625,6 +629,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 		         </div>
 
         </div>
+      <?php } ?>
 
 
       <?php //if($this->total_club_stats > 0) {?>
@@ -1043,6 +1048,7 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 
       <?php // } ?>
 
+  <?php if($this->playeractualteam == 1) {?>
     <div class="featured1" style="margin-top: 12px;">
 			<p class="mblack">
 	           <span class="black"><?php echo $this->playername;?> Teammates</span>
@@ -1103,6 +1109,8 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 	          	<a href="<?php echo Zend_Registry::get("contextPath"); ?>/player/showplayerteammates/id/<?php echo $this->playerid; ?>">See More Player Details</a>
 	          </span>
         </div>
+        
+     <?php } ?>
 
 
      </div><!--/SecondColumn-->
@@ -1121,7 +1129,8 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
       <!-- END - Team Media Gallery -->
 
         <!--/Activity Feed-->
-	       <div class="img-shadow">
+	    <?php if($this->playeractualteam == 1) {?> 
+         <div class="img-shadow">
 		      <div class="WrapperForDropShadow">
 		        <div class="DropShadowHeader BlueGradientForDropShadowHeader">
 		        <h4 class="NoArrowLeft">
@@ -1163,6 +1172,9 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 		         <?  }?>
 		      </div>
 		    </div>
+		    <?php } ?> 
+		    
+		    
 	    	 <?php if ($session->email != null) { ?>
 	        <!--/Goooalshout-->
 	        <div id="goalshoutId" class="img-shadow">
