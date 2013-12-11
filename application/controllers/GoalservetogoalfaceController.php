@@ -778,12 +778,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 
 				$dataTeamPlayer = array ('player_id' => $playerid,
-						'team_id' => $team_goalface_id,
-						'actual_team' => '1',
-						'jersey_number' => '',
-						'start_date' => '',
-						'end_date' => '' );
-
+						                      'team_id' => $team_goalface_id,
+					 	                      'actual_team' => '1',);
+					 	                      
 			}
 			$player->insert($dataPlayer);
 			$teamPlayer->insert($dataTeamPlayer);
@@ -2311,6 +2308,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		return;
 	}*/
 
+  // TO DO REDO
 	public function updatenationalsquadAction() {
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
@@ -2380,7 +2378,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 								if ($rowTeamCurrentFeed != null ) {
 									//insert teamplayer relation
-									$dataTeamPlayer = array ('player_id' => $xmlPlayer ['id'],'team_id' => $rowTeamCurrentFeed['team_id'], 'actual_team' => '1' );
+									$dataTeamPlayer = array ('player_id' => $xmlPlayer ['id'],
+                                           'team_id' => $rowTeamCurrentFeed['team_id'], 
+                                           'actual_team' => '1' );
 									$teamplayer->insert ( $dataTeamPlayer );
 									//echo "Inserting new teamplayer: " . $xmlPlayer ['id'] . "-> " .$rowTeamCurrentFeed['team_id'] . "<br>";
 								} else {
@@ -2432,7 +2432,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
 										//No Current team ophan - Update to current to this team
 										//echo "ORPHAN player goalface: <br>" ;
 										if($rowTeamCurrentFeed != null) {
-											$dataTeamPlayer = array ('player_id' => $playerxml ['id'], 'team_id' => $rowTeamCurrentFeed['team_id'], 'actual_team' => '1' );
+											$dataTeamPlayer = array ('player_id' => $playerxml ['id'], 
+                                               'team_id' => $rowTeamCurrentFeed['team_id'],
+                                               'actual_team' => '1' );
 											$teamplayer->insert ( $dataTeamPlayer );
 											//echo "----->Inserting New Current Team for Orphan : " . $playerxml ['id'] . "-> " . $rowTeamCurrentFeed['team_id']  . "<br>";
 										} else {
@@ -2474,213 +2476,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 			}
 		}
-	}
-
- // updatesquad/league/7 - ALL teams from la liga (7))
- // updatesquad/league/7/team/2017 - Only team id
-
-	public function updatesquadAction() {
-		$config = Zend_Registry::get( 'config' );
-    $file = $config->path->log->updatesquad;
-
-      /***FILE LOG **/
-      $logger = new Zend_Log();
-      $writer = new Zend_Log_Writer_Stream($file);
-      $logger->addWriter($writer);
-
-		$date = new Zend_Date ();
-		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
-		$team = new Team ();
-		$teamplayer = new TeamPlayer ();
-		$player = new Player ();
-		$country = new Country ();
-		$teamid = $this->_request->getParam ( 'team', null );
-		$leagueid = $this->_request->getParam ( 'league', null );
-		$logger->info("Competition: " .$leagueid);
-		$teamsLeague = $team->getTeamsPerCompetitionParse($leagueid,$teamid);
-
-		// iterate over all team on a league
-		foreach($teamsLeague as $teamleague) {
-
-			$CurrentTeamPlayers = $teamplayer->findAllPlayersByTeam($teamleague['team_id']);
-
-				foreach ($CurrentTeamPlayers as $teamplayers) {
-					$playerteam[] = $teamplayers['player_id'];
-				}
-
-				//get team information array
-				$rowTeam = $team->fetchRow ( 'team_id = ' . $teamleague['team_id'] );
-
-
-				echo "<strong>".$rowTeam['team_name']."</strong><br><br>";
-				if ($rowTeam ['team_gs_id'] != null) {
-
-					$xml = $this->getgsfeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
-
-					foreach ( $xml->team as $teamxml ) {
-						foreach ( $teamxml->squad->player as $playerxml ) {
-
-							echo "<strong>".$playerxml ['id']. " ". $playerxml ['name']."</strong><br>";
-
-							$player_feed_array[] = $playerxml ['id'];
-							//check if player exists GoalFace DB
-							$rowPlayer = $player->fetchRow ( 'player_id = ' . $playerxml ['id'] );
-
-							//fetch player xml info from feed
-							$xmlplayer = $this->getgsfeed('soccerstats/player/'.$playerxml ['id']);
-
-							if ($rowPlayer == null) {
-							  /*Player Doesnt Exist*/
-							  if ($xmlplayer != null || $xmlplayer != '') {
-
-							  	foreach ($xmlplayer->player as $xmlPlayer) {
-
-					  			$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
-									$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-									$birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
-									$mydate = date ( "Y-m-d", strtotime ( $birthdate ) );
-									$arr_height = explode ( " ", $xmlPlayer->height, 2 );
-									$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
-									$player_height = $arr_height [0];
-									$player_weight = $arr_weight [0];
-									if ($xmlPlayer->position == 'Attacker') {
-										$player_position = 'Forward';
-									} else {
-										$player_position = $xmlPlayer->position;
-									}
-									$dataPlayer = array ('player_id' => $xmlPlayer ['id'], //1
-										'player_firstname' => $xmlPlayer->firstname, //2
-										'player_middlename' => '',
-										'player_lastname' => $xmlPlayer->lastname, //3
-										'player_common_name' => $xmlPlayer->name,
-										//'player_name_short' => mb_convert_encoding($playerxml ['name'], "ISO-8859-1", mb_detect_encoding($playerxml ['name'], "UTF-8, ISO-8859-1, ISO-8859-15", true)),
-										'player_name_short' => utf8_encode($playerxml ['name']),
-										'player_dob' => $mydate, //4
-										'player_dob_city' => $xmlPlayer->birthplace,
-										'player_type' => 'player', //5
-										'player_country' => $rowBirthCountry ['country_id'], //5
-										'player_nationality' => $rowNationalityCountry ['country_id'], //5
-										'player_position' => $player_position, //5
-										'player_creation' => $today,
-										'player_height' => $player_height,
-										'player_weight' => $player_weight );
-							  	}
-
-							  	//Zend_Debug::dump($dataPlayer);
-
-							  	//insert new player
-							  	$player->getAdapter()->query("SET NAMES 'utf8'");
-
-							  	$player->insert ($dataPlayer);
-								echo "Inserting new player: " . $xmlPlayer ['id'] . "-> " . $xmlPlayer->name . "<br>";
-
-								//insert teamplayer relation
-								$dataTeamPlayer = array ('player_id' => $xmlPlayer ['id'],'team_id' => $teamid, 'actual_team' => '1' );
-								$teamplayer->insert ( $dataTeamPlayer );
-								echo "Inserting new teamplayer: " . $xmlPlayer ['id'] . "-> " . $teamid . "<br>";
-							  }
-							} else {
-							  /*Player Exist*/
-								echo "<br><strong>EXISTS</strong><br>";
-
-
-								if ($xmlplayer != null || $xmlplayer != '') {
-									foreach ($xmlplayer->player as $xmlPlayer) {
-
-										//Updating Player Details Missing Fields
-										$birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
-									  $mydate = date ( "Y-m-d", strtotime ( $birthdate ) );
-										$arr_height = explode ( " ", $xmlPlayer->height, 2 );
-										$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
-										$player_height = $arr_height [0];
-										$player_weight = $arr_weight [0];
-										if ($xmlPlayer->position == 'Attacker') {
-											$player_position = 'Forward';
-										} else {
-											$player_position = $xmlPlayer->position;
-										}
-
-											$dataPlayer = array (
-												'player_dob' => $mydate, //4
-												'player_dob_city' => $xmlPlayer->birthplace,
-												'player_position' => $player_position, //5
-											    //'player_name_short' => mb_convert_encoding($playerxml ['name'], "ISO-8859-1", mb_detect_encoding($playerxml ['name'], "UTF-8, ISO-8859-1, ISO-8859-15", true)),
-												'player_height' => $player_height,
-												'player_weight' => $player_weight );
-
-										$player->updatePlayer ( $playerxml ['id'], $dataPlayer );
-
-										//Find current team (club) per each player from feed against DB
-										$currentteam = $teamplayer->findCurrentTeamPlayer( $playerxml ['id'], $rowTeam['team_type'],1);
-
-										if ($currentteam != null) {
-											if($currentteam != $teamid) {
-												echo "----->Player has a Different Current Team on DB : " . $playerxml ['id'] . "-> " . $currentteam . "<br>";
-												$dataTeamPlayerUpdate = array ('actual_team' => '0' );
-												echo "----->Updating Old Current Team - actual = cero : " . $playerxml ['id'] . "-> " . $currentteam . "<br>";
-												$teamplayer->updateTeamPlayer ( $playerxml ['id'], $currentteam, $dataTeamPlayerUpdate );
-												$dataTeamPlayer = array ('player_id' => $playerxml ['id'], 'team_id' => $teamid, 'actual_team' => '1' );
-												$teamplayer->insert ( $dataTeamPlayer );
-												echo "----->Inserting New Current Team - actual = 1: " . $playerxml ['id'] . "-> " . $teamid . "<br>";
-											} else {
-												echo "----->Player Already has Same Current Team : " . $playerxml ['id'] . "-> " . $teamid . "<br>";
-											}
-										} else {
-											//No Current team ophan - Update to current to this team
-											 echo $xmlPlayer ['id'] ." - ". $xmlPlayer->name . " -- Orphan Player with No current club team in DB:<br>";
-											 $dataTeamPlayer = array ('player_id' => $playerxml ['id'], 'team_id' => $teamid, 'actual_team' => '1' );
-											 $teamplayer->insert ( $dataTeamPlayer );
-											 echo "----->Inserting New Current Team : " . $playerxml ['id'] . "-> " . $teamid . "<br>";
-										}
-
-
-									}
-								}
-							}
-
-						}
-
-					}
-
-					echo "<br>Orphans from DB<br><br>";
-					$players_relocate = array_diff($playerteam,$player_feed_array);
-
-					if ($players_relocate != null) {
-						 foreach ($players_relocate as $playerorphan) {
-						 	//fetch player info from feed to update
-						 	$xmlplayerfeed = null;
-							$xmlplayerfeed = $this->getgsfeed('soccerstats/player/'.$playerorphan);
-							if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
-								foreach ($xmlplayerfeed->player as $xmlPlayer) {
-									if ($xmlPlayer->teamid != '') {
-										$rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
-										//Update to new team
-										$dataTeamPlayerUpdate = array ('actual_team' => '0' );
-										$teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
-										//new team
-										$dataTeamPlayerUpdateNew = array ('player_id' => $playerorphan, 'team_id' => $rowTeamNewCurrent['team_id'], 'actual_team' => '1' );
-										$teamplayer->insert ( $dataTeamPlayerUpdateNew );
-										echo $xmlPlayer->name ." ".$playerorphan . "----->Updating old to (0) ".$teamid ." and (1) Current Team : -> " . $rowTeamNewCurrent['team_id'] . "<br>";
-									} else {
-										// no current team in feed , update current team to 0 and leave it
-										$dataTeamPlayerUpdate = array ('actual_team' => '0' );
-										$teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
-										echo $xmlPlayer->name ." ".$playerorphan . "----->Updating old to (0) ".$teamid ." No current team on feed <br>";
-									}
-
-								}
-							}
-						 }
-					}
-
-				} else {
-					echo "Team Id :" . $teamid . " has not been mapped";
-				}
-
-			$logger->info("Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']);
-			echo "Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']."<BR>";
-		}
-
 	}
 
 	//getmapteams/country/argentina1.xml
