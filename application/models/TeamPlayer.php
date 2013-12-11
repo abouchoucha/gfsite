@@ -98,12 +98,19 @@ class TeamPlayer extends Zend_Db_Table_Abstract
     public function updateTeamPlayerTemp($teamId,$data) {
     	$db = $this->getAdapter ();
     	$where[] = "team_id=".$teamId;
-		$where[] = "actual_team = 1";
+		  $where[] = "actual_team = 1";
     	$db->update( 'teamplayer' ,$data ,$where);
     }
-	public function deleteTeamPlayer($teamId ){
+    
+    public function updateTeamPlayerbyId($id,$data){
+     	$db = $this->getAdapter();
+      $where = $db->quoteInto("and id = ?", $id);
+      return $this->update($data, $where);
+    }
+    	
+  	public function deleteTeamPlayer($teamId,$playerId ){
 		$db = $this->getAdapter ();
-		$db->delete( 'teamplayer' , 'team_id='.$teamId);
+		$db->delete( 'teamplayer' , 'team_id='.$teamId .' and player_id='.$playerId);
 	}
 
 
