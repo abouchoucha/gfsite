@@ -24,7 +24,7 @@
 		  Club:&nbsp;
 		 <?php if ($this->playeractualteam == 1) { ?>
 		    <a href="<?php echo $urlGen->getClubMasterProfileUrl ( $this->playerteamid, $this->playerteamseoclub, True ); ?>">
-                <?php echo $this->playerteamclub; ?>--<?php echo $this->playeractualteam; ?>
+                <?php echo $this->playerteamclub; ?>
          </a>
       <?php } elseif ($this->playeractualteam == 2) { ?>
        <strong>Free Agent</strong>
