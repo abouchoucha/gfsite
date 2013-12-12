@@ -130,9 +130,11 @@ class Matchh extends Zend_Db_Table_Abstract {
 		$sql = " select m.competition_id,l.competition_name,l.format,m.season_id,m.round_id,m.group_id,m.match_id,m.match_date,m.match_time ,t1.team_name AS t1,t1.team_seoname AS t1seoname, t2.team_name AS t2,t2.team_seoname AS t2seoname" ;
 		$sql .= " ,c2.country_name AS country_team_a, c3.country_name AS country_team_b,c2.country_id AS country_id_team_a" ; 
 		$sql .= " ,c3.country_id AS country_id_team_b , t1.team_id as team_idA, t2.team_id as team_idB," ;
- 		$sql .= " m.team_a, m.team_b,t1.team_gs_id as team_a_gs, t2.team_gs_id as team_b_gs , m.fs_team_a,fs_team_b,m.country_id,t1.team_stadium, m.match_status AS match_status,m.match_id_goalserve,m.static_id " ;
-		$sql .= " from matchh m" ;
+ 		$sql .= " m.team_a, m.team_b,t1.team_gs_id as team_a_gs, t2.team_gs_id as team_b_gs , m.fs_team_a,fs_team_b,m.country_id,t1.team_stadium, m.match_status AS match_status,m.match_id_goalserve,m.static_id, " ;
+		$sql .= " v.venue_id,v.venue_name,v.venue_city ";
+    $sql .= " from matchh m" ;
 		$sql .= " inner join league_competition l ON l.competition_id = m.competition_id " ;
+		$sql .= " left outer join venue v ON v.venue_id = m.venue_id";
 		$sql .= " inner join team t1 on t1.team_id = m.team_a" ;
 		$sql .= " inner join team t2 on t2.team_id = m.team_b" ;
 		$sql .= " inner join country c2 on c2.country_id = t1.country_id" ;

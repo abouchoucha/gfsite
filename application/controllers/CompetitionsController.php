@@ -909,8 +909,8 @@ class CompetitionsController extends GoalFaceController {
 		
 		if ($leagueid == 25) {
 			$feed = new Feed ( );
-	      	$feed_parsed = $this->loadRssFeed('http://www.skysports.com/rss/0,20514,19692,00.xml');
-	      	$this->view->newsFeeds = $feed_parsed;
+	    $feed_parsed = $this->loadRssFeed('http://www.uefa.com/rssfeed/uefaeuro/rss.xml');
+	    $this->view->newsFeeds = $feed_parsed;
 			$this->view->numberFeeds = 10;	
 			
 		    //$twitter_feed_parsed = $this->loadRssFeed('https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=GoalFace');
@@ -921,8 +921,18 @@ class CompetitionsController extends GoalFaceController {
 			$this->view->teamlist = $teamleague;
 			
 			$view->actionTemplate = 'competitioneuro.php';
-		} else {
-
+		} elseif ($leagueid == 72) {
+		
+      $feed = new Feed ( );
+	    $feed_parsed = $this->loadRssFeed('http://www.fifa.com/worldcup/news/rss.xml');
+	    $this->view->newsFeeds = $feed_parsed;
+			$this->view->numberFeeds = 10;	
+			$teamleague = $team->selectTeamsBySeason(4770);
+		  //Zend_debug::dump($twitter_feed_parsed);
+	 	  $this->view->teamlist = $teamleague;
+			$view->actionTemplate = 'competitionworldcup.php';
+  			
+    } else {
 			$view->actionTemplate = 'competition.php';
 		}
 		

@@ -342,11 +342,14 @@
 			                        </span>
 			                    </div>
                                 
-                                  <?php if($this->competitionType != 'international cup') { ?>
-                                 	<strong>Stadium:</strong>
-                        			
-                                    <?php if (empty($this->match[0]["team_stadium"]) OR ($this->match[0]["team_stadium"]== 'NULL')    ){echo "&nbsp;Unavailable"; } else {echo $this->match[0]["team_stadium"];}?>
-                                  <?php }   ?>
+                              <div>
+                              <strong>Stadium:</strong>
+                                <?php if($this->match[0]["venue_id"] != null AND $this->match[0]["venue_id"] != 1000 ) { ?>
+                                    <?php echo $this->match[0]["venue_name"] . " (" . $this->match[0]["venue_city"] . ")"; ?>
+                                <?php } else {?>
+                                   <?php echo $this->match[0]["team_stadium"]!='NULL'?$this->match[0]["team_stadium"]:"N/A";?>
+                                <?php } ?>
+                              </div>
                             </div>
                             <div id="MatchDetailsLogosScores">
                                 

@@ -375,14 +375,14 @@ jQuery(document).ready(function() {
                         </span>
                     </div>
 
-                    <?php if($this->competitionType != 'international cup') { ?>
-                        <div>
-                            <strong>Stadium:</strong>
-
-                            	<?php echo $this->match[0]["team_stadium"]!='NULL'?$this->match[0]["team_stadium"]:"N/A";?>
-
-                        </div>
-                    <?php } ?>
+                      <div>
+                      <strong>Stadium:</strong>
+                        <?php if($this->match[0]["venue_id"] != null AND $this->match[0]["venue_id"] != 1000 ) { ?>
+                            <?php echo $this->match[0]["venue_name"] . " (" . $this->match[0]["venue_city"] . ")"; ?>
+                        <?php } else {?>
+                           <?php echo $this->match[0]["team_stadium"]!='NULL'?$this->match[0]["team_stadium"]:"N/A";?>
+                        <?php } ?>
+                      </div>
                 </div>
                 <div id="MatchDetailsLogosScores">
 

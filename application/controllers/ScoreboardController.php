@@ -439,27 +439,24 @@ function showmatchdetailAction() {
         $view->totalrounds = count ($roundRow);
 
         if ($compRow['format'] != 'International cup') {
-			//Domestic League and Domestic Cup
-			$todaydate = new Zend_Date ();
-			$view->todaysdate = $todaydate;
-            $peerleagues = $lea_comp->findDomesticCompetitionsByCountryLeagues ( $row [0] ['country_id'] ); //By Country
-            $view->peerLeagues = $peerleagues;
-            //Zend_Debug::dump($peerleagues);
-
+    			//Domestic League and Domestic Cup
+    			$todaydate = new Zend_Date ();
+    			$view->todaysdate = $todaydate;
+          $peerleagues = $lea_comp->findDomesticCompetitionsByCountryLeagues ( $row [0] ['country_id'] ); //By Country
+          $view->peerLeagues = $peerleagues;
+  
         } else {
         	//International cup
-            $peerleagues = $lea_comp->fetchAll ( 'country_id = '. $row [0] ['country_id'] , 'competition_id');
-            $view->peerLeagues = $peerleagues;
-            
-            $todaydate = new Zend_Date ();
-			$view->todaysdate = $todaydate;
-			//Zend_Debug::dump($todaydate);
-     		$group = new Groupp (); 
+          $peerleagues = $lea_comp->fetchAll ( 'country_id = '. $row [0] ['country_id'] , 'competition_id');
+          $view->peerLeagues = $peerleagues;
+          $todaydate = new Zend_Date ();
+          $view->todaysdate = $todaydate;
+     		  $group = new Groupp (); 
      		 		
-			//Build an array with every round and all groups(rounds) per competition
-			$knockoutstage = null;	
-     		$has_group_stage = 0;
-     		$grouplist = null;
+			  //Build an array with every round and all groups(rounds) per competition
+			   $knockoutstage = null;	
+     		 $has_group_stage = 0;
+     		 $grouplist = null;
         	
      		foreach ($roundRow as $round) {
      			$myroundslist [] = $round['round_id'];
@@ -576,6 +573,7 @@ function showmatchdetailAction() {
         $view->totalMatchComments = count ( $totalMatchComments );
 
         $view->match = $row;
+        //Zend_Debug::dump($row);
         $common = new Common();
         $view->goalsteamA = $common->array_sort($eventByGoalTeamA, 'event_minute', SORT_DESC);
         $view->goalsteamB = $common->array_sort($eventByGoalTeamB, 'event_minute', SORT_DESC);
