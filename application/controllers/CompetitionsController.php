@@ -927,7 +927,7 @@ class CompetitionsController extends GoalFaceController {
 	    $feed_parsed = $this->loadRssFeed('http://www.fifa.com/worldcup/news/rss.xml');
 	    $this->view->newsFeeds = $feed_parsed;
 			$this->view->numberFeeds = 10;	
-			$teamleague = $team->selectTeamsBySeason(4770);
+			$teamleague = $team->selectTeamsBySeason(141053);
 		  //Zend_debug::dump($twitter_feed_parsed);
 	 	  $this->view->teamlist = $teamleague;
 			$view->actionTemplate = 'competitionworldcup.php';

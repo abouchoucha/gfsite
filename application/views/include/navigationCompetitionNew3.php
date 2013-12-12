@@ -7,7 +7,7 @@
              <ul>
                <li class="<?php echo($this->menuSelected == 'competition'?'active':''); ?>">
                   <a class="<?php echo($this->submenuSelected != 'none'?'noarrow':''); ?>" href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->compName, $this->leagueId, True); ?>">
-                         Euro 2012                         
+                        <?php echo $this->compName; ?>                   
                          <?php $score_schedules = 'scores'; ?>
                    </a>
                 </li>
