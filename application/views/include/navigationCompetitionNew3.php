@@ -64,7 +64,7 @@
 				                                      <a href="<?php echo $urlGen->getTablesUrl("teams",$rounds['round_id'] , $this->countryName ,$this->seasonTitle , $this->compName,True) ?>">Teams</a>
 				                                    </li>
 				                                     <li class="<?php echo($this->submenuSelected == 'players'?'active':''); ?>">
-					                                        <a href="<?php echo Zend_Registry::get("contextPath"); ?>/competitions/showcompetitionplayers/leagueid/25/">Featured Players</a>
+					                                        <a href="<?php echo Zend_Registry::get("contextPath"); ?>/competitions/showcompetitionplayers/leagueid/72/">Featured Players</a>
 					                                 </li>
 				                                </ul>
 				                             </li>

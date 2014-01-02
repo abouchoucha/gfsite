@@ -235,7 +235,7 @@
           <span>Join us on Facebook</span>
         </div>
         
-        <p class="copy">Copyright &#169; 2013 <a href="http://www.goalface.org" 
+        <p class="copy">Copyright &#169; 2014 <a href="http://www.goalface.org" 
 target="_blank">GoalFace, Inc</a>. All Rights Reserved.</p>
 
     </div>
