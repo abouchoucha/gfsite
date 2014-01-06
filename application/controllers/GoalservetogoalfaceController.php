@@ -2309,7 +2309,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	}*/
 
   // TO DO REDO
-	public function updatenationalsquadAction() {
+ 	public function updatenationalsquadAction() {
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
 		$teamplayer = new TeamPlayer ();
