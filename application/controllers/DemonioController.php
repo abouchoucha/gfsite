@@ -21,6 +21,7 @@ class DemonioController extends GoalFaceController {
 		Zend_Loader::loadClass ('TeamGoalieStats');
 		Zend_Loader::loadClass ('Round');
 		Zend_Loader::loadClass ('Stadium');
+		Zend_Loader::loadClass ('TeamSeason');
 
 
 		$config = Zend_Registry::get ( 'config' );
@@ -128,39 +129,72 @@ class DemonioController extends GoalFaceController {
 	}
 
 
-	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/competition/COMPETITION_NAME_URL_FEED
+	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/competition/COMPETITION_NAME_URL_FEED/season/SEASON_ID/stage/STAGE_ID/aggr/1 
     public function getteammapfromfixtureAction() {
-      //$stage = $this->_request->getParam ( 'stage', null );
+      
       $teamdata = new Team ();
-	  $country = $this->_request->getParam ( 'country', null );
-	  $competition = $this->_request->getParam ( 'league', null );
-	  $stage = $this->_request->getParam ( 'stage', null );
-	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
+      $teamseason = new TeamSeason ();
+  	  $country = $this->_request->getParam ( 'country', null );
+  	  $competition = $this->_request->getParam ( 'league', null );
+  	  $stage = $this->_request->getParam ( 'stage', null );
+  	  $aggr = $this->_request->getParam ( 'aggr', 0 );
+  	  $seasonId = $this->_request->getParam ( 'season', null );
+  	  $competitionId = $this->_request->getParam ( 'competition', null );
+  	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
       $xml = parent::getGoalserveFeed($feedpath);
+      if ($aggr == 1) {
+          $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
+          
+      } else {
+          $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
+      }
+  		
+  	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
+  	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
+  	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
+  
+	  	foreach($match_aggregate as $aggregate) { 
+	  		//Zend_Debug::dump($aggregate);
+	  		echo $aggregate->match . "<BR>";
 
-		//$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
-	    //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
-		$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
-
-	    foreach($match_aggregate as $aggregate) {
-			//Zend_Debug::dump($aggregate);
-			//echo $aggregate->match . "<BR>";
-	       /* foreach ($aggregate->match as $match) {
-	           $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
-	           $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
-				echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
-	           echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
-	           echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamLocal['team_id']. "<br>";
-               echo "http://www.goalface.com/goalservetogoalface/updatesquad/league/".$competitionId."/team/".$rowTeamVisitor['team_id']. "<br>";
-               echo "INSERT INTO teamseason VALUES(".$rowTeamLocal['team_id'].",".$seasonid.",0);<br>";
-	           echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonid.",0);<br>";
-	        }*/
-	    }
-
-
+	  	    foreach ($aggregate->match as $match) {
+	  	       $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
+	  	       $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
+	  		   echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
+	  	       echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
+	  	     }
+	  	     
+	  	     foreach ($aggregate->match as $match) {
+	  	       $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
+	  	       $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
+	  	       echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeamLocal['team_id']. "<br>";
+	           echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeamVisitor['team_id']. "<br>";
+	  	     }
+	  	     
+	  	    foreach ($aggregate->match as $match) {
+	  	       $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
+	  	       $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
+	  	       if ($rowTeamLocal) {
+	  	       		$WhereTeamLocalSeasonExist= array('team_id = ?' => $rowTeamLocal['team_id'], 'season_id = ?' => $seasonId);
+	  	       		$rowTeamLocalSeason = $teamseason->fetchRow ($WhereTeamLocalSeasonExist);
+	  	       		if (!$rowTeamLocalSeason) {
+	  	       			//echo 'team' . $rowTeamLocal['team_id'] . " local not on teamseason table<br>";
+	  	       			echo "INSERT INTO teamseason VALUES(".$rowTeamLocal['team_id'].",".$seasonId.",0);<br>";
+	  	       		}
+	  	       }
+	  	       if ($rowTeamVisitor) {
+	  	       		$WhereTeamVisitorSeasonExist= array('team_id = ?' => $rowTeamVisitor['team_id'], 'season_id = ?' => $seasonId);
+	  	       		$rowTeamVisitorSeason = $teamseason->fetchRow ($WhereTeamVisitorSeasonExist);
+	  	       		if (!$rowTeamLocalSeason) {
+	  	       			//echo 'team' . $rowTeamVisitor['team_id'] . " visitor not on teamseason table<br>";
+	  	       			echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonId.",0);<br>";
+	  	       		}
+	  	       }
+	  	     } 
+	  	}
 	}
 
-	// Individual Player
+	// Individual Player 
 	public function getplayerimageAction() {
     $player = new Player ();
     $playerId = $this->_request->getParam ( 'player', null );
