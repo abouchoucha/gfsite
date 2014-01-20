@@ -296,37 +296,31 @@ class DemonioController extends GoalFaceController {
 	    $standing_country = $this->_request->getParam ( 'country', null );
 	    $seasonid = $this->_request->getParam ( 'season', null );
 	    $competitionId = $this->_request->getParam ( 'league', null );
-		  $feedpath = 'standings/'.$standing_country.'.xml';
-		  //$feedpath = 'standings/concacaf_chl.xml';
-      $xml = parent::getGoalserveFeed($feedpath);
-      $teamdata = new Team ();
+		$feedpath = 'standings/'.$standing_country.'.xml';
+      	$xml = parent::getGoalserveFeed($feedpath);
+      	$teamdata = new Team ();
 
-	   /*foreach ($xml->tournament as $group) {
-		    //echo $group['name']."<BR>";
-		    foreach ($group->team as $team) {
-    		  $rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-    			echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-    			echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team['name'] . "<br>";
-    			echo 'http://www.goalserve.com/getfeed/4ddbf5f84af0486b9958389cd0a68718/soccerstats/team/' . $team['id'] ."<br>";
-    			echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		foreach ($xml->tournament as $group) {
+		 	foreach ($group->team as $team) {
+    			$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+	    		echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
 		     }
-		  } */
+		 }
 
+		foreach ($xml->tournament as $group) {
+		  	foreach ($group->team as $team) {
+		     	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+		  		echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
+		     }
+		}
 
-		 foreach ($xml->tournament->team as $team) {
-		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-	    	echo "UPDATE team SET team_gs_id = " . $team['id'] ." WHERE team_id = ". $rowTeam['team_id'] .";  ". $team[ 'name'] . "<br>";
-		  }
-		  
-		 foreach ($xml->tournament->team as $team) {
-		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-		  	echo "INSERT INTO teamseason VALUES(".$rowTeam['team_id'].",".$seasonid.",0);<br>";
-		  }
-		  
-		  foreach ($xml->tournament->team as $team) {
-		 	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
-		   	echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
-		  }   
+		foreach ($xml->tournament as $group) {
+		  	foreach ($group->team as $team) {
+		    	$rowTeam = $teamdata->fetchRow ( 'team_gs_id = ' . $team['id'] );
+		   		echo "http://www.goalface.com/demonio/updatesquad/league/".$competitionId."/team/".$rowTeam['team_id']. "<br>";
+		     }
+		}
+
 
 /*		$rowTeam ['team_gs_id'] = 13904;
 		$xml = $this->getgsfeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
