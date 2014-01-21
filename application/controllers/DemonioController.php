@@ -143,24 +143,24 @@ class DemonioController extends GoalFaceController {
   	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
       $xml = parent::getGoalserveFeed($feedpath);
       if ($aggr == 1) {
-          $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
-          
+          $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']/aggregate");
       } else {
           $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
       }
-  		
+      
+  		//Zend_Debug::dump($match_aggregate);
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
   
-	  	foreach($match_aggregate as $aggregate) { 
-	  		//Zend_Debug::dump($aggregate);
+	  foreach($match_aggregate as $aggregate) { 
+	  	
 	  		echo $aggregate->match . "<BR>";
 
 	  	    foreach ($aggregate->match as $match) {
 	  	       $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
 	  	       $rowTeamVisitor = $teamdata->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
-	  		   echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
+	  		     echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
 	  	       echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
 	  	     }
 	  	     
@@ -185,7 +185,7 @@ class DemonioController extends GoalFaceController {
 	  	       if ($rowTeamVisitor) {
 	  	       		$WhereTeamVisitorSeasonExist= array('team_id = ?' => $rowTeamVisitor['team_id'], 'season_id = ?' => $seasonId);
 	  	       		$rowTeamVisitorSeason = $teamseason->fetchRow ($WhereTeamVisitorSeasonExist);
-	  	       		if (!$rowTeamLocalSeason) {
+	  	       		if (!$rowTeamVisitorSeason) {
 	  	       			//echo 'team' . $rowTeamVisitor['team_id'] . " visitor not on teamseason table<br>";
 	  	       			echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonId.",0);<br>";
 	  	       		}
