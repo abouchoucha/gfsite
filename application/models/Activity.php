@@ -72,8 +72,6 @@ class Activity extends Zend_Db_Table_Abstract {
 													)
 	{
 
-		//self::$logger->debug ( "----> Cinco de Mayo - InsertUserActivityByActivityType <----");
-		//Zend_Debug::dump($alert);
 		//update table Activity with activity Type
 		//parameters to pass: activity Type + parameters to update
 		$rateProfile = new ActivityType();
@@ -129,8 +127,8 @@ class Activity extends Zend_Db_Table_Abstract {
 		$activtityUser->insert($dataNewActivity);
 		//Zend_Debug::dump($dataNewActivity);
 
-// JUST FOR TEST ->>>>>
-//$alert = null;
+		// JUST FOR TEST ->>>>>
+		//$alert = null;
 
 		// Start - Send Alerts
 		if ($alert != null) {
@@ -139,6 +137,7 @@ class Activity extends Zend_Db_Table_Abstract {
 			$config = Zend_Registry::get('config');
 			$app_id = $config->facebook->appid;
 			$app_secret = $config->facebook->secret;
+			$fb_goalface_id = $config->facebook->goalface->id;
 
 			//****************** TEAMS ************************//
 			//               RESULTS ALERTS                    //
@@ -225,6 +224,7 @@ class Activity extends Zend_Db_Table_Abstract {
 									);
 
 					  $res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
+
 					} catch (FacebookApiException $e) {
 						echo ' No se pudo enviar -> /'.$alert["facebookid"].'/feed Message:'.$e->getMessage();
 						self::$logger->debug ( '----*****> Error Write in Team(Activity) Alert: No se pudo enviar -> '.$alert["facebookid"].'Message:'.$e->getMessage());
@@ -260,7 +260,7 @@ class Activity extends Zend_Db_Table_Abstract {
 							self::$logger->debug ( "------->message:".$variablesToReplace['teama_name'].' '.$translate->_($variablesToReplace['typeOfResult']).' '.$variablesToReplace['teamb_name'].' ('.$variablesToReplace['score'].')');
 							self::$logger->debug ( "------->link:".$link);
 							self::$logger->debug ( "------->language:".$row['language_code']);
-							self::$logger->debug ( "------->Page Name:".$row['fbpage_details']);
+				
 
 							$facebook = new Facebook(array(
 								'appId'  => $app_id,
@@ -532,12 +532,12 @@ class Activity extends Zend_Db_Table_Abstract {
 					}
 				}
 			}
-				self::$logger->debug ( "----> End Player(Activity) Alert <----");
+			self::$logger->debug ( "----> End Player(Activity) Alert <----");
 
 
 
 				// ========================= FACEBOOK ====================================//
-				// Write player Alerts in PLAYERS FB pages                                //
+				// Write player Alerts in PLAYERS FB pages and GOALFACE FB page                               //
 				// =======================================================================//
 
 				$urlGen = new SeoUrlGen();
@@ -547,13 +547,17 @@ class Activity extends Zend_Db_Table_Abstract {
 				if ($rowset != null) {
 					foreach($rowset as $row) {
 
-						// get translation ready for $row['language_code'] language
-						$translate = $this->setuplanguage($row['language_code']);
+						//self::$logger->debug ( "Language Code:  ". $row['language_code']);
+						//get translation ready for $row['language_code'] language
+						//$translate = $this->setuplanguage($row['language_code']);
+
+
 						echo '<br><strong>Write in Facebook Pages PLAYER</strong><br>';
 						self::$logger->debug ( "----> Send Write in Page Player(Activity) Alert <----");
 						$typeOfResult = null;
 						$title = null;
 						$newArray = null;
+
 						if (in_array($activityTypeId, $goalsArray)) {
 
 							echo '<br>Goal' . $alert["user_id"] . ' Frecuency: ' .Constants::$_PLAYER_GOAL_ALERTS." for player:" .$alert['player_id'];
@@ -566,11 +570,17 @@ class Activity extends Zend_Db_Table_Abstract {
 							} else if (Constants::$_PENALTY_SCORED_ACTIVITY == $activityTypeId) {
 								$newArray = array('typeOfPlayerEvent' => 'scored a penalty in');
 							} else if (Constants::$_DOUBLE_PLAYER_ACTIVITY == $activityTypeId) {
+								// Write in GoalFace FB page only
 								$newArray = array('typeOfPlayerEvent' => 'scored a double in');
+								$row['fbpage_id'] = $fb_goalface_id; 
 							} else if (Constants::$_HAT_TRICK_PLAYER_ACTIVITY == $activityTypeId) {
+								// Write in GoalFace FB page only
 								$newArray = array('typeOfPlayerEvent' => 'scored a hat-trick in');
+								$row['fbpage_id'] = $fb_goalface_id; 
 							} else if (Constants::$_CLEAN_SHEET_PLAYER_ACTIVITY == $activityTypeId) {
+								// Write in GoalFace FB page only
 								$newArray = array('typeOfPlayerEvent' => 'registered a clean sheet in');
+								$row['fbpage_id'] = $fb_goalface_id; 
 							}
 
 						} else if (Constants::$_PLAYER_LINE_UP_ACTIVITY == $activityTypeId) {
@@ -584,10 +594,9 @@ class Activity extends Zend_Db_Table_Abstract {
 							$newArray = array('typeOfPlayerEvent' => 'in Activity');
 						}
 
-				        //Zend_Debug::dump($newArray);
 
 						if($newArray!=null){
-							echo '<br><br>'.print_r($row).'<br>';
+		
 
 							// 11-01-12 Added JV and Miguel to validate if any instance already has www.goalface.com, if so it won't be added
 							if (strrpos($variablesToReplace['match_url'],'www.goalface.com') == FALSE) {
@@ -598,7 +607,25 @@ class Activity extends Zend_Db_Table_Abstract {
 								$clean_match_url = 'http://www.goalface.com'.substr($url_Temp,$pos_bug);
 							}
 
-							$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
+							$myLanguageArray = explode(',', $row['language']);
+							$message = '';
+							$translate = '';
+
+							foreach ($myLanguageArray as $languages) {
+								self::$logger->debug ( "------->Languages:  ". $languages);
+								$translate = $this->setuplanguage($languages);
+								$message_temp .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix') . ' ';
+								if (true !== empty($message_temp)) {
+									$message_temp .= '// ';
+								}
+							}
+
+							//trim last 
+							$message = rtrim($message_temp, '// ');
+
+							//$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
+
+
 							$link = 'http://www.goalface.com'.$urlGen->getPlayerMasterProfileUrl($row["player_nickname"], $row["player_firstname"], $row["player_lastname"], $row["player_id"], true ,$row["player_common_name"]);
 
 							self::$logger->debug ( "------->Page Name:".$row['fbpage_details']);
@@ -608,8 +635,7 @@ class Activity extends Zend_Db_Table_Abstract {
 							self::$logger->debug ( "------->access_token:".$row['facebookaccesstoken']);
 							self::$logger->debug ( "------->message:".$message);
 							self::$logger->debug ( "------->link:".$link);
-							self::$logger->debug ( "------->language:".$row['language_code']);
-
+							//self::$logger->debug ( "------->language:".$row['language_code']);
 
 							$facebook = new Facebook(array(
 								'appId'  => $app_id,
@@ -633,13 +659,19 @@ class Activity extends Zend_Db_Table_Abstract {
 								echo ' Code:'.$e->getCode();
 								echo ' Line:'.$e->getLine();
 							}
+
+
 						}
+
 						self::$logger->debug ( "----> End Write in Page Player(Activity) Alert <----");
+
 					}
 				}
+
+
 			}
 		} // End - Send Alerts ONLY
-	//self::$logger->debug ( "----> End InsertUserActivityByActivityType <----");
+
     }
 
 

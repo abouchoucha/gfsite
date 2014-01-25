@@ -23,7 +23,7 @@ class Player extends Zend_Db_Table_Abstract {
 
 	public function selectPlayerPageFanFaceBookAlerts($playerId) {
 		$db = $this->getAdapter ();
-		$sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details,p.player_id,p.player_nickname,p.player_firstname,p.player_lastname, p.player_common_name ";
+		$sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details,p.player_id,p.player_nickname,p.player_firstname,p.player_lastname, p.player_common_name,fb.language ";
 		$sql .= " FROM fbpagealert fb ";
 		$sql .= " INNER JOIN player p ON p.player_id = fb.entity_id ";
 		$sql .= " INNER JOIN user u ON u.user_id = fb.user_id ";
