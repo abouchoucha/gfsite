@@ -614,7 +614,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
 							foreach ($myLanguageArray as $languages) {
 								$translate = $this->setuplanguage($languages);
-								$message .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix') . ' ';
+								$message .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix');
 								if (true !== empty($message)) {
 									$message .= '// ';
 								}
@@ -622,7 +622,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
 							//trim last 
 							$message = rtrim($message, '// ');
-							$message .= $clean_match_url;
+							$message .= ' ' . $clean_match_url;
 
 							//$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
 
@@ -636,7 +636,6 @@ class Activity extends Zend_Db_Table_Abstract {
 							self::$logger->debug ( "------->access_token:".$row['facebookaccesstoken']);
 							self::$logger->debug ( "------->message:".$message);
 							self::$logger->debug ( "------->link:".$link);
-							//self::$logger->debug ( "------->language:".$row['language_code']);
 
 							$facebook = new Facebook(array(
 								'appId'  => $app_id,
@@ -652,7 +651,7 @@ class Activity extends Zend_Db_Table_Abstract {
 								'link' => $link
 								);
 
-								$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+						  		$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
 							}catch (FacebookApiException $e){
 								echo ' No se pudo enviar -> '.$playerId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
