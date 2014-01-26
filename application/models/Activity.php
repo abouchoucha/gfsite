@@ -607,21 +607,22 @@ class Activity extends Zend_Db_Table_Abstract {
 								$clean_match_url = 'http://www.goalface.com'.substr($url_Temp,$pos_bug);
 							}
 
+							self::$logger->debug ( "------->Languages:  ". $row['language']);
 							$myLanguageArray = explode(',', $row['language']);
 							$message = '';
 							$translate = '';
 
 							foreach ($myLanguageArray as $languages) {
-								self::$logger->debug ( "------->Languages:  ". $languages);
 								$translate = $this->setuplanguage($languages);
-								$message_temp .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix') . ' ';
-								if (true !== empty($message_temp)) {
-									$message_temp .= '// ';
+								$message .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix') . ' ';
+								if (true !== empty($message)) {
+									$message .= '// ';
 								}
 							}
 
 							//trim last 
-							$message = rtrim($message_temp, '// ');
+							$message = rtrim($message, '// ');
+							$message .= $clean_match_url;
 
 							//$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
 
