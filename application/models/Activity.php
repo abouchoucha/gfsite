@@ -578,9 +578,7 @@ class Activity extends Zend_Db_Table_Abstract {
 								$newArray = array('typeOfPlayerEvent' => 'scored a hat-trick in');
 								$row['fbpage_id'] = $fb_goalface_id; 
 							} else if (Constants::$_CLEAN_SHEET_PLAYER_ACTIVITY == $activityTypeId) {
-								// Write in GoalFace FB page only
 								$newArray = array('typeOfPlayerEvent' => 'registered a clean sheet in');
-								$row['fbpage_id'] = $fb_goalface_id; 
 							}
 
 						} else if (Constants::$_PLAYER_LINE_UP_ACTIVITY == $activityTypeId) {
