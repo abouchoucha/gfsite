@@ -529,7 +529,7 @@ class Activity extends Zend_Db_Table_Abstract {
 				self::$logger->debug ( "----> End Player(Activity) Alert <----");
 
 				// ========================= FACEBOOK ====================================//
-				// Write player Alerts in PLAYERS FB pages and GOALFACE FB page                               //
+				// Write player Alerts in PLAYERS FB pages                              //
 				// =======================================================================//
 
 				$urlGen = new SeoUrlGen();
@@ -597,7 +597,7 @@ class Activity extends Zend_Db_Table_Abstract {
 								$translate = $this->setuplanguage($languages);
 								$message .= $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix');
 								if (true !== empty($message)) {
-									$message .= '// ';
+									$message .= ' // ';
 								}
 							}
 
