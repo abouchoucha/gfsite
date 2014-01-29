@@ -221,7 +221,7 @@ class Activity extends Zend_Db_Table_Abstract {
 							'link' => 'http://'.$variablesToReplace['match_seoname']))
 										);
 
-						  $res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
+						  	$res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
 
 						} catch (FacebookApiException $e) {
 							echo ' No se pudo enviar -> /'.$alert["facebookid"].'/feed Message:'.$e->getMessage();
@@ -689,8 +689,29 @@ class Activity extends Zend_Db_Table_Abstract {
 					self::$logger->debug ( "------->message:".$message);
 					self::$logger->debug ( "------->link:".$link);
 
-				}
+					$facebook = new Facebook(array(
+								'appId'  => $app_id,
+								'secret' => $app_secret
+								));
 
+					echo '<br>Message: '.$message;
+					echo '<br>Link: '.$link;
+					try{
+						$args=array(
+						'access_token'  => $fb_goalface_access_token,
+						'message' => $message,
+						'link' => $link
+						);
+
+						$post_id = $facebook->api("/".$fb_goalface_id."/links","post",$args);
+
+					}catch (FacebookApiException $e){
+						echo ' No se pudo enviar -> '.$playerId.' - idPage:'.$fb_goalface_id.'Message:'.$e->getMessage();
+						self::$logger->debug ( '----*****> Error Page Player(Activity) Alert: No se pudo enviar -> Id_Page:'.$fb_goalface_id.'Message:'.$e->getMessage());
+						echo ' Code:'.$e->getCode();
+						echo ' Line:'.$e->getLine();
+					}
+				}
 			}
 		} // End - Send Alerts ONLY
     }
