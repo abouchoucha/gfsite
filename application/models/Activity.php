@@ -610,6 +610,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
 							$link = 'http://www.goalface.com'.$urlGen->getPlayerMasterProfileUrl($row["player_nickname"], $row["player_firstname"], $row["player_lastname"], $row["player_id"], true ,$row["player_common_name"]);
 
+
 							self::$logger->debug ( "------->Page Name:".$row['fbpage_details']);
 							self::$logger->debug ( "------->Page ID:".$row['fbpage_id']);
 							self::$logger->debug ( "------->appId:".$app_id);
@@ -656,6 +657,8 @@ class Activity extends Zend_Db_Table_Abstract {
 				$newArray = null;
 				$title = '';
 
+				$row = $player->findUniquePlayer( $playerId );
+
 				// Filter Alert Type to Posts, for now only hat-tricks and doubles
 				if (in_array($activityTypeId, $goalsArray)) {
 					if (Constants::$_DOUBLE_PLAYER_ACTIVITY == $activityTypeId) {
@@ -679,6 +682,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
 					$translate = $this->setuplanguage($fb_goalface_language);
 					$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
+
 					$link = 'http://www.goalface.com'.$urlGen->getPlayerMasterProfileUrl($row["player_nickname"], $row["player_firstname"], $row["player_lastname"], $row["player_id"], true ,$row["player_common_name"]);
 
 					self::$logger->debug ( "------->Page Name: GoalFace FB page");
@@ -712,6 +716,7 @@ class Activity extends Zend_Db_Table_Abstract {
 						echo ' Line:'.$e->getLine();
 					}
 				}
+
 			}
 		} // End - Send Alerts ONLY
     }
