@@ -652,7 +652,7 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
 
     public function getActiveCompetitions() {
    		$db = $this->getAdapter ();
-		$sql = " SELECT c.country_name,lc.competition_id,lc.competition_gs_id,lc.competition_name,gs.fixtures,s.season_id";
+		$sql = " SELECT c.country_name,lc.competition_id,lc.competition_gs_id,lc.competition_name,gs.fixtures,gs.description,s.season_id ";
 		$sql .= " FROM goalservestanding gs ";
 		$sql .= " INNER JOIN league_competition lc ON gs.competition_id = lc.competition_id "; 
 		$sql .= " INNER JOIN country c ON lc.country_id = c.country_id ";
