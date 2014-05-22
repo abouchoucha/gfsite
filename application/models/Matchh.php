@@ -847,9 +847,6 @@ public function selectCurrentMatchesByRegion( $dates , $regionId , $countryId = 
          $result = $db->query ( $sql );
          $row = $result->fetch ();
          return $row;
-   } 
-   
-   
-    
+   }     
 }
 ?>
