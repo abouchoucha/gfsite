@@ -583,5 +583,75 @@ class Common {
     	return $text;
 	}
 
+	// http://www.inkplant.com/code/social-media-share-buttons.php
+	public function social_links($args) {
+	    if (!is_array($args)) { return false; }
+	    if (substr($args['url'],0,4) != 'http') { return false; }
+	    if (!is_array($args['platforms'])) { return false; }
+
+	    $title = $args['title'];
+	    if (!$title) { $title = '(Untitled)'; }
+	    
+	    //this function currently handles the following 4 social media platforms:
+	    $platforms = array(
+	      'facebook'=>'Facebook'
+	     ,'twitter'=>'Twitter'
+	     ,'pinterest'=>'Pinterest'
+	     ,'google-plus'=>'Google+'
+	    );
+
+	    $urls = array();
+	    
+	    //Facebook
+	    if (in_array('facebook',$args['platforms'])) {
+	        //Facebook
+	        $urls['facebook'] = 'https://www.facebook.com/sharer/sharer.php?u='.urlencode($args['url']);
+	    }
+
+	    //Twitter
+	    if (in_array('twitter',$args['platforms'])) {
+	        //shorten the title if necessary so this fits under Twitter's 140 character cap
+	        $url_chars = 23; //shortened by t.co
+	        if ($args['twitter_username']) { $via_chars = strlen(' via @'.$args['twitter_username']); } else { $via_chars = 0; }
+	        $max_chars = 140 - $url_chars - $via_chars;
+	        $text = $title;
+	        if (strlen($text) > $max_chars) { $text = substr($text,0,($max_chars-3)).'...'; }
+	        $urls['twitter'] = 'https://twitter.com/intent/tweet?text='.urlencode($text).'&url='.urlencode($args['url']);
+	        if ($args['twitter_username']) { $urls['twitter'] .= '&via='.urlencode($args['twitter_username']); }
+	    }
+
+	    //Pinterest
+	    if ((in_array('pinterest',$args['platforms'])) && ($args['media_url'])) {
+	        $urls['pinterest'] = 'http://pinterest.com/pin/create/button/?url='.urlencode($args['url']).'&media='.urlencode($args['media_url']).'&description='.urlencode($title); 
+	    }
+
+	    //Google+
+	    if (in_array('google-plus',$args['platforms'])) {
+	        $urls['google-plus'] = 'https://plus.google.com/share?url='.urlencode($args['url']).'&hl=en-US'; //the language is set to US English here
+	    }
+
+	    if (in_array($args['image_size'],array(16,24,32))) { $image_size = $args['image_size']; } else { $image_size = false; }
+	    if ($args['image_path']) { $path = $args['image_path']; } else { $path = './'; }
+
+	    $links = array();
+	    foreach ($args['platforms'] as $key) {
+	        if (array_key_exists($key,$platforms)) {
+	            if ($image_size) {
+	                $src = $path.$image_size.'px/'.$key.'.png';
+	                $alt = 'Share this on '.$platforms[$key];
+	                $caption = '<img src="'.$src.'" alt="'.$alt.'" title="'.$alt.'" style="width:'.$image_size.'px;height:'.$image_size.'px;border:0;" />';
+	            } else {
+	                $caption = $platforms[$key];
+	            }
+	            $url = $urls[$key];
+	            $links[] = '<a href="'.$url.'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;">'.$caption.'</a>';
+	        }
+	    }
+
+	    if (array_key_exists('separator',$args)) { $separator = $args['separator']; } else { $separator = ' '; }
+	    return implode($separator,$links);
+	}
+
+
 }
 ?>

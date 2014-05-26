@@ -62,10 +62,16 @@ class CommunityController extends GoalFaceController {
         	}
 
         }
-        //Zend_Debug::dump($activity_image);
-       	$view->title = $result[0]['activitytype_name'] . "Alert";
-       	$view->description = " Goal Alert Description";
+
+        //Get string between href on activity txt
+        $str = $activity->activity_text;
+        $res = array();
+		preg_match_all('|<a href="(.+)">|', $str, $res);
+		//Zend_Debug::dump($var);
+
+       	$view->activitytitle = $result[0]['activitytype_name'] . " Alert";
        	$view->activityimage = $activity_image;
+       	$view->activityUrl = 'http://www.goalface.com' . $res[1][0];
        	$this->_response->setBody ( $this->view->render ( 'viewactivity.php' ) );   
     }
 

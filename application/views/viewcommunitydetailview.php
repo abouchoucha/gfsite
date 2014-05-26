@@ -1,5 +1,8 @@
 
-<?php require_once 'Common.php'; ?>
+<?php require_once 'Common.php'; 
+      $common = new Common();
+?>
+
 <?php require_once 'seourlgen.php';
        $urlGen = new SeoUrlGen(); 
        $config = Zend_Registry::get ( 'config' );
@@ -59,43 +62,73 @@
                 }?>
             </div>
             <?php 
-                $stTitle = $activity["activitytype_name"];
+                //$stTitle = $activity["activitytype_name"];
+                $stTitle = strip_tags($activity['activity_text']);
                 $stURL = 'http://' . $config->path->index->server->name . '/community/showuniqueactivity/activityId/' . $activity["activity_id"];
-                $stImage = 'http://' . $config->path->index->server->name . $alert_image;
+                $stImage = 'http://' . $config->path->index->server->name . "/public/images/players/". $activity['activity_player_id'] . ".jpg";
+                $social_icons_images = 'http://' . $config->path->index->server->name ."/public/images/icons/social/";
+
+
+
+              $args = array(
+                'image_size' => 16
+               ,'image_path' => $social_icons_images
+               ,'separator'  => '<br />'
+               ,'url' => $stURL
+               ,'title' => $stTitle 
+               ,'media_url' => $stImage
+               ,'twitter_username' => 'goalface'
+               ,'platforms' => array('facebook','twitter','pinterest','google-plus')
+              );
+
+
             ?>
             <!--id="button_<?php //echo $activity["activity_id"]?>"-->
-            <div style="margin-top:10px;">
+           <?php
+
+           //Zend_Debug::dump($stImage);
+
+            ?>
+
+            <div class="activity_social" style="margin-top:10px;">
+
+            <?php echo $common->social_links($args); ?>
+
+            
+
                  
-              <span class='st_twitter' 
+             <!-- <span class='st_twitter_button' 
                 displayText='Tweet' 
-                st_url="<?php  echo $stURL?>" 
-                st_image="<?php  echo $stImage?>"
-                st_title="<?php echo $stTitle;?>">
+                st_url="<?php  //echo $stURL?>" 
+                st_image="<?php  //echo $stImage?>"
+                st_title="<?php //echo $stTitle;?>">
               </span>
 
-             <span class="st_facebook_hcount"  
-                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
-                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
-                st_image="<?php  echo $stImage?>">
+             <span class="st_facebook_button"  
+                st_url="http://<?php //echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php //echo $activity["activity_id"]; ?>" 
+                st_title="<?php //echo $activity["activitytype_name"]; ?> Event"
+                displayText='Share'
+                st_image="<?php  //echo $stImage?>">
                 </span>
                 
              <span class="st_fblike"  
-                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
-                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
-                st_image="<?php  echo $stImage?>">
+                st_url="http://<?php //echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php //echo $activity["activity_id"]; ?>" 
+                st_title="<?php //echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  //echo $stImage?>">
                 </span> 
                 
             <span class="st_pinterest"  
-                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
-                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
-                st_image="<?php  echo $stImage?>">
+                st_url="http://<?php //echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php //echo $activity["activity_id"]; ?>" 
+                st_title="<?php //echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  //echo $stImage?>">
                 </span> 
             
             <span class="st_plusone"  
-                st_url="http://<?php echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php echo $activity["activity_id"]; ?>" 
-                st_title="<?php echo $activity["activitytype_name"]; ?> Event"
-                st_image="<?php  echo $stImage?>">
-                </span>      
+                st_url="http://<?php //echo $config->path->index->server->name; ?>/community/showuniqueactivity/activityId/<?php //echo $activity["activity_id"]; ?>" 
+                st_title="<?php //echo $activity["activitytype_name"]; ?> Event"
+                st_image="<?php  //echo $stImage?>">
+                </span>   
+              -->  
               
             </div>
 
