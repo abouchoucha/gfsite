@@ -2215,15 +2215,25 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
     	$player = new Player ();
     	$country = new Country();
-    	$seasonId = $this->_request->getParam ( 'season', null );
-    	$rowplayer = $player->findPlayersBySeason($seasonId);
-    	foreach($rowplayer as $playerlist) {
+    	//$seasonId = $this->_request->getParam ( 'season', null );
+    	//$rowplayer = $player->findPlayersBySeason($seasonId);
+    	$select = $player->select()->where('player_dob = ?',  '1969-12-31');
+    	//$select = $player->select()->where('player_id = ?',  '200');
+		$rows = $player->fetchAll($select);
+    	//$rowplayer = $player->fetchAll($player->select()->where('player_dob = ?',  $criteria)); 
+    	
+    	foreach($rows as $playerlist) {
           $xmlPlayer = $this->getgsfeed('/soccerstats/player/'.$playerlist['player_id']);
       		if ($xmlPlayer != null || $xmlPlayer != '') {
   	    		foreach($xmlPlayer->player as $playerxml){
-  	    		 $dataPlayer = array ('player_common_name' => $playerxml->name, );
-  	    		 echo $playerlist['player_id']." Name: ". $playerxml->name ." UPDATED<br>";
+  	    		 	$mytempdate = str_replace('/', '-', $playerxml->birthdate);
+					$mydate = date('Y-m-d', strtotime($mytempdate));
+  	    			$dataPlayer = array (
+  	    				'player_id' => $playerlist['player_id'],
+  	    				'player_dob' => $mydate);
+					//Zend_Debug::dump($dataPlayer);
   					$player->updatePlayer($playerlist['player_id'], $dataPlayer );
+  					Zend_Debug::dump("Player Updated: " . $playerlist['player_id']);
   	    		}
   	    	}
 	    }
