@@ -132,7 +132,7 @@ class Matchh extends Zend_Db_Table_Abstract {
 		$sql .= " ,c3.country_id AS country_id_team_b , t1.team_id as team_idA, t2.team_id as team_idB," ;
  		$sql .= " m.team_a, m.team_b,t1.team_gs_id as team_a_gs, t2.team_gs_id as team_b_gs , m.fs_team_a,fs_team_b,m.country_id,t1.team_stadium, m.match_status AS match_status,m.match_id_goalserve,m.static_id, " ;
 		$sql .= " v.venue_id,v.venue_name,v.venue_city ";
-    $sql .= " from matchh m" ;
+    	 $sql .= " from matchh m" ;
 		$sql .= " inner join league_competition l ON l.competition_id = m.competition_id " ;
 		$sql .= " left outer join venue v ON v.venue_id = m.venue_id";
 		$sql .= " inner join team t1 on t1.team_id = m.team_a" ;

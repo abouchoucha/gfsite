@@ -2214,18 +2214,30 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
     	$player = new Player ();
     	$country = new Country();
-    	$seasonId = $this->_request->getParam ( 'season', null );
-    	$rowplayer = $player->findPlayersBySeason($seasonId);
-    	foreach($rowplayer as $playerlist) {
+    	//$seasonId = $this->_request->getParam ( 'season', null );
+    	//$rowplayer = $player->findPlayersBySeason($seasonId);
+    	$select = $player->select()->where('player_dob = ?',  '1969-12-31');
+    	//$select = $player->select()->where('player_id = ?',  '200');
+		$rows = $player->fetchAll($select);
+    	//$rowplayer = $player->fetchAll($player->select()->where('player_dob = ?',  $criteria)); 
+    	
+    	foreach($rows as $playerlist) {
           $xmlPlayer = $this->getgsfeed('/soccerstats/player/'.$playerlist['player_id']);
       		if ($xmlPlayer != null || $xmlPlayer != '') {
   	    		foreach($xmlPlayer->player as $playerxml){
-  	    		 $dataPlayer = array ('player_common_name' => $playerxml->name, );
-  	    		 echo $playerlist['player_id']." Name: ". $playerxml->name ." UPDATED<br>";
+  	    		 	$mytempdate = str_replace('/', '-', $playerxml->birthdate);
+					$mydate = date('Y-m-d', strtotime($mytempdate));
+  	    			$dataPlayer = array (
+  	    				'player_id' => $playerlist['player_id'],
+  	    				'player_dob' => $mydate);
+					//Zend_Debug::dump($dataPlayer);
   					$player->updatePlayer($playerlist['player_id'], $dataPlayer );
+  					Zend_Debug::dump("Player Updated: " . $playerlist['player_id']);
   	    		}
   	    	}
 	    }
+
+
 
 
   /*
@@ -2340,7 +2352,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 				  				$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
 								$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-								$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+								$mytempdate = str_replace('/', '-', $xmlPlayer->birthdate);
+								$mydate = date('Y-m-d', strtotime($mytempdate));
 								$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 								$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 								$player_height = $arr_height [0];
@@ -2369,8 +2382,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 						  	}
 
 						  	//insert new player
-						  	$player->insert ( $dataPlayer );
-							//echo "Inserting new player: " . $xmlPlayer ['id'] . "-> " . $xmlPlayer->name . "<br>";
+						  	//$player->insert ( $dataPlayer );
+							echo "Inserting new player: " . $xmlPlayer ['id'] . "-> " . $xmlPlayer->name . "<br>";
 
 							if ($xmlPlayer->teamid != '') {
 
@@ -2381,13 +2394,13 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									$dataTeamPlayer = array ('player_id' => $xmlPlayer ['id'],
                                            'team_id' => $rowTeamCurrentFeed['team_id'], 
                                            'actual_team' => '1' );
-									$teamplayer->insert ( $dataTeamPlayer );
-									//echo "Inserting new teamplayer: " . $xmlPlayer ['id'] . "-> " .$rowTeamCurrentFeed['team_id'] . "<br>";
+									//$teamplayer->insert ( $dataTeamPlayer );
+									echo "Inserting new teamplayer: " . $xmlPlayer ['id'] . "-> " .$rowTeamCurrentFeed['team_id'] . "<br>";
 								} else {
 									//echo "team: " .$xmlPlayer->teamid ."--". $xmlPlayer->team."needs to be mapped<br>";
 								}
 							} else {
-								//echo "Player: " . $xmlPlayer ['id'] . " Has No Current team On feed<br>";
+								echo "Player: " . $xmlPlayer ['id'] . " Has No Current team On feed<br>";
 							}
 
 
@@ -2400,7 +2413,11 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								//Updating Player Details Missing Fields
 								$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
 								$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-								$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+								//$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+
+								$mytempdate = str_replace('/', '-', $xmlPlayer->birthdate);
+								$mydate = date('Y-m-d', strtotime($mytempdate));
+
 								$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 								$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 								$player_height = $arr_height [0];
@@ -2417,47 +2434,49 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									'player_height' => $player_height,
 									'player_weight' => $player_weight );
 
-								$player->updatePlayer ( $playerxml ['id'], $dataPlayer );
+								Zend_Debug::dump($dataPlayer);
+
+								//$player->updatePlayer ( $playerxml ['id'], $dataPlayer );
 
 								//Find current team (club) per each player GoalFace
 								$currentteam = $teamplayer->findCurrentTeamPlayer ( $playerxml ['id'], 'club',1 );
 
 								$rowTeamCurrentFeed = $team->fetchRow ( 'team_gs_id = ' . (int)$xmlPlayer->teamid );
-								//echo "==================<br>";
-								//echo "<strong>Player:</strong> " .$xmlPlayer->name. "<br>";
+								echo "==================<br>";
+								echo "<strong>Player:</strong> " .$xmlPlayer->name. "<br>";
 								if ($xmlPlayer->teamid != '') {
 									if ($currentteam == null) {
 
 
 										//No Current team ophan - Update to current to this team
-										//echo "ORPHAN player goalface: <br>" ;
+										echo "ORPHAN player goalface: <br>" ;
 										if($rowTeamCurrentFeed != null) {
 											$dataTeamPlayer = array ('player_id' => $playerxml ['id'], 
                                                'team_id' => $rowTeamCurrentFeed['team_id'],
                                                'actual_team' => '1' );
-											$teamplayer->insert ( $dataTeamPlayer );
-											//echo "----->Inserting New Current Team for Orphan : " . $playerxml ['id'] . "-> " . $rowTeamCurrentFeed['team_id']  . "<br>";
+											//$teamplayer->insert ( $dataTeamPlayer );
+											echo "----->Inserting New Current Team for Orphan : " . $playerxml ['id'] . "-> " . $rowTeamCurrentFeed['team_id']  . "<br>";
 										} else {
-											//echo $playerxml ['id'] ." Exists --- ORPHAN goalface but feed team: <strong>".$xmlPlayer->teamid." -- ".$xmlPlayer->team ."</strong> not mapped<br>" ;
+											echo $playerxml ['id'] ." Exists --- ORPHAN goalface but feed team: <strong>".$xmlPlayer->teamid." -- ".$xmlPlayer->team ."</strong> not mapped<br>" ;
 										}
 
 									} else {
 
 										if ($rowTeamCurrentFeed == null) {
-											//echo $playerxml ['id'] ." Exists --- but current team feed team: <strong>".$xmlPlayer->teamid ." -- ".$xmlPlayer->team . "</strong> not mapped<br>" ;
+											echo $playerxml ['id'] ." Exists --- but current team feed team: <strong>".$xmlPlayer->teamid ." -- ".$xmlPlayer->team . "</strong> not mapped<br>" ;
 										} else {
 											if ($rowTeamCurrentFeed['team_id'] != $currentteam) {
-												//echo $playerxml ['id'] ." Exists --- club team goalface: " .$currentteam .",,, different Club team from feed:".$rowTeamCurrentFeed['team_id']."<br>";
+												echo $playerxml ['id'] ." Exists --- club team goalface: " .$currentteam .",,, different Club team from feed:".$rowTeamCurrentFeed['team_id']."<br>";
 
 												$dataTeamPlayerUpdate = array ('actual_team' => '0' );
-												//echo "----->Updating Old Current Team : " . $playerxml ['id'] . "-> " . $currentteam . "<br>";
-												$teamplayer->updateTeamPlayer ( $playerxml ['id'], $currentteam, $dataTeamPlayerUpdate );
+												echo "----->Updating Old Current Team : " . $playerxml ['id'] . "-> " . $currentteam . "<br>";
+												//$teamplayer->updateTeamPlayer ( $playerxml ['id'], $currentteam, $dataTeamPlayerUpdate );
 												$dataTeamPlayer = array ('player_id' => $playerxml ['id'], 'team_id' => $rowTeamCurrentFeed['team_id'], 'actual_team' => '1' );
-												//echo "----->Inserting New Current Team : " . $playerxml ['id'] . "-> " . $rowTeamCurrentFeed['team_id'] . "<br>";
-												$teamplayer->insert ( $dataTeamPlayer );
+												echo "----->Inserting New Current Team : " . $playerxml ['id'] . "-> " . $rowTeamCurrentFeed['team_id'] . "<br>";
+												//$teamplayer->insert ( $dataTeamPlayer );
 
 											} else {
-												//echo $playerxml ['id']. " club team goalface: " .$currentteam .",,,SAME Club team from feed:".$rowTeamCurrentFeed['team_id']."<br>";
+												echo $playerxml ['id']. " club team goalface: " .$currentteam .",,,SAME Club team from feed:".$rowTeamCurrentFeed['team_id']."<br>";
 
 
 
@@ -2465,9 +2484,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
 										}
 
 									}
-									//echo "==================<br>";
+									echo "==================<br>";
 								} else {
-									//echo "Player: " . $xmlPlayer ['id'] . " Has No Current team On feed<br>";
+									echo "Player: " . $xmlPlayer ['id'] . " Has No Current team On feed<br>";
 								}
 							}
 						}

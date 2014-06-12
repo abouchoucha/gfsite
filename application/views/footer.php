@@ -136,7 +136,8 @@
 					<ul>
                         <?php require_once 'Player.php';
                            $player = new Player();
-                           $topPlayers = $player->findTopPlayers();
+                           //$topPlayers = $player->findTopPlayers();       
+                           $topPlayers = $player->findFeaturedPlayers(5);                 
                             foreach($topPlayers as $data)
                             {
                                 echo "<li><a href=". $urlGen->getPlayerMasterProfileUrl($data["player_nickname"], $data["player_firstname"], $data["player_lastname"], $data["player_id"], true ,$data["player_common_name"]).">".$data["player_name_short"]."</a></li>";

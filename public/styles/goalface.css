@@ -11012,6 +11012,7 @@ font-size:13px;
 border-left:1px solid #6F9BBC;
 border-right:1px solid #6F9BBC;
 }
+
 .friends_area {
     min-height:47px;
     padding-bottom:0px;
@@ -11019,6 +11020,10 @@ border-right:1px solid #6F9BBC;
     vertical-align:top;
     width:557px;
     clear:both;
+}
+
+.activity_area {
+	width: 650px;
 }
 
 .odd_row {background-color:#ffffff;}
@@ -11033,8 +11038,35 @@ border-right:1px solid #6F9BBC;
     width:40px;
 }
 
+.friends_area .leftcommentactivitiy {
+	width:200px;
+	height:150px;
+	margin-bottom: 15px;
+}
+
+#ActivityDetailsLogosScores {
+	margin-top: 12px;
+}
+
+#FriendsWrapper h3{
+	font-size: 12px;
+}
+#ActivityDetailsLogosScores div {
+    float: left;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 75px;
+}
+
+#ActivityDetailsLogosScores a img {
+    border: 1px solid #6F9BBC;
+    height: 70px;
+    width: 70px;
+}
+
+
 .friends_area .rightcomment {
-    float:left;
+    float:right;
     color:#000000;
     padding-left:5px;
     padding-right:10px;
@@ -11042,6 +11074,24 @@ border-right:1px solid #6F9BBC;
     overflow:hidden;
     word-wrap: break-word;
 }
+
+.friends_area .rightcommentactivitiy {
+	margin-top:10px;
+	width: 420px
+}
+
+.friends_area .rightcommentactivitiy p {
+	 margin-top: 10px;
+	font-weight: 400;
+	line-height: 21px;
+	font-size: 15px;
+}
+
+
+.friends_area .rightcommentactivitiy p a {
+	font-size: 12px;
+}
+
 .friends_area .rightcomment .autor {
 	color:#3B5998;
 	font-weight:bold;
@@ -11053,6 +11103,12 @@ border-right:1px solid #6F9BBC;
 	font-size:10px;
 
 }
+
+.friends_area .rightcommentactivitiy .date {
+	font-size: 12px;
+}
+ 
+
 
 .sendmessage {
   clear:left;
@@ -11750,4 +11806,35 @@ h1.versus
 .nodatamodule {
 	clear:both;float:left;padding:10px;font-weight:bold;
 }
+
+
+
+/*
+ * Activities Detail Page to share
+ */
+
+.activitydetailswrapper {
+	margin:0 auto;
+	padding-left: 0px;
+	padding-top: 0px;
+	width:660px;
+	border:solid 2px red;
+	position:relative;
+	clear:both;
 }
+
+.activitydetailswrapper .activityImage {
+	float:left;
+	padding-right: 10px;
+}
+
+
+.activityInfo {
+	float:right;
+	text-align: left;
+	vertical-align: top;
+	width: 450px;
+}
+
+
+

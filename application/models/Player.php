@@ -844,6 +844,7 @@ ORDER by match_date DESC
 		return $row ;
 	}
 
+
 public function findUserPlayers()
 	{
 		$db = $this->getAdapter () ;
@@ -853,6 +854,8 @@ public function findUserPlayers()
 		//Zend_Debug::dump($row);
 		return $row ;
 	}
+
+
 
 public function findPlayersBySeason ($seasonId, $count,$userid = null)   {
 
@@ -934,7 +937,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         if(!is_null($count)){
            $sql .= " LIMIT " . $count;
         }
-        //echo $sql;
+        echo $sql;
         $result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);

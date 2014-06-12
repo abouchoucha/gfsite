@@ -14,7 +14,9 @@ require_once 'application/models/Message.php';
 require_once 'Common.php';
 require_once 'scripts/seourlgen.php';
 //require ("library/Zrad/Zrad_Facebook.php");
-require_once 'Zrad/Zrad_Facebook.php';require_once 'Zrad/cFacebook.php';
+require_once 'Zrad/Zrad_Facebook.php';
+
+require_once 'Zrad/cFacebook.php';
 
 class IndexController extends GoalFaceController  {
 	
@@ -27,7 +29,17 @@ class IndexController extends GoalFaceController  {
 		
 		if ($session->user != null) {
 			$this->_redirect ( "/myhome" );
-		}				$config = Zend_Registry::get ( 'config' );		$appId = $config->facebook->appid;		$secret = $config->facebook->secret;		$servername = $config->path->index->server->name;				$valTemp = cFacebook::loginFacebook('sign-in',$session,$appId,$secret,$servername);		if($valTemp != null){			$this->_redirect ( "/login/fbdologin" );		}
+		}
+		
+		$config = Zend_Registry::get ( 'config' );
+		$appId = $config->facebook->appid;
+		$secret = $config->facebook->secret;
+		$servername = $config->path->index->server->name;
+		
+		$valTemp = cFacebook::loginFacebook('sign-in',$session,$appId,$secret,$servername);
+		if($valTemp != null){
+			$this->_redirect ( "/login/fbdologin" );
+		}
 		
 		//parent::validateLoginExpired();
 		
@@ -61,8 +73,14 @@ class IndexController extends GoalFaceController  {
 			$view->countryList = $countrylist ;
     		//Find User Country Competitions
 			$userCompetitions = $userLeague->findUserCountryCompetitions($session->userId);
-			$view->userCompetitions = $userCompetitions;						//Find if user has some fav on featured 6 teams             $view->featuredTeams = $team->findFeaturedTeams (6,$session->userId);        
-		} else {		    $view->featuredTeams = $team->findFeaturedTeams (6); 		}
+			$view->userCompetitions = $userCompetitions;
+			
+			//Find if user has some fav on featured 6 teams 
+            $view->featuredTeams = $team->findFeaturedTeams (6,$session->userId);        
+		} else {
+		    //$view->featuredTeams = $team->findFeaturedTeams (6); 
+		    $view->featuredTeams = $team->selectTeamsBySeason(141056,6);
+		}
 		$view->actionTemplate = 'home.php';
 		$view->selected = 'today';		
 		$this->_response->setBody ( $view->render ( 'site.tpl.php' ) );

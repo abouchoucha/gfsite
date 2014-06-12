@@ -7,6 +7,7 @@ index.php
 .htaccess
 .htaccess.with
 .htaccess.without
+.htaccess.with
 .htpasswd
 index.php.working
 sftp-config.json

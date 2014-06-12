@@ -546,3 +546,502 @@
 .fbcontainer table a:focus {
     outline: medium none;
 }
+
+/* CSS Document */
+
+
+.fbcontainer {
+    margin: 0 auto;
+    padding: 0 0px;
+    text-align: left;
+    width: 500px;
+    clear: both;
+    float: left;
+    
+}
+
+.fbcomments {
+    margin-top: 20px;
+    min-height: 205px;
+    padding: 10px;
+    width: 500px;
+    z-index: 8;
+    background-color: #FFFFFF; 
+    border: 2px solid #E3E4E6;
+}
+
+.fbcontainer .mmid,
+.fbcontainer .prof2,
+{
+    float: left;
+    width: 500px;
+}
+
+
+.fbcontainer .mmid .march {
+    border: 1px solid #6F9CBD;
+    clear: both;
+    float: left;
+    margin-top: 5px;
+    width:488px;
+  
+}
+
+/*Pagination*/
+
+.fbcontainer .mmid .march .paginationWide{clear:both;float:left;background-color:#729BB9;padding-bottom:10px;width:488px;}
+.fbcontainer .mmid .march .paginationWide .numberofpage {clear:both;color:#FFFFFF;float:left;font:bold 12px/30px arial;margin-left:10px;width:180px;}
+.fbcontainer .mmid .march .paginationWide ul{list-style:none;margin:0px;padding:0px 5px 0px 0px;margin-top:10px;float:right;}
+.fbcontainer .mmid .march .paginationWide ul li{float:left;color:#FFFFFF;font:bold 12px arial;margin-left:3px;margin-right:3px;color:#000000;}
+.fbcontainer .mmid .march .paginationWide ul li a{color:#FFFFFF;text-decoration:none;}
+.fbcontainer .mmid .march .paginationWide ul li a.current {color:#F95200;font-weight:bold;}
+.fbcontainer .mmid .march .paginationWide ul li a:hover{color:#000000;text-decoration:none;}
+
+.fbcontainer .mmid .march .paginationWide ul li.pre{float:left;width:66px;color:#FFFFFF;font:bold 12px arial;}
+.fbcontainer .mmid .march .paginationWide ul li.pre a{color:#FFFFFF;text-decoration:none;}
+.fbcontainer .mmid .march .paginationWide ul li.pre a.disable {color:#DDDDDD;}
+.fbcontainer .mmid .march .paginationWide ul li.pre a:hover{color:#4c4c4c;text-decoration:none;}
+
+.fbcontainer .mmid .march .paginationWide ul li.next{float:left;width:50px;color:#FFFFFF;font:bold 12px arial;text-align:right;}
+.fbcontainer .mmid .march .paginationWide ul li.next a{color:#FFFFFF;text-decoration:none;}
+.fbcontainer .mmid .march .paginationWide ul li.next a:hover{color:#4c4c4c;text-decoration:none;}
+/* End Pagination*/
+
+
+.fbcontainer .mmid .march .roundheader {
+    background-color: #BACDDC;
+    clear: both;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 488px;
+}
+
+.fbcontainer .mmid .march .tableheader {
+    background-color: #DCE7ED;    
+    clear: both;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 488px;
+
+}
+
+.fbcontainer .mmid .march .tablesubheader {
+    background-color: #6F9BBC;
+    font: 13px arial;
+    clear: both;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 488px;
+}
+
+.fbcontainer .mmid .march .tablesubheader ul {
+    list-style: none outside none;
+    margin: 0;
+    padding:0;
+}
+
+.fbcontainer .mmid .march .tablesubheader ul li.flag {
+    color: #FEFEFE;
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+    width: 30px;
+}
+.fbcontainer .mmid .march .tablesubheader ul li.name {
+   color: #FEFEFE;
+    float: left;
+    margin-left: 10px;
+    width: 98px;
+}
+
+.fbcontainer .mmid .march .tablesubheader ul li.cont {
+   color: #FEFEFE;
+    float: left;
+    text-align: left;
+    width: 40px;
+}
+
+.fbcontainer .mmid .march .roundheader p {
+    clear: both;
+    color: #000000;
+    float: left;
+    font: bold 12px arial;
+    margin-left: 15px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.fbcontainer .mmid .march .tableheader p {
+    clear: both;
+    color: #000000;
+    float: left;
+    font: bold 12px arial;
+    margin-left: 15px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.fbcontainer .mmid .march .rowodd {
+    background-color: #DCE7ED;
+    clear: both;
+    float: left;
+    width: 488px;
+}
+
+
+.fbcontainer .mmid .march .roweven {
+    background-color: #FFFFFF;
+    clear: both;
+    float: left;
+    width: 488px;
+}
+
+
+.fbcontainer .mmid .march .rowodd ul,
+.fbcontainer .mmid .march .roweven ul
+ {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.matchdate,
+.fbcontainer .mmid .march .roweven ul li.matchdate {
+    color: #4F7B96;
+    float: left;
+    font: bold 12px/30px arial;
+    margin-left: 10px;
+    width: 78px;
+}
+
+
+.fbcontainer .mmid .march .rowodd ul li.teama,
+.fbcontainer .mmid .march .roweven ul li.teama {
+    color: #4F7B96;
+    float: left;
+    font-family: arial;
+    font-size: 12px;
+    line-height: 30px;
+    padding-left: 20px;
+    margin-left: 10px;
+    width: 105px;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.teama a,
+.fbcontainer .mmid .march .roweven ul li.teama a {
+    color: #4F7B96;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.timescore,
+.fbcontainer .mmid .march .roweven ul li.timescore {
+    color: #4F7B96;
+    float: left;
+    font: bold 12px/30px arial;
+    margin-left: 20px;
+    width: 30px;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.timescore a,
+.fbcontainer .mmid .march .roweven ul li.timescore a {
+    color: #4F7B96;
+    text-decoration: none;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.teamb,
+.fbcontainer .mmid .march .roweven ul li.teamb {
+    color: #4F7B96;
+    float: left;
+    font-family: arial;
+    font-size: 12px;
+    line-height: 30px;
+    padding-left: 20px;
+    margin-left: 10px;
+    width: 105px;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.teamb a,
+.fbcontainer .mmid .march .roweven ul li.teamb a {
+    color: #4F7B96;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.fbcontainer  .mmid .march .rowodd ul li.matchdetails,
+.fbcontainer  .mmid .march .roweven ul li.matchdetails {
+    color: #4F7B96;
+    float: left;
+    font: bold 12px/30px arial;
+    margin-left: 30px;
+    width: 50px;
+}
+
+.fbcontainer .mmid .march .rowodd ul li.matchdetails a,
+.fbcontainer .mmid .march .roweven ul li.matchdetails a {
+    color: #4F7B96;
+    text-decoration: none;
+}
+
+/* zebra for table standings */
+.fbcontainer .mmid .march .groupa1 {
+   font: 13px arial;
+    clear: both;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 488px;
+}
+
+.fbcontainer .mmid .march .groupa2 {
+    font: 13px arial;
+    background-color: #E6EFF4;
+    clear: both;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 488px;
+ } 
+ 
+ .fbcontainer .mmid .march .groupa1 ul,
+ .fbcontainer .mmid .march .groupa2 ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+ .fbcontainer .mmid .march .groupa1 ul li.flag,
+ .fbcontainer .mmid .march .groupa2 ul li.flag {
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+    width: 30px;
+}
+
+ .fbcontainer .mmid .march .groupa1 ul li.name,
+ .fbcontainer .mmid .march .groupa2 ul li.name {
+   color: #1A1A1A;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+    width: 98px;
+
+}
+
+.fbcontainer .mmid .march .groupa1 ul li.name a,
+.fbcontainer .mmid .march .groupa2 ul li.name a {
+   color: #296183;
+    text-decoration: none;
+ }
+ 
+  .fbcontainer .mmid .march .groupa1 ul li.cont,
+ .fbcontainer .mmid .march .groupa2 ul li.cont {
+    color: #1A1A1A;
+    float: left;
+    text-align: left; 
+    width: 40px;
+}
+
+/* gallery columns rows*/
+
+.fbcontainer .mmid .march .imgs {
+    float: left;
+    margin-top: 10px;
+    width: 488px;
+}
+
+.fbcontainer .mmid .march .imgs .tfa {
+    color: #01395B;
+    float: left;
+    font: bold 12px/20px arial;
+    margin-left: 33px;
+    text-align: center;
+    width: 82px;
+
+}
+
+.fbcontainer .mmid .march .imgs .tfa1 {
+    color: #01395B;
+    float: left;
+    font: bold 12px/20px arial;
+    margin-left: 35px;
+    margin-right: 0px;
+    text-align: center;
+    width: 82px;
+}
+
+.fbcontainer .mmid .march .imgs .tfa a,
+.fbcontainer .mmid .march .imgs .tfa1 a
+{
+    font: bold 12px/20px arial;
+    text-align: center;
+    color: #296183;
+    text-decoration: none;
+}
+
+.fbcontainer .mmid .march .imgs .tfa a img,
+.fbcontainer .mmid .march .imgs .tfa1 a img
+ {
+    border: 1px solid #6F9BBC;
+    height: 82px;
+    width: 82px;
+}
+
+
+
+/* FB landing Page */
+
+
+.fbcontainer #header {
+    background: url("../images/logogffb.png") no-repeat scroll 0 0 transparent;
+    clear: both;
+    float: left;
+    width: 500px;
+    height: 79px;
+    margin-left: 5px;
+    margin-bottom:10px;
+}
+
+.fbcontainer #middle .snleft {
+    clear: both;
+    float: left;
+    width: 500px;
+}
+.fbcontainer #middle .snright {
+    float: left;
+    margin-left: 15px;
+    margin-top: 70px;
+    width: 268px;
+}
+.fbcontainer #middle .snleft h1 {
+    clear: both;
+    color: #296183;
+    float: left;
+    font: bold 22px arial;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 500px;
+}
+.fbcontainer #middle .snleft .account {
+    clear: both;
+    color: #000000;
+    float: left;
+    font: 14px arial;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding-bottom: 10px;
+    width: 490px;
+}
+.fbcontainer #middle .snleft .account a {
+    color: #64B0D6;
+    text-decoration: none;
+}
+
+.fbcontainer #middle .snleft .team {
+    clear: both;
+    float: left;
+    width: 500px;
+}
+.fbcontainer #middle .snleft .team .team1 {
+    clear: both;
+    color: #296183;
+    float: left;
+    font: bold 18px arial;
+    margin-top: 30px;
+    text-align: right;
+    width: 130px;
+}
+
+.fbcontainer #middle .snleft .team ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.fbcontainer #middle .snleft .team ul li {
+    float: left;
+    height: 83px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 83px;
+}
+
+.fbcontainer #middle .snleft .team ul li img {
+    border: 1px solid #6F9BBC;
+    height: 80px;
+    width: 80px;
+}
+
+.fbcontainer #middle .snleft .once {
+    clear: both;
+    float: left;
+    margin-left: 135px;
+    width: 530px;
+}
+.fbcontainer #middle .snleft .once h2 {
+    clear: both;
+    color: #000000;
+    float: left;
+    font: 14px arial;
+    margin-top: 10px;
+    width: 450px;
+     margin-bottom: 0;
+}
+.fbcontainer #middle .snleft .once ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.fbcontainer #middle .snleft .once ul li {
+    background: url("../images/once.jpg") no-repeat scroll left center transparent;
+    clear: both;
+    color: #000000;
+    float: left;
+    font: 13px arial;
+    margin-top: 5px;
+    padding-left: 10px;
+    width: 520px;
+}
+.fbcontainer #middle .snleft .once ul li a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.fbcontainer #middle .snleft .easy {
+    float: left;
+    height: 53px;
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 500px;
+}
+
+/* Pulse Activities */
+#PulseDetailWrapper {
+    background-color: #FFFFFF;
+    border: 1px solid #6F9BBC;
+    clear: left;
+    font-size: 12px;
+    overflow: hidden;
+    padding: 20px 15px;
+    width: 680px;
+}
+
+ul#ActivityDetailList {
+    background-image: none;
+    height: auto;
+    padding: 20px;
+}
+
+ul#ActivityDetailList li {
+    background-repeat: no-repeat;
+    clear: both;
+    margin: 0 0 20px;
+    padding: 0 0 20px 65px;
+}
+

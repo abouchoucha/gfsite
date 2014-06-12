@@ -291,7 +291,7 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
 		$sql = "select lc.competition_id, lc.competition_name, lc.regional, lc.competition_seoname ";
 		$sql .= " from topcompetition tc ";
 		$sql .= " inner join league_competition lc on tc.competition_id = lc.competition_id ";
-		$sql .= " ORDER BY Rand() LIMIT 5";
+		$sql .= " ORDER BY tc.sort_order LIMIT 5";
 		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		return $row;

@@ -14,52 +14,63 @@
 
     jQuery(document).ready(function() {
 
+        //addShareThisButton();
+
         showActivitiesTab('allActivity','all');
 
-	 jQuery('#allActivityTab').click(function() {
+	    jQuery('#allActivityTab').click(function() {
             showActivitiesTab('allActivity','all');
-         });
+        });
 
-         jQuery('#membersTab').click(function() {
+        jQuery('#membersTab').click(function() {
             showActivitiesTab('members','1');
-         });
+        });
          
-          jQuery('#playersTab').click(function() {
+        jQuery('#playersTab').click(function() {
             showActivitiesTab('players','3');
-         });
+        });
          
-          jQuery('#teamsTab').click(function() {
+        jQuery('#teamsTab').click(function() {
             showActivitiesTab('teams','2');
-         });
+        });
          
          jQuery('#competitionsTab').click(function() {
             showActivitiesTab('competitions','4');
-         });
+        });
 
          jQuery('#atoday').click(function(){
          	showGoalFacePulse('atoday','');
-    	 });
-         jQuery('#ayesterday').click(function(){
+    	 })
+
+        jQuery('#ayesterday').click(function(){
            	showGoalFacePulse('ayesterday','1');
-      	 });
-         jQuery('#a2days').click(function(){
+      	});
+
+        jQuery('#a2days').click(function(){
         	 showGoalFacePulse('a2days','2');
-         });
-         jQuery('#a3days').click(function(){
+        });
+
+        jQuery('#a3days').click(function(){
         	 showGoalFacePulse('a3days','3');
-         });
-         jQuery('#a4days').click(function(){
+        });
+
+        jQuery('#a4days').click(function(){
         	 showGoalFacePulse('a4days','4');
-         });
-         jQuery('#a5days').click(function(){
+        });
+
+        jQuery('#a5days').click(function(){
         	 showGoalFacePulse('a5days','5');
-         });
-         jQuery('#a6days').click(function(){
+        });
+
+        jQuery('#a6days').click(function(){
         	 showGoalFacePulse('a6days','6');
-          });
-         jQuery('#a7days').click(function(){
+        });
+
+        jQuery('#a7days').click(function(){
         	 showGoalFacePulse('a7days','7');
-          });
+        });
+
+
 
     });
 
@@ -70,7 +81,13 @@
      	var activityId = jQuery("#activityId").val();
      	var url = '<?php echo Zend_Registry::get("contextPath"); ?>/community/showallacitivitiesview/timezone/'+timezone+'/activityId/'+activityId +'/days/'+days;
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
-        jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone} );
+       // jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone} );
+       
+        jQuery('#ajaxdata').load( url , { activityId : activityId  , days : days,timezone : timezone}, function() {
+            addShareThisButton();
+        });
+
+
     }
 
 
@@ -79,7 +96,11 @@
     	var timezone = calculate_time_zone();
         var url = '<?php echo Zend_Registry::get("contextPath"); ?>/community/showallacitivitiesview';
         jQuery('#ajaxdata').html("<div class='ajaxload scoresMain'></div>");
-        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } );
+        //jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } );
+        
+        jQuery('#ajaxdata').load( url , { activityId : activityId , timezone : timezone } , function() {        
+            addShareThisButton();
+        });
 
         jQuery('a.Selected').removeClass('Selected');
         jQuery('li.Selected').removeClass('Selected');
@@ -88,12 +109,11 @@
         jQuery('#' + tab + 'tab').addClass('Selected');
 
         jQuery('#PulseDetailWrapper a').removeClass('filterSelected');
-     	jQuery('#atoday').addClass('filterSelected');
+     	  jQuery('#atoday').addClass('filterSelected');
 
     }
 
 </script>
-
 
 <div id="ContentWrapper" class="TwoColumnLayout">
     <div class="FirstColumn">
@@ -108,8 +128,6 @@
                 </div>
             </div>
 
-          
-            
             <?php }else { ?>
             <!--Me box Non-authenticated-->
             <div class="img-shadow">
@@ -117,8 +135,6 @@
                     <?php include 'include/loginNonAuthBox.php';?>
                 </div>
             </div>
-
-           
 
             <!--Goalface Register Ad-->
             <div class="img-shadow">
@@ -140,7 +156,7 @@
                 <div class="SecondColumnProfile">
                     <ul class="TabbedNav" id="main_tabs">
                         <li id="allActivity" class=""><a id="allActivityTab" href="javascript:void(0)">All Activity</a></li>
-                        <li id="members"><a id="membersTab" href="javascript:void(0)">Members</a></li>
+                        <!-- <li id="members"><a id="membersTab" href="javascript:void(0)">Members</a></li> -->
                         <li id="players"><a id="playersTab" href="javascript:void(0)">Players</a></li>
                         <li id="teams"><a id="teamsTab" href="javascript:void(0)">Teams</a></li>
                         <li id="competitions"><a id="competitionsTab" href="javascript:void(0)">Competitions</a></li>
