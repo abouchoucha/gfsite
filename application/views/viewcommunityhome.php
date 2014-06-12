@@ -97,8 +97,7 @@
                 //echo '<p>' . $activity['activitytype_category_id'] . '</p>';
                 //echo '<p>' . $stURL . '</p>';
 	          ?>                          
-	       </li>  
-	       <li><a href="<?php //echo $stURL;?>"><?php //echo $stURL;?></a></li>                        
+	       </li>                         
 		<?php
 			$tempDate =  date('m-d-Y' , strtotime($activity["activity_date"])); 
 		} 
