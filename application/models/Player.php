@@ -937,7 +937,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         if(!is_null($count)){
            $sql .= " LIMIT " . $count;
         }
-        echo $sql;
+        //echo $sql;
         $result = $db->query ( $sql ) ;
 		$row = $result->fetchAll () ;
 		//Zend_Debug::dump($row);
