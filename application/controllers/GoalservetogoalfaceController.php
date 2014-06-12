@@ -698,7 +698,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 						'player_lastname' => $playerObject['name'], //3
 						'player_common_name' => $playerObject['name'],
 						'player_name_short' => $playerObject['name'],
-						'player_dob' => null, //4
+						'PLAYER_DOB' => null, //4
 						'player_dob_city' => null,
 						'player_type' => 'player', //5
 						'player_country' => null, //5
@@ -751,7 +751,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 			foreach ( $xml_player->player as $xmlPlayer ) {
 				$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
 				$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-				$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
+				$mytempdate = str_replace('/', '-', $xmlPlayer->birthdate);
+				$mydate = date('Y-m-d', strtotime($mytempdate));
 				$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 				$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 				$player_height = $arr_height [0];
@@ -2413,11 +2414,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								//Updating Player Details Missing Fields
 								$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
 								$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-								//$mydate = date ( "Y-m-d", strtotime ( $xmlPlayer->birthdate ) );
-
 								$mytempdate = str_replace('/', '-', $xmlPlayer->birthdate);
 								$mydate = date('Y-m-d', strtotime($mytempdate));
-
 								$arr_height = explode ( " ", $xmlPlayer->height, 2 );
 								$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
 								$player_height = $arr_height [0];
