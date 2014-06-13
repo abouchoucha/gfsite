@@ -661,14 +661,18 @@ class Activity extends Zend_Db_Table_Abstract {
 
 				// Filter Alert Type to Posts, for now only hat-tricks and doubles
 				if (in_array($activityTypeId, $goalsArray)) {
-					if (Constants::$_DOUBLE_PLAYER_ACTIVITY == $activityTypeId) {
+
+					if (Constants::$_GOAL_SCORED_ACTIVITY == $activityTypeId) {
+						$title = $variablesToReplace['player_name'] . ' goal Alert. ';
+						$newArray = array('typeOfPlayerEvent' => 'scored a goal in');
+					} else if (Constants::$_DOUBLE_PLAYER_ACTIVITY == $activityTypeId) {
 						$title = $variablesToReplace['player_name'] . ' double Alert. ';
 						$newArray = array('typeOfPlayerEvent' => 'scored a double in');
-					} else
-					if (Constants::$_HAT_TRICK_PLAYER_ACTIVITY == $activityTypeId) {
+					} else if (Constants::$_HAT_TRICK_PLAYER_ACTIVITY == $activityTypeId) {
 						$title = $variablesToReplace['player_name'] . ' hat-trick Alert. ';
 						$newArray = array('typeOfPlayerEvent' => 'scored a hat-trick in');
 					}
+
 				}
 
 				if($newArray!=null){
