@@ -933,7 +933,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         	$sql .= "  INNER JOIN region r ON  r.region_id = c.region_id";
  			$sql .= "  AND r.region_group_id =" . $regiongroupid;
         }
-	     $sql .= " ORDER BY rand() desc ";
+	     //$sql .= " ORDER BY rand() desc ";
         if(!is_null($count)){
            $sql .= " LIMIT " . $count;
         }
