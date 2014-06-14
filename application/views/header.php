@@ -13,6 +13,7 @@
     include 'include/functions.php';
     
     //to be used to check active menu
+    $name_array = array();
     $name_array = explode('/',$this->actualURL);
     
     //$isFan = file_get_contents("https://api.facebook.com/method/pages.isFan?format=json&access_token=AAADr0oM8ZAWkBACJXoMfIhE36rRDHcDkEdOaH3QgkHGrLiF3IjrDe4ZC08tSjdIzieZCTHSBHZBGv2ZCE4l3OaYi5XIeMasgZA2m25o5VVswZDZD&page_id=116375484505");
@@ -1148,7 +1149,6 @@ function popUpSuspendAccount(title,message){
     </div>
     		
 <!-- /header -->
-			
 		<!-- menu -->		
 		<div id="menu">
 			<!-- menuu -->
@@ -1157,30 +1157,31 @@ function popUpSuspendAccount(title,message){
 				<div class="mmid">
 					<div id="chromemenu" class="chromestyle">
 					   <ul>
-							<li id="nav_home" class="<?php echo ($name_array[1]=='')?'menuactive':''; ?>">
+							<li id="nav_home" class="<?php echo (isset($name_array[1]) && $name_array[1] == '')?'menuactive':''; ?>">
 								<a href="<?php echo Zend_Registry::get("contextPath"); ?>/">Home</a>
-							</li>
+							</li>  
 							<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
-							<li id="nav_scores" class="<?php echo ($name_array[1]=='live-scores-match-schedules')?'menuactive':''; ?>">
+							<li id="nav_scores" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'live-scores-match-schedules')?'menuactive':''; ?>">
 								<a href="<?php echo $urlGen->getMainScoresAndMatchesPageUrl(true);?>" rel="dropmenu2">Scores &amp; Schedules</a>
 							</li>
 							<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
-							<li id="nav_rss" class="<?php echo ($name_array[1] == 'subscribe') ? 'menuactive' : '';?>">
+							<li id="nav_rss" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'subscribe')?'menuactive' : '';?>">
 								<a href="<?php echo Zend_Registry::get("contextPath");?>/subscribe">Alerts &amp; Updates</a>
 							</li>
 							<li><img src="<?php echo Zend_Registry::get("contextPath");?>/public/images/menuline.jpg" alt="" /></li>				
-							<li id="nav_teams" class="<?php echo ($name_array[1]=='teams')?'menuactive':''; ?>">
+							<li id="nav_teams" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'teams')?'menuactive':''; ?>">
 								<a href="<?php echo $urlGen->getClubsMainUrl(true); ?>" rel="dropmenu4">Teams</a>
 							</li>
 							<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
-							<li id="nav_players" class="<?php echo ($name_array[1]=='players')?'menuactive':''; ?>">
-								<a href="<?php echo $urlGen->getPlayersMainUrl(true); ?>" rel="dropmenu5">Players</a></li>
+							<li id="nav_players" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'players')?'menuactive':''; ?>">
+								<a href="<?php echo $urlGen->getPlayersMainUrl(true); ?>" rel="dropmenu5">Players</a>
+							</li>
 							<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
-							<li id="nav_leagues" class="<?php echo ($name_array[1]=='tournaments')?'menuactive':''; ?>">
+							<li id="nav_leagues" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'tournaments')?'menuactive':''; ?>">
 								<a href="<?php echo $urlGen->getMainLeaguesAndCompetitionsUrl(true); ?>" rel="dropmenu6">Leagues &amp; Tournments</a>
 							</li>
 								<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
-							<li id="nav_fans" class="<?php echo ($name_array[1]=='profiles')?'menuactive':''; ?>">
+							<li id="nav_fans" class="<?php echo (isset($name_array[1]) && $name_array[1] == 'profiles')?'menuactive':''; ?>">
 								<a href="<?php echo $urlGen->getMainProfilesPage(true); ?>" rel="dropmenu7">Fan Profiles</a>
 							</li>
 							<li><img src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/menuline.jpg" alt=""/></li>
