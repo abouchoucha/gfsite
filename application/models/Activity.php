@@ -122,7 +122,7 @@ class Activity extends Zend_Db_Table_Abstract {
 
         // INSERT ACTIVITIES on Database
         $activtityUser = new Activity();
-        //$activtityUser->insert($dataNewActivity);
+        $activtityUser->insert($dataNewActivity);
 
         // JUST FOR TEST ->>>>>
         //$alert = null;
