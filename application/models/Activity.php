@@ -681,7 +681,9 @@ class Activity extends Zend_Db_Table_Abstract {
                         $title = $variablesToReplace['player_name'] . ' hat-trick Alert. ';
                         $newArray = array('typeOfPlayerEvent' => 'scored a hat-trick in');
                     } else if (Constants::$_CLEAN_SHEET_PLAYER_ACTIVITY == $activityTypeId) {
-                        $newArray = array('typeOfPlayerEvent' => 'registered a clean sheet in');
+                        if ($row["player_position"] == 'Goalkeeper') {
+                           $newArray = array('typeOfPlayerEvent' => 'registered a clean sheet in');  
+                        }
                     }
                 }
 
