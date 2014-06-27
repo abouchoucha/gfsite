@@ -7,7 +7,7 @@
              <ul>
                <li class="<?php echo($this->menuSelected == 'competition'?'active':''); ?>">
                   <a class="<?php echo($this->submenuSelected != 'none'?'noarrow':''); ?>" href="<?php echo $urlGen->getShowDomesticCompetitionUrl($this->compName, $this->leagueId, True); ?>">
-                        <?php echo $this->compName; ?>                   
+                        <?php echo $this->compName; ?>                
                          <?php $score_schedules = 'scores'; ?>
                    </a>
                 </li>
@@ -35,13 +35,13 @@
 		
 		   					  ?>
 
-									<?php if ($roundDone == 1) {?>
+									<?php //if ($roundDone == 1) {?>
 									<li>
 										<a href="<?php echo $urlGen->getTablesUrl($score_schedules,$rounds['round_id'] ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">
 											<?php echo $rounds["round_title"] ;?>
 										</a>
 									</li>
-									<?php }?>
+									<?php //}?>
 
 		                			<?php if($this->roundId == $rounds['round_id']) { ?>
 		                				<?php if( $this->submenuSelected == 'tables' || $this->roundId == $rounds['round_id'] ) { ?>
@@ -52,7 +52,7 @@
 				                                     </li>
 				                                     
 				                                     <li class="<?php echo($this->submenuSelected == 'scores'?'active':''); ?>">
-					                                        <a href="<?php echo $urlGen->getTablesUrl("scores",$rounds['round_id'] ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">Scores</a>
+					                                        <a href="<?php echo $urlGen->getTablesUrl("scores",$rounds['round_id'] ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">Scores1</a>
 					                                    </li>
 				                                   
 				                                    <?php if($roundDone == 0) { ?>
@@ -172,9 +172,9 @@
                 	</ul>
                 </li>
           </ul>
-</div><!--
+</div>
 
-   		 <div>
+   		<!--- <div>
             Today :<?php echo $this->todaysdate; ?>
             <BR> Format : <?php echo $this->compFormat; ?>
             <BR> Type : <?php echo $this->compType; ?>
@@ -185,11 +185,12 @@
             <BR> # rounds :<?php echo $this->totalrounds;?>
             
             <BR> #knockout :<?php if($knockout != null) { echo $knockout;} ?>
+            <BR> #Round List : <?php Zend_Debug::dump($this->roundList); ?>
            	</div>     
-      
+      -->
 
 
---><script  src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/subscribeteam.js" type="text/javascript"></script>
+<script  src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/subscribeteam.js" type="text/javascript"></script>
 <script  src="<?php echo Zend_Registry::get("contextPath"); ?>/public/scripts/subscribeplayer.js" type="text/javascript"></script>
 
 
