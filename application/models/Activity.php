@@ -137,7 +137,8 @@ class Activity extends Zend_Db_Table_Abstract {
             $app_secret = $config->facebook->secret;
 
             //worldcup default hashtags
-            $worldcup_hashtags = "#WorldCup #CopaMundial #CopadoMondo #WC2014 #Brazil2014 #Brasil2014 #football #futbol #futebol #soccer";
+            //$worldcup_hashtags = "#WorldCup #CopaMundial #CopadoMondo #WC2014 #Brazil2014 #Brasil2014 #football #futbol #futebol #soccer";
+            $default_hashtags = "#GoalFace";
 
             // Added to control more than one Competition FB page to write alerts to 
             $fbpages = array();
@@ -145,13 +146,16 @@ class Activity extends Zend_Db_Table_Abstract {
                           'name' => 'Goalface',
                           'lang' => $config->facebook->goalface->language,
                           'token' =>$config->facebook->accessToken,
-                          'hashtags'=> $worldcup_hashtags),
+                          'hashtags'=> $default_hashtags);
 
-                        array ('id' => $config->facebook->worldcup->id, 
-                          'name' => 'worldcup',
-                          'lang' => $config->facebook->worldcup->language,
-                          'token' => $config->facebook->accessToken,
-                          'hashtags' => $worldcup_hashtags));
+
+            // removed world cup page events.
+            //array ('id' => $config->facebook->worldcup->id, 
+              //  'name' => 'worldcup',
+                //'lang' => $config->facebook->worldcup->language,
+                //'token' => $config->facebook->accessToken,
+                //'hashtags' => $worldcup_hashtags))
+
 
             //****************** TEAMS ************************//
             //               RESULTS ALERTS                    //
@@ -714,10 +718,6 @@ class Activity extends Zend_Db_Table_Abstract {
                         self::$logger->debug ( "------->access_token:".$pages['token']);
                         self::$logger->debug ( "------->message:".$message);
                         self::$logger->debug ( "------->link:".$link);
-                        $hashtags = explode(",", $pages['hashtags']);
-                        foreach ($hashtags as $hashtag) {
-                            
-                        }
 
                         $facebook = new Facebook(array(
                                 'appId'  => $app_id,
