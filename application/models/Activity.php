@@ -146,7 +146,7 @@ class Activity extends Zend_Db_Table_Abstract {
                           'name' => 'Goalface',
                           'lang' => $config->facebook->goalface->language,
                           'token' =>$config->facebook->accessToken,
-                          'hashtags'=> $default_hashtags);
+                          'hashtags'=> $default_hashtags));
 
 
             // removed world cup page events.
