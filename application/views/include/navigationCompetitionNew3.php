@@ -52,7 +52,7 @@
 				                                     </li>
 				                                     
 				                                     <li class="<?php echo($this->submenuSelected == 'scores'?'active':''); ?>">
-					                                        <a href="<?php echo $urlGen->getTablesUrl("scores",$rounds['round_id'] ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">Scores1</a>
+					                                        <a href="<?php echo $urlGen->getTablesUrl("scores",$rounds['round_id'] ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">Scores</a>
 					                                    </li>
 				                                   
 				                                    <?php if($roundDone == 0) { ?>

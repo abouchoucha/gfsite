@@ -916,7 +916,7 @@ class CompetitionsController extends GoalFaceController {
 		    //$twitter_feed_parsed = $this->loadRssFeed('https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=GoalFace');
 		    //$this->view->twitterFeeds = $twitter_feed_parsed;
             //for dropdowns
-			$teamleague = $team->selectTeamsBySeason(5103);
+			$teamleague = $team->selectTeamsBySeason(161531);
 			//Zend_debug::dump($twitter_feed_parsed);
 			$this->view->teamlist = $teamleague;
 			
