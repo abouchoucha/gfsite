@@ -835,7 +835,7 @@ function addGoalShout(){
               }?>
 
                 <p class="smatch1">
-                    <a class="OrangeLink" href="<?php echo Zend_Registry::get("contextPath"); ?>/teams/europe/2012%20poland-ukraine/european-championships_15311027">See More Featured Teams</a>
+                    <a class="OrangeLink" href="<?php echo Zend_Registry::get("contextPath"); ?>/teams/europe/2016%20france/european-championships_15311027">See More Featured Teams</a>
                 </p>
             </div>
             
