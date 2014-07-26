@@ -835,7 +835,7 @@ function addGoalShout(){
               }?>
 
                 <p class="smatch1">
-                     <a href="<?php echo $urlGen->getTablesUrl("tables",$this->roundId ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">See More Featured Teams</a>
+                     <a href="<?php echo $urlGen->getTablesUrl("teams",$this->roundId ,$this->countryName ,$this->seasonTitle , $this->compName,True) ?>">See More Featured Teams</a>
                 </p>
             </div>
             
