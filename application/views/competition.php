@@ -908,17 +908,22 @@ function addGoalShout(){
         
         </div>
         <!--BEGIN Groups Standings Table --> 
+        
+        <?php 
+              require_once 'Round.php';
+	            require_once 'Team.php';
+	            $round = new Round();
+              $equipo = new Team();	
+          ?>
+        
+  
         <div class="prof2">
         	<p class="mblack">
               <span class="black"><?php echo $this->compName; ?> Table </span>
             </p>
 						<div id="leaguetables">
                 <?php if ($this->leagueTable != null) { ?> 
-     				 		<?php require_once 'Round.php';
-                      $round = new Round();
-        	            require_once 'Team.php';
-    		              $equipo = new Team();	
-                 ?>
+
      			 				<table id="LeagueTable" width="100%" cellspacing="0" cellpadding="1" border="0">
                     <?php foreach ($this->leagueTable as $tournament ){ ?>
                         <?php $roundRow = $round->fetchRow( 'round_id = ' . $tournament['stage_id'] ); ?>
