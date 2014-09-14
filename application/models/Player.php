@@ -1276,7 +1276,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
     $sql .= " SUM(ln)* 90 AS total_minutes,  ";
     $sql .= " SUM(subin_minutes) as total_subin_minutes,";
     $sql .= " SUM(ln*90 + subin_minutes) AS total_full_minutes,";
-    $sql .= " SUM(gl) as total_goals, ";
+    $sql .= " SUM(gl + glp) as total_goals, ";
     $sql .= " COUNT(IF(ga=0,1,NULL))as total_clean_sheets, ";
     $sql .= " SUM(ga) as total_goals_allowed, ";
     $sql .= " SUM(yc) as total_yellow_cards, ";
@@ -1296,6 +1296,7 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
         $sql .= "     	IF(m.team_a = me.team_id,t1.team_name,t2.team_name)AS team_current_name,  ";
         $sql .= "     	IF(m.team_a = me.team_id,m.fs_team_b,m.fs_team_a )AS ga,  ";
         $sql .= "    		SUM(me.event_type_id = 'G')AS gl,  ";
+        $sql .= "    		SUM(me.event_type_id = 'PG') as glp, ";
         $sql .= "    		SUM(me.event_type_id = 'L')AS ln,  ";
         $sql .= "    		SUM(me.event_type_id = 'SI')AS si,  ";
         $sql .= " 			SUM(IF(me.event_type_id = 'SI', 93-(me.event_minute),0)) AS subin_minutes, ";

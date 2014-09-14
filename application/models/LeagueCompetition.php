@@ -438,7 +438,7 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
   public function getTopScorersPerSeason($seasonId,$teamId = null,$limit = null,$roundlist=null,$playerId=null) {
    	$db = $this->getAdapter ();
     $sql = " SELECT me.player_id, ";
-   $sql .= " SUM(me.event_type_id = 'G')AS total_goals, ";
+   	$sql .= " (SUM(me.event_type_id = 'G')+ SUM(me.event_type_id = 'PG'))AS total_goals, ";
     $sql .= " SUM(me.event_type_id = 'L')AS total_lineups, ";
     $sql .= " SUM(me.event_type_id = 'SI')AS total_subin, ";
     $sql .= " (SUM(me.event_type_id = 'L') + SUM(me.event_type_id = 'SI')) as total_appear, ";
