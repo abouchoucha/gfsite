@@ -61,19 +61,26 @@ class GoalservetogoalfaceController extends GoalFaceController {
 		# CURL SETTINGS.
 		$urlPath = $this->getgsPath () . $pathextra;
 
-  		curl_setopt ( $this->curl, CURLOPT_URL, $urlPath );
-  		curl_setopt ( $this->curl, CURLOPT_RETURNTRANSFER, 1 );
-  		curl_setopt ( $this->curl, CURLOPT_CONNECTTIMEOUT, 0 );
-
+    if (@simplexml_load_file($urlPath)) {
+    
+    	curl_setopt ( $this->curl, CURLOPT_URL, $urlPath );
+    	curl_setopt ( $this->curl, CURLOPT_RETURNTRANSFER, 1 );
+    	curl_setopt ( $this->curl, CURLOPT_CONNECTTIMEOUT, 0 );
+  
   		# GRAB THE XML FILE.
   		$xmlResult = curl_exec ( $this->curl );
   		curl_close ( $this->curl );
   		if($xmlResult != null){
   			# SET UP XML OBJECT.
   			$xml = new SimpleXMLElement ( $xmlResult );
-  			return $xml;
+  			   return $xml;
   		}
-  		return null;
+    		
+    } else {
+    #Error
+      $xml = null;
+      return $xml;
+    }
 	}
 
 	//
@@ -460,13 +467,11 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																			}
 																		}//end substitution
 																 }
+																 //insert events goals, yc and rc no lineups (no live commentary available)
+																self::insertMatchEvents ( $match, $matchFound, null, $urlGen, $matchUrl, $matchTeams,$match_commentary );
 															}
-
-													//Insert all the other events
-													//Zend_Debug::dump($match);
 												}
-												//insert events goals, yc and rc no lineups (no live commentary available)
-												self::insertMatchEvents ( $match, $matchFound, null, $urlGen, $matchUrl, $matchTeams,$match_commentary );
+
 										} else {
 											//game still in fixture update match date time if necessary
 											$mydate = date ( "Y-m-d H:i:s", strtotime ( $match ['date'] . " " . $match ['time'] ) );
