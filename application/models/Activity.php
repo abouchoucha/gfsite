@@ -678,6 +678,7 @@ class Activity extends Zend_Db_Table_Abstract {
                     if (Constants::$_HAT_TRICK_PLAYER_ACTIVITY == $activityTypeId) {
                         $title = $variablesToReplace['player_name'] . ' hat-trick Alert. ';
                         $newArray = array('typeOfPlayerEvent' => 'scored a hat-trick in');
+                        $event_hash_tag = "#hattrick";
                     }
 
                 }
@@ -696,7 +697,7 @@ class Activity extends Zend_Db_Table_Abstract {
                     // Iterate over array of PB pages to write alerts to
                     foreach ($fbpages as $pages) {
 
-                        $hashtag_full = "#" . str_replace(' ', '', $variablesToReplace['match_playing']) .' '. $pages['hashtags'];
+                        $hashtag_full = "#" . str_replace(' ', '', $variablesToReplace['match_playing']) .' '. $pages['hashtags'] .' '. $event_hash_tag;
                         $translate = $this->setuplanguage($pages['lang']);
                         //$message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$clean_match_url;
                         $message = $variablesToReplace['player_name'].' '.$translate->_($newArray['typeOfPlayerEvent']).' '.$variablesToReplace['match_playing'].$translate->_('match_message_suffix').' '.$hashtag_full.' '.$clean_match_url;
