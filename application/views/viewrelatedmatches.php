@@ -9,13 +9,7 @@
 ?>  
     <?php foreach($this->othermatches as $match) :
           if(trim($temp) !=  trim($match["mdate"])){ ?>
-		   <?php if($this->selectedRestriction == 'tomorrow' or $this->selectedRestriction == '3' or $this->selectedRestriction == 'week'){
-                   if(trim($match["league"]) == 8 or trim($match["league"]) == 43 or trim($match["league"]) == 45 or trim($match["league"]) == 70 ){
-                                echo "Schedule information is not available due to restrictions by the league";
-                                break ;
-                                }
-                   }
-           ?>   	
+	
            <span style="font-weight: bold;">
                <?php echo date ('l - F j , Y' , strtotime($match['mdate']));?>
            </span>

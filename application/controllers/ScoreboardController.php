@@ -347,7 +347,8 @@ class ScoreboardController extends GoalFaceController {
         $view->nrmatches = $nrmatches;
         //Zend:: dump ($nrmatches);
         $view->selected = $fechas [2];
-		$view->selectedRestriction =$fechas [6];
+		    $view->selectedRestriction =$fechas [6];
+
         $view->countryid = $countryid;
         $view->leagueId = $leagueid;
         //$view->actionTemplate = 'scoreBoardByCountry.tpl.php';

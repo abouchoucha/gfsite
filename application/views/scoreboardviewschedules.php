@@ -57,16 +57,7 @@
 
                   ?> 
 				
-								<?php if($this->selected == 'tomorrow' or $this->selected == '3' or $this->selected == 'week'){ 
-		                                 if(trim($match["league"]) == 8 or trim($match["league"]) == 43 or trim($match["league"]) == 45 or trim($match["league"]) == 70 ){ ?>
-		                        
-		                                   <?php   
-		                                        echo "Schedule information is not available due to restrictions by the league"; 
-		                                        break; 
-		                                    ?> 
-		                        <?php 
-		                                  }
-		                        }   ?> 
+
 						
 								
 							  <?php	if(trim($temp2) != trim($match["country"]) . trim($match["mdate"])){						

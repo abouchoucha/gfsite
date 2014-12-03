@@ -22,20 +22,11 @@
                     <div class="toggle_container" id="<?php echo str_replace(" ","",$this->escape($nrmatch["competition_name"]));?>">
                     	<div class="matchesdata">
                     		<?php foreach($this->matches as $match) :
-		  						if(trim($match["league"]) == trim($nrmatch["league"])){
-		                       		if(trim($temp) != trim($match["league"]) . trim($match["mdate"])){ 
-		                    ?>
-		                    
-		                    	<?php if($this->selectedRestriction == 'tomorrow' or $this->selectedRestriction == '3' or $this->selectedRestriction == 'week'){
-		                                if(trim($match["league"]) == 8 or trim($match["league"]) == 43 or trim($match["league"]) == 45 or trim($match["league"]) == 70 ){
-		                                	echo "Schedule information is not available due to restrictions by the league";
-		                                	break ;
-		                                }
-		                          }
-		                     	?>    
-		                    
-		                      <p class="day" style="margin-left:0;margin-top:0px;padding-bottom: 10px;"><?php echo date ('l - F j , Y' , strtotime($match['mdate']));?></p>
-					          <?php } ?> 
+        		  						if(trim($match["league"]) == trim($nrmatch["league"])){
+        		                  if(trim($temp) != trim($match["league"]) . trim($match["mdate"])){ 
+        		              ?>
+        		                      <p class="day" style="margin-left:0;margin-top:0px;padding-bottom: 10px;"><?php echo date ('l - F j , Y' , strtotime($match['mdate']));?></p>
+        					          <?php } ?> 
                     		  
                     		  <ul>
                     		  	  <li class="teamhome">

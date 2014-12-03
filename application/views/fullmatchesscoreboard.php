@@ -7,15 +7,11 @@
       $temp1 = 'league';
       $temp2 = 'date';
   ?>
-<?php if($this->selectedRestriction == 'Fixture'){
-		if($this->league != 8 or $this->league == 43 or $this->league == 45 or $this->league == 70){?>
-			<?php echo $this->paginationControl($this->paginator,'Sliding','scripts/my_pagination_control_full_scoreboard.phtml'); ?> 
-<?php }
-	}else if($this->selectedRestriction == 'Played'){?>
-			<?php echo $this->paginationControl($this->paginator,'Sliding','scripts/my_pagination_control_full_scoreboard.phtml'); ?> 
-<?php } ?>
+
 
 <?php 
+
+
       $i = 1;
       $roundid = null;
       foreach($this->paginator as $match) { 
@@ -25,13 +21,7 @@
                 $style = "roweven";
           }  
 ?>
-			<?php if($this->selectedRestriction == 'Fixture'){
-		              if(trim($match["league"]) == 8 or trim($match["league"]) == 43 or trim($match["league"]) == 45 or trim($match["league"]) == 70 ){
-		              	echo "<p>Schedule information is not available due to restrictions by the league</p>";
-		                 break ;
-		              }
-		          }
-		     ?>    
+   
 		
 			<?php if  ($match["round_id"]!= $roundid ) { ?>
 		
