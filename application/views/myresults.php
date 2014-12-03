@@ -26,12 +26,7 @@
                                 if(sizeOf($this->paginator)== 0){ 
                                 	echo "You do not have matches because you do not have leagues in your favorites.";
                                 }else {
-                                	if($this->typeOfResults == 'fixture'){
-	                                	if($this->league == 8 or $this->league == 43 or $this->league ==45 or $this->league == 70 ){
-	                                		echo "Schedule information is not available due to restrictions by the league";
-	                                		exit;
-	                                	}
-                                	}
+                           
                                 foreach($this->paginator as $match){
                                 if($i % 2 == 1)
                         {
@@ -67,15 +62,14 @@
 										
 								</a></td>
                                 </tr>
-                                <?php }else if($match['status'] == 'Fixture'){
-                                	?>
+                                <?php }else if($match['status'] == 'Fixture'){?>
                                 <tr bgcolor="<?php echo $style;?>">
                                         <td><?php echo date('Y/m/d' ,strtotime($match['mdate']));?></td>
                                         <td>
                                         	<img style="border:0 none;" src="<?php echo Zend_Registry::get("contextPath"); ?>/public/images/flags/<?php echo $match["country"]; ?>.png">
                                         	<a href="<?php echo $urlGen->getShowRegionalCompetitionsByRegionUrl($match["competition_name"], $match["league"], True); ?>"><?php echo $match['competition_name'];?></a>
                                         </td>
-                                       <?php  if($match['league'] != 8 and $match['league'] != 43 and $match['league'] !=45 and $match['league'] != 70){ ?>
+                                     
                                         <td>
                                         	<a href="<?php echo $urlGen->getMatchPageUrl($match["competition_name"], $match["teama"], $match["teamb"], $match["matchid"], true);?>">
                                         	<?php echo $match['teama'];?> <font style="color:#000;"> vs </font><?php echo $match['teamb'];?></a>
@@ -83,8 +77,8 @@
                                         <td align="right">
                                         	<a href="<?php echo $urlGen->getMatchPageUrl($match["competition_name"], $match["teama"], $match["teamb"], $match["matchid"], true);?>">Preview &raquo;</a>
                                         </td>
-                                         <?php } else { echo '<td colspan=4>Schedule information is not available due to restrictions by the league </td>';}
-                                   } ?>
+                                       
+                                  <?php } ?>
                                 </tr>
                                
                                 <?php $i++;
