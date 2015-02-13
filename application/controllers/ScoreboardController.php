@@ -1335,20 +1335,17 @@ function showmatchdetailAction() {
       } else {
         	$leagueseasonround = $season->findLeagueBySeason($seasonId);
       } */
-      $roundRow = $round->getSeasonRounds ( $seasonId );
+      $roundRow = $round->getSeasonRounds ($seasonId);
 			$roundRowCup = $round->selectRoundsByType($seasonId,'cup');
 			$has_group_stage = 0;
 			$cont = 0;
-			$contcup =0;
+			$contcup = 0;
       $number_rounds = count($roundRow);
       $number_rounds_cup = count($roundRowCup);
       //List of ALL rounds
-			
       $round_list = ''; 
 			$round_list_knockout = '';
 			
-			
-		
 		//All Rounds 
 		foreach ($roundRow as $round) {
 			if ($cont < $number_rounds) {
@@ -1359,10 +1356,10 @@ function showmatchdetailAction() {
 			}
 		$cont++;
 		}
-		
+	
 
 		//KnockOut Rounds
-    $knockoutstage = array();
+   $knockoutstage = array();
 		foreach ($roundRowCup as $roundcup) {
 			if ($contcup < $number_rounds_cup) {
 				if($round_list_knockout) {
@@ -1374,24 +1371,18 @@ function showmatchdetailAction() {
 		$contcup++;
 		}
 		
-
-		
 		if(count($knockoutstage) > 1 && $roundId == null) {
 			$roundListQuery = $round_list_knockout;
 			$roundcount = count($roundRowCup);
 		} else {
-	     	//$roundListQuery = $round_list_knockout;
-	     	$roundListQuery = $roundId;
+	     	$roundListQuery = $knockoutstage[0];
 	     	$roundcount = 1;
 		}
 	
-		 //Zend_Debug::dump($roundListQuery);
+		 $roundListQuery1 = '10071011';
      $match = new Matchh();
-     $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundListQuery,$scoresOrSchedules,$timezone,$roundcount);
+     $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundListQuery1,$scoresOrSchedules,$timezone,$roundcount);
      $view->countAllMatches = count($allMatches); 
-     
-    
-
      //pagination - getting request variables
 	   $pageNumber = $this->_request->getParam('page');
 	    if (empty($pageNumber)) {
