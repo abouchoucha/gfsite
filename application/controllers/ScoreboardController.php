@@ -1379,9 +1379,9 @@ function showmatchdetailAction() {
 	     	$roundcount = 1;
 		}
 	
-		 $roundListQuery1 = '10071011';
+
      $match = new Matchh();
-     $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundListQuery1,$scoresOrSchedules,$timezone,$roundcount);
+     $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundListQuery,$scoresOrSchedules,$timezone,$roundcount);
      $view->countAllMatches = count($allMatches); 
      //pagination - getting request variables
 	   $pageNumber = $this->_request->getParam('page');
