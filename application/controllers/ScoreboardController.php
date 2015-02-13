@@ -1371,11 +1371,15 @@ function showmatchdetailAction() {
 		$contcup++;
 		}
 		
+		
+		//Zend_Debug::dump($roundId);
+		
 		if(count($knockoutstage) > 1 && $roundId == null) {
 			$roundListQuery = $round_list_knockout;
 			$roundcount = count($roundRowCup);
 		} else {
-	     	$roundListQuery = $knockoutstage[0];
+	     //$roundListQuery = $knockoutstage[0];
+	     $roundListQuery = $roundId;
 	     	$roundcount = 1;
 		}
 	
