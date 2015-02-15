@@ -129,7 +129,7 @@ class DemonioController extends GoalFaceController {
 	}
 
 
-	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/competition/COMPETITION_NAME_URL_FEED/season/SEASON_ID/stage/STAGE_ID/aggr/1 
+	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/league/COMPETITION_NAME_URL_FEED/season/SEASON_ID/stage/STAGE_ID/aggr/1 
     public function getteammapfromfixtureAction() {
       
       $teamdata = new Team ();
@@ -142,13 +142,15 @@ class DemonioController extends GoalFaceController {
   	  $competitionId = $this->_request->getParam ( 'competition', null );
   	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
       $xml = parent::getGoalserveFeed($feedpath);
+
+    
       if ($aggr == 1) {
           $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']/aggregate");
       } else {
           $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
       }
       
-  		//Zend_Debug::dump($match_aggregate);
+  		
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
@@ -192,6 +194,7 @@ class DemonioController extends GoalFaceController {
 	  	       }
 	  	     } 
 	  	}
+
 	}
 
 	// Individual Player 
@@ -643,6 +646,42 @@ class DemonioController extends GoalFaceController {
 			}
 		}
 	}
+
+
+	
+ 	public function updatenationalsquadAction() {
+
+		$date = new Zend_Date ();
+		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
+		$teamplayer = new TeamPlayer ();
+		$player = new Player ();
+		$team = new Team ();
+		$country = new Country ();
+		$teamid = $this->_request->getParam ( 'team', null );
+		$seasonid = $this->_request->getParam ( 'season', null );
+		$rowTeam = $team->fetchRow ( 'team_id = ' . $teamid );
+		echo "<strong>".$rowTeam['team_name']."</strong><br><br>";
+		if ($rowTeam ['team_gs_id'] != null) {
+			$xml = parent::getGoalserveFeed('soccerstats/team/'.$rowTeam ['team_gs_id']);
+			foreach ( $xml->team as $teamxml ) {
+				foreach ( $teamxml->squad->player as $playerxml ) {
+					echo "INSERT INTO playerseason VALUES (". $playerxml ['id'] .",". $teamid ."," .$seasonid .");<br>";
+
+					//check if player exists GoalFace DB
+					$rowPlayer = $player->fetchRow ( 'player_id = ' . $playerxml ['id'] );
+					// Player Doesnt' exist
+					if ($rowPlayer == null) {
+						echo "<a href=''>". $playerxml ['id'] . "</a><br>";
+					}
+
+				}
+			}
+		}
+	}
+
+
+
+
 	
 	 //Zend_Debug::dump($xml->team->squad);
 	// updatesquad/league/7 - ALL teams from la liga (7))
@@ -673,7 +712,7 @@ class DemonioController extends GoalFaceController {
 			if ($rowTeam ['team_gs_id'] != null)  {
 			 
 			 $feed_team_path = 'soccerstats/team/' . $rowTeam ['team_gs_id'];
-       $xml = parent::getGoalserveFeed($feed_team_path);
+       		  $xml = parent::getGoalserveFeed($feed_team_path);
 			 
 				//iterate over all players on team roaster
 				echo "===" .$xml->team->name . "--" . $teamleague['team_id'] ."=====\n"; 
