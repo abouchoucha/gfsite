@@ -62,7 +62,7 @@ class PlayerController extends GoalFaceController
 
 
         $currentclubseason1 = $player->getActualClubTeamSeason(312423);
-        Zend_Debug::dump ($currentclubseason1);
+        //Zend_Debug::dump ($currentclubseason1);
 
         if ($currentclubseason != null) {
             $view->playeractualteam = $currentclubseason['actual_team'];
