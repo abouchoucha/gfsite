@@ -531,7 +531,8 @@ function showmatchdetailAction() {
 	                    $eventByGoalTeamA [$counter1] = $temp;
 	                    $counter1 ++;
 	                } else if ($temp ["event_type_id"] == 'OG') {
-	                    $eventByGoalTeamB [$counter1a] = $temp;
+	                 
+	                    $eventByGoalTeamA [$counter1] = $temp;
 	                    $counter1a ++;
 	                }
 	            } else if ($row [0] ["team_b"] == $temp ['team_id']) {
@@ -539,7 +540,7 @@ function showmatchdetailAction() {
 	                    $eventByGoalTeamB [$counter1a] = $temp;
 	                    $counter1a ++;
 	                } else if ($temp ["event_type_id"] == 'OG') {
-	                    $eventByGoalTeamA [$counter1] = $temp;
+	                    $eventByGoalTeamB [$counter1a] = $temp;
 	                    $counter1 ++;
 	                }
 	            }
@@ -574,7 +575,9 @@ function showmatchdetailAction() {
         $view->totalMatchComments = count ( $totalMatchComments );
 
         $view->match = $row;
-        //Zend_Debug::dump($row);
+        
+        //Zend_Debug::dump($eventByGoalTeamA);
+        
         $common = new Common();
         $view->goalsteamA = $common->array_sort($eventByGoalTeamA, 'event_minute', SORT_DESC);
         $view->goalsteamB = $common->array_sort($eventByGoalTeamB, 'event_minute', SORT_DESC);

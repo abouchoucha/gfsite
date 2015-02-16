@@ -59,6 +59,11 @@ class PlayerController extends GoalFaceController
         $currentclubseason = null;
         $currentclubseason['team_id'] = null;
         $currentclubseason = $player->getActualClubTeamSeason($playerId);
+
+
+        $currentclubseason1 = $player->getActualClubTeamSeason(312423);
+        Zend_Debug::dump ($currentclubseason1);
+
         if ($currentclubseason != null) {
             $view->playeractualteam = $currentclubseason['actual_team'];
             $view->playerteamleagueid = $currentclubseason['competition_id'];
@@ -80,6 +85,7 @@ class PlayerController extends GoalFaceController
         } else {
             $view->imagefacebook = "http://www.goalface.com/public/images/Player1Text.gif";
         }
+
         return $currentclubseason;
     }
 
@@ -112,7 +118,7 @@ class PlayerController extends GoalFaceController
                 break;
         }
         return $stats_array;
-        //Zend_Debug::dump ($cup_stats);
+        
     }
 
     private function get_stats_total($stats) {
@@ -178,9 +184,13 @@ class PlayerController extends GoalFaceController
         //build left Player Badge
         $currentClubSeason = $this->buildplayerbadge($playerId,$rowset->player_country, $view, $rowset);
 
+
+
        //get player stats from feed for domestic cup and regional competitions
         $feedpath = 'soccerstats/player/' . $playerId;
         $xml = parent::getGoalserveFeed($feedpath);
+
+    
         //all league stats
         $leaguestats = $this->getfeedstats($playerId,'league');
         $league_stats = $leaguestats['stats'];
