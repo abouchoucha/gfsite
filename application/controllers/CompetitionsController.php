@@ -462,7 +462,7 @@ class CompetitionsController extends GoalFaceController {
 		
 		$seasonActive = $season->getLeagueSeasonsActive($leagueid);
 		//Zend_Debug::dump($seasonActive);
-		$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive[0]['season_id'],null,10,null,null);
+		$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive[0]['season_id'],null,15,null,null);
 
 		$view->topscorercomp = $leaguetopscorers;	
 		$this->_response->setBody ( $this->view->render ( 'topscorersview.php' ) );
@@ -643,9 +643,9 @@ class CompetitionsController extends GoalFaceController {
   			
  
 				//get Top Scorers
-				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,null,null);
-				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,null);
-				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,null);					
+				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,15,null,null);
+				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,15,null);
+				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,15,null);					
 				$view->topscorercomp = $leaguetopscorers;
 				$view->leagueyc = $leagueyellowcards;
 				$view->leaguerc = $leagueredcards;				
@@ -681,9 +681,9 @@ class CompetitionsController extends GoalFaceController {
 		  	$view->allMatchesCompetition = $allMatches;
 		  	
 		  	
-		  	$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,null);
-			$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,null);
-			$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,null);
+		  	$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,15,null);
+			$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,15,null);
+			$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,15,null);
 					
 			$view->topscorercomp = $leaguetopscorers;
 			$view->leagueyc = $leagueyellowcards;
@@ -761,10 +761,10 @@ class CompetitionsController extends GoalFaceController {
             $view->previousMatch = $previousMatch;
             //get Top Scorers
             $leaguetopscorers = null;
-            $leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$roundList);
+            $leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,15,$roundList);
 
-		  	$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$roundList);
-	      	$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$roundList);
+		  	$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,15,$roundList);
+	      	$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,15,$roundList);
 		  	$view->topscorercomp = $leaguetopscorers;
 		  	$view->leagueyc = $leagueyellowcards;
 		 	$view->leaguerc = $leagueredcards;
@@ -844,9 +844,9 @@ class CompetitionsController extends GoalFaceController {
 				}
                 
              
-				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,10,$round);
-				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,10,$round);
-				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,10,$round);
+				$leaguetopscorers = $league->getTopScorersPerSeason($seasonActive,null,15,$round);
+				$leagueyellowcards = $league->getYellowCardsPerSeason($seasonActive,null,15,$round);
+				$leagueredcards = $league->getRedCardsPerSeason($seasonActive,null,15,$round);
 				
 				$view->topscorercomp = $leaguetopscorers;
 				$view->leagueyc = $leagueyellowcards;
