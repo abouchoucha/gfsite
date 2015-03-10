@@ -78,47 +78,37 @@ class GoalFaceController extends Zend_Controller_Action {
     	return $facebook;
 	}*/
 	
-	
+
 	/**
 	 * @return get XML array from goalserve feed
 	 */
+
 	public function getGoalserveFeed($pathextra) {
 		# INSTANTIATE CURL.
-		$this->curl = curl_init();
-		
+		$this->curl = curl_init ();
 		# CURL SETTINGS.
-		
-		$urlPath = $this->getgsPath() . $pathextra;
+		$urlPath = $this->getgsPath () . $pathextra;
 
-
-		curl_setopt($this->curl, CURLOPT_URL, $urlPath);
-		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
-		# SETTINGS FOR HTTP PROXY.
-		#curl_setopt($ch, CURLOPT_PROXY, "http://160.76.xxx.xxx:8080");
-		#curl_setopt($ch, CURLOPT_PROXYPORT, 8080); 
-		
-		# GRAB THE XML FILE.
-		$xmlResult = curl_exec($this->curl);
-		
-		curl_close($this->curl);
-		
-    //sends null if XML is malformed
-    /*libxml_use_internal_errors(true);
-    try{
-      $xml = new SimpleXMLElement($xmlResult);
-      return $xml;
-    } catch (Exception $e){
-      //echo 'Please try again later...';
-      return null;
-      exit();
-    } */
-  	if(simplexml_load_string($xmlResult)) {
-  	   $xml = new SimpleXMLElement($xmlResult);
-  	   return $xml;
-    } else {
-       return null;
-    }
+	    if (@simplexml_load_file($urlPath)) {
+	    
+	    	curl_setopt ( $this->curl, CURLOPT_URL, $urlPath );
+	    	curl_setopt ( $this->curl, CURLOPT_RETURNTRANSFER, 1 );
+	    	curl_setopt ( $this->curl, CURLOPT_CONNECTTIMEOUT, 0 );
+	  
+	  		# GRAB THE XML FILE.
+	  		$xmlResult = curl_exec ( $this->curl );
+	  		curl_close ( $this->curl );
+	  		if($xmlResult != null){
+	  			# SET UP XML OBJECT.
+	  			$xml = new SimpleXMLElement ( $xmlResult );
+	  			   return $xml;
+	  		}
+	    		
+	    } else {
+	    #Error
+	      $xml = null;
+	      return $xml;
+	    }
 	}
 	
 	/**

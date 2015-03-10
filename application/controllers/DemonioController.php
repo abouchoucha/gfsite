@@ -23,7 +23,6 @@ class DemonioController extends GoalFaceController {
 		Zend_Loader::loadClass ('Stadium');
 		Zend_Loader::loadClass ('TeamSeason');
 
-
 		$config = Zend_Registry::get ( 'config' );
 		self::$host_domain = $config->path->index->server->name;
 		self::$server_host = $config->server->host;
@@ -53,11 +52,11 @@ class DemonioController extends GoalFaceController {
         
     
     foreach ($player->player as $xmlPlayer) {
-      $rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
+      	$rowBirthCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->birthcountry . '"' );
   		$rowNationalityCountry = $country->fetchRow ( 'country_name = "' . $xmlPlayer->nationality . '"' );
-      $birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
-      $dob_date = date ( "Y-m-d", strtotime ($birthdate) );
-      $arr_height = explode ( " ", $xmlPlayer->height, 2 );
+      	$birthdate = str_replace('/', '-', $xmlPlayer->birthdate);
+      	$dob_date = date ( "Y-m-d", strtotime ($birthdate) );
+      	$arr_height = explode ( " ", $xmlPlayer->height, 2 );
   		$arr_weight = explode ( " ", $xmlPlayer->weight, 2 );
   		$player_height = $arr_height [0];
   		$player_weight = $arr_weight [0];
@@ -89,19 +88,19 @@ class DemonioController extends GoalFaceController {
     return $dataPlayer;
   }
   
-  private function saveplayerimage($playerId) {
-  
-    $feedpath = 'soccerstats/player/' . $playerId;
-    $playerxml = parent::getGoalserveFeed($feedpath);
-    $string = $playerxml->player->image;
-    
-    if (self::$server_host == 'beta') {
+	private function saveplayerimage($playerId) {
+	  
+	    $feedpath = 'soccerstats/player/' . $playerId;
+	    $playerxml = parent::getGoalserveFeed($feedpath);
+	    $string = $playerxml->player->image;
+	    
+	    if (self::$server_host == 'beta') {
 			self::$server_host = 'goalfaceapp';
 		}
-		
-    if ($string != null || $string != '') {
+			
+	    if ($string != null || $string != '') {
 			$filesize = strlen(base64_decode($string));
-      // create image only if incoming file size is greater than the size of the default "no image yet"
+      		// create image only if incoming file size is greater than the size of the default "no image yet"
 			if ($filesize > 8624) {
 				$img = imagecreatefromstring(base64_decode($string));
 				if($img != false)
@@ -113,7 +112,7 @@ class DemonioController extends GoalFaceController {
 				Zend_Debug::dump("Image for: " . $playerId . " Added<br>\n");
 			}
 		}			
-  }
+	}
 	
 
 	public function indexAction() {
@@ -199,9 +198,9 @@ class DemonioController extends GoalFaceController {
 
 	// Individual Player 
 	public function getplayerimageAction() {
-    $player = new Player ();
-    $playerId = $this->_request->getParam ( 'player', null );
-	//$rowplayers = $player->findAllPlayersForSearch(140000,142000);
+	    $player = new Player ();
+	    $playerId = $this->_request->getParam ( 'player', null );
+		//$rowplayers = $player->findAllPlayersForSearch(140000,142000);
 		if (isset($playerId)) {
 			$rowplayers = $player->findPlayerProfileDetails($playerId);
 		}
@@ -211,16 +210,16 @@ class DemonioController extends GoalFaceController {
 			if ($playerxml != null || $playerxml != '') {
 				$string = $playerxml->player->image;
 				if ($string != null || $string != '') {
-          $filesize = strlen(base64_decode($string));
-          if ($filesize > 8624) {
-            $img = imagecreatefromstring(base64_decode($string));
+          		$filesize = strlen(base64_decode($string));
+          		if ($filesize > 8624) {
+            		$img = imagecreatefromstring(base64_decode($string));
   					if($img != false)
   					{
   						imagejpeg($img, '/home/goalface/public_html/staging/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
   					  echo "image for player = ".$rowplayer['player_id']." saved<br><br>";
   					}
   					imagedestroy($img);
-          }
+         		 }
 				}
 			}
 		}
@@ -683,17 +682,20 @@ class DemonioController extends GoalFaceController {
 
 
 	
-	 //Zend_Debug::dump($xml->team->squad);
+	//Zend_Debug::dump($xml->team->squad);
 	// updatesquad/league/7 - ALL teams from la liga (7))
- // updatesquad/league/7/team/2017 - Only team id
+ 	// updatesquad/league/7/team/2017 - Only team id
 
 	public function updatesquadAction() {
-	  $config = Zend_Registry::get( 'config' );
-    $file = $config->path->log->updatesquad;
-
+	  	
+	  	$config = Zend_Registry::get( 'config' );
+    	$file = $config->path->log->updatesquad;
+    	/***FILE LOG **/
+        $logger = new Zend_Log();
+        $writer = new Zend_Log_Writer_Stream($file);
+        $logger->addWriter($writer);
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
-	
 		$team = new Team ();
 		$teamplayer = new TeamPlayer ();
 		$player = new Player ();
@@ -702,116 +704,124 @@ class DemonioController extends GoalFaceController {
 		$teamid = $this->_request->getParam ( 'team', null );
 		$leagueid = $this->_request->getParam ( 'league', null );
 		$teams_league = $team->getTeamsPerCompetitionParse($leagueid,$teamid);
-
+		$CurrentTeamPlayers = $teamplayer->findAllPlayersByTeam($teamid);
+		// get all players current on team
+		$player_team = array();
+		foreach ($CurrentTeamPlayers as $teamplayers) {
+			$player_team[] = $teamplayers['player_id'];
+		}
+		//Zend_Debug::dump($player_team);
 		// iterate over all team on a league
 		foreach($teams_league as $teamleague) {
-		
-		  
-		  //get team information array
+			//get team information array
 			$rowTeam = $team->fetchRow ( 'team_id = ' . $teamleague['team_id'] );
 			if ($rowTeam ['team_gs_id'] != null)  {
-			 
-			 $feed_team_path = 'soccerstats/team/' . $rowTeam ['team_gs_id'];
-       		  $xml = parent::getGoalserveFeed($feed_team_path);
-			 
-				//iterate over all players on team roaster
-				echo "===" .$xml->team->name . "--" . $teamleague['team_id'] ."=====\n"; 
-        foreach ( $xml->team->squad->player as $playersquad )	{
-            
-            $player_feed_array[] = $playersquad['id'];
-						
-            //check if player exists GoalFace DB
-						$rowPlayer = $player->fetchRow ( 'player_id = ' . $playersquad ['id'] );
-						if ($rowPlayer == null ) {
-						  //player not in goalface db
-						  echo "<strong>".$playersquad ['id']. " ". $playersquad ['name']." NOT in DB</strong><BR>\n";
-						  
-						  $player_short_name = $playersquad ['name'];
-						  $playersData = $this->getplayerfeed($playersquad ['id'],$player_short_name);
-						  
-              //Insert New Player
-              $player->insert ($playersData);
-              echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED</strong><br>\n";
-              
-              //insert teamplayer relation
-							$dataTeamPlayer = array ('player_id' => $playersquad ['id'],
-                                        'team_id' => $teamleague['team_id'], 
-                                        'actual_team' => '1' );	
-							$teamplayer->insert($dataTeamPlayer );			
-              echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED INSERT INTO " . $teamleague['team_id'] ." SQUAD</strong><br>\n";
-              
-              //Save player image from feed if Exists
-              $this->saveplayerimage($playersquad ['id']);             
-            } else {
-                //player Exists goalface db
-                echo $playersquad ['id']. " ". $playersquad ['name']." OK<br>\n";
-            }
-				}
-				
-				//Relocate Orphan Players Not on this team squad anymore. Compare Current DB teamsquad against Feed Squad
-				$CurrentTeamPlayers = $teamplayer->findAllPlayersByTeam($teamleague['team_id']);
-				foreach ($CurrentTeamPlayers as $teamplayers) {
-					$playerteam[] = $teamplayers['player_id'];
-				}
-    		$orphans = array_diff($playerteam,$player_feed_array);
-        if ($orphans != null) {
-          foreach ($orphans as $playerorphan) {
-            $feed_team_path = 'soccerstats/player/' . $playerorphan;
-            $xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
-            
-               if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
-                   foreach ($xmlplayerfeed->player as $xmlPlayer) {
-                      if(!empty($xmlPlayer->teamid) AND  $xmlPlayer->teamid != null AND $xmlPlayer->teamid != 0) {
 
-                            $rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
-                            
-                            if ($rowTeamNewCurrent != "") {
-                              
-                              if ($rowTeamNewCurrent['team_id'] != $teamid) {
-            										//Delete current team association
-            										$teamplayer->deleteTeamPlayer ($teamid,$playerorphan);          										
-            										//new team
-            										$dataTeamPlayerUpdateNew = array ('player_id' => $playerorphan, 
-                                                                  'team_id' => $rowTeamNewCurrent['team_id'],
-                                                                  'actual_team' => '1' );
-            										$teamplayer->insert ( $dataTeamPlayerUpdateNew );
-          										  echo $xmlPlayer->name ." ".$playerorphan . "----->Deleted from ".$teamid ." and added (1) to Current Team : -> " . $rowTeamNewCurrent['team_id'] . "<br>\n";
-          										}  else {
-          										  // Current team in player feed is the same as old team. Has not changed 
-                                $dataTeamPlayerUpdate =  array ('actual_team' => '2' );
-                                $teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
-                                echo $xmlPlayer->name ." ".$playerorphan . "-----> Current team in Player Feed is same no longer in Team Squad Feed. Added Free Agent for previous team ".$teamid ."<br>\n";
-                              }
-                            }
-    										  
-    										  
-                      } else {
-                          // Current TEAM ID EMPTY on feed no current team in feed , update current team to 2 so Player is FREE AGENT
-      										$dataTeamPlayerUpdate =  array ('actual_team' => '2' );
-      									  $teamplayer->updateTeamPlayer ( $playerorphan , $teamid, $dataTeamPlayerUpdate );
-      										echo $xmlPlayer->name ." ".$playerorphan . "----->No current team on player feed. Added as Free Agent for previous team ".$teamid ." <br>\n";
-  									  }
-                   }
-               }
-               
-                
+				$feed_team_path = 'soccerstats/team/' . $rowTeam ['team_gs_id'];
+				$player_feed_team = array();
+   				$xml = parent::getGoalserveFeed($feed_team_path);
+   				//Iterate over each player on squad from feed
+   				foreach ( $xml->team->squad->player as $playersquad ) {
+   					//put all squad from feed in array()
+   					$player_feed_team[] = $playersquad['id'];
+   					//check if player exists GoalFace DB
+					$rowPlayer = $player->fetchRow ( 'player_id = ' . $playersquad ['id'] );
+					// data array for team - relation
+					$dataTeamPlayer = array ('player_id' => $playersquad ['id'],
+		                                        'team_id' => $teamid, 
+		                                        'actual_team' => '1' );	
+					$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );
+					
+					//Player Does not exist DB
+					if ($rowPlayer == null) {
+						//Add New player to GF
+						//Assign player-team relation
+						$player_short_name = $playersquad ['name'];
+						$playersData = $this->getplayerfeed($playersquad ['id'],$player_short_name);
+   						//Insert New Player
+              			$player->insert ($playersData);
+              			echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED into GoalFace DB</strong><br>\n";
+              			//insert teamplayer relation
+						$teamplayer->insert($dataTeamPlayer );			
+		              	echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED INSERT INTO " . $teamleague['team_id'] ." SQUAD</strong><br>\n";
+						//Save player image from feed if Exists
+              			$this->saveplayerimage($playersquad ['id']);
+					} else {
+
+						//Player exists
+						$currentteamsclub = $teamplayer->findCurrentTeamByType($playersquad['id'],'club');
+
+						if ($currentteamsclub) {
+							//Player has club team relations
+							if (count($currentteamsclub) > 1) {
+								//delete all relations and add correct one
+								foreach ($currentteamsclub as $club) {		
+									echo "Player" . $playersquad['id'] . "delete relation with clubs" . $club['team_id'] . "<BR>";
+									$teamplayer->deleteTeamPlayer($club['team_id'],$playersquad['id']);
+								}
+								//Add new only one relation 
+								echo "Added Player " . $playersquad['id'] ." relation with club" . $teamid . "<BR>";
+								$teamplayer->insert($dataTeamPlayer );
+
+							} else {
+								//check if relation is correct if not update 
+								foreach ($currentteamsclub as $teamsclub) {
+									if ($teamsclub['team_id'] == $teamid && $teamsclub['actual_team'] == 1 ) {
+										echo "Only team relation for player " . $playersquad['id']. " with club" . $teamid . " OK<BR>"; 
+									} else {
+										echo "Player " . $playersquad['id']. " Updated to Correct relation with ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>";
+										$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );								
+			                            $teamplayer->updateTeamPlayerByPlayerId($playersquad['id'],$dataTeamPlayerUpdate);
+									}							
+								}
+							}
+						} else {
+							//Player has NO club relation 
+							//$teamplayer->insert($dataTeamPlayer );
+							echo "Added " . $playersquad['id']. " relation with club" . $teamid . "<BR>";
+						}
+					}
+   				}
+   				// Remove orphas from team GF DB - We have two arrays $player_feed_team and $player_team
+   				$orphans = array_diff($player_team,$player_feed_team);
+   				//Zend_Debug::dump($orphans);
+   				echo "<b>Orphan Players</b><br>";
+   				if(!empty($orphans)) {
+   					foreach ($orphans as $playerorphan) {
+   						$currentteamsclub = $teamplayer->findCurrentTeamByType($playerorphan,'club');
+   						$teamplayer->deleteTeamPlayer($teamid,$playerorphan );
+   						//echo 'Player '. $playerorphan.' removed from team relation<br>';
+   						foreach ($currentteamsclub as $club) {		
+							echo "Player " . $playerorphan . " delete relation with club" . $club['team_id'] . "<BR>";
+							$teamplayer->deleteTeamPlayer($club['team_id'],$playerorphan);
+							$feed_team_path = 'soccerstats/player/' . $playerorphan;
+	            			$xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
+                			if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
+                				foreach ($xmlplayerfeed->player as $xmlPlayer) {
+                					if(!empty($xmlPlayer->teamid) AND  $xmlPlayer->teamid != null AND $xmlPlayer->teamid != 0) {
+                						$rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
+                						if ($rowTeamNewCurrent != "") {
+                							$dataTeamPlayerNew = array ('player_id' => $playerorphan,
+		                                        'team_id' => $rowTeamNewCurrent['team_id'], 
+		                                        'actual_team' => '1' );	
+                							$teamplayer->insert($dataTeamPlayerNew);
+                							echo "New Team for Player " .$playerorphan . " is " . $rowTeamNewCurrent['team_id'] ."<br><br>";
+                						} else {
+                							echo "Team " . $xmlPlayer->teamid . " not Mapped!!<br><br>";
+                							$logger->info("Feed Team Not Mapped : " .$xmlPlayer->teamid );
+                						}
+                					} 
+                				}
+                			}
+						  }
+   					}
+   				} else {
+            echo "No Orphan Players";
+            return;
           }
-        }
-
-			} else {
-					echo "Team Id :" . $teamid . " has not been mapped";
-					$logger->info("Team Not Mapped : " .$teamleague['team_id']);
-			}
-		  //$logger->info("Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']);
-			//echo "Team Updated : " .$teamleague['team_id']. " - ".$teamleague['team_name']."<BR>";
-
-		}
-		
-		
-		
+			} 
+		}	
 	}
-	
-	
 
 }
 ?>

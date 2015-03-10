@@ -81,6 +81,20 @@ class TeamPlayer extends Zend_Db_Table_Abstract
         return $row ;
     }
 
+    public function findCurrentTeamByType($playerid,$teamType) {
+        $db = $this->getAdapter();
+        $sql = " select tp.player_id,tp.team_id, tp.actual_team,t.team_type ";
+        $sql .= " from teamplayer tp " ;
+        $sql .= " INNER JOIN team t ON t.team_id = tp.team_id " ;
+        $sql .= " where (tp.actual_team = 1 or tp.actual_team = 2) ";
+        $sql .= " and tp.player_id = " . $playerid;
+        $sql .= " and t.team_type = '" .$teamType ."'" ;
+        //echo $sql;
+        $result = $db->query ($sql);
+        $row = $result->fetchAll();
+        return $row;
+    }
+
     public function updateTeamPlayer($playerid ,$teamid ,$data)
     {
         $db = $this->getAdapter();
@@ -91,8 +105,10 @@ class TeamPlayer extends Zend_Db_Table_Abstract
 
     public function updateTeamPlayerByPlayerId($playerId , $data){
     	$db = $this->getAdapter();
-        $where = $db->quoteInto("and player_id = ?", $playerId);
+        $where = $db->quoteInto("player_id = ?", $playerId);
+        //echo "$%<br>" . $where . "$%</br>";
         return $this->update($data, $where);
+
     }
 
     public function updateTeamPlayerTemp($teamId,$data) {
