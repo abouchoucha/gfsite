@@ -659,11 +659,11 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
 		$sql .= " INNER JOIN season s ON s.competition_id = gs.competition_id ";
 		$sql .= " WHERE lc.active = 1 "; 
 		$sql .= " AND s.active = 1 "; 
-		// Not Include FACup yet
-		$sql .= " AND lc.competition_id != 93 "; 
    		//echo $sql;
    		$result = $db->query ( $sql );
 		$row = $result->fetchAll ();
 		return $row;
    } 
+
+
 }
