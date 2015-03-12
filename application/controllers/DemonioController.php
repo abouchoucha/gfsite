@@ -762,7 +762,7 @@ class DemonioController extends GoalFaceController {
 									$teamplayer->deleteTeamPlayer($club['team_id'],$playersquad['id']);
 								}
 								//Add new only one relation 
-								echo "Added Player " . $playersquad['id'] ." relation with club" . $teamid . "<BR>\n";
+								echo "Added Player " . $playersquad['id'] ." relation with team " . $teamid . "<BR>\n";
 								$teamplayer->insert($dataTeamPlayer );
 
 							} else {
@@ -770,9 +770,9 @@ class DemonioController extends GoalFaceController {
 								foreach ($currentteamsclub as $teamsclub) {
 								  //Zend_Debug::dump($currentteamsclub);
 									if ($teamsclub['team_id'] == $teamid && $teamsclub['actual_team'] == 1 ) {
-										echo "Only team relation for player " . $playersquad['id']. " with club" . $teamid . " OK<BR>\n"; 
+										echo "Team relation for player " . $playersquad['id']. " with team " . $teamid . " OK\n"; 
 									} else {
-										echo "Player " . $playersquad['id']. " Updated to Correct relation with ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
+										echo "Player " . $playersquad['id']. " updated TO team ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
 										$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );								
 			              $teamplayer->updateTeamPlayer($playersquad['id'],$teamsclub['team_id'],$dataTeamPlayerUpdate);
 									}							
@@ -781,21 +781,21 @@ class DemonioController extends GoalFaceController {
 						} else {
 							//Player has NO club relation 
 							$teamplayer->insert($dataTeamPlayer );
-							echo "Added " . $playersquad['id']. " relation with club" . $teamid . "<BR>\n";
+							echo "Added " . $playersquad['id']. " relation with team " . $teamid . "<BR>\n";
 						}
 					}
    				}
    				// Remove orphas from team GF DB - We have two arrays $player_feed_team and $player_team
    				$orphans = array_diff($player_team,$player_feed_team);
    				//Zend_Debug::dump($orphans);
-   				echo "<b>Orphan Players</b><br>";
+   				echo "<b>Orphan Players</b><br>\n";
    				if(!empty($orphans)) {
    					foreach ($orphans as $playerorphan) {
    						$currentteamsclub = $teamplayer->findCurrentTeamByType($playerorphan,'club');
    						$teamplayer->deleteTeamPlayer($teamid,$playerorphan );
-   						echo 'Player '. $playerorphan.' removed from team relation<br>';
+   						echo 'Player '. $playerorphan.' removed from team relation<br>\n';
    						foreach ($currentteamsclub as $club) {		
-							   echo "Player " . $playerorphan . " delete relation with club" . $club['team_id'] . "<BR>\n";
+							   echo "Player " . $playerorphan . " delete relation with team " . $club['team_id'] . "<BR>\n";
 							   $teamplayer->deleteTeamPlayer($club['team_id'],$playerorphan);
   							 $feed_team_path = 'soccerstats/player/' . $playerorphan;
   	            			$xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
