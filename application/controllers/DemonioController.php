@@ -742,43 +742,46 @@ class DemonioController extends GoalFaceController {
               			$player->insert ($playersData);
               			echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED into GoalFace DB</strong><br>\n";
               			//insert teamplayer relation
-						$teamplayer->insert($dataTeamPlayer );			
+						        $teamplayer->insert($dataTeamPlayer ); 			
 		              	echo "------><strong>".$playersquad ['id']. " ". $playersquad ['name']." INSERTED INSERT INTO " . $teamleague['team_id'] ." SQUAD</strong><br>\n";
-						//Save player image from feed if Exists
+						        //Save player image from feed if Exists
               			$this->saveplayerimage($playersquad ['id']);
 					} else {
 
 						//Player exists
 						$currentteamsclub = $teamplayer->findCurrentTeamByType($playersquad['id'],'club');
-
+            
 						if ($currentteamsclub) {
+						
 							//Player has club team relations
 							if (count($currentteamsclub) > 1) {
 								//delete all relations and add correct one
-								foreach ($currentteamsclub as $club) {		
-									echo "Player" . $playersquad['id'] . "delete relation with clubs" . $club['team_id'] . "<BR>";
+								foreach ($currentteamsclub as $club) {	
+                  	
+									echo "Player" . $playersquad['id'] . "delete relation with clubs" . $club['team_id'] . "<BR>\n";
 									$teamplayer->deleteTeamPlayer($club['team_id'],$playersquad['id']);
 								}
 								//Add new only one relation 
-								echo "Added Player " . $playersquad['id'] ." relation with club" . $teamid . "<BR>";
+								echo "Added Player " . $playersquad['id'] ." relation with club" . $teamid . "<BR>\n";
 								$teamplayer->insert($dataTeamPlayer );
 
 							} else {
 								//check if relation is correct if not update 
 								foreach ($currentteamsclub as $teamsclub) {
+								  //Zend_Debug::dump($currentteamsclub);
 									if ($teamsclub['team_id'] == $teamid && $teamsclub['actual_team'] == 1 ) {
-										echo "Only team relation for player " . $playersquad['id']. " with club" . $teamid . " OK<BR>"; 
+										echo "Only team relation for player " . $playersquad['id']. " with club" . $teamid . " OK<BR>\n"; 
 									} else {
-										echo "Player " . $playersquad['id']. " Updated to Correct relation with ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>";
+										echo "Player " . $playersquad['id']. " Updated to Correct relation with ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
 										$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );								
-			                            $teamplayer->updateTeamPlayerByPlayerId($playersquad['id'],$dataTeamPlayerUpdate);
+			              $teamplayer->updateTeamPlayer($playersquad['id'],$teamsclub['team_id'],$dataTeamPlayerUpdate);
 									}							
 								}
 							}
 						} else {
 							//Player has NO club relation 
-							//$teamplayer->insert($dataTeamPlayer );
-							echo "Added " . $playersquad['id']. " relation with club" . $teamid . "<BR>";
+							$teamplayer->insert($dataTeamPlayer );
+							echo "Added " . $playersquad['id']. " relation with club" . $teamid . "<BR>\n";
 						}
 					}
    				}
@@ -790,33 +793,33 @@ class DemonioController extends GoalFaceController {
    					foreach ($orphans as $playerorphan) {
    						$currentteamsclub = $teamplayer->findCurrentTeamByType($playerorphan,'club');
    						$teamplayer->deleteTeamPlayer($teamid,$playerorphan );
-   						//echo 'Player '. $playerorphan.' removed from team relation<br>';
+   						echo 'Player '. $playerorphan.' removed from team relation<br>';
    						foreach ($currentteamsclub as $club) {		
-							echo "Player " . $playerorphan . " delete relation with club" . $club['team_id'] . "<BR>";
-							$teamplayer->deleteTeamPlayer($club['team_id'],$playerorphan);
-							$feed_team_path = 'soccerstats/player/' . $playerorphan;
-	            			$xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
-                			if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
-                				foreach ($xmlplayerfeed->player as $xmlPlayer) {
-                					if(!empty($xmlPlayer->teamid) AND  $xmlPlayer->teamid != null AND $xmlPlayer->teamid != 0) {
-                						$rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
-                						if ($rowTeamNewCurrent != "") {
-                							$dataTeamPlayerNew = array ('player_id' => $playerorphan,
-		                                        'team_id' => $rowTeamNewCurrent['team_id'], 
-		                                        'actual_team' => '1' );	
-                							$teamplayer->insert($dataTeamPlayerNew);
-                							echo "New Team for Player " .$playerorphan . " is " . $rowTeamNewCurrent['team_id'] ."<br><br>";
-                						} else {
-                							echo "Team " . $xmlPlayer->teamid . " not Mapped!!<br><br>";
-                							$logger->info("Feed Team Not Mapped : " .$xmlPlayer->teamid );
-                						}
-                					} 
-                				}
-                			}
+							   echo "Player " . $playerorphan . " delete relation with club" . $club['team_id'] . "<BR>\n";
+							   $teamplayer->deleteTeamPlayer($club['team_id'],$playerorphan);
+  							 $feed_team_path = 'soccerstats/player/' . $playerorphan;
+  	            			$xmlplayerfeed = parent::getGoalserveFeed($feed_team_path);
+                  			if ($xmlplayerfeed != null || $xmlplayerfeed != '') {
+                  				foreach ($xmlplayerfeed->player as $xmlPlayer) {
+                  					if(!empty($xmlPlayer->teamid) AND  $xmlPlayer->teamid != null AND $xmlPlayer->teamid != 0) {
+                  						$rowTeamNewCurrent = $team->fetchRow ( 'team_gs_id = ' . $xmlPlayer->teamid );
+                  						if ($rowTeamNewCurrent != "") {
+                  							$dataTeamPlayerNew = array ('player_id' => $playerorphan,
+  		                                        'team_id' => $rowTeamNewCurrent['team_id'], 
+  		                                        'actual_team' => '1' );	
+                  							$teamplayer->insert($dataTeamPlayerNew);
+                  							echo "New Team for Player " .$playerorphan . " is " . $rowTeamNewCurrent['team_id'] ."<br>\n";
+                  						} else {
+                  							echo "Team " . $xmlPlayer->teamid . " not Mapped!!<br>\n";
+                  							$logger->info("Feed Team Not Mapped : " .$xmlPlayer->teamid );
+                  						}
+                  					} 
+                  				}
+                  			}
 						  }
    					}
    				} else {
-            echo "No Orphan Players";
+            echo "No Orphan Players<br><br>\n";
             return;
           }
 			} 
