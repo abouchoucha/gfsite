@@ -225,6 +225,8 @@ class DemonioController extends GoalFaceController {
 		}
 	}
 
+
+ ///demonio/updateplayerimages/team/2277
 	public function updateplayerimagesAction() {
 		$config = Zend_Registry::get( 'config' );
         $file = $config->path->log->playerstats;
@@ -239,15 +241,18 @@ class DemonioController extends GoalFaceController {
 
 		$from = $this->_request->getParam ( 'from', null );
 		$to = $this->_request->getParam ( 'to', null );
+		$team = $this->_request->getParam ( 'team', null );
 
 		$player = new Player ();
-		$players = $player->getPlayersUpdateImages($from,$to);
+		$teamplayer = new TeamPlayer ();;
+		//$players = $player->getPlayersUpdateImages($from,$to);
+		$players = $teamplayer->findAllPlayersByTeam($team);
 		foreach ($players as $rowplayer) {
 
 			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
 			//Show only players with no images in goalface
 			if (!file_exists($image_file)) {
-				echo "The file $image_file does not exist for ". $rowplayer['player_name_short']."<br>/n";
+				echo "The image file ". $image_file. " does not exist for ". $rowplayer['player_id']."<br>/n";
 				$playerxml = parent::getGoalserveFeed('soccerstats/player/'.$rowplayer['player_id']);
 				if ($playerxml != null || $playerxml != '') {
 					$string = $playerxml->player->image;
@@ -258,8 +263,8 @@ class DemonioController extends GoalFaceController {
 							$img = imagecreatefromstring(base64_decode($string));
 							if($img != false)
 							{
-								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
-								$logger->info("Image for player ".$rowplayer['player_name_short']. "(" .$rowplayer['player_id'] .") has been added.");
+								//imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
+								$logger->info("Image for player ".$rowplayer['player_id']. "(" .$rowplayer['player_id'] .") has been added.");
 							}
 							imagedestroy($img);
 						}
@@ -770,7 +775,7 @@ class DemonioController extends GoalFaceController {
 								foreach ($currentteamsclub as $teamsclub) {
 								  //Zend_Debug::dump($currentteamsclub);
 									if ($teamsclub['team_id'] == $teamid && $teamsclub['actual_team'] == 1 ) {
-										echo "Team relation for player" . $playersquad ['name']. "(" .$playersquad['id']. ") with team " . $teamid . " OK\n"; 
+										echo "Team relation for player " . $playersquad ['name']. "(" .$playersquad['id']. ") with team " . $teamid . " OK\n"; 
 									} else {
 										echo "Player " . $playersquad ['name'] . "(" .$playersquad['id']. ") updated TO team ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
 										$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );								
