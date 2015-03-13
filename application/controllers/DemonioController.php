@@ -263,8 +263,9 @@ class DemonioController extends GoalFaceController {
 							$img = imagecreatefromstring(base64_decode($string));
 							if($img != false)
 							{
-								//imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
+								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
 								$logger->info("Image for player ".$rowplayer['player_id']. "(" .$rowplayer['player_id'] .") has been added.");
+								echo "Image added for player" . $rowplayer['player_id'] ."<br>/n";
 							}
 							imagedestroy($img);
 						}
