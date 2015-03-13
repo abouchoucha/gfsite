@@ -226,59 +226,59 @@ class DemonioController extends GoalFaceController {
 	}
 
 
- ///demonio/updateplayerimages/team/2277
+ //demonio/updateplayerimages/league/33
+ //demonio/updateplayerimages/league/33/team/2277
+ 
 	public function updateplayerimagesAction() {
 		$config = Zend_Registry::get( 'config' );
-        $file = $config->path->log->playerstats;
-        /***FILE LOG **/
-        $logger = new Zend_Log();
-        $writer = new Zend_Log_Writer_Stream($file);
-        $logger->addWriter($writer);
+    $file = $config->path->log->playerstats;
+     /***FILE LOG **/
+    $logger = new Zend_Log();
+    $writer = new Zend_Log_Writer_Stream($file);
+    $logger->addWriter($writer);
 
 		if (self::$server_host == 'beta') {
 			self::$server_host = 'goalfaceapp';
 		} elseif(self::$server_host == 'staging') {
       self::$server_host = 'staging';
     }
-    Zend_Debug::dump(self::$server_host);
-		//$from = $this->_request->getParam ( 'from', null );
-		$to = $this->_request->getParam ( 'to', null );
-		$team = $this->_request->getParam ( 'team', null );
+
+		$league = $this->_request->getParam ( 'league', null );
+		$teamid = $this->_request->getParam ( 'team', null );
 
 		$player = new Player ();
+		$team = new Team();
 		$teamplayer = new TeamPlayer ();;
-		//$players = $player->getPlayersUpdateImages($from,$to);
-		$players = $teamplayer->findAllPlayersByTeam($team);
-		
-		
-		foreach ($players as $rowplayer) {
-
-			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
-			//Show only players with no images in goalface
-			if (!file_exists($image_file)) {
-				echo "The image file ". $image_file. " does not exist for ". $rowplayer['player_id']."<br>/n";
-				$playerxml = parent::getGoalserveFeed('soccerstats/player/'.$rowplayer['player_id']);
-				if ($playerxml != null || $playerxml != '') {
-					$string = $playerxml->player->image;
-					if ($string != null || $string != '') {
-						$filesize = strlen(base64_decode($string));
-						// create image only if incoming file size is greater than the size of the default "no image yet"
-						if ($filesize > 8624) {
-							$img = imagecreatefromstring(base64_decode($string));
-							if($img != false)
-							{
-								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/players/'. $rowplayer['player_id'].'.jpg');
-								$logger->info("Image for player ".$rowplayer['player_id']. "(" .$rowplayer['player_id'] .") has been added.");
-								echo "Image added for player" . $rowplayer['player_id'] ."<br>/n";
-							}
-							imagedestroy($img);
-						}
-					}
-				}
-			}
-		}
-	
-		
+		$teams = $team->getTeamsPerCompetitionParse($league,$teamid);
+    foreach ($teams as $team) {
+  	   $players = $teamplayer->findAllPlayersByTeam($team['team_id']);
+        foreach ($players as $rowplayer) {
+    			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
+    			//Show only players with no images in goalface
+    			if (!file_exists($image_file)) {
+    				echo "The image file ". $image_file. " does not exist for ". $rowplayer['player_id']."<BR>\n";
+    	
+    				$playerxml = parent::getGoalserveFeed('soccerstats/player/'.$rowplayer['player_id']);
+    				if ($playerxml != null || $playerxml != '') {
+    					$string = $playerxml->player->image;
+    					if ($string != null || $string != '') {
+    						$filesize = strlen(base64_decode($string));
+    						// create image only if incoming file size is greater than the size of the default "no image yet"
+    						if ($filesize > 8624) {
+    							$img = imagecreatefromstring(base64_decode($string));
+    							if($img != false)
+    							{
+    								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/players/'. $rowplayer['player_id'].'.jpg');
+    								$logger->info("Image for player ".$rowplayer['player_id']. "(" .$rowplayer['player_id'] .") has been added.");
+    								echo "Image added for player" . $rowplayer['player_id'] ."<BR>\n";
+    							}
+    							imagedestroy($img);
+    						}
+    					}
+    				}
+    			}	
+    		}
+     }	
 	}
 
 
