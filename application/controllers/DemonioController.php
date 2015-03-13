@@ -758,11 +758,11 @@ class DemonioController extends GoalFaceController {
 								//delete all relations and add correct one
 								foreach ($currentteamsclub as $club) {	
                   	
-									echo "Player" . $playersquad['id'] . "delete relation with clubs" . $club['team_id'] . "<BR>\n";
+									echo "Player" . $playersquad ['name']. "(" .$playersquad['id'] . ") deleted relation with team" . $club['team_id'] . "<BR>\n";
 									$teamplayer->deleteTeamPlayer($club['team_id'],$playersquad['id']);
 								}
 								//Add new only one relation 
-								echo "Added Player " . $playersquad['id'] ." relation with team " . $teamid . "<BR>\n";
+								echo "Added Player " . $playersquad ['name'] . "(" .$playersquad['id'] .") relation with team " . $teamid . "<BR>\n";
 								$teamplayer->insert($dataTeamPlayer );
 
 							} else {
@@ -770,9 +770,9 @@ class DemonioController extends GoalFaceController {
 								foreach ($currentteamsclub as $teamsclub) {
 								  //Zend_Debug::dump($currentteamsclub);
 									if ($teamsclub['team_id'] == $teamid && $teamsclub['actual_team'] == 1 ) {
-										echo "Team relation for player " . $playersquad['id']. " with team " . $teamid . " OK\n"; 
+										echo "Team relation for player" . $playersquad ['name']. "(" .$playersquad['id']. ") with team " . $teamid . " OK\n"; 
 									} else {
-										echo "Player " . $playersquad['id']. " updated TO team ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
+										echo "Player " . $playersquad ['name'] . "(" .$playersquad['id']. ") updated TO team ". $teamid ." from " . $teamsclub['team_id']. " team.<BR>\n";
 										$dataTeamPlayerUpdate =  array ('team_id' => $teamid,'actual_team' => '1' );								
 			              $teamplayer->updateTeamPlayer($playersquad['id'],$teamsclub['team_id'],$dataTeamPlayerUpdate);
 									}							
@@ -781,7 +781,7 @@ class DemonioController extends GoalFaceController {
 						} else {
 							//Player has NO club relation 
 							$teamplayer->insert($dataTeamPlayer );
-							echo "Added " . $playersquad['id']. " relation with team " . $teamid . "<BR>\n";
+							echo "Added for player " . $playersquad ['name'] . "(" .$playersquad['id']. ") new relation with team " . $teamid . "<BR>\n";
 						}
 					}
    				}
@@ -793,7 +793,7 @@ class DemonioController extends GoalFaceController {
    					foreach ($orphans as $playerorphan) {
    						$currentteamsclub = $teamplayer->findCurrentTeamByType($playerorphan,'club');
    						$teamplayer->deleteTeamPlayer($teamid,$playerorphan );
-   						echo 'Player '. $playerorphan.' removed from team relation<br>\n';
+   						echo "Player '. $playerorphan.' removed from team relation<br>\n";
    						foreach ($currentteamsclub as $club) {		
 							   echo "Player " . $playerorphan . " delete relation with team " . $club['team_id'] . "<BR>\n";
 							   $teamplayer->deleteTeamPlayer($club['team_id'],$playerorphan);
