@@ -109,7 +109,7 @@ class DemonioController extends GoalFaceController {
 				}
 				imagedestroy($img);
 				echo "Image for: " . $playerId . " Added<br>\n";
-				Zend_Debug::dump("Image for: " . $playerId . " Added<br>\n");
+				//Zend_Debug::dump("Image for: " . $playerId . " Added<br>\n");
 			}
 		}			
 	}
@@ -237,9 +237,11 @@ class DemonioController extends GoalFaceController {
 
 		if (self::$server_host == 'beta') {
 			self::$server_host = 'goalfaceapp';
-		}
-
-		$from = $this->_request->getParam ( 'from', null );
+		} elseif(self::$server_host == 'staging') {
+      self::$server_host = 'staging';
+    }
+    Zend_Debug::dump(self::$server_host);
+		//$from = $this->_request->getParam ( 'from', null );
 		$to = $this->_request->getParam ( 'to', null );
 		$team = $this->_request->getParam ( 'team', null );
 
@@ -247,6 +249,8 @@ class DemonioController extends GoalFaceController {
 		$teamplayer = new TeamPlayer ();;
 		//$players = $player->getPlayersUpdateImages($from,$to);
 		$players = $teamplayer->findAllPlayersByTeam($team);
+		
+		
 		foreach ($players as $rowplayer) {
 
 			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
@@ -263,7 +267,7 @@ class DemonioController extends GoalFaceController {
 							$img = imagecreatefromstring(base64_decode($string));
 							if($img != false)
 							{
-								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/feedplayers/'. $rowplayer['player_id'].'.jpg');
+								imagejpeg($img, '/home/goalface/public_html/'. self::$server_host . '/public/images/players/'. $rowplayer['player_id'].'.jpg');
 								$logger->info("Image for player ".$rowplayer['player_id']. "(" .$rowplayer['player_id'] .") has been added.");
 								echo "Image added for player" . $rowplayer['player_id'] ."<br>/n";
 							}
@@ -273,6 +277,8 @@ class DemonioController extends GoalFaceController {
 				}
 			}
 		}
+	
+		
 	}
 
 
