@@ -265,33 +265,47 @@ class Activity extends Zend_Db_Table_Abstract {
 
                         if ($rowset != null) {
                             foreach ($rowset as $row) {
-                                // get translation ready for $row['language_code'] language
-                                $translate = $this->setuplanguage($row['language_code']);
-
+         
+                                //Languages
+                                $myLanguageArray = explode(',', $row['language']);
+                                $message = '';
+                                $translate = '';
+    
+                                foreach ($myLanguageArray as $languages) {
+                                    // get translation ready for $row['language'] language
+                                    $translate = $this->setuplanguage($languages);
+                                    $message .= $variablesToReplace['teama_name'].' '.$translate->_($variablesToReplace['typeOfResult']).' '.$variablesToReplace['teamb_name'].' ('.$variablesToReplace['score'].')';
+                                    if (true !== empty($message)) {
+                                        $message .= ' // ';
+                                    }
+                                }
+    
+                                //trim 
+                                $message = rtrim($message, '// ');
+                            
                                 self::$logger->debug ( "------->Page Name:".$row['fbpage_details']);
                                 self::$logger->debug ( "------->Page ID:".$row['fbpage_id']);
                                 self::$logger->debug ( "------->appId:".$app_id);
                                 self::$logger->debug ( "------->secret:".$app_secret);
                                 self::$logger->debug ( "------->access_token:".$row['facebookaccesstoken']);
-                                self::$logger->debug ( "------->message:".$variablesToReplace['teama_name'].' '.$translate->_($variablesToReplace['typeOfResult']).' '.$variablesToReplace['teamb_name'].' ('.$variablesToReplace['score'].')');
+                                self::$logger->debug ( "------->message:".$message);
                                 self::$logger->debug ( "------->link:".$link);
-                                self::$logger->debug ( "------->language:".$row['language_code']);
-
-
+                                self::$logger->debug ( "------->languages:".$row['language']);
+                            
                                 $facebook = new Facebook(array(
                                     'appId'  => $app_id,
                                     'secret' => $app_secret
                                 ));
 
-                                echo '<br>link:'.$link;
+                                //echo '<br>link:'.$link;
                                 try{
                                     $args=array(
                                         'access_token' => $row['facebookaccesstoken'],
-                                        'message' => $variablesToReplace['teama_name'].' '.$translate->_($variablesToReplace['typeOfResult']).' '.$variablesToReplace['teamb_name'].' ('.$variablesToReplace['score'].')',
+                                        'message' => $message,
                                         'link' => $link
                                     );
 
-                                   $post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+                                  $post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
                                         echo '<br>Escribi√≥ en COMPETITION:'.$row['fbpage_id'];
                                 }catch (FacebookApiException $e){

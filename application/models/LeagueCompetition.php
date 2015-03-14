@@ -17,26 +17,17 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
 		return $row;
 	}
 	
-	// public function selectLeaguePageFanFaceBookAlerts($competition_id) {
-	// 	$db = $this->getAdapter();
-	// 	$sql = "SELECT l.*,u.facebookid,u.facebookaccesstoken from league_competition l inner join user u on l.user_id=u.user_id 
-	// 			WHERE l.user_id is not null and l.facebook_idPage is not null and u.facebookaccesstoken is not null and competition_id=".$competition_id;
-	// 	$result = $db->query ($sql);
-	// 	echo $sql;
-	// 	$row = $result->fetchAll();
-	// 	return $row;
-	// }
 
 	public function selectLeaguePageFanFaceBookAlerts($competition_id) {
 		$db = $this->getAdapter();
-		$sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details";
+		$sql = " select fb.fbpage_id, u.facebookid, u.facebookaccesstoken, lang.language_code,fb.fbpage_details,fb.language";
 		$sql .= " FROM fbpagealert fb ";
 		$sql .= " INNER JOIN user u ON u.user_id = fb.user_id";
 		$sql .= " INNER JOIN language lang ON lang.language_id = fb.language_id";
 		$sql .= " AND fb.entity_id = ". $competition_id;
 		$sql .= " AND fb.entity_type = 'competition' ";
 		$result = $db->query ($sql);
-		echo $sql;
+		//echo $sql;
 		$row = $result->fetchAll();
 		return $row;
 	}
