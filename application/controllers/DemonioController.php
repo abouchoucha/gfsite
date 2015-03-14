@@ -251,6 +251,7 @@ class DemonioController extends GoalFaceController {
 		$teamplayer = new TeamPlayer ();;
 		$teams = $team->getTeamsPerCompetitionParse($league,$teamid);
     foreach ($teams as $team) {
+       $logger->info("Team: " . $team['team_id']);
   	   $players = $teamplayer->findAllPlayersByTeam($team['team_id']);
         foreach ($players as $rowplayer) {
     			$image_file = '/home/goalface/public_html/'. self::$server_host .'/public/images/players/'. $rowplayer['player_id'].'.jpg';
