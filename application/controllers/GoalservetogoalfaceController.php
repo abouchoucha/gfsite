@@ -200,8 +200,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								if ($match->localteam ['id'] != "" AND $match->visitorteam ['id'] != "") {
 									$existTeamA = $team->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
 									$existTeamB = $team->fetchRow ( 'team_gs_id = ' . $match->visitorteam ['id'] );
-									self::$logger->debug ( 'localteam:' . $match->localteam ['id'] );
-									self::$logger->debug ( 'visitorteam:' . $match->visitorteam ['id'] );
 									$goalface_team_A_id = null;
 									$goalface_team_B_id = null;
 									if ($existTeamA != null) {
@@ -210,8 +208,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									if ($existTeamB != null) {
 										$goalface_team_B_id = $existTeamB->team_id;
 									}
-
-									self::$logger->debug ( 'Match was Fixture or Postponed:' . $match ['event_id'] );
 
 									//verify if match exists in the DB
 									$winner = '';
@@ -223,9 +219,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								}
 
 
-
 								if ($existmatch != null) {
-									self::$logger->debug ( 'Match Exists:' . $match ['fix_id'] );
+							
 									$matchFound = $matchObject->findMatchById ( $existmatch->match_id );
 
 									if ($matchFound != null) {
@@ -607,8 +602,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								if ($existmatch != null) {
 									if($flagEvent==false){
 										//if exists Update
-										//echo 'Existe match:' . $match['event_id'] ."<br>";
-										self::$logger->debug ( "Match Exists: Updating Match:" .$match ['id'] . " to ".$game_status);
 										$datetime = strftime ( '%d%m%Y%H%M', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
 										$data = array (			    //'match_date' => $match ['startdate'], //1
 																	//'match_time' => $match ['starttime'], //2
@@ -622,15 +615,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																	//'season_id' => $match ['season_id'],
 																	//'round_id' => $match ['round_id']
 																	);
-
-										//Zend_Debug::dump ( $data );
 										$matchObject->updateMatchGoalServe ( $match ['fix_id'], $data );
-
-										//echo 'Updating Match: <strong>' . $match ['match_id'] . '</strong><br>';
 									}
 									$flagEvent=false;
 								} else { //new match insert in the db
-									//echo 'New match:<strong>' . $match['match_id'] ."</strong><br>";
 										self::$logger->debug ( " New Match: Inserting... " );
 										$datetime = strftime ( '%Y%m%d%H%M%S', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
 										$data = array ('match_id' => 'G' . $match ['fix_id'],
@@ -1085,17 +1073,15 @@ class GoalservetogoalfaceController extends GoalFaceController {
 				if($event ['playerId'] == '' and $match ['commentary_available'] != ""){ // por ahora si viene un playerId en blanco q no haga nada, para sacar mas adelante
 
 					$xmlComentary = $this->getgsfeed ( 'commentaries/' . $match ['commentary_available'] . ".xml" );
-					//$xmlComentary = $this->getgsfeed ( 'http://test.goalface.com/commentaries/brazil_a_90.xml' );
 
 					//was looking x id, was replaced to look x fix_id - JV 11-08-11
 					$xyz = "//match[@id='".$match['fix_id']."']/summary/".$event['team']."/".$event['type']."s/player[@minute='".$event['minute']."']";
-					echo 'Searching:' . $xyz;
 					self::$logger->debug ( 'Searching : ' . $xyz );
 
 					// Player id not found on home live feed , look for it on commentary based on team, event and minute
 					// changed to look x fix_id instead of id jv 11-08-11
 					$card = $xmlComentary->xpath("//match[@id='".$match['fix_id']."']/summary/".$event['team']."/".$event['type']."s/player[@minute='".$event['minute']."']");
-					//Zend_Debug::dump($card[0]);
+
 					if($card != null){
 						$event ['playerId'] = $card[0]['id'];
 						self::$logger->debug ( 'Player ID missing on live feed, was found on commentary feed : ' .$card[0]['id'] );
@@ -1109,11 +1095,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 				}
 
-				self::$logger->debug ( 'Searching player: ' . $event ['playerId'] . ' for player goalserve ' . $event ['playerId'] );
+			
 				$playerid = $player->fetchRow ( 'player_id = ' . $event ['playerId'] );
 					$playersPathName = '';
 					if ($playerid != null) {
-						self::$logger->debug ( 'Found player: ' . $playerid->player_id . ' for player goalserve ' . $event ['playerId'] );
 						$playerImageName = $player->getPlayerProfileImage ( $playerid->player_id );
 						$playersPathName = $this->getplayerimage($playerid->player_id);
 					} else {
