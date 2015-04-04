@@ -285,7 +285,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																						$playerid = $playerModel->fetchRow ( 'player_id = ' . $player ['id'] );
 
 																						if ($playerid != null) {
-																							self::$logger->debug ( 'Player Found on GoalFace DB: ' . $player ['id'] );
 																							$playersPathName = $this->getplayerimage($player ['id']);
 
 																						} else {
@@ -315,17 +314,13 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 
 																						$existevent = $matchEvent->fetchRow ( "event_id = '" . $eventId . "'" );
-																						self::$logger->debug ( "Verifying if event exists: " . "event_id = '" . $eventId . "'" );
 																						if ($existevent == null) {
-																							self::$logger->debug ( "Event: " . $eventId . "does not exist in goalface DB.Starting insert.." );
-																							self::$logger->debug ( "Inserting event_id: " . $eventId . "->" . $dataEvent ['event_type_id'] );
-																							//Zend_Debug::dump($dataEvent);
+																							//self::$logger->debug ( "Event: " . $eventId . "does not exist in goalface DB.Starting insert.." );
+																							//self::$logger->debug ( "Inserting event_id: " . $eventId . "->" . $dataEvent ['event_type_id'] );
 																							$matchEvent->insert ( $dataEvent );
 																							$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 																							$player_shortname = $playerid ['player_name_short'];
-																							//echo "<hr>";
-																							$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";
-																							//$event ['date_event'] = $match ['startdate'] . " " . $match ['starttime'];
+																							$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";																				
 																							self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchFound [0] ['match_id'],1);
 
 																						}else{
@@ -1136,7 +1131,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 						if ($existevent == null) {
 							$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playerid ["player_nickname"], $playerid ["player_firstname"], $playerid ["player_lastname"], $playerid ["player_id"], true, $playerid ["player_common_name"] );
 							$player_shortname = $playerid ['player_name_short'];
-							self::$logger->debug ( 'Inserting event_id: ' . $event ['eventid'] . '->' . $dataEvent ['event_type_id'] );
+							//self::$logger->debug ( 'Inserting event_id: ' . $event ['eventid'] . '->' . $dataEvent ['event_type_id'] );
 
 							//Insert Events from Home Live Feed - If event type is "G" and player position Goalkeeper" Skip
 							if($dataEvent['event_type_id']=='G') {
@@ -1153,10 +1148,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 								self::insertGoalScoredActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchFound [0] ['match_id'],1);
 							}
 							self::insertCardsActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchFound [0] ['match_id'],1);
-						} else {
-							self::$logger->debug ( 'Event: ' . "G" . $event ['eventid'] . '->' . $dataEvent ['event_type_id'] . " already exists in DB");
-
-						}//end exist event null
+						} 
 					} //end if matchevent is null
 
 			} catch ( Exception $e ) {
