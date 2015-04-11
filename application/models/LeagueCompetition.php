@@ -434,8 +434,8 @@ class LeagueCompetition extends Zend_Db_Table_Abstract {
     $sql .= " SUM(me.event_type_id = 'SI')AS total_subin, ";
     $sql .= " (SUM(me.event_type_id = 'L') + SUM(me.event_type_id = 'SI')) as total_appear, ";
     $sql .= " SUM(me.event_type_id = 'L')* 90 AS total_minutes,  ";
-    $sql .= " SUM(IF(me.event_type_id = 'SI', 93-(me.event_minute),0)) AS total_subin_minutes, ";
-    $sql .= " SUM(me.event_type_id = 'L')*90 + SUM(IF(me.event_type_id = 'SI',(93 -(me.event_minute)),0)) as full_minutes, ";
+    $sql .= " SUM(IF(me.event_type_id = 'SI', 93 - cast(me.event_minute as signed),0)) AS total_subin_minutes, ";
+    $sql .= " SUM(me.event_type_id = 'L')*90 + SUM(IF(me.event_type_id = 'SI',(93 - cast(me.event_minute as signed)),0)) as full_minutes, ";
     $sql .= " t.team_id,t.team_name,t.team_seoname, ";
     $sql .= " p.player_common_name,  ";
     $sql .= " p.player_name_short, "; 
