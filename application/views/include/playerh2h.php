@@ -21,47 +21,7 @@
 				<input type="hidden" value="" class="playerAIdInput" id="playerA_Id">
 			</span>
 			
-			<!--
-			<span class="fpser orLabel">OR</span>
-			<div class="sbox">
-				<div class="sbox_labels">
-					<span class="sel"><label>Browse By:</label></span>
-					<span class="nation"><input type="radio" class="teamTypeCls"  id="rbTeamTypePlayerA" name="rbTeamTypePlayerA" value="2" > Nationality</span>
-					<span class="club"><input type="radio" class="teamTypeCls"  id="rbTeamTypePlayerA" name="rbTeamTypePlayerA" checked="checked"  value="1">Club Team</span>
-					
-					
-				</div>	
-				<div class="sbox_controls">
-					<span class="selcon" id="countryAselection">
-						<select class="selcon1 countrySelectCls" id="countryteama" >
-							<option selected="selected">Select Country</option>
-							<?php foreach ($this->countries as $league) 
-							{
-								$selectedOption = "";	
-								
-							?>
-			                        <option value="<?php echo $league["country_id"];?>" <?php echo $selectedOption;?>><?php echo $league["country_name"];?></option>
-			                <?php
-							} 
-			                ?>
-						</select>
-					</span>
-					<span class="selcon" id="teamAselection">
-						<select class="selcon1 teamSelectCls" id="teamselectida">
-							  <option value="0" selected>Select A Team</option>
-						</select>
-					</span>
-					<span class="selcon" id="playerAselection">
-						<select class="selcon1 playerSelectCls" id="playerselectida">
-							  <option value="0" selected>Select A Player</option>
-						</select>
-					</span>
-				</div>
-			</div>
-			-->
-			
 			<h1 class="versus">VS</h1>
-			
 			
 			<span class="fpser"><b>Player 2:</b></span>
 			<span class="fpser">
@@ -69,51 +29,10 @@
 				<input type="text"  value="" id="playerBSearchInput" class="autosuggestfield mailtb playerbutocomp ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
 				<input type="hidden" value="" id="playerB_Id">
 			</span>
-			
-			<!--
-			<span class="fpser orLabel">OR</span>
-			<div class="sbox">
-				<div class="sbox_labels">
-					<span class="sel"><label>Browse By:</label></span>
-					<span class="nation"><input type="radio" class="teamTypeCls"  id="rbTeamTypePlayerB" name="rbTeamTypePlayerB" value="2" > Nationality</span>
-					<span class="club"><input type="radio" class="teamTypeCls"  id="rbTeamTypePlayerB" name="rbTeamTypePlayerB" checked="checked"  value="1">Club Team</span>
-					
-					
-				</div>	
-				<div class="sbox_controls">
-					<span class="selcon" id="countryBselection">
-						<select class="selcon1 countrySelectCls" id="countryteamb">
-							<option selected="selected">Select Country</option>
-							<?php foreach ($this->countries as $league) 
-							{
-								$selectedOption = "";	
-								
-								?>
-			                        <option value="<?php echo $league["country_id"];?>" <?php echo $selectedOption;?>><?php echo $league["country_name"];?></option>
-			                <?php 
-							} 
-			                ?>
-						</select>
-					</span>
-					<span class="selcon" id="teamBselection">
-						<select class="selcon1 teamSelectCls" id="teamselectidb">
-							 <option value="0" selected>Select A Team</option>
-						</select>
-					</span>
-					<span class="selcon" id="playerBselection">
-						<select class="selcon1 playerSelectCls" id="playerselectidb">
-							  <option value="0" selected>Select A Player</option>
-						</select>
-					</span>
-				</div>
-			</div>
-		  -->
 		  
 			<span class="view1"><input type="button" value="View Head To Head" name="viewHead2Head" id="viewHead2Head"/></span>
 			<span class="cancel"><input id="cancelclose1" type="button" value="cancel" name=""/></span>
 			
-			
-		
 		</div>
 		
 	</div>
