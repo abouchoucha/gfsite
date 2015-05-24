@@ -52,8 +52,8 @@ class Matchh extends Zend_Db_Table_Abstract {
 	public function selectAllMatchesByCountryLeague ( $dates , $countryId = null , $league_id = null , $matchid = null ) {
 		$db = $this->getAdapter () ;
 		$sql = "select ";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$dates[7]'),'%Y-%m-%d') as mdate,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$dates[7]'),'%H:%i:%s') as time,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$dates[7]'),'%Y-%m-%d') as mdate,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$dates[7]'),'%H:%i:%s') as time,";
 		$sql .= "  t1.team_name as teama,m.fs_team_a,m.fs_team_b , " ;
 		$sql .= " t2.team_name as teamb,m.match_status as status,m.competition_id as league,l.competition_name ,m.match_winner as winner , " ;
 		$sql .= " m.team_a as cteama, m.team_b as cteamb ,m.match_id as matchid,m.match_minute as match_minute" ;
@@ -351,8 +351,8 @@ public function selectCurrentMatchesByRegion( $dates , $regionId , $countryId = 
 			$sql .= " m.match_date as mdate, ";
 		}*/
 		
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$dates[7]'),'%Y-%m-%d') as mdate,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$dates[7]'),'%H:%i:%s') as time,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$dates[7]'),'%Y-%m-%d') as mdate,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$dates[7]'),'%H:%i:%s') as time,";
 		$sql .= " t1.team_name as teama,";
 		//$sql .= " CASE WHEN CHAR_LENGTH(t1.team_name) > 15 THEN CONCAT(SUBSTRING(t1.team_name, 1, 15), '...') ELSE t1.team_name END AS teama,";
 		$sql .= " m.fs_team_a,m.fs_team_b,";
@@ -660,8 +660,8 @@ public function selectCurrentMatchesByRegion( $dates , $regionId , $countryId = 
 	public function selectTotalPlayedMatchesBySeason2 ($seasonId = null , $roundList = null, $scoresOrSchedule = null , $timezone ='+00:00',$roundcount) {
 		$db = $this->getAdapter () ;
 		$sql = " SELECT s.season_id as seasonId, r.round_id,r.round_title,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$timezone'),'%Y-%m-%d') as mdate,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$timezone'),'%H:%i:%s') as time,";	
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$timezone'),'%Y-%m-%d') as mdate,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$timezone'),'%H:%i:%s') as time,";	
 		$sql .= " t1.team_name AS teama,m.fs_team_a,m.fs_team_b , t2.team_name AS teamb,m.match_status AS status, "; 
 		$sql .= " m.competition_id AS league,l.competition_name,m.match_winner AS winner , m.team_a AS cteama, m.team_b AS cteamb ,m.match_id AS matchid ,m.match_minute ";
 		$sql .= " FROM matchh m ";
@@ -708,8 +708,8 @@ public function selectCurrentMatchesByRegion( $dates , $regionId , $countryId = 
 			}
 		}
 		$sql .= " s.season_id as seasonId, r.round_id,r.round_title,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$timezone'),'%Y-%m-%d') as mdate,";
-		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '+00:00','$timezone'),'%H:%i:%s') as time,";	
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$timezone'),'%Y-%m-%d') as mdate,";
+		$sql .= " DATE_FORMAT(CONVERT_TZ(concat(m.match_date,' ',m.match_time) , '-00:01','$timezone'),'%H:%i:%s') as time,";	
 		$sql .= " t1.team_name AS teama,m.fs_team_a,m.fs_team_b , t2.team_name AS teamb,m.match_status AS status, "; 
 		$sql .= " m.competition_id AS league,l.competition_name,m.match_winner AS winner , m.team_a AS cteama, m.team_b AS cteamb ,m.match_id AS matchid ,m.match_minute ";
 		$sql .= " FROM matchh m ";
