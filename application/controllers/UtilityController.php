@@ -390,9 +390,9 @@ class UtilityController extends Zend_Controller_Action {
 		if (stristr ( $mime_type, 'gif' )) {
 			imagegif ( $image_resized );
 		} elseif (stristr ( $mime_type, 'jpeg' )) {
-			imagejpeg ( $image_resized, "", $quality );
+			imagejpeg ( $image_resized, null, $quality );
 		} elseif (stristr ( $mime_type, 'png' )) {
-			imagepng ( $image_resized, "", ceil ( $quality / 10 ) );
+			imagepng ( $image_resized, null, ceil ( $quality / 10 ) );
 		}
 //		if ($is_writable) {
 //			self::show_cache_file ( $cache_dir, $mime_type );
