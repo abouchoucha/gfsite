@@ -128,7 +128,7 @@ class DemonioController extends GoalFaceController {
 	}
 
 
-	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/league/COMPETITION_NAME_URL_FEED/season/SEASON_ID/stage/STAGE_ID/aggr/1 
+	//getteammapfromfixture/country/COUNTY_NAME_URL_FEED/league/COMPETITION_NAME_URL_FEED/season/SEASON_ID/stage/STAGE_ID/aggr/1/week/1 
     public function getteammapfromfixtureAction() {
       
       $teamdata = new Team ();
@@ -137,23 +137,26 @@ class DemonioController extends GoalFaceController {
   	  $competition = $this->_request->getParam ( 'league', null );
   	  $stage = $this->_request->getParam ( 'stage', null );
   	  $aggr = $this->_request->getParam ( 'aggr', 0 );
+  	  $week = $this->_request->getParam ('week', 0);
   	  $seasonId = $this->_request->getParam ( 'season', null );
   	  $competitionId = $this->_request->getParam ( 'competition', null );
   	  $feedpath = 'soccerfixtures/'.$country.'/'.$competition;
       $xml = parent::getGoalserveFeed($feedpath);
 
-    
+
+   
       if ($aggr == 1) {
           $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']/aggregate");
+      } elseif ($week == 1) {
+          $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']/week");
       } else {
           $match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
       }
-      
-  		
+
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']/aggregate");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage['stage_id']."']");
   	  //$match_aggregate = $xml->xpath("/results/tournament/stage[@stage_id='".$stage."']");
-  
+
 	  foreach($match_aggregate as $aggregate) { 
 	  	
 	  		echo $aggregate->match . "<BR>";
@@ -164,6 +167,7 @@ class DemonioController extends GoalFaceController {
 	  		     echo "UPDATE team SET team_gs_id = " . $match->localteam ['id']  ." WHERE team_id = ". $rowTeamLocal['team_id'] .";  ". $match->localteam['name'] . "<br>";
 	  	       echo "UPDATE team SET team_gs_id = " . $match->visitorteam ['id'] ." WHERE team_id = ". $rowTeamVisitor['team_id'] .";  ". $match->visitorteam['name'] . "<br>";
 	  	     }
+	  	     
 	  	     
 	  	     foreach ($aggregate->match as $match) {
 	  	       $rowTeamLocal = $teamdata->fetchRow ( 'team_gs_id = ' . $match->localteam ['id'] );
@@ -183,6 +187,7 @@ class DemonioController extends GoalFaceController {
 	  	       			echo "INSERT INTO teamseason VALUES(".$rowTeamLocal['team_id'].",".$seasonId.",0);<br>";
 	  	       		}
 	  	       }
+
 	  	       if ($rowTeamVisitor) {
 	  	       		$WhereTeamVisitorSeasonExist= array('team_id = ?' => $rowTeamVisitor['team_id'], 'season_id = ?' => $seasonId);
 	  	       		$rowTeamVisitorSeason = $teamseason->fetchRow ($WhereTeamVisitorSeasonExist);
@@ -191,9 +196,11 @@ class DemonioController extends GoalFaceController {
 	  	       			echo "INSERT INTO teamseason VALUES(".$rowTeamVisitor['team_id'].",".$seasonId.",0);<br>";
 	  	       		}
 	  	       }
-	  	     } 
-	  	}
+	  	    } 
+	  	    
 
+	  	}
+ 
 	}
 
 	// Individual Player 
