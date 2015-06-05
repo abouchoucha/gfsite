@@ -14,3 +14,4 @@ sftp-config.json
 robots.txt
 .idea/
 error_log
+.DS_Store
