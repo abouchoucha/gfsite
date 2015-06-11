@@ -138,15 +138,22 @@ class Activity extends Zend_Db_Table_Abstract {
 
             //worldcup default hashtags
             //$worldcup_hashtags = "#WorldCup #CopaMundial #CopadoMondo #WC2014 #Brazil2014 #Brasil2014 #football #futbol #futebol #soccer";
+            #copa america hashtags 
+            $copa_america_hashtags =  "#CopaAmerica #CopaAmerica2015 #Chile2015 #football #futbol #futebol #soccer";
             $default_hashtags = "#GoalFace";
 
             // Added to control more than one Competition FB page to write alerts to 
             $fbpages = array();
             $fbpages = array (array ('id' => $config->facebook->goalface->id, 
-                          'name' => 'Goalface',
-                          'lang' => $config->facebook->goalface->language,
-                          'token' =>$config->facebook->accessToken,
-                          'hashtags'=> $default_hashtags));
+                                     'name' => 'Goalface',
+                                     'lang' => $config->facebook->goalface->language,
+                                     'token' =>$config->facebook->accessToken,
+                                     'hashtags'=> $default_hashtags),
+                              array ('id' => $config->facebook->copaamerica->id, 
+                                    'name' => 'Copa America',
+                                    'lang' => $config->facebook->copaamerica->language,
+                                    'token' => $config->facebook->accessToken,
+                                    'hashtags' => $copa_america_hashtags));
 
 
             // removed world cup page events.
