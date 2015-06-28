@@ -154,7 +154,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
                 $row = $league->findCompetitionByGoalserveId ( $competition ['id'] );
                 if ($row != null and $row['active'] == 1 ) {
 
-                 	self::$logger->debug ( 'Country/Competition:' . $competition ['name'] ." / " .$row ['competition_id'] );
+                 	//self::$logger->debug ( 'Country/Competition:' . $competition ['name'] ." / " .$row ['competition_id'] );
 
                   	// USE for testing LOCALHOST
 			      	//if ($row ['competition_id'] == 7){
@@ -214,7 +214,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									$existmatch = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match ['fix_id'] );
 								} else {
 									$existmatch = NULL;
-									self::$logger->debug ( 'Local or visitor team id not provided on feed on match: ' . $match ['fix_id'] );
+									logger->self::$logger->debug ( 'Local or visitor team id not provided on feed on match: ' . $match ['fix_id'] );
 
 								}
 
@@ -254,8 +254,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																if($matchX != null){ //if the commentary has been removed from the xml dont do anything
 																	$localTeamId = $matchX[0]->localteam['id'];
 																	$visitorTeamId = $matchX[0]->visitorteam ['id'];
-																	self::$logger->debug ( 'Local Team Id GoalServe: ' . $localTeamId);
-																	self::$logger->debug ( 'Visitor Team Id GoalServe: ' . $visitorTeamId );
+																	//self::$logger->debug ( 'Local Team Id GoalServe: ' . $localTeamId);
+																	//self::$logger->debug ( 'Visitor Team Id GoalServe: ' . $visitorTeamId );
 
 
 																	//Lineups
@@ -277,9 +277,9 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																		foreach ( $lineUpArray as $player ) {
 																				try{
 																					if($player ['id'] != null) {
-																					self::$logger->debug ( 'Starting LineUp for Player: ' . $player ['id'] );
+																					//self::$logger->debug ( 'Starting LineUp for Player: ' . $player ['id'] );
 																					$playerteamid = $team->fetchRow ( 'team_gs_id = ' . $player ['team_id'] );
-																					self::$logger->debug ( 'Player Team id is: ' . $playerteamid->team_id );
+																					//self::$logger->debug ( 'Player Team id is: ' . $playerteamid->team_id );
 																					if ($playerteamid != null) {
 																						//validate if player exists
 																						$playerid = $playerModel->fetchRow ( 'player_id = ' . $player ['id'] );
@@ -288,8 +288,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																							$playersPathName = $this->getplayerimage($player ['id']);
 
 																						} else {
-																							self::$logger->debug ( 'Player NOT found on GoalFace DB: ' . $player ['id'] );
-																							self::$logger->debug ( 'Inserting New Player: ' . $player ['id'] );
+																							//self::$logger->debug ( 'Player NOT found on GoalFace DB: ' . $player ['id'] );
+																							//self::$logger->debug ( 'Inserting New Player: ' . $player ['id'] );
 																							$playerid = self::insertNewPlayer($player ['id'], $playerteamid->team_id);
 																							if($playerid == null){
 																								//insert a player with minimal data
@@ -323,8 +323,6 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																							$matchscore = " ( " . $match ['home_score'] . " - " . $match ['away_score'] . " ) ";																				
 																							self::insertLineUpActivity ( $event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchFound [0] ['match_id'],1);
 
-																						}else{
-																							self::$logger->debug ( "Event: " . $eventId . "->" . $dataEvent ['event_type_id']  . "exists in DB" );
 																						}
 																					}
 																				}	else {
@@ -370,19 +368,19 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																					}
 
 																					if($playeridIn == null){
-																						self::$logger->debug ( 'Player NOT FOUND for $playeridIn: ' . $substitution ['on_id'] );
-																						self::$logger->debug ( 'Inserting New Player: ' . $substitution ['on_id'] );
+																						//self::$logger->debug ( 'Player NOT FOUND for $playeridIn: ' . $substitution ['on_id'] );
+																						//self::$logger->debug ( 'Inserting New Player: ' . $substitution ['on_id'] );
 																						$playeridIn = self::insertNewPlayer($substitution ['on_id'] , $playerteamid->team_id);
 																						if($playeridIn == null){
 																							$playeridIn = self::insertBasicInfoPlayer($substitution, $playerteamid->team_id);
 																						}
 																					}else {
-																						self::$logger->debug ( 'Found player: ' . $playeridIn->player_id . 'for player goalserve ' . $substitution ['on_id'] );
+																						//self::$logger->debug ( 'Found player: ' . $playeridIn->player_id . 'for player goalserve ' . $substitution ['on_id'] );
 																						$playersPathNameIn = $this->getplayerimage($playeridIn->player_id);
 																					}
 																					if($playeridOut == null){
-																						self::$logger->debug ( 'Player NOT FOUND for $playeridOut: ' . $substitution ['off_id'] );
-																						self::$logger->debug ( 'Inserting New Player: ' . $substitution ['off_id'] );
+																						//self::$logger->debug ( 'Player NOT FOUND for $playeridOut: ' . $substitution ['off_id'] );
+																						//self::$logger->debug ( 'Inserting New Player: ' . $substitution ['off_id'] );
 																						$playeridOut = self::insertNewPlayer($substitution ['off_id'], $playerteamid->team_id);
 																						if($playeridOut == null){
 																							$playeridOut = self::insertBasicInfoPlayer($substitution, $playerteamid->team_id);
@@ -420,10 +418,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 
 																					$existeventIn = $matchEvent->fetchRow ( "event_id = '" . $eventIdIn . "'" );
-																					self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdIn . "'" );
+																					//self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdIn . "'" );
 																					if ($existeventIn == null) {
-																						self::$logger->debug ( "Event: " . $eventIdIn . "does not exist in goalface DB.Starting insert.." );
-																						self::$logger->debug ( "Inserting event_id: " . $eventIdIn . "->" . $dataEvent ['event_type_id'] );
+																						//self::$logger->debug ( "Event: " . $eventIdIn . "does not exist in goalface DB.Starting insert.." );
+																						//self::$logger->debug ( "Inserting event_id: " . $eventIdIn . "->" . $dataEvent ['event_type_id'] );
 																						//Zend_Debug::dump($dataEvent);
 																						$matchEvent->insert ( $dataEventIn );
 																						$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playeridIn ["player_nickname"], $playeridIn ["player_firstname"], $playeridIn ["player_lastname"], $playeridIn ["player_id"], true, $playeridIn ["player_common_name"] );
@@ -435,10 +433,10 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 																					} //
 																					$existeventOut = $matchEvent->fetchRow ( "event_id = '" . $eventIdOut . "'" );
-																					self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdOut . "'" );
+																					//self::$logger->debug ( "Verifying event: " . "event_id = '" . $eventIdOut . "'" );
 																					if ($existeventOut == null) {
-																						self::$logger->debug ( "Event: " . $eventIdOut . "does not exist in goalface DB.Starting insert.." );
-																						self::$logger->debug ( "Inserting event_id: " . $eventIdOut . "->" . $dataEvent ['event_type_id'] );
+																						//self::$logger->debug ( "Event: " . $eventIdOut . "does not exist in goalface DB.Starting insert.." );
+																						//self::$logger->debug ( "Inserting event_id: " . $eventIdOut . "->" . $dataEvent ['event_type_id'] );
 																						//Zend_Debug::dump($dataEvent);
 																						$matchEvent->insert ( $dataEventOut );
 																						$player_name_seo = $urlGen->getPlayerMasterProfileUrl ( $playeridOut ["player_nickname"], $playeridOut ["player_firstname"], $playeridOut ["player_lastname"], $playeridOut ["player_id"], true, $playeridOut ["player_common_name"] );
@@ -497,7 +495,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 										}
 
 									if ($game_status == 'Played') {
-										self::$logger->debug ( 'Match Played Finished:' . $game_status );
+										//self::$logger->debug ( 'Match Played Finished:' . $game_status );
 
 										$team_clean_sheet_id = null;
 										if ((int)$homeScore > (int)$scoreAway) {
@@ -527,7 +525,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 											//if exists Update
 											//echo 'Existe match:' . $match['event_id'] ."<br>";
-											self::$logger->debug ( "Match Exists: Updating Match:" .$match ['id'] . " to ".$game_status);
+											//self::$logger->debug ( "Match Exists: Updating Match:" .$match ['id'] . " to ".$game_status);
 											$datetime = strftime ( '%d%m%Y%H%M', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
 											$data = array (			    //'match_date' => $match ['startdate'], //1
 																		//'match_time' => $match ['starttime'], //2
@@ -583,9 +581,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 																//'round_id' => $match ['round_id']
 																);
 										$matchObject->updateMatchGoalServe ( $match ['id'], $newidarray );
-									} else {
-										self::$logger->debug ( "Match From Goalserve: " . $match ['fix_id'] . " has problems with team ids:Team A " . ($existTeamA == null ? $match->localteam ['id'] : "") . "->Team B:" . ($existTeamA == null ? $match->visitorteam ['id'] : "") );
-									}
+									} 
 								continue;
 							}
 
@@ -614,7 +610,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									}
 									$flagEvent=false;
 								} else { //new match insert in the db
-										self::$logger->debug ( " New Match: Inserting... " );
+										//self::$logger->debug ( " New Match: Inserting... " );
 										$datetime = strftime ( '%Y%m%d%H%M%S', strtotime ( $match ['startdate'] . ' ' . $match ['starttime'] ) );
 										$data = array ('match_id' => 'G' . $match ['fix_id'],
 										'match_id_goalserve' => $match ['fix_id'],
@@ -659,7 +655,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	private function insertBasicInfoPlayer($playerObject,$team_goalface_id) {
 
-		self::$logger->debug ( "En insertBasicInfoPlayer para: ". $playerObject['id'] . " y teamId" . $team_goalface_id);
+		//self::$logger->debug ( "En insertBasicInfoPlayer para: ". $playerObject['id'] . " y teamId" . $team_goalface_id);
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
 		$teamplayer = new TeamPlayer ();
@@ -707,7 +703,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 			$player->insert($dataPlayer);
 			$teamPlayer->insert($dataTeamPlayer);
-			self::$logger->debug ( "Player Basic Inserted Ok and updated teamPlayer: ". $playerObject['id'] . " y teamId" . $team_goalface_id);
+			//self::$logger->debug ( "Player Basic Inserted Ok and updated teamPlayer: ". $playerObject['id'] . " y teamId" . $team_goalface_id);
 			//find the new player and return it
 			$player = new Player();
 			$playerid = $player->fetchRow ( 'player_id = ' . $playerObject['id'] );
@@ -719,7 +715,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	private function insertNewPlayer($playerid,$team_goalface_id) {
 
-		self::$logger->debug ( "En insertNewPlayer para: ". $playerid . " y teamId" . $team_goalface_id);
+		//self::$logger->debug ( "En insertNewPlayer para: ". $playerid . " y teamId" . $team_goalface_id);
 		$date = new Zend_Date ();
 		$today = $date->toString ( 'Y-MM-dd H:mm:ss' );
 		$teamplayer = new TeamPlayer ();
@@ -773,7 +769,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 			}
 			$player->insert($dataPlayer);
 			$teamPlayer->insert($dataTeamPlayer);
-			self::$logger->debug ( "Player Inserted Ok and updated teamPlayer: ". $playerid . " y teamId" . $team_goalface_id);
+			//self::$logger->debug ( "Player Inserted Ok and updated teamPlayer: ". $playerid . " y teamId" . $team_goalface_id);
 			//find the new player and return it
 			$player = new Player();
 			$playerid = $player->fetchRow ( 'player_id = ' . $playerid );
@@ -786,7 +782,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	private function insertLineUpActivity($event, $player_name_seo, $player_shortname, $matchTeams, $matchUrl, $matchscore, $playersPathName, $matchId,$alert) {
 
-		self::$logger->debug ( "Inserting Line Up: " . $event ['id'] );
+		//self::$logger->debug ( "Inserting Line Up: " . $event ['id'] );
 		$variablesToReplace = array ('player_name_seo' => $player_name_seo,
 									'player_name' => $player_shortname,
 									'player_id' => $event ['player_id'],
@@ -803,7 +799,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
    	private function insertSubstitutionActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName , $matchId,$alert) {
 
-        self::$logger->debug ( "Inserting Substitution: " . $event ['id'] );
+        //self::$logger->debug ( "Inserting Substitution: " . $event ['id'] );
         if ($event ['eventtype'] == 'SI' or $event ['eventtype'] == 'SO') {
             $activityType = null;
             if ($event ['eventtype'] == 'SI') {
@@ -820,7 +816,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	private function insertGoalScoredActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName ,$matchId,$alert) {
 
-        self::$logger->debug ( "Inserting Goal: " . $event ['id'] );
+        //self::$logger->debug ( "Inserting Goal: " . $event ['id'] );
         if ($event ['eventtype'] == 'G' or $event ['eventtype'] == 'OG' or $event ['eventtype'] == 'PG') {
             if ($event ['eventtype'] == 'G') {
                 $activityType = Constants::$_GOAL_SCORED_ACTIVITY;
@@ -848,7 +844,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
     private function insertCardsActivity($event ,$player_name_seo ,$player_shortname ,$matchTeams ,$matchUrl ,$matchscore ,$playersPathName ,$matchId,$alert) {
 
-        self::$logger->debug ( "Inserting Card: " . $event ['id'] );
+        //self::$logger->debug ( "Inserting Card: " . $event ['id'] );
         if ($event ['eventtype'] == 'YC' or $event ['eventtype'] == 'RC' or $event ['eventtype'] == 'Y2C') {
             $activityType = null;
             if ($event ['eventtype'] == 'YC') {
@@ -945,7 +941,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 	private function updateMatchResultActivity($matchFound, $homeScore, $awayScore, $urlGen, $matchUrl, $matchscore, $timeEvent,  $competition_id=null) {
 
 		//if ($matchFound [0] ["match_status"] == 'Played') {
-		self::$logger->debug ( "En updateMatchResultActivity" );
+		//self::$logger->debug ( "En updateMatchResultActivity" );
 		$activityMatch = new Activity ();
 		//Insert Activity for teams
 		//$teama_seoname = $urlGen->getClubMasterProfileUrl ( $matchFound [0] ["team_a"], $matchFound [0] ["t1seoname"], True );
@@ -976,7 +972,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 			$activityType = Constants::$_MATCH_SCORE_TEAM_B_LOST;
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,null); //for Team B
-			self::$logger->debug ( 'Inserted Match A Won: ' );
+			//self::$logger->debug ( 'Inserted Match A Won: ' );
 		}else if ($homeScore < $awayScore) { //team B WON
 			/*$teamWinnerPathName = '/teamlogos/' . $matchFound [0] ["team_b"] . '.gif';
 			$teamLosserPathName = '/teamlogos/' . $matchFound [0] ["team_a"] . '.gif';*/
@@ -987,7 +983,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null, '1', null, $matchFound [0] ['team_a'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team A
 			$activityType = Constants::$_MATCH_SCORE_TEAM_A_WON;
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamWinnerPathName, $matchFound [0] ['match_id'],1,null); //for Team B
-			self::$logger->debug ( 'Inserted Match B Won: ' );
+			//self::$logger->debug ( 'Inserted Match B Won: ' );
 		}else if ($homeScore == $awayScore) { //Draw
 			/*$teamWinnerPathName = '/teamlogos/' . $matchFound [0] ["team_a"] . '.gif';
 			$teamLosserPathName = '/teamlogos/' . $matchFound [0] ["team_b"] . '.gif';*/
@@ -998,7 +994,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 				'teamb_name' => $matchFound [0] ["t1"], 'match_seoname' => $matchUrl, 'score' => $matchscore );*/
 			$activityType = Constants::$_MATCH_SCORE_TEAM_DRAW;
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,null); //for Team B
-			self::$logger->debug ( 'Inserted Draw Activity: ' );
+			//self::$logger->debug ( 'Inserted Draw Activity: ' );
 		}
 
 		//}
@@ -1008,7 +1004,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 
 	private function insertMatchEvents($match, $matchFound, $clientSoccer, $urlGen, $matchUrl, $matchTeams , $isLive = null) {
 
-		self::$logger->debug ( 'En insertMatchEvents ----->' );
+		//self::$logger->debug ( 'En insertMatchEvents ----->' );
 
 		$teamplayer = new TeamPlayer ();
 		$matchEvent = new MatchEvent ();

@@ -103,7 +103,6 @@ class SearchController extends GoalFaceController {
                     //Zend_Debug::dump($temp);
                     $playerId = (substr($temp, strripos($temp, '_') + 1)); 
                      $player = new Player ( );
-                     self::$logger->info("Searching Player Id: " . $playerId);
                      $playerResult = $player->getPlayersForSearchResult($playerId,$userid);
                      if(count($playerResult) > 0)
                      {                        
