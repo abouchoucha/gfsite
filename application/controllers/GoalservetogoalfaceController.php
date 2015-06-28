@@ -212,13 +212,8 @@ class GoalservetogoalfaceController extends GoalFaceController {
 									//verify if match exists in the DB
 									$winner = '';
 									$existmatch = $matchObject->fetchRow ( 'match_id_goalserve = ' . $match ['fix_id'] );
-								} else {
-									$existmatch = NULL;
-									logger->self::$logger->debug ( 'Local or visitor team id not provided on feed on match: ' . $match ['fix_id'] );
-
-								}
-
-
+								} 
+								
 								if ($existmatch != null) {
 							
 									$matchFound = $matchObject->findMatchById ( $existmatch->match_id );
