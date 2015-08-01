@@ -139,23 +139,23 @@ class Activity extends Zend_Db_Table_Abstract {
             //worldcup default hashtags
             //$worldcup_hashtags = "#WorldCup #CopaMundial #CopadoMondo #WC2014 #Brazil2014 #Brasil2014 #football #futbol #futebol #soccer";
             #copa america hashtags 
-            $copa_america_hashtags =  "#CopaAmerica #CopaAmerica2015 #Chile2015 #football #futbol #futebol #soccer";
-            $default_hashtags = "#GoalFace";
+            //$copa_america_hashtags =  "#CopaAmerica #CopaAmerica2015 #Chile2015 #football #futbol #futebol #soccer";
+            $default_hashtags = "#GoalFace #football #futbol #futebol #soccer";
 
             // Added to control more than one Competition FB page to write alerts to 
-            $fbpages = array();
-            $fbpages = array (array ('id' => $config->facebook->goalface->id, 
+            //$fbpages = array();
+            $fbpages = array('id' => $config->facebook->goalface->id, 
                                      'name' => 'Goalface',
                                      'lang' => $config->facebook->goalface->language,
                                      'token' =>$config->facebook->accessToken,
-                                     'hashtags'=> $default_hashtags),
-                              array ('id' => $config->facebook->copaamerica->id, 
+                                     'hashtags'=> $default_hashtags);
+                              
+                                    /*array ('id' => $config->facebook->copaamerica->id, 
                                     'name' => 'Copa America',
                                     'lang' => $config->facebook->copaamerica->language,
                                     'token' => $config->facebook->accessToken,
-                                    'hashtags' => $copa_america_hashtags));
-
-
+                                    'hashtags' => $copa_america_hashtags)*/
+                            
             // removed world cup page events.
             //array ('id' => $config->facebook->worldcup->id, 
               //  'name' => 'worldcup',
@@ -213,7 +213,7 @@ class Activity extends Zend_Db_Table_Abstract {
                         $variablesToReplaceMail['userEmail'] = $alert["email"];
                         $variablesToReplaceMail['alertSettingsUrl'] = "http://" . $_SERVER ['SERVER_NAME'] . Zend_Registry::get("contextPath") . "/editprofile/" . $alert['screen_name'] . "/settings";
                         $mail->set_variablesToReplace($variablesToReplaceMail);
-                        $mail->sendMail();
+                        //$mail->sendMail();
                     }
 
                     $variablesToReplace['match_seoname']=$_SERVER ['SERVER_NAME'] . Zend_Registry::get("contextPath") .$variablesToReplace['match_seoname'];
@@ -246,7 +246,7 @@ class Activity extends Zend_Db_Table_Abstract {
                             'link' => 'http://'.$variablesToReplace['match_seoname']))
                                         );
 
-                            $res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
+                            //$res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
 
                         } catch (FacebookApiException $e) {
                             echo ' No se pudo enviar -> /'.$alert["facebookid"].'/feed Message:'.$e->getMessage();
@@ -312,7 +312,7 @@ class Activity extends Zend_Db_Table_Abstract {
                                         'link' => $link
                                     );
 
-                                  $post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+                                  //$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
                                         echo '<br>Escribi√≥ en COMPETITION:'.$row['fbpage_id'];
                                 }catch (FacebookApiException $e){
@@ -365,7 +365,7 @@ class Activity extends Zend_Db_Table_Abstract {
                                 'link' => $link
                             );
 
-                            $post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+                            //$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
                         }catch (FacebookApiException $e){
                             echo ' No se pudo enviar -> '.$teamId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
@@ -472,7 +472,7 @@ class Activity extends Zend_Db_Table_Abstract {
                         $variablesToReplaceMail['userEmail'] = $alert["email"];
                         $variablesToReplaceMail['alertSettingsUrl'] = "http://" . $_SERVER ['SERVER_NAME'] . Zend_Registry::get("contextPath") . "/editprofile/" . $alert['screen_name'] . "/settings";
                         $mail->set_variablesToReplace($variablesToReplaceMail);
-                        $mail->sendMail();
+                        //$mail->sendMail();
                     }
                 }
 
@@ -555,7 +555,7 @@ class Activity extends Zend_Db_Table_Abstract {
                             'actions' => array(array('name' => 'Ver Detalle!',
                             'link' => "http://" .$variablesToReplaceTemp['match_url'])));
 
-                             $res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
+                             //$res = $facebook->api('/'.$alert["facebookid"].'/feed', 'POST', $parametros);
 
                         }catch (FacebookApiException $e){
                             echo ' No se pudo enviar -> '.$alert["facebookid"].' Message:'.$e->getMessage();
@@ -667,7 +667,7 @@ class Activity extends Zend_Db_Table_Abstract {
                                 'link' => $link
                                 );
 
-                                $post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
+                                //$post_id = $facebook->api("/".$row['fbpage_id']."/links","post",$args);
 
                             }catch (FacebookApiException $e){
                                 echo ' No se pudo enviar -> '.$playerId.' - idPage:'.$row['fbpage_id'].'Message:'.$e->getMessage();
@@ -746,7 +746,7 @@ class Activity extends Zend_Db_Table_Abstract {
                             'link' => $link
                             );
 
-                            $post_id = $facebook->api("/".$pages['id']."/links","post",$args);
+                            //$post_id = $facebook->api("/".$pages['id']."/links","post",$args);
 
                         }catch (FacebookApiException $e){
                             echo ' No se pudo enviar -> '.$playerId.' - idPage:'. $pages['id'] .'Message:'.$e->getMessage();
