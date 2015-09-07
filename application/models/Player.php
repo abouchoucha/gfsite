@@ -1233,12 +1233,12 @@ public function findFeaturedPlayers($count = null ,$regiongroupid = null,$userid
 		$sql .= " IF(m.team_a = me.team_id,t1.team_name,t2.team_name)AS team_current_name, ";
 		$sql .= " IF(m.team_a = me.team_id,m.fs_team_b,m.fs_team_a)AS ga, ";
 		$sql .= " SUM(me.event_type_id = 'G') as gl, ";
-	  $sql .= " SUM(me.event_type_id = 'L') as ln, ";
-	  $sql .= " SUM(me.event_type_id = 'SI')AS si, ";
-	  $sql .= " SUM(IF(me.event_type_id = 'SI', 90-(me.event_minute),0)) AS subin_minutes, ";
-	  $sql .= " SUM(me.event_type_id = 'L')*90 + SUM(IF(me.event_type_id = 'SI',(93 -(me.event_minute)),0)) as full_minutes, ";
-	  $sql .= " SUM(me.event_type_id = 'YC') as yc, ";
-	  $sql .= " SUM(me.event_type_id = 'RC') as rc ";
+	    $sql .= " SUM(me.event_type_id = 'L') as ln, ";
+	    $sql .= " SUM(me.event_type_id = 'SI')AS si, ";
+	  	$sql .= " SUM(me.event_type_id = 'YC') as yc, ";
+	    $sql .= " SUM(me.event_type_id = 'RC') as rc, ";
+		$sql .= " IF(me.event_type_id = 'SI',IF(me.event_minute>90,120-(me.event_minute),90-(me.event_minute)),0) AS subin_minutes, ";
+		$sql .= " SUM(me.event_type_id = 'L')*90 + SUM(IF(me.event_type_id = 'SI',IF(me.event_minute>90,120-(me.event_minute),90-(me.event_minute)),0)) as full_minutes "; 		
 		$sql .= " FROM matchevent me ";
 		$sql .= " INNER JOIN matchh m ON m.match_id = me.match_id ";
 		$sql .= " INNER JOIN season s ON m.season_id = s.season_id";
