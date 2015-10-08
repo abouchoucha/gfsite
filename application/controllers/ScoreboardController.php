@@ -738,7 +738,7 @@ function showmatchdetailAction() {
     $this->view->breadcrumbs = $this->breadcrumbs;
 
     if ($row [0] ["competition_id"] == 225) {
-      $row [0] ["competition_id"] = 'russia2018';
+      $row [0] ["competition_id"] = 'russia18';
     }
 
 		if($row [0]['match_status'] == 'Fixture'){
