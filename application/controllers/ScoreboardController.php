@@ -27,7 +27,7 @@ class ScoreboardController extends GoalFaceController {
         //echo "LoggedIn" . $this->loggedin ;
     }
 
-    function init() {        
+    function init() {
         Zend_Loader::loadClass ( 'Matchh' );
         Zend_Loader::loadClass ( 'MatchEvent' );
         Zend_Loader::loadClass ( 'Competitionfile' );
@@ -294,7 +294,7 @@ class ScoreboardController extends GoalFaceController {
     function showmatchesbycountryAction() {
         $view = Zend_Registry::get ( 'view' );
         $view->title = "ScoreBoard";
-        
+
         //calculate today's date + 7 days from now to fetch the next matches
         //$todays_date = '2006-09-23';
         $todays_date = date ( "Y-m-d" );
@@ -311,8 +311,8 @@ class ScoreboardController extends GoalFaceController {
         Zend_Loader::loadClass ( 'Zend_Filter_StripTags' );
         $filter = new Zend_Filter_StripTags ( );
         $date = trim ( $filter->filter ( $this->_request->getPost ( 'date' ) ) );
-		
-		    
+
+
 
         if ($this->_request->isPost ()) {
             //$countryid = trim($post->noTags('countryid'));
@@ -320,7 +320,7 @@ class ScoreboardController extends GoalFaceController {
         } else { //GET
             $countryid = $this->_request->getParam ( 'countryid', 0 );
         }
-     
+
         $pos = strpos ( $countryid, "@" );
         $temp1 = substr ( $countryid, 0, $pos );
         $temp2 = substr ( $countryid, $pos + 1, strlen ( $countryid ) - 1 );
@@ -398,7 +398,7 @@ function showmatchdetailAction() {
         $view->leagueId = $row [0] ["competition_id"];
         $view->competitionId = $row [0] ["competition_id"];
         $view->competitionName = $row [0] ["competition_name"];
-        $view->compName = $row [0] ["competition_name"];      
+        $view->compName = $row [0] ["competition_name"];
         $view->seasonId = $row [0] ["season_id"];
         $view->roundId  = $row [0] ["round_id"];
         $view->teama = $row[0] ["t1"];
@@ -407,7 +407,7 @@ function showmatchdetailAction() {
 		$todaydate = new Zend_Date ();
 
 		$view->todaysdate = $todaydate;
-			
+
         //menu
         $menuSelected = 'competition';
         $roundmenuSelected = 'none';
@@ -420,7 +420,7 @@ function showmatchdetailAction() {
         $countryRow = $country->findCountryById ( $row [0] ['country_id'] );
         $view->countryName = $countryRow->country_name;
         $view->countryCodeIso = $countryRow->country_code_iso2;
-       
+
          $compRow = $lea_comp->findCompetitionById ($row [0] ["competition_id"]);
         $view->competitionType = $compRow['type'];
         $view->competitionFormat = $compRow['format'];
@@ -433,7 +433,7 @@ function showmatchdetailAction() {
         $seasonActive = $seasonRow [0] ["season_id"];
         $view->seasonTitle = $seasonRow [0] ["title"];
         $view->seasonActive  = $seasonActive;
-        
+
         $round = new Round ();
         $roundRow = $round->getSeasonRounds ( $seasonActive );
         $view->roundList = $roundRow;
@@ -445,59 +445,59 @@ function showmatchdetailAction() {
     			$view->todaysdate = $todaydate;
           $peerleagues = $lea_comp->findDomesticCompetitionsByCountryLeagues ( $row [0] ['country_id'] ); //By Country
           $view->peerLeagues = $peerleagues;
-  
+
         } else {
         	//International cup
           $peerleagues = $lea_comp->fetchAll ( 'country_id = '. $row [0] ['country_id'] , 'competition_id');
           $view->peerLeagues = $peerleagues;
           $todaydate = new Zend_Date ();
           $view->todaysdate = $todaydate;
-     		  $group = new Groupp (); 
-     		 		
+     		  $group = new Groupp ();
+
 			  //Build an array with every round and all groups(rounds) per competition
-			   $knockoutstage = null;	
+			   $knockoutstage = null;
      		 $has_group_stage = 0;
      		 $grouplist = null;
-        	
+
      		foreach ($roundRow as $round) {
      			$myroundslist [] = $round['round_id'];
 				if ($round['type'] == 'cup' and count($roundRow) > 1) {
-						$knockoutstage [] = $round['round_id'];	
+						$knockoutstage [] = $round['round_id'];
 				}
      		}
-     			
+
 				// If group stage round exists
 /*				if ($round['type'] == 'table') {
-					
+
 					$grouplist = $group->getGroupsPerRound ( $round['round_id'] );
   					if($grouplist !=null){
   						$listofgroups = array();
   						foreach ($grouplist as $group) {
 							$listofgroups[$group['group_title']] = $standing->getTeamLeagueStanding($group['group_id']);
   						}
-  						$view->leagueTable = $listofgroups; 
+  						$view->leagueTable = $listofgroups;
  				    }
 
 					if($grouplist != null){
 						foreach ($grouplist as $data) {
-							$myroundslist [] = $data['group_id'];	
+							$myroundslist [] = $data['group_id'];
 						}
 					}
 					// assign variable true the competition has a group stage
 					$has_group_stage = 1;
-					
+
 				} else {
 					$myroundslist [] = $round['round_id'];
 						if ($round['type'] == 'cup' and count($roundRow) > 1) {
-							$knockoutstage [] = $round['round_id'];	
+							$knockoutstage [] = $round['round_id'];
 						}
-				}*/				
+				}*/
 
-			
+
 		    //assign var view to use on the left menu
-			$view->hasgroups = $has_group_stage; 
+			$view->hasgroups = $has_group_stage;
 			$view->knockoutstage = count($knockoutstage);
-			
+
 
         }
 
@@ -520,18 +520,18 @@ function showmatchdetailAction() {
         $eventBySO = null;
         $eventByLine = null;
         $flagIsMapped = true;
-        
-        
+
+
         if($matchEvents != null && sizeof($matchEvents) > 0){ //do the actual stuff
-       
+
            foreach ( $matchEvents as $temp ) {
-	
+
 	            if ($row [0] ["team_a"] == $temp ['team_id']) {
 	                if ($temp ["event_type_id"] == 'G' or $temp ["event_type_id"] == 'PG') {
 	                    $eventByGoalTeamA [$counter1] = $temp;
 	                    $counter1 ++;
 	                } else if ($temp ["event_type_id"] == 'OG') {
-	                 
+
 	                    $eventByGoalTeamA [$counter1] = $temp;
 	                    $counter1a ++;
 	                }
@@ -544,7 +544,7 @@ function showmatchdetailAction() {
 	                    $counter1 ++;
 	                }
 	            }
-	
+
 	            if ($temp ["event_type_id"] == 'YC') {
 	                $eventByYC [$counter2] = $temp;
 	                $counter2 ++;
@@ -575,9 +575,9 @@ function showmatchdetailAction() {
         $view->totalMatchComments = count ( $totalMatchComments );
 
         $view->match = $row;
-        
+
         //Zend_Debug::dump($eventByGoalTeamA);
-        
+
         $common = new Common();
         $view->goalsteamA = $common->array_sort($eventByGoalTeamA, 'event_minute', SORT_DESC);
         $view->goalsteamB = $common->array_sort($eventByGoalTeamB, 'event_minute', SORT_DESC);
@@ -587,8 +587,8 @@ function showmatchdetailAction() {
         $view->subsOut = $eventBySO;
         $view->lineUp = $eventByLine;
         $result = null;
-        
-		
+
+
 		if(is_null($eventByLine) or $row [0]['match_status'] == 'Fixture'){
             $result = $match->compareTeamsHead2Head ( $row[0]['team_a'], $row[0]['team_b'] , $row[0]['competition_id']);
             $view->head2headList = $result;
@@ -605,24 +605,24 @@ function showmatchdetailAction() {
         $last5teamB = $match->getLastFiveMatches($row[0]['team_b']);
         $view->last5teamA = $last5teamA;
         $view->last5teamB = $last5teamB;
-       
-        //current standing        
-        $standing = new GoalserveStanding();		
+
+        //current standing
+        $standing = new GoalserveStanding();
         if($row[0]['team_a_gs']!= null && $row[0]['team_b_gs']!= null ){
             if ($compRow['format'] == 'Domestic League') {
         		$rowstanding = $standing->fetchRow ( 'competition_id = ' . $badgeteam['competition_id'] );
         		//get stats from feed for domestic and regional competitions
       			$feedpath = 'soccerstats/player/'. $playerId;
 				$xmlfeedteam = parent::getGoalserveFeed($feedpath);
-		
+
 		    	$teamstandingA = $standing->getTeamIndividualStanding($activeRound [0] ["round_id"],$row[0]['team_a_spocosy']);
 		    	$view->positionA = $teamstandingA!= null ? $teamstandingA[0]['rank'] : 'N/A';
 		    	$teamstandingB = $standing->getTeamIndividualStanding($activeRound [0] ["round_id"],$row[0]['team_b_spocosy']);
 		    	$view->positionB = $teamstandingB!= null ? $teamstandingB[0]['rank'] : 'N/A';
-		    	
+
 	        }
         }
-        
+
     	$teamAwins = 0;
 		$teamBwins = 0;
         $teamAlosses = 0;
@@ -633,11 +633,11 @@ function showmatchdetailAction() {
         if($result != null) {
 	        $teamAinit = $row[0]['team_a'];
 	        $teamBinit = $row[0]['team_b'];
-        
+
 			foreach ($result as $m) {
 				$teamA = $m["cteama"];
 				$teamB = $m["cteamb"];
-				//if 'chosen team A' is the same that 'result team A' 
+				//if 'chosen team A' is the same that 'result team A'
 				if($teamAinit == $teamA && $teamBinit == $teamB){
 					if($m["fs_team_a"] > $m["fs_team_b"] ){
 						$teamAwins++;
@@ -653,8 +653,8 @@ function showmatchdetailAction() {
 		                }
 					} else {
 		                $teamties++;
-		            }	
-				} else { 
+		            }
+				} else {
 					if($m["fs_team_a"] > $m["fs_team_b"] ){
 						$teamAlosses++;
 		                $teamBwins++;
@@ -670,75 +670,77 @@ function showmatchdetailAction() {
 					} else {
 		                $teamties++;
 		            }
-				}			
+				}
 			}
-	
-			$view->teamAwins = $teamAwins;
-			$view->teamBwins = $teamBwins;
-	        $view->teamAlosses = $teamAlosses;
-			$view->teamBlosses = $teamBlosses;
-	        $view->teamties = $teamties;
-	        $view->teamAclean = $teamAclean;
-	        $view->teamBclean = $teamBclean;
-        }
-    	
+
+  			$view->teamAwins = $teamAwins;
+  			$view->teamBwins = $teamBwins;
+  	    $view->teamAlosses = $teamAlosses;
+  			$view->teamBlosses = $teamBlosses;
+        $view->teamties = $teamties;
+        $view->teamAclean = $teamAclean;
+        $view->teamBclean = $teamBclean;
+    }
+
 		//$title = 'GoalFace - Match Details - ' . $row [0] ["competition_name"] . " - " . $row [0] ["t1"] . " vs " . $row [0] ["t2"] . " - " . date ( 'F j, Y', strtotime ( $row [0] ["match_date"] ) );
 		$title = $row [0] ["competition_name"] . " - " . $row [0] ["t1"] . " vs " . $row [0] ["t2"] . " - GoalFace.com " ;
 
 		$view->currentDate = date ( 'F j, Y', strtotime ( $row [0] ["match_date"] ) );
 		$view->nextDay = date ( 'F j, Y', strtotime ( $row [0] ["match_date"] ) + 86400);
-		
-        $regionGroup = $lea_comp->findRegionGroupPerCountry ( $row [0] ['country_id'] );
-        $continentData = self::$regionGroupNames [$regionGroup];
-        $view->continentRegion = $continentData [1];
-        //Zend_Debug::dump($continentData);
 
-        //load countries
-        $compFile = new Competitionfile ( );
-        $countries = $compFile->selectLeaguesByCountry ();
-        $view->countries = $countries;
+    $regionGroup = $lea_comp->findRegionGroupPerCountry ( $row [0] ['country_id'] );
+    $continentData = self::$regionGroupNames [$regionGroup];
+    $view->continentRegion = $continentData [1];
+    //Zend_Debug::dump($continentData);
 
-        $isFavorite = "false";
-        $session = new Zend_Session_Namespace ( 'userSession' );
-        if ($session->email != null) {
-            $userMatch = new UserMatch ( );
-            $rowUserMatch = $userMatch->findUserMatch ( $session->userId, $id );
-            if ($rowUserMatch != null) {
-                $isFavorite = "true";
-            }
+    //load countries
+    $compFile = new Competitionfile ( );
+    $countries = $compFile->selectLeaguesByCountry ();
+    $view->countries = $countries;
+
+    $isFavorite = "false";
+    $session = new Zend_Session_Namespace ( 'userSession' );
+    if ($session->email != null) {
+        $userMatch = new UserMatch ( );
+        $rowUserMatch = $userMatch->findUserMatch ( $session->userId, $id );
+        if ($rowUserMatch != null) {
+            $isFavorite = "true";
         }
-        $view->isFavorite = $isFavorite;
-        $view->matchId = $id;
-        
-        //page title
-        $keywords = new MetaKeywordGen ( );
-        $description = new MetaDescriptionGen ( );
-        
-        $this->view->title = $title;
-        $view->description = $description->getMetaDescription ( '', PageType::$_SCORES_AND_SCHEDULES_MATCH_DETAILS_PAGE );
-        $view->keywords = $keywords->getMetaKeywords ( $row, PageType::$_SCORES_AND_SCHEDULES_MATCH_DETAILS_PAGE );
+    }
+    $view->isFavorite = $isFavorite;
+    $view->matchId = $id;
 
-        //ARE THERE RELATED MATCHES
-        //$scoresMatches = $match->selectAllMatchesByCountryLeague (  $fechas, $row [0] ["country_id"], $row [0] ["competition_id"], $id );
-        //$view->scoresMatches = $scoresMatches;
+    //page title
+    $keywords = new MetaKeywordGen ( );
+    $description = new MetaDescriptionGen ( );
 
-        //breadcrumbs
-        //Zend_Debug::dump($row [0]);
-        $this->breadcrumbs->addStep ( $continentData [1], self::$urlGen->getShowRegionUrl ( strval ( $continentData [0] ), True ) );
-        $view->regionNameTitle =  $continentData [1];
-        if($compRow['format'] != 'International cup') {
-            $this->breadcrumbs->addStep ( $countryRow->country_name, self::$urlGen->getShowDomesticCompetitionsByCountryUrl($countryRow->country_name,$row [0] ['country_id'],true) );
-        }
-        if($compRow['type'] == 'club') {
-            $this->breadcrumbs->addStep ( $row [0] ["competition_name"],self::$urlGen->getShowDomesticCompetitionUrl($row [0] ["competition_name"], $row [0] ["competition_id"], True)  );
-        } elseif ($compRow['type'] == 'international') {
-            $this->breadcrumbs->addStep ( $row [0] ["competition_name"],self::$urlGen->getShowRegionalCompetitionsByRegionUrl($row [0] ["competition_name"], $row [0] ["competition_id"], True)  );
-        }
-        $this->breadcrumbs->addStep ( $row [0] ["t1"] . " vs " . $row [0] ["t2"] );
-        $this->view->breadcrumbs = $this->breadcrumbs;
-        
-        
-        
+    $this->view->title = $title;
+    $view->description = $description->getMetaDescription ( '', PageType::$_SCORES_AND_SCHEDULES_MATCH_DETAILS_PAGE );
+    $view->keywords = $keywords->getMetaKeywords ( $row, PageType::$_SCORES_AND_SCHEDULES_MATCH_DETAILS_PAGE );
+
+    //ARE THERE RELATED MATCHES
+    //$scoresMatches = $match->selectAllMatchesByCountryLeague (  $fechas, $row [0] ["country_id"], $row [0] ["competition_id"], $id );
+    //$view->scoresMatches = $scoresMatches;
+
+    //breadcrumbs
+    //Zend_Debug::dump($row [0]);
+    $this->breadcrumbs->addStep ( $continentData [1], self::$urlGen->getShowRegionUrl ( strval ( $continentData [0] ), True ) );
+    $view->regionNameTitle =  $continentData [1];
+    if($compRow['format'] != 'International cup') {
+        $this->breadcrumbs->addStep ( $countryRow->country_name, self::$urlGen->getShowDomesticCompetitionsByCountryUrl($countryRow->country_name,$row [0] ['country_id'],true) );
+    }
+    if($compRow['type'] == 'club') {
+        $this->breadcrumbs->addStep ( $row [0] ["competition_name"],self::$urlGen->getShowDomesticCompetitionUrl($row [0] ["competition_name"], $row [0] ["competition_id"], True)  );
+    } elseif ($compRow['type'] == 'international') {
+        $this->breadcrumbs->addStep ( $row [0] ["competition_name"],self::$urlGen->getShowRegionalCompetitionsByRegionUrl($row [0] ["competition_name"], $row [0] ["competition_id"], True)  );
+    }
+    $this->breadcrumbs->addStep ( $row [0] ["t1"] . " vs " . $row [0] ["t2"] );
+    $this->view->breadcrumbs = $this->breadcrumbs;
+
+    if ($row [0] ["competition_id"] == 225) {
+      $row [0] ["competition_id"] = 'russia2018';
+    }
+
 		if($row [0]['match_status'] == 'Fixture'){
         	$view->actionTemplate = 'scoreBoardMatchDetailPreview.php';
         	$view->imagefacebook = "http://www.goalface.com/public/images/competitionlogos/".$row [0] ["competition_id"].".gif";
@@ -757,13 +759,13 @@ function showmatchdetailAction() {
 				$view->actionTemplate = 'scoreBoardMatchDetail.php';
         	}
 		}
-        
+
         $this->_response->setBody ( $view->render ( 'site.tpl.php' ) );
 
     }
 
     public function showrelatedmatchesbycompetitionAction() {
-		
+
         $match = new Matchh();
         $fechas = $this->calculateDates ();
         $countryId = $this->_request->getParam ( 'countryId', 0 );
@@ -807,14 +809,14 @@ function showmatchdetailAction() {
     }
 
     //new function to use with new feed
-    
+
     /*function showscoreboardAction1() {
         $this->_checkLogin ();
         $userId = trim ( $this->loggedin );
         $view = Zend_Registry::get ( 'view' );
         $view->title = "ScoreBoard Home Page";
         $match = new Event ( );
-        
+
         $fechas = $this->calculateDates ();
         $countMatches = $match->getMatchesCountScoreboard($fechas);
         $matches = $match->getMatchesScoreboard($fechas);
@@ -822,7 +824,7 @@ function showmatchdetailAction() {
         $view->matchcount = $countMatches;
         $view->matchlist = $matches;
         $this->_response->setBody ( $view->render ( 'scoreboardviewresult2.php' ) );
-        
+
     }*/
 
     function showscoreboardAction() {
@@ -837,7 +839,7 @@ function showmatchdetailAction() {
         $typeOfScoreBoard = $this->_request->getParam ( 'type', 'commom' );
 
         $fechas = $this->calculateDates ();
-        
+
         //$datesXX = $this->calculateDatesNew();
         //Zend_Debug::dump("userid:" . $userId);
         //Zend_Debug::dump("type:" . $typeOfScoreBoard);
@@ -864,7 +866,7 @@ function showmatchdetailAction() {
                 $result = $match->selectCurrentMatchesByCountryLeagueLoggedIn ( $fechas, $userId );
                 $nrmatches = $match->countMatchesByCountryLoggedIn ( $fechas, $userId );
              } else if (($userId != "" or $userId =="") && $typeOfScoreBoard == "commom") {
-                //Zend_Debug::dump('post logeado y commun'); 
+                //Zend_Debug::dump('post logeado y commun');
                 $result = $match->selectCurrentMatchesByRegion (  $fechas, 0 , 0, 0 ,null ,'top' );
                 $nrmatches = $match->countMatchesBycountryRegion ( $fechas, 0 , 'top' , null ,26);
             }
@@ -872,11 +874,11 @@ function showmatchdetailAction() {
         }
         ($date != null ? $date : "today");
         $view->matches = $result;
-        
+
         $view->includeMatchDetailsLinks = 'n';
 
         $view->nrmatches = $nrmatches;
-        //Zend_Debug::dump($nrmatches); 
+        //Zend_Debug::dump($nrmatches);
         $view->selected = $date;
         $this->_response->setBody ( $view->render ( 'scoreboardviewresult.php' ) );
 
@@ -891,7 +893,7 @@ function showmatchdetailAction() {
 
         //the region id
         $regionId = $this->_request->getParam ( 'regionId', 0 );
-        
+
         //Zend_Debug::dump($regionId);
         $countryId = $this->_request->getParam ( 'countryId', 0 );
         //$pageName = $this->_request->getParam ( 'page', 'home' );
@@ -909,8 +911,8 @@ function showmatchdetailAction() {
         $arrayTopCountries = null;
         if ($status != '0' and $status == 'Top') {
             $topCountries = $match->selectTopCountriesByPriority ( '5', $regionId, $fechas );
-            
-            
+
+
             $numCountries = count ( $topCountries );
             $cont = 1;
             foreach ( $topCountries as $top ) {
@@ -951,12 +953,12 @@ function showmatchdetailAction() {
                 $status = 'Fixture';
             }
         }
-        
+
         $result = $match->selectCurrentMatchesByRegion ( $fechas, $regionId, $countryId, $status, $arrayTopCountries ,$show);
         $nrmatches = $match->countMatchesByCountryRegion ( $fechas, $regionId , $show ,$arrayTopCountries);
-		
+
         //Zend_Debug::dump($nrmatches);
-        
+
 
         $date = $fechas [6];
 
@@ -968,7 +970,7 @@ function showmatchdetailAction() {
         $view->continentid = $continentid;
 
         //Zend_Loader::loadClass ( 'Zend_Debug' ) ;
-        
+
         $view->includeMatchDetailsLinks = 'y';
         if ($type == 'scores') {
             $view->actionTab = 'scoresTab';
@@ -986,7 +988,7 @@ function showmatchdetailAction() {
                 $this->_response->setBody ( $view->render ( 'scoreboardviewresult.php' ) );
                 // was done exactly as scoreboardviewscores
                 //$this->_response->setBody ( $view->render ( 'scoreboardviewschedules.php' ) );
-                
+
             }
         }
     }
@@ -1309,11 +1311,11 @@ function showmatchdetailAction() {
         }else if($pageType == 'schedules') {
             $scoresOrSchedules = 'Fixture';
         }
-        
-        
+
+
 	}
-    
-    
+
+
     public function showfullmatchesbyseasonAction() {
     	//type can be 'scores' or 'schedules'
       $view = Zend_Registry::get ( 'view' );
@@ -1346,10 +1348,10 @@ function showmatchdetailAction() {
       $number_rounds = count($roundRow);
       $number_rounds_cup = count($roundRowCup);
       //List of ALL rounds
-      $round_list = ''; 
+      $round_list = '';
 			$round_list_knockout = '';
-			
-		//All Rounds 
+
+		//All Rounds
 		foreach ($roundRow as $round) {
 			if ($cont < $number_rounds) {
 				if($round_list) {
@@ -1359,7 +1361,7 @@ function showmatchdetailAction() {
 			}
 		$cont++;
 		}
-	
+
 
 		//KnockOut Rounds
    $knockoutstage = array();
@@ -1373,10 +1375,10 @@ function showmatchdetailAction() {
 			$knockoutstage [] = $roundcup['round_id'];
 		$contcup++;
 		}
-		
-		
+
+
 		//Zend_Debug::dump($roundId);
-		
+
 		if(count($knockoutstage) > 1 && $roundId == null) {
 			$roundListQuery = $round_list_knockout;
 			$roundcount = count($roundRowCup);
@@ -1385,17 +1387,17 @@ function showmatchdetailAction() {
 	     $roundListQuery = $roundId;
 	     	$roundcount = 1;
 		}
-	
+
 
      $match = new Matchh();
      $allMatches = $match->selectTotalPlayedMatchesBySeason2($seasonId,$roundListQuery,$scoresOrSchedules,$timezone,$roundcount);
-     $view->countAllMatches = count($allMatches); 
+     $view->countAllMatches = count($allMatches);
      //pagination - getting request variables
 	   $pageNumber = $this->_request->getParam('page');
 	    if (empty($pageNumber)) {
 	        $pageNumber = 1;
 	   }
-	   
+
 	   $paginator = Zend_Paginator::factory($allMatches);
 	   $paginator->setCurrentPageNumber($pageNumber);
 	 if ($fb == 'no') {
@@ -1404,8 +1406,8 @@ function showmatchdetailAction() {
 	  	$paginator->setItemCountPerPage(20);
 	 }
 	$view->paginator = $paginator;
-	
-	
+
+
 	$view->selectedRestriction = $scoresOrSchedules;
 
         if ($fb == 'no') {
@@ -1418,7 +1420,7 @@ function showmatchdetailAction() {
         	$this->_response->setBody ( $view->render ( 'fullmatchesscoreboardfb.php' ) );
         }
     }
-    
+
 
     public function removematchgoalshoutAction() {
 
@@ -1480,7 +1482,7 @@ function showmatchdetailAction() {
                 'report_text' 	   => $dataReport,
         		'report_reported_to' => $to,'report_reported_to' => $to,
                 'report_type'       => $reportType
-        		
+
         );
 
         $report->insert ( $data );
