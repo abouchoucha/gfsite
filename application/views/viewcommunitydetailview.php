@@ -96,7 +96,7 @@
                  ,'title' => $stTitle 
                  ,'media_url' => $stImage
                  ,'twitter_username' => 'goalface'
-                 ,'platforms' => array('facebook','twitter','pinterest','google-plus')
+                 ,'platforms' => array('facebook','twitter','google-plus')
                 );
 
                 echo '<p>'.$common->social_links($args) .'</p>';

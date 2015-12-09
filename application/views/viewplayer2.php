@@ -381,12 +381,6 @@ var initPlayerANameSelection = "<?php echo $this->playercommonname;?>";
 						<g:plusone size="medium"></g:plusone>
 	              	</span>
 
-	              	<span class="twitter">
-                        <!--START PIN BUTTON-->
-							<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
-                        <!--END PIN BUTTON-->
-					</span>
-
 
                 <span class="age1 age1first"><b>Player Full Name:</b>&nbsp;<?php echo $this->playerfname;?>&nbsp;<?php echo $this->playerlname;?></span>
                 <span class="age1"><b>Age:</b>&nbsp;<?php if (empty($this->playerage)) {echo "&nbsp;Unavailable"; } else {echo $this->playerage;}?></span>

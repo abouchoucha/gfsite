@@ -704,7 +704,7 @@ class Common {
 	    $platforms = array(
 	      'facebook'=>'Facebook'
 	     ,'twitter'=>'Twitter'
-	     ,'pinterest'=>'Pinterest'
+	     //,'pinterest'=>'Pinterest'  -- Asked to be remove by JG 12-09-2015
 	     ,'google-plus'=>'Google+'
 	    );
 

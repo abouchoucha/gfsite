@@ -298,15 +298,6 @@ jQuery(document).ready(function() {
                   <iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>
         </span>
 
-
-        <span class="twitter">
-            <!--START PIN BUTTON-->
-				    <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none">
-              <img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" />
-            </a>
-            <!--END PIN BUTTON-->
-		     </span>
-
     </div>
 
 

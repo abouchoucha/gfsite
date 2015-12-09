@@ -457,15 +457,7 @@ jQuery(document).ready(function() {
   						    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
       						<!-- Place this tag where you want the +1 button to render -->
       						<g:plusone size="medium"></g:plusone>
-  	          </span>
-
-	            <span class="twitter">
-                <!--START PIN BUTTON-->
-						    <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode( "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ); ?>&media=<?php echo urlencode($this->imagefacebook ); ?>&description=<?php echo $this->title;?>" class="pin-it-button" count-layout="none">
-                  <img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" />
-                </a>
-                <!--END PIN BUTTON-->
-				      </span>	              	
+  	          </span>           	
 
               <?php if ($this->teamtype != 'national') { ?>
                 <span class="age1 age1first"><b>Full Name: </b><?php echo $this->team[0]['team_name_official']; ?></span>
