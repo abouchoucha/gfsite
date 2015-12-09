@@ -704,8 +704,6 @@ class Common {
 	    $platforms = array(
 	      'facebook'=>'Facebook'
 	     ,'twitter'=>'Twitter'
-	     //,'pinterest'=>'Pinterest'  -- Asked to be remove by JG 12-09-2015
-	     ,'google-plus'=>'Google+'
 	    );
 
 	    $urls = array();
@@ -726,16 +724,6 @@ class Common {
 	        if (strlen($text) > $max_chars) { $text = substr($text,0,($max_chars-3)).'...'; }
 	        $urls['twitter'] = 'https://twitter.com/intent/tweet?text='.urlencode($text).'&url='.urlencode($args['url']);
 	        if ($args['twitter_username']) { $urls['twitter'] .= '&via='.urlencode($args['twitter_username']); }
-	    }
-
-	    //Pinterest
-	    if ((in_array('pinterest',$args['platforms'])) && ($args['media_url'])) {
-	        $urls['pinterest'] = 'http://pinterest.com/pin/create/button/?url='.urlencode($args['url']).'&media='.urlencode($args['media_url']).'&description='.urlencode($title); 
-	    }
-
-	    //Google+
-	    if (in_array('google-plus',$args['platforms'])) {
-	        $urls['google-plus'] = 'https://plus.google.com/share?url='.urlencode($args['url']).'&hl=en-US'; //the language is set to US English here
 	    }
 
 	    if (in_array($args['image_size'],array(16,24,32))) { $image_size = $args['image_size']; } else { $image_size = false; }

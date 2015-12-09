@@ -96,15 +96,10 @@
                  ,'title' => $stTitle 
                  ,'media_url' => $stImage
                  ,'twitter_username' => 'goalface'
-                 ,'platforms' => array('facebook','twitter','google-plus')
+                 ,'platforms' => array('facebook','twitter')
                 );
 
                 echo '<p>'.$common->social_links($args) .'</p>';
-
-                //echo '<p>'.$stURL .'</p>';
-
-                //echo '<p>' . $activity['activitytype_category_id'] . '</p>';
-                //echo '<p>' . $stImage . '</p>';
 
             ?>
   

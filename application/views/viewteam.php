@@ -452,13 +452,6 @@ jQuery(document).ready(function() {
               		<iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>&layout=button_count&show_faces=false&width=80&action=like&font=verdana&colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:22px;padding-bottom:3px;" allowTransparency="true"></iframe>
               </span>
 
-              <span class="gplus">
-  	              <!-- Place this tag in your head or just before your close body tag -->
-  						    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-      						<!-- Place this tag where you want the +1 button to render -->
-      						<g:plusone size="medium"></g:plusone>
-  	          </span>           	
-
               <?php if ($this->teamtype != 'national') { ?>
                 <span class="age1 age1first"><b>Full Name: </b><?php echo $this->team[0]['team_name_official']; ?></span>
                 <span class="age1"><b>Location: </b><?php  if (empty($this->team[0]['team_city'])) {echo "&nbsp;Unavailable"; } else {echo $this->team[0]['team_city'];} ?> </span>

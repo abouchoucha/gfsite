@@ -247,14 +247,6 @@
               <a href="http://twitter.com/share" class="twitter-share-button" style="padding-bottom:5px;width:100px;" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
           </span>
           
-          <span class="tweeterbutton">
-          <!-- Place this tag in your head or just before your close body tag -->
-			     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-			
-    			<!-- Place this tag where you want the +1 button to render -->
-    			<g:plusone size="medium"></g:plusone>
-    		</span>
-		
     		<div class="fbbutton">
     
         			<div class="fb-like" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="false"></div>
