@@ -966,7 +966,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null, '1', null, $matchFound [0] ['team_a'], $timeEvent, $teamWinnerPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team A
 
 			$activityType = Constants::$_MATCH_SCORE_TEAM_B_LOST;
-			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,null); //for Team B
+			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team B
 			//self::$logger->debug ( 'Inserted Match A Won: ' );
 		}else if ($homeScore < $awayScore) { //team B WON
 			/*$teamWinnerPathName = '/teamlogos/' . $matchFound [0] ["team_b"] . '.gif';
@@ -977,7 +977,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 			$activityType = Constants::$_MATCH_SCORE_TEAM_B_LOST;
 			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplace, null, '1', null, $matchFound [0] ['team_a'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team A
 			$activityType = Constants::$_MATCH_SCORE_TEAM_A_WON;
-			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamWinnerPathName, $matchFound [0] ['match_id'],1,null); //for Team B
+			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamWinnerPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team B
 			//self::$logger->debug ( 'Inserted Match B Won: ' );
 		}else if ($homeScore == $awayScore) { //Draw
 			/*$teamWinnerPathName = '/teamlogos/' . $matchFound [0] ["team_a"] . '.gif';
@@ -988,7 +988,7 @@ class GoalservetogoalfaceController extends GoalFaceController {
 				'teama_name' => $matchFound [0] ["t2"], //'teamb_seoname' => $teama_seoname ,
 				'teamb_name' => $matchFound [0] ["t1"], 'match_seoname' => $matchUrl, 'score' => $matchscore );*/
 			$activityType = Constants::$_MATCH_SCORE_TEAM_DRAW;
-			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,null); //for Team B
+			$activityMatch->insertUserActivityByActivityType ( $activityType, $variablesToReplaceAlter, null, '0', null, $matchFound [0] ['team_b'], $timeEvent, $teamLosserPathName, $matchFound [0] ['match_id'],1,$competition_id); //for Team B
 			//self::$logger->debug ( 'Inserted Draw Activity: ' );
 		}
 
