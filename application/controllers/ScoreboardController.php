@@ -737,8 +737,8 @@ function showmatchdetailAction() {
     $this->breadcrumbs->addStep ( $row [0] ["t1"] . " vs " . $row [0] ["t2"] );
     $this->view->breadcrumbs = $this->breadcrumbs;
 
-    if ($row [0] ["competition_id"] == 225) {
-      $row [0] ["competition_id"] = 'russia18';
+    if ($row [0] ["competition_id"] == 288) {
+      $row [0] ["competition_id"] = '161039';
     }
 
 		if($row [0]['match_status'] == 'Fixture'){
