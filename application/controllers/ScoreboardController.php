@@ -740,6 +740,10 @@ function showmatchdetailAction() {
     if ($row [0] ["competition_id"] == 288) {
       $row [0] ["competition_id"] = '161039';
     }
+    if ($row [0] ["competition_id"] == 25) {
+      $row [0] ["competition_id"] = '161531';
+    }
+
 
 		if($row [0]['match_status'] == 'Fixture'){
         	$view->actionTemplate = 'scoreBoardMatchDetailPreview.php';
