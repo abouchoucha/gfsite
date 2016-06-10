@@ -752,9 +752,11 @@ function showmatchdetailAction() {
 	        	if(((int)$row[0]["fs_team_a"])==((int)$row[0]["fs_team_b"])){
 		        	$view->imagefacebook = "http://www.goalface.com/public/images/competitionlogos/".$row [0] ["competition_id"].".gif";
 		        }else if(((int)$row[0]["fs_team_a"])>((int)$row[0]["fs_team_b"])){
-		        	$view->imagefacebook = "http://www.goalface.com/public/images/teamlogos/".$row [0] ["team_idA"].".gif";
+		        	//$view->imagefacebook = "http://www.goalface.com/public/images/teamlogos/".$row [0] ["team_idA"].".gif";
+                    $view->imagefacebook = "http://www.goalface.com/public/images/competitionlogos/".$row [0] ["competition_id"].".gif";
 		        }else{
-		        	$view->imagefacebook = "http://www.goalface.com/public/images/teamlogos/".$row [0] ["team_idB"].".gif";
+		        	//$view->imagefacebook = "http://www.goalface.com/public/images/teamlogos/".$row [0] ["team_idB"].".gif";
+                    $view->imagefacebook = "http://www.goalface.com/public/images/competitionlogos/".$row [0] ["competition_id"].".gif";
 		        }
 				$view->actionTemplate = 'scoreBoardMatchDetail.php';
         	}
