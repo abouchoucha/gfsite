@@ -4,9 +4,9 @@ $translationStrings = array(
     'match_message_suffix' => '.',
 	'Goal Alert' => 'Alerta de Gol',
     // team alerts
-    'defeated'=>'venció al',
-	'registered a draw against'=>'empató con el',
-	'lost to'=>'perdió ante el',
+    'defeated'=>'venció a',
+	'registered a draw against'=>'empató con ',
+	'lost to'=>'perdió ante',
 	// Player Alerts
 	'started' => 'alineó en el partido',
 	'scored a goal in' => 'anotó un gol en el partido',
