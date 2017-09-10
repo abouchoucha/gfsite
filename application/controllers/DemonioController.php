@@ -665,7 +665,34 @@ class DemonioController extends GoalFaceController {
 			}
 		}
 	}
+  
+  	//demonio/updatearchiveseason/season/16171007/seasona/6639/compid/18
+  	public function updatearchiveseasonAction() {
+  		$round = new Round ();
+  		$seasonid = $this->_request->getParam ( 'season', null );
+		$seasonarchiveid = $this->_request->getParam ( 'seasona', null );
+		$compid = $this->_request->getParam ( 'compid', null );
+		echo "UPDATE season SET season_id = " .$seasonarchiveid ." WHERE season_id = ". $seasonid . " and competition_id = ". $compid .";<br>";
+		echo "UPDATE round SET season_id = " .$seasonarchiveid ." WHERE season_id = ". $seasonid .";<br>";
+		echo "UPDATE matchh SET season_id = " . $seasonarchiveid . " WHERE season_id = " . $seasonid . " AND competition_id = ". $compid .";<br>";
+		$seasonround = $round->getSeasonRoundsUpdate($seasonid);
+		//Zend_Debug::dump($seasonround); 
+		$rowRound = $round->fetchAll( 'round_id < 20000 ', 'round_id desc');
+		$round_start = $rowRound[0]['round_id'];
+		$round_archive = $round_start + 1;
+		foreach ($seasonround as $rounditem) {
+			// Zend_Debug::dump($rounditem['round_id']); 
+			echo "UPDATE round SET round_id = " . $round_archive . " WHERE round_id = " . $rounditem['round_id'] .";<br>";
+			echo "UPDATE matchh SET round_id = " . $round_archive ." WHERE round_id = " . $rounditem['round_id'] . " AND competition_id = " . $compid .";<br>";
+			$round_archive = $round_archive + 1;
+		}
+		echo "UPDATE teamseason SET season_id = " . $seasonarchiveid . " WHERE season_id = " . $seasonid;
 
+
+
+
+
+  	}
 
 	
  	public function updatenationalsquadAction() {
